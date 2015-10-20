@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="473.0" prefWidth="834.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.EstatisticasController">
+    <stylesheets>
+        <URL value="@estilo.css" />
+    </stylesheets>
+   <children>
+      <Button alignment="CENTER" layoutX="14.0" layoutY="24.0" mnemonicParsing="false" onAction="#btRelatorioActionEvent" prefHeight="61.0" prefWidth="169.0" text="Relatórios" textAlignment="RIGHT">
+         <graphic>
+            <ImageView fitHeight="51.0" fitWidth="36.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/report.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button alignment="CENTER" layoutX="196.0" layoutY="26.0" mnemonicParsing="false" onAction="#btGraficoActionEvent" prefHeight="61.0" prefWidth="169.0" text="Gráficos" textAlignment="RIGHT">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="42.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/graficos.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button alignment="CENTER" layoutX="379.0" layoutY="26.0" mnemonicParsing="false" onAction="#btMapaDeUsoActionEvent" prefHeight="40.0" prefWidth="169.0" text="Mapa de&#10;uso" textAlignment="RIGHT">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="41.0" fitWidth="89.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/mapa.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="14.0" layoutY="94.0" prefHeight="365.0" prefViewportHeight="315.0" prefViewportWidth="806.0" prefWidth="806.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="94.0">
+         <content>
+            <AnchorPane fx:id="apPrincipal" layoutX="25.0" layoutY="144.0" prefHeight="358.0" prefWidth="804.0" styleClass="mainFxmlClass" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="144.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

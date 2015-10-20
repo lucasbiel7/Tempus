@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <!--<property name="hibernate.hbm2ddl.auto">validate</property>-->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <mapping class="br.com.QuadroDeHorario.entity.Conteudo"/>
+        <mapping class="br.com.QuadroDeHorario.entity.Conteudo"/>
+        <mapping class="br.com.QuadroDeHorario.entity.Curso"/>
+        <mapping class="br.com.QuadroDeHorario.entity.Entidade"/>
+        <mapping class="br.com.QuadroDeHorario.entity.Grupo"/>
+        <mapping class="br.com.QuadroDeHorario.entity.Materia"/>
+        <mapping class="br.com.QuadroDeHorario.entity.Sistema"/>
+        <mapping class="br.com.QuadroDeHorario.entity.TipoDoCurso"/>
+        <mapping class="br.com.QuadroDeHorario.entity.TokenCode"/>
+        <mapping class="br.com.QuadroDeHorario.entity.Turma"/>
+        <mapping class="br.com.QuadroDeHorario.entity.Unidade"/>
+        <mapping class="br.com.QuadroDeHorario.entity.Atualizacao"/>
+        <mapping class="br.com.QuadroDeHorario.entity.Usuario"/>
+        <mapping class="br.com.QuadroDeHorario.entity.Projeto"/>
+        <mapping class="br.com.QuadroDeHorario.entity.Recurso"/>
+        <mapping class="br.com.QuadroDeHorario.entity.Ambiente"/>
+        <mapping class="br.com.QuadroDeHorario.entity.AmbienteRecursos"/>
+        <mapping class="br.com.QuadroDeHorario.entity.MateriaRecursos"/>
+        <mapping class="br.com.QuadroDeHorario.entity.UsuarioMateria"/>
+        <mapping class="br.com.QuadroDeHorario.entity.Evento"/>
+        <mapping class="br.com.QuadroDeHorario.entity.Calendario"/>
+        <mapping class="br.com.QuadroDeHorario.entity.Aula"/>
+        <mapping class="br.com.QuadroDeHorario.entity.MateriaHorario"/>
+        <mapping class="br.com.QuadroDeHorario.entity.MateriaHorarioAmbiente"/>
+        <mapping class="br.com.QuadroDeHorario.entity.CalendarioAmbiente"/>
+        <mapping class="br.com.QuadroDeHorario.entity.CalendarioUsuario"/>
+        <mapping class="br.com.QuadroDeHorario.entity.VariaveisDoSistema"/>
+        <mapping class="br.com.QuadroDeHorario.entity.Escolaridade"/>
+        <mapping class="br.com.QuadroDeHorario.entity.PermissaoGrupo"/>
+        <mapping class="br.com.QuadroDeHorario.entity.PermissaoUsuario"/>
+        <mapping class="br.com.QuadroDeHorario.entity.EmprestaChave"/>
+    </session-factory>
+</hibernate-configuration>

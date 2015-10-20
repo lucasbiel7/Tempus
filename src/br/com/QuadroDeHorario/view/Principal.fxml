@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="603.0" prefWidth="975.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.PrincipalController">
+    <stylesheets>
+        <URL value="@estilo.css" />
+    </stylesheets>
+   <children>
+      <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="14.0" layoutY="95.0" prefHeight="368.0" prefViewportHeight="347.0" prefViewportWidth="778.0" prefWidth="961.0" AnchorPane.bottomAnchor="140.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="95.0">
+         <content>
+            <AnchorPane fx:id="apPrincipal" layoutX="14.0" layoutY="95.0" prefHeight="378.0" prefWidth="959.0" style="-: ;" styleClass="mainFxmlClass" AnchorPane.bottomAnchor="93.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="95.0" />
+         </content>
+         <effect>
+            <DropShadow color="#353940" height="83.27" radius="29.275" width="35.83" />
+         </effect>
+      </ScrollPane>
+      <AnchorPane id="pane-user" prefHeight="57.0" prefWidth="810.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="lbNome" layoutX="90.0" layoutY="33.0" prefHeight="17.0" prefWidth="449.0" text="Nome do Usuário" />
+            <Button layoutX="722.0" layoutY="16.0" mnemonicParsing="false" onAction="#btSairActionEvent" prefHeight="36.0" prefWidth="59.0" styleClass="logout" AnchorPane.rightAnchor="14.0">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@image/desconectar.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Circle fx:id="cProfile" fill="#1f93ff00" layoutX="47.0" layoutY="41.0" radius="27.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.1">
+               <effect>
+                  <DropShadow color="#72787f" height="26.93" radius="24.825000000000003" width="74.37" />
+               </effect>
+            </Circle>
+            <Button fx:id="btAtivarPermissoes" layoutX="739.0" layoutY="19.0" mnemonicParsing="false" onAction="#btAtivarPermissoesActionEvent" text="Ativar Permissoes&#10;para Grupo" AnchorPane.rightAnchor="90.0" />
+         </children>
+      </AnchorPane>
+      <ToolBar layoutX="6.0" layoutY="551.0" prefHeight="95.0" prefWidth="975.0" styleClass="menu-doc" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <items>
+          <Button fx:id="btInicio" mnemonicParsing="false" onAction="#btInicioActionEvent" prefHeight="111.0" prefWidth="125.0" styleClass="menu-doc-button" text="Início">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@image/home.png" />
+                     </image>
+                     <effect>
+                        <Reflection />
+                     </effect>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btAreaAdministrativa" mnemonicParsing="false" onAction="#btAdministrativoActionEvent" prefHeight="111.0" prefWidth="181.0" styleClass="menu-doc-button" text="Área &#10;administrativa">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@image/administrativo.png" />
+                     </image>
+                     <effect>
+                        <Reflection />
+                     </effect>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btQuadroDeHorario" mnemonicParsing="false" onAction="#btQuadroDeHorarioActionEvent" prefHeight="111.0" prefWidth="155.0" styleClass="menu-doc-button" text="Quadro de&#10;Horário">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@image/calendar.png" />
+                     </image>
+                     <effect>
+                        <Reflection />
+                     </effect>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btEstatisticas" mnemonicParsing="false" onAction="#btEstatisticaActionEvent" prefHeight="111.0" prefWidth="155.0" styleClass="menu-doc-button" text="Estatística">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@image/estatisticas.png" />
+                     </image>
+                     <effect>
+                        <Reflection />
+                     </effect>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btLixeira" mnemonicParsing="false" onAction="#btLixeiraActionEvent" prefHeight="110.0" prefWidth="125.0" styleClass="menu-doc-button" text="Lixeira">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@image/lixeira.png" />
+                     </image>
+                     <effect>
+                        <Reflection />
+                     </effect>
+                  </ImageView>
+               </graphic>
+            </Button>
+        </items>
+      </ToolBar>
+   </children>
+</AnchorPane>

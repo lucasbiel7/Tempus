@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="736.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.GerenciarTurmaController">
+    <stylesheets>
+        <URL value="@estilo.css" />
+    </stylesheets>
+   <children>
+      <Label layoutX="39.0" layoutY="28.0" text="Nome" />
+      <Label layoutX="53.0" layoutY="73.0" text="Curso" />
+      <Label layoutX="55.0" layoutY="174.0" text="E-mail" />
+      <Label layoutX="54.0" layoutY="217.0" text="Início" />
+      <Label layoutX="62.0" layoutY="260.0" text="Fim" />
+      <Label layoutX="53.0" layoutY="301.0" text="Turno" />
+      <TextField fx:id="tfNome" layoutX="130.0" layoutY="22.0" prefHeight="30.0" prefWidth="194.0" />
+      <ComboBox fx:id="cbCurso" layoutX="130.0" layoutY="66.0" prefHeight="30.0" prefWidth="194.0" promptText="Selecione ..." />
+      <TextField fx:id="tfEmail" layoutX="133.0" layoutY="167.0" prefHeight="30.0" prefWidth="194.0" />
+      <DatePicker fx:id="dpInicio" layoutX="133.0" layoutY="210.0" prefHeight="30.0" prefWidth="194.0" />
+      <DatePicker fx:id="dpFim" layoutX="133.0" layoutY="253.0" prefHeight="30.0" prefWidth="194.0" />
+      <ComboBox fx:id="cbTurno" layoutX="133.0" layoutY="294.0" prefHeight="30.0" prefWidth="194.0" promptText="Selecione ..." />
+      <Button layoutX="139.0" layoutY="386.0" mnemonicParsing="false" onAction="#btSalvarActionEvent" text="Salvar" />
+      <Button layoutX="258.0" layoutY="386.0" mnemonicParsing="false" onAction="#btNovoActionEvent" text="Novo" />
+      <Separator layoutX="350.0" layoutY="14.0" orientation="VERTICAL" prefHeight="370.0" prefWidth="0.0" AnchorPane.bottomAnchor="14.0" AnchorPane.topAnchor="14.0" />
+      <TableView fx:id="tvTurma" layoutX="377.0" layoutY="55.0" onMouseReleased="#tvTurmaMouseReleased" prefHeight="381.0" prefWidth="350.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="372.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="55.0">
+        <columns>
+          <TableColumn fx:id="tcDescricao" prefWidth="75.0" text="Nome" />
+          <TableColumn fx:id="tcCurso" prefWidth="75.0" text="Curso" />
+            <TableColumn fx:id="tcProjeto" prefWidth="75.0" text="Projeto" />
+            <TableColumn fx:id="tcEmail" prefWidth="75.0" text="E-mail" />
+            <TableColumn fx:id="tcEspelho" prefWidth="75.0" text="Subturma" />
+            <TableColumn fx:id="tcInicio" prefWidth="75.0" text="Início" />
+            <TableColumn fx:id="tcFim" prefWidth="75.0" text="Fim" />
+            <TableColumn fx:id="tcTurno" prefWidth="75.0" text="Turno" />
+            <TableColumn fx:id="tcModulo" prefWidth="75.0" text="Módulo atual" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#miExcluirActionEvent" text="Excluir" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
+      </TableView>
+      <CheckBox fx:id="cbEspelho" layoutX="133.0" layoutY="342.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="194.0" text="Criar Subturma" textFill="WHITE" />
+      <Label layoutX="49.0" layoutY="121.0" text="Projeto" />
+      <ComboBox fx:id="cbProjeto" layoutX="130.0" layoutY="114.0" prefHeight="30.0" prefWidth="194.0" promptText="Selecione..." />
+      <TextField fx:id="tfPesquisar" layoutX="372.0" layoutY="16.0" onKeyReleased="#tfPesquisarKeyRelease" prefHeight="30.0" prefWidth="350.0" promptText="Pesquisar por nome" AnchorPane.leftAnchor="372.0" AnchorPane.rightAnchor="14.0" />
+   </children>
+</AnchorPane>

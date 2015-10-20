@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="243.0" prefWidth="516.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.ConfigurarBancoController">
+    <stylesheets>
+        <URL value="@estilo.css" />
+    </stylesheets>
+    <children>
+        <Label layoutX="109.0" layoutY="37.0" text="Usuário" />
+        <Label layoutX="113.0" layoutY="91.0" text="Senha" />
+        <TextField fx:id="tfUsuario" layoutX="175.0" layoutY="29.0" prefHeight="33.0" prefWidth="302.0" />
+        <PasswordField fx:id="pfSenha" layoutX="175.0" layoutY="83.0" prefHeight="33.0" prefWidth="302.0" />
+        <Label layoutX="73.0" layoutY="148.0" text="Endereço de IP" />
+        <TextField fx:id="tfIp" layoutX="175.0" layoutY="140.0" prefHeight="33.0" prefWidth="302.0" />
+        <Button defaultButton="true" layoutX="276.0" layoutY="194.0" mnemonicParsing="false" onAction="#btSalvarActionEvent" prefHeight="35.0" prefWidth="103.0" text="Salvar" />
+        <Button cancelButton="true" layoutX="388.0" layoutY="194.0" mnemonicParsing="false" onAction="#btCancelarActionEvent" text="Cancelar" />
+    </children>
+</AnchorPane>

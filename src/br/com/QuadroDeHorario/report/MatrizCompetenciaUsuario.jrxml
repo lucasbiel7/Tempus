@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MatrizCompetenciaUsuario" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b5cd0da5-fd74-42ad-8a00-9883f8ce998a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="usuario" class="java.lang.String"/>
+	<parameter name="dados" class="java.lang.String"/>
+	<parameter name="image" class="java.awt.Image"/>
+	<title>
+		<band height="109" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="21" width="555" height="53" uuid="51d382e9-3cd2-4105-93e2-f66179b947ad"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Matriz de Competência]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement x="402" y="0" width="153" height="21" uuid="2fcfd28a-78da-4422-8584-c3bbee96f301"/>
+				<imageExpression><![CDATA[$P{image}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="0" y="74" width="369" height="35" uuid="7a5d821f-136e-47e3-be90-f5952d5bb079"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Instrutor: "+$P{usuario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="32">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="555" height="32" isPrintWhenDetailOverflows="true" uuid="f0ccedb3-027b-4560-9ede-bd8067328400"/>
+				<textElement markup="html">
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dados}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

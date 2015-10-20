@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="546.0" prefWidth="680.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.AdicionarRecursosEventoController">
+    <stylesheets>
+        <URL value="@estilo.css" />
+    </stylesheets>
+   <children>
+      <Label layoutX="29.0" layoutY="77.0" prefHeight="35.0" prefWidth="52.0" text="Ambiente" />
+      <ComboBox fx:id="cbAmbiente" layoutX="95.0" layoutY="76.0" prefHeight="35.0" prefWidth="247.0" promptText="Selecione..." />
+      <Label layoutX="34.0" layoutY="129.0" prefHeight="35.0" prefWidth="41.0" text="Usuário" />
+      <ComboBox fx:id="cbUsuario" layoutX="95.0" layoutY="128.0" prefHeight="35.0" prefWidth="247.0" promptText="Selecione..." />
+      <Button layoutX="358.0" layoutY="77.0" mnemonicParsing="false" onAction="#btAdicionarAmbienteActionEvent" text="Adicionar" />
+      <Button layoutX="358.0" layoutY="129.0" mnemonicParsing="false" onAction="#btAdicionarUsuarioActionEvent" text="Adicionar" />
+      <TableView fx:id="tvAmbiente" layoutX="14.0" layoutY="251.0" prefHeight="281.0" prefWidth="288.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="378.0" AnchorPane.topAnchor="251.0">
+        <columns>
+          <TableColumn fx:id="tcAmbienteAlocado" prefWidth="75.0" text="Ambientes alocados">
+               <columns>
+                  <TableColumn fx:id="tcNomeAmbiente" prefWidth="75.0" text="Nome" />
+                  <TableColumn fx:id="tcManhaAmbiente" prefWidth="75.0" text="Manhã" />
+                  <TableColumn fx:id="tcTardeAmbiente" prefWidth="75.0" text="Tarde" />
+                  <TableColumn fx:id="tcNoiteAmbiente" prefWidth="75.0" text="Noite" />
+               </columns></TableColumn>
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#miRemoverAmbienteActionEvent" text="Remover" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
+      </TableView>
+      <TableView fx:id="tvUsuario" layoutX="316.0" layoutY="251.0" prefHeight="281.0" prefWidth="337.0" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="251.0">
+         <columns>
+            <TableColumn fx:id="tcUsuarioAlocado" prefWidth="75.0" text="Usuários alocados">
+               <columns>
+                  <TableColumn fx:id="tcNomeUsuario" prefWidth="75.0" text="Nome" />
+                  <TableColumn fx:id="tcManhaUsuario" prefWidth="75.0" text="Manhã" />
+                  <TableColumn fx:id="tcTardeUsuario" prefWidth="75.0" text="Tarde" />
+                  <TableColumn fx:id="tcNoiteUsuario" prefWidth="75.0" text="Noite" />
+               </columns></TableColumn>
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#miRemoverUsuarioActionEvent" text="Remover" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
+      </TableView>
+      <Label layoutX="23.0" layoutY="23.0" text="Eventos &#10;Registrados&#10;" />
+      <ComboBox fx:id="cbCalendario" layoutX="95.0" layoutY="23.0" onAction="#cbEventoActionEvent" prefHeight="35.0" prefWidth="353.0" />
+      <Button layoutX="95.0" layoutY="207.0" mnemonicParsing="false" onAction="#btAdicionarGrupoActionEvent" text="Adicionar Grupo de usuários" />
+      <CheckBox fx:id="cbManha" layoutX="98.0" layoutY="177.0" mnemonicParsing="false" text="Manhã" />
+      <CheckBox fx:id="cbTarde" layoutX="177.0" layoutY="177.0" mnemonicParsing="false" text="Tarde" />
+      <CheckBox fx:id="cbNoite" layoutX="243.0" layoutY="177.0" mnemonicParsing="false" text="Noite" />
+   </children>
+</AnchorPane>

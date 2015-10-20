@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.web.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="apPrincipal" nodeOrientation="LEFT_TO_RIGHT" prefHeight="420.0" prefWidth="806.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.CarregarQuadroDeHorarioController">
+    <stylesheets>
+        <URL value="@estilo.css" />
+    </stylesheets>
+   <children>
+      <HBox alignment="CENTER" prefHeight="433.0" prefWidth="848.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <TitledPane collapsible="false" prefHeight="406.0" prefWidth="403.0" text="Criação do quadro de Horário">
+               <content>
+                  <Pane prefHeight="291.0" prefWidth="401.0" styleClass="mainFxmlClass">
+                     <children>
+                        <ComboBox fx:id="cbTurma" layoutX="116.0" layoutY="132.0" prefHeight="30.0" prefWidth="192.0" promptText="Selecione..." />
+                        <Label layoutX="51.0" layoutY="139.0" text="Turma" />
+                        <Button fx:id="btAbrir" layoutX="154.0" layoutY="180.0" mnemonicParsing="false" onAction="#btAbrirActionEvent" prefHeight="35.0" prefWidth="89.0" text="Abrir" />
+                        <Label layoutX="52.0" layoutY="91.0" text="Curso" />
+                        <ComboBox fx:id="cbCurso" layoutX="116.0" layoutY="84.0" onAction="#cbCursoActionEvent" prefHeight="30.0" prefWidth="192.0" promptText="Selecione..." />
+                     </children>
+                  </Pane>
+               </content>
+            </TitledPane>
+            <TitledPane collapsible="false" prefHeight="407.0" prefWidth="419.0" styleClass="pane-transparent" text="Visualização" textAlignment="CENTER">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="386.0" prefWidth="417.0" styleClass="mainFxmlClass">
+                     <children>
+                        <HBox layoutX="9.0" layoutY="14.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <TitledPane collapsible="false" prefHeight="368.0" prefWidth="202.0" styleClass="pane-transparent" text="Turma" textAlignment="CENTER">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="295.0" prefWidth="200.0" styleClass="mainFxmlClass">
+                                       <children>
+                                          <Label layoutX="14.0" layoutY="33.0" text="Curso" />
+                                          <ComboBox fx:id="cbCursoImpressao" layoutX="17.0" layoutY="64.0" onAction="#cbCursoImpressaoActionEvent" prefHeight="25.0" prefWidth="170.0" promptText="Selecione..." />
+                                          <Label layoutX="16.0" layoutY="105.0" text="Turma" />
+                                          <ComboBox fx:id="cbTurmaImpressao" layoutX="17.0" layoutY="140.0" prefHeight="25.0" prefWidth="169.0" promptText="Selecione..." />
+                                          <Button fx:id="btVisualizarImpressaoTurma" layoutX="17.0" layoutY="178.0" mnemonicParsing="false" onAction="#btVisualizarImpressaoTurmaActionEvent" prefHeight="48.0" prefWidth="168.0" text="Visualizar Impressão" />
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </TitledPane>
+                              <TitledPane collapsible="false" prefHeight="364.0" prefWidth="202.0" text="Instrutor" textAlignment="CENTER">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="292.0" prefWidth="200.0" styleClass="mainFxmlClass">
+                                       <children>
+                                          <Label layoutX="14.0" layoutY="34.0" text="Instrutor" />
+                                          <ComboBox fx:id="cbInstrutor" layoutX="22.0" layoutY="62.0" prefHeight="25.0" prefWidth="163.0" promptText="Selecione..." />
+                                          <Label layoutX="21.0" layoutY="107.0" text="Turno" />
+                                          <ComboBox fx:id="cbTurno" layoutX="22.0" layoutY="139.0" prefHeight="25.0" prefWidth="160.0" promptText="Selecione..." />
+                                          <Button fx:id="btVisualizarImpressaoInstrutor" layoutX="27.0" layoutY="178.0" mnemonicParsing="false" onAction="#btVisualizarImpressaoInstrutorActionEvent" prefHeight="46.0" prefWidth="157.0" text="Visualizar Impressão" />
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </TitledPane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </TitledPane>
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</AnchorPane>

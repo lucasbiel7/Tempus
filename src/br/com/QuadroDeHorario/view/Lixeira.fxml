@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.LixeiraController">
+    <stylesheets>
+        <URL value="@estilo.css" />
+    </stylesheets>
+   <children>
+      <TabPane fx:id="tbAbas" prefHeight="486.0" prefWidth="752.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <tabs>
+            <Tab onSelectionChanged="#tbProjetoActionEvent" text="Projeto">
+               <content>
+                  <AnchorPane fx:id="apProjeto" minHeight="0.0" minWidth="0.0" prefHeight="351.0" prefWidth="847.0" />
+               </content>
+            </Tab>
+            <Tab onSelectionChanged="#tbCursoActionEvent" text="Curso">
+               <content>
+                  <AnchorPane fx:id="apCurso" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+            <Tab onSelectionChanged="#tbRecursoActionEvent" text="Recurso">
+               <content>
+                  <AnchorPane fx:id="apRecurso" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+            <Tab onSelectionChanged="#tbAmbienteActionEvent" text="Ambiente">
+               <content>
+                  <AnchorPane fx:id="apAmbiente" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+            <Tab onSelectionChanged="#tbTurmaActionEvent" text="Turma">
+               <content>
+                  <AnchorPane fx:id="apTurma" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+            <Tab onSelectionChanged="#tbDisciplinaActionEvent" text="Disciplina">
+               <content>
+                  <AnchorPane fx:id="apDisciplina" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+            <Tab onSelectionChanged="#tbInstrutorActionEvent" text="Instrutor/Usuários">
+               <content>
+                  <AnchorPane fx:id="apInstrutor" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

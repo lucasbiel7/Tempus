@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="apContainer" prefHeight="424.0" prefWidth="1038.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.EditarMateriaHorarioController">
+    <stylesheets>
+        <URL value="@estilo.css" />
+    </stylesheets>
+   <children>
+      <RadioButton fx:id="rbCompetencia" layoutX="78.0" layoutY="23.0" mnemonicParsing="false" onAction="#rbRadiosActionEvent" selected="true" text="Competência" textFill="WHITE">
+         <toggleGroup>
+            <ToggleGroup fx:id="tipoInstrutor" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="rbPreferencia" layoutX="213.0" layoutY="23.0" mnemonicParsing="false" onAction="#rbRadiosActionEvent" text="Preferência" textFill="WHITE" toggleGroup="$tipoInstrutor" />
+      <RadioButton fx:id="rbInteresse" layoutX="327.0" layoutY="23.0" mnemonicParsing="false" onAction="#rbRadiosActionEvent" text="Interesse" textFill="WHITE" toggleGroup="$tipoInstrutor" />
+      <Label layoutX="78.0" layoutY="72.0" text="Instrutor" />
+      <ComboBox fx:id="cbInstrutor" layoutX="157.0" layoutY="65.0" prefHeight="30.0" prefWidth="239.0" promptText="Selecione ..." />
+      <TableView fx:id="tvAmbiente" layoutX="76.0" layoutY="116.0" onMouseReleased="#tvAmbientesMouseReleased" prefHeight="169.0" prefWidth="401.0">
+        <columns>
+          <TableColumn fx:id="tcNome" prefWidth="75.0" text="Ambientes" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <TableView fx:id="tvRecursosAmbiente" layoutX="11.0" layoutY="306.0" prefHeight="83.0" prefWidth="250.0">
+        <columns>
+          <TableColumn fx:id="tcNomeRecursoAmbiente" prefWidth="75.0" text="Recursos disponíveis no ambiente" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <TableView fx:id="tvRecursosDisciplina" layoutX="267.0" layoutY="306.0" prefHeight="83.0" prefWidth="289.0">
+        <columns>
+          <TableColumn fx:id="tcNomeRecursoDisciplina" prefWidth="75.0" text="Recursos necessários para disciplina" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <TableView fx:id="tvAmbiente1" layoutX="580.0" layoutY="14.0" onMouseReleased="#meAdicionarAmbienteMouseReleased" prefHeight="67.0" prefWidth="320.0">
+        <columns>
+          <TableColumn fx:id="tcNomeAmbiente1" prefWidth="316.0" text="Ambiente 1" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <Button layoutX="914.0" layoutY="27.0" mnemonicParsing="false" onAction="#btRemoverAmbiente1ActionEvent" text="Remover" />
+      <Button layoutX="914.0" layoutY="99.0" mnemonicParsing="false" onAction="#btRemoverAmbiente2ActionEvent" text="Remover" />
+      <TableView fx:id="tvAmbiente2" layoutX="580.0" layoutY="86.0" onMouseReleased="#meAdicionarAmbienteMouseReleased" prefHeight="67.0" prefWidth="320.0">
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+         <columns>
+            <TableColumn fx:id="tcNomeAmbiente2" prefWidth="316.0" text="Ambiente 2" />
+         </columns>
+      </TableView>
+      <TableView fx:id="tvAmbiente3" layoutX="580.0" layoutY="158.0" onMouseReleased="#meAdicionarAmbienteMouseReleased" prefHeight="67.0" prefWidth="320.0">
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+         <columns>
+            <TableColumn fx:id="tcNomeAmbiente3" prefWidth="316.0" text="Ambiente 3" />
+         </columns>
+      </TableView>
+      <Button layoutX="914.0" layoutY="171.0" mnemonicParsing="false" onAction="#btRemoverAmbiente3ActionEvent" text="Remover" />
+      <TableView fx:id="tvAmbiente4" layoutX="580.0" layoutY="229.0" onMouseReleased="#meAdicionarAmbienteMouseReleased" prefHeight="67.0" prefWidth="320.0">
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+         <columns>
+            <TableColumn fx:id="tcNomeAmbiente4" prefWidth="316.0" text="Ambiente 4" />
+         </columns>
+      </TableView>
+      <TableView fx:id="tvAmbiente5" layoutX="580.0" layoutY="298.0" onMouseReleased="#meAdicionarAmbienteMouseReleased" prefHeight="67.0" prefWidth="320.0">
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+         <columns>
+            <TableColumn fx:id="tcNomeAmbiente5" prefWidth="316.0" text="Ambiente 5" />
+         </columns>
+      </TableView>
+      <Button layoutX="914.0" layoutY="242.0" mnemonicParsing="false" onAction="#btRemoverAmbiente4ActionEvent" text="Remover" />
+      <Button layoutX="914.0" layoutY="311.0" mnemonicParsing="false" onAction="#btRemoverAmbiente5ActionEvent" text="Remover" />
+      <Button defaultButton="true" layoutX="580.0" layoutY="372.0" mnemonicParsing="false" onAction="#btSalvarActionEvent" prefHeight="35.0" prefWidth="154.0" text="Salvar Alteração" />
+      <Button layoutX="752.0" layoutY="372.0" mnemonicParsing="false" onAction="#btAdicionarSubstitutoActionEvent" text="Adicionar substituto" />
+      <Button cancelButton="true" layoutX="914.0" layoutY="372.0" mnemonicParsing="false" onAction="#btCancelarActionEvent" prefHeight="35.0" prefWidth="89.0" text="Canelar" />
+   </children>
+</AnchorPane>

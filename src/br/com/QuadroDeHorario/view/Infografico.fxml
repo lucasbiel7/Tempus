@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.InfograficoController">
+    <stylesheets>
+        <URL value="@estilo.css" />
+    </stylesheets>
+   <children>
+      <BarChart fx:id="barChart" layoutY="44.0" prefHeight="342.0" prefWidth="572.0" title="Percentual de ocupação diária" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" tickLabelFill="WHITE" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="naNumeros" prefHeight="331.0" prefWidth="32.0" tickLabelFill="WHITE" tickUnit="10.0" />
+        </yAxis>
+      </BarChart>
+   </children>
+</AnchorPane>
