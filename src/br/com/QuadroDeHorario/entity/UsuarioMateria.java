@@ -19,11 +19,22 @@ public class UsuarioMateria implements Serializable {
 
     public enum Tipo {
 
-        COMPETENCIA, PREFERENCIA, INTERESSE;
+        COMPETENCIA, PREFERENCIA, INTERESSE, OUTROS;
 
         @Override
         public String toString() {
-            return this == COMPETENCIA ? "Competência" : this == PREFERENCIA ? "Preferência" : "Interesse";
+            switch (this) {
+                case COMPETENCIA:
+                    return "Competência";
+                case PREFERENCIA:
+                    return "Preferência";
+                case INTERESSE:
+                    return "Interesse";
+                case OUTROS:
+                    return "Outros";
+                default:
+                    return "";
+            }
         }
     };
     @EmbeddedId
@@ -84,5 +95,5 @@ public class UsuarioMateria implements Serializable {
         }
         return true;
     }
-    
+
 }

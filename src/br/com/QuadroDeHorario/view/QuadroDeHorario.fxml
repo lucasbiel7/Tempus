@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="apContainer" prefHeight="508.0" prefWidth="1007.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.QuadroDeHorarioController">
+<AnchorPane id="AnchorPane" fx:id="apContainer" prefHeight="508.0" prefWidth="1007.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.QuadroDeHorarioController">
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
@@ -85,7 +85,7 @@
                         </ImageView>
                     </graphic>
                 </Label>
-                <Label fx:id="lbSelecionado" layoutX="302.0" layoutY="-1.0" prefHeight="37.0" prefWidth="436.0" textAlignment="CENTER" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" />
+                <Label fx:id="lbSelecionado" layoutX="302.0" layoutY="-1.0" prefHeight="74.0" prefWidth="427.0" textAlignment="CENTER" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" />
                 <VBox prefHeight="84.0" prefWidth="286.0" spacing="10.0">
                     <children>
                   <HBox spacing="10.0">
@@ -99,6 +99,6 @@
                 </VBox>
             </children>
         </HBox>
-        <ProgressIndicator id="loadHorario" fx:id="progressIndicator" layoutX="6.0" layoutY="8.0" opacity="0.65" prefHeight="495.0" prefWidth="989.0" progress="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <ProgressIndicator id="loadHorario" fx:id="progressIndicator" layoutX="6.0" layoutY="8.0" opacity="0.6" prefHeight="495.0" prefWidth="989.0" progress="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
     </children>
 </AnchorPane>

@@ -37,7 +37,7 @@ public class ParametrosBanco {
     public static String IP;
     public static String USUARIO;
     public static String SENHA;
-    public static final double VERSAO = 3.4;
+    public static final double VERSAO = 3.41;
 
     static {
         try {
@@ -46,12 +46,14 @@ public class ParametrosBanco {
             List<String> parametros;
             if (!arquivoConf.isFile()) {
                 parametros = new ArrayList<>();
+                //LocalUser
 //                parametros.add(new EncriptacaoAES().encriptar("localhost"));
 //                parametros.add(new EncriptacaoAES().encriptar("root"));
 //                parametros.add(new EncriptacaoAES().encriptar("OC2015"));
                 parametros.add(new EncriptacaoAES().encriptar("10.31.1.5"));
                 parametros.add(new EncriptacaoAES().encriptar("qHorario"));
                 parametros.add(new EncriptacaoAES().encriptar("qu4dr0!elw"));
+                //Administrador database
 //                parametros.add(new EncriptacaoAES().encriptar("root"));
 //                parametros.add(new EncriptacaoAES().encriptar("FIEMG2015"));
                 Files.write(Paths.get(arquivoConf.getAbsolutePath()), parametros, StandardCharsets.UTF_8);
@@ -65,9 +67,6 @@ public class ParametrosBanco {
         } catch (IOException ex) {
             throw new ExceptionInInitializerError(ex);
         }
-//        USUARIO = "root";
-//        SENHA = "OC2015";
-//        IP="localhos";
     }
 
     public void atualizacao() {

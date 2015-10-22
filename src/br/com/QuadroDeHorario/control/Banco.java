@@ -6,8 +6,8 @@
 package br.com.QuadroDeHorario.control;
 
 import br.com.QuadroDeHorario.util.ParametrosBanco;
-import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 /**
  * Hibernate Utility class with a convenient method to get Session Factory
@@ -21,7 +21,7 @@ public class Banco {
 
     static {
         try {
-            sessionFactory = new AnnotationConfiguration().setProperties(ParametrosBanco.carregarPropriedades()).configure().buildSessionFactory();
+            sessionFactory = new Configuration().setProperties(ParametrosBanco.carregarPropriedades()).configure().buildSessionFactory();
         } catch (Throwable ex) {
             System.err.println("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);

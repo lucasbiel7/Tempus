@@ -6,6 +6,8 @@
 package br.com.QuadroDeHorario.dao;
 
 import br.com.QuadroDeHorario.entity.Grupo;
+import br.com.QuadroDeHorario.entity.PermissaoGrupo;
+import br.com.QuadroDeHorario.entity.Usuario;
 import br.com.QuadroDeHorario.model.GenericaDAO;
 import org.hibernate.criterion.Restrictions;
 
@@ -18,6 +20,12 @@ public class GrupoDAO extends GenericaDAO<Grupo> {
     @Override
     public void excluir(Grupo entity) {
         entity.setAtivo(false);
+        for (PermissaoGrupo permissaoGrupo : new PermissaoGrupoDAO().pegarTodosPorGrupo(entity)) {
+            new PermissaoGrupoDAO().excluir(permissaoGrupo);
+        }
+        for (Usuario usuario : new UsuarioDAO().pegarPorGrupo(entity)) {
+            new UsuarioDAO().excluir(usuario);
+        }
         editar(entity);
     }
 

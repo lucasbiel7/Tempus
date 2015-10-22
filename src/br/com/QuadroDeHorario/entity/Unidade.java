@@ -34,9 +34,10 @@ public class Unidade implements Serializable {
     private String nome;
     @JoinColumn(name = "entidade_id", referencedColumnName = "id")
     @ManyToOne
-    private Entidade entidadeId;
+    private Entidade entidade;
     @OneToMany(mappedBy = "unidadeId")
     private List<Usuario> usuarioList;
+    private boolean ativo=true;
 
     public Unidade() {
     }
@@ -61,12 +62,12 @@ public class Unidade implements Serializable {
         this.nome = nome;
     }
 
-    public Entidade getEntidadeId() {
-        return entidadeId;
+    public Entidade getEntidade() {
+        return entidade;
     }
 
-    public void setEntidadeId(Entidade entidadeId) {
-        this.entidadeId = entidadeId;
+    public void setEntidade(Entidade entidade) {
+        this.entidade = entidade;
     }
 
     public List<Usuario> getUsuarioList() {
@@ -75,6 +76,14 @@ public class Unidade implements Serializable {
 
     public void setUsuarioList(List<Usuario> usuarioList) {
         this.usuarioList = usuarioList;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
     @Override
@@ -99,7 +108,7 @@ public class Unidade implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.QuadroDeHorario.entity.Unidade[ id=" + id + " ]";
+        return getNome();
     }
     
 }

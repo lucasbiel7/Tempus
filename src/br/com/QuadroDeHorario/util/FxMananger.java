@@ -71,7 +71,6 @@ public class FxMananger {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
             } else {
-
                 stage.show();
             }
         } catch (IOException ex) {

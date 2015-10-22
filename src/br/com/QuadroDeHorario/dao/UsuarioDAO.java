@@ -5,7 +5,13 @@
  */
 package br.com.QuadroDeHorario.dao;
 
+import br.com.QuadroDeHorario.entity.CalendarioUsuario;
+import br.com.QuadroDeHorario.entity.Escolaridade;
 import br.com.QuadroDeHorario.entity.Grupo;
+import br.com.QuadroDeHorario.entity.MateriaHorario;
+import br.com.QuadroDeHorario.entity.PermissaoUsuario;
+import br.com.QuadroDeHorario.entity.TokenCode;
+import br.com.QuadroDeHorario.entity.Unidade;
 import br.com.QuadroDeHorario.entity.Usuario;
 import br.com.QuadroDeHorario.model.GenericaDAO;
 import br.com.QuadroDeHorario.util.DataHorario;
@@ -26,6 +32,21 @@ public class UsuarioDAO extends GenericaDAO<Usuario> {
 
     @Override
     public void excluir(Usuario entity) {
+        for (MateriaHorario materiaHorario : new MateriaHorarioDAO().pegarTodosPorInstrutor(entity)) {
+            new MateriaHorarioDAO().excluir(materiaHorario);
+        }
+        for (CalendarioUsuario calendarioUsuario : new CalendarioUsuarioDAO().pegarTodosPorUsuario(entity)) {
+            new CalendarioUsuarioDAO().excluir(calendarioUsuario);
+        }
+        for (PermissaoUsuario permissaoUsuario : new PermissaoUsuarioDAO().pegarTodosPorUsuario(entity)) {
+            new PermissaoUsuarioDAO().excluir(permissaoUsuario);
+        }
+        for (TokenCode tokenCode : new TokenCodeDAO().pegarTodosPorUsuario(entity)) {
+            new TokenCodeDAO().excluir(tokenCode);
+        }
+        for (Escolaridade escolaridade : new EscolaridadeDAO().pegarPorUsuario(entity)) {
+            new EscolaridadeDAO().excluir(escolaridade);
+        }
         entity.setAtivo(false);
         editar(entity);
     }
@@ -71,4 +92,11 @@ public class UsuarioDAO extends GenericaDAO<Usuario> {
         session.close();
         return entity;
     }
+
+    public List<Usuario> pegarPorUnidade(Unidade unidade) {
+        entitys = criteria.add(Restrictions.eq("unidade", unidade)).list();
+        finalizarSession();
+        return entitys;
+    }
+
 }

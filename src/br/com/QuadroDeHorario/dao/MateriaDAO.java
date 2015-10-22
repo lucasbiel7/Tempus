@@ -5,8 +5,12 @@
  */
 package br.com.QuadroDeHorario.dao;
 
+import br.com.QuadroDeHorario.entity.Conteudo;
 import br.com.QuadroDeHorario.entity.Curso;
 import br.com.QuadroDeHorario.entity.Materia;
+import br.com.QuadroDeHorario.entity.MateriaHorario;
+import br.com.QuadroDeHorario.entity.MateriaRecursos;
+import br.com.QuadroDeHorario.entity.UsuarioMateria;
 import br.com.QuadroDeHorario.model.GenericaDAO;
 import java.util.List;
 import org.hibernate.criterion.Order;
@@ -25,6 +29,19 @@ public class MateriaDAO extends GenericaDAO<Materia> {
 
     @Override
     public void excluir(Materia entity) {
+        for (MateriaHorario materiaHorario : new MateriaHorarioDAO().pegarPorMateria(entity)) {
+            new MateriaHorarioDAO().excluir(materiaHorario);
+        }
+        for (UsuarioMateria usuarioMateria : new UsuarioMateriaDAO().pegarTodosPorMateria(entity)) {
+            new UsuarioMateriaDAO().excluir(usuarioMateria);
+        }
+        for (MateriaRecursos materiaRecursos : new MateriaRecursosDAO().pegarTodosPorMateria(entity)) {
+            new MateriaRecursosDAO().excluir(materiaRecursos);
+        }
+        for (Conteudo conteudo : new ConteudoDAO().pegarPorMateria(entity)) {
+            new ConteudoDAO().excluir(conteudo);
+        }
+
         entity.setAtivo(false);
         editar(entity);
     }

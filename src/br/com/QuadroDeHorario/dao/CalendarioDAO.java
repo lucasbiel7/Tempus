@@ -21,13 +21,13 @@ public class CalendarioDAO extends GenericaDAO<Calendario> {
     @Override
     public void excluir(Calendario entity) {
         entity.setAtivo(false);
-        editar(entity);
         for (CalendarioUsuario calendarioUsuario : new CalendarioUsuarioDAO().pegarTodosPorCalendario(entity)) {
             new CalendarioUsuarioDAO().excluir(calendarioUsuario);
         }
         for (CalendarioAmbiente calendarioAmbiente : new CalendarioAmbienteDAO().pegarTodosPorCalendario(entity)) {
             new CalendarioAmbienteDAO().excluir(calendarioAmbiente);
         }
+        editar(entity);
     }
 
     public List<Calendario> pegarTodosPorData(Date data) {

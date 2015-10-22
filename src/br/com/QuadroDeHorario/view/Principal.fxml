@@ -11,7 +11,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="603.0" prefWidth="975.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.PrincipalController">
+<AnchorPane id="AnchorPane" prefHeight="603.0" prefWidth="975.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.PrincipalController">
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
@@ -24,9 +24,9 @@
             <DropShadow color="#353940" height="83.27" radius="29.275" width="35.83" />
          </effect>
       </ScrollPane>
-      <AnchorPane id="pane-user" prefHeight="57.0" prefWidth="810.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane id="pane-user" prefHeight="76.0" prefWidth="975.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label fx:id="lbNome" layoutX="90.0" layoutY="33.0" prefHeight="17.0" prefWidth="449.0" text="Nome do Usuário" />
+            <Label fx:id="lbNome" layoutX="90.0" layoutY="33.0" prefHeight="17.0" prefWidth="449.0" styleClass="label-preto" text="Nome do Usuário" />
             <Button layoutX="722.0" layoutY="16.0" mnemonicParsing="false" onAction="#btSairActionEvent" prefHeight="36.0" prefWidth="59.0" styleClass="logout" AnchorPane.rightAnchor="14.0">
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">

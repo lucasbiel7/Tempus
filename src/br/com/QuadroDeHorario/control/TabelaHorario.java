@@ -327,57 +327,50 @@ public class TabelaHorario extends TableView<MesCalendario> {
                 protected void updateItem(Aula item, boolean empty) {
                     if (empty) {
                         setText("");
+                    } else if (item != null) {
+                        setText(item.toString());
+                        setTextFill(Color.rgb(item.getMateriaHorario().getRed(), item.getMateriaHorario().getGreen(), item.getMateriaHorario().getBlue()));
+                        List<MateriaHorarioAmbiente> materiaHorarioAmbientes = new MateriaHorarioAmbienteDAO().pegarTodosPorMateriaHorario(item.getMateriaHorario());
+                        int numeroAmbiente = 0;
+                        for (MateriaHorarioAmbiente materiaHorarioAmbiente : materiaHorarioAmbientes) {
+                            if (materiaHorarioAmbiente.getId().getAmbiente().equals(item.getAmbiente())) {
+                                numeroAmbiente = materiaHorarioAmbiente.getNumero();
+                            }
+                        }
+                        setOnMouseReleased((MouseEvent event) -> {
+                            if (event.isPopupTrigger()) {
+                                miExcluir.setOnAction(new ExcluirAulas(item));
+                                cmOpcoes.show(TabelaHorario.this, event.getScreenX(), event.getScreenY());
+                            }
+                        });
+                        switch (numeroAmbiente) {
+                            case 1:
+                                setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente1, CornerRadii.EMPTY, Insets.EMPTY)));
+                                break;
+                            case 2:
+                                setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente2, CornerRadii.EMPTY, Insets.EMPTY)));
+                                break;
+                            case 3:
+                                setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente3, CornerRadii.EMPTY, Insets.EMPTY)));
+                                break;
+                            case 4:
+                                setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente4, CornerRadii.EMPTY, Insets.EMPTY)));
+                                break;
+                            case 5:
+                                setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente5, CornerRadii.EMPTY, Insets.EMPTY)));
+                                break;
+                        }
                     } else {
-                        if (item != null) {
-                            setText(item.toString());
-                            List<MateriaHorarioAmbiente> materiaHorarioAmbientes = new MateriaHorarioAmbienteDAO().pegarTodosPorMateriaHorario(item.getMateriaHorario());
-                            int numeroAmbiente = 0;
-                            for (MateriaHorarioAmbiente materiaHorarioAmbiente : materiaHorarioAmbientes) {
-                                if (materiaHorarioAmbiente.getId().getAmbiente().equals(item.getAmbiente())) {
-                                    numeroAmbiente = materiaHorarioAmbiente.getNumero();
-                                }
-                            }
-
-                            setOnMouseReleased((MouseEvent event) -> {
-                                if (event.isPopupTrigger()) {
-                                    miExcluir.setOnAction(new ExcluirAulas(item));
-                                    cmOpcoes.show(TabelaHorario.this, event.getScreenX(), event.getScreenY());
-                                }
-                            });
-                            switch (numeroAmbiente) {
-                                case 1:
-                                    setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente1, CornerRadii.EMPTY, Insets.EMPTY)));
-                                    break;
-                                case 2:
-                                    setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente2, CornerRadii.EMPTY, Insets.EMPTY)));
-                                    break;
-                                case 3:
-                                    setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente3, CornerRadii.EMPTY, Insets.EMPTY)));
-                                    break;
-                                case 4:
-                                    setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente4, CornerRadii.EMPTY, Insets.EMPTY)));
-                                    break;
-                                case 5:
-                                    setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente5, CornerRadii.EMPTY, Insets.EMPTY)));
-                                    break;
-                            }
-                        } else {
-                            setText("");
-                            setOnMouseReleased(null);
-                            setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
-                            if (param.getParentColumn().getText().equalsIgnoreCase("Sáb")) {
-                                setBackground(new Background(new BackgroundFill(Color.rgb(224, 224, 224), CornerRadii.EMPTY, Insets.EMPTY)));
-                            } else {
-                                if (param.getParentColumn().getText().equalsIgnoreCase("Dom")) {
-                                    setBackground(new Background(new BackgroundFill(Color.rgb(204, 204, 204), CornerRadii.EMPTY, Insets.EMPTY)));
-                                } else {
-                                    setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
-                                }
-                            }
+                        setText("");
+                        setOnMouseReleased(null);
+                        setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+                        if (param.getParentColumn().getText().equalsIgnoreCase("Sáb")) {
+                            setBackground(new Background(new BackgroundFill(Color.rgb(224, 224, 224), CornerRadii.EMPTY, Insets.EMPTY)));
+                        } else if (param.getParentColumn().getText().equalsIgnoreCase("Dom")) {
+                            setBackground(new Background(new BackgroundFill(Color.rgb(204, 204, 204), CornerRadii.EMPTY, Insets.EMPTY)));
                         }
                     }
                 }
-
             };
         }
     }
@@ -688,47 +681,41 @@ public class TabelaHorario extends TableView<MesCalendario> {
                         }
                     }
                 }
-            } else {
-                if (aulasGeminadas) {
-                    if (Mensagem.showConfirmation("Excluir aulas germinadas!", "Você realmente deseja excluir todas aulas no dia " + new SimpleDateFormat("dd/MM/yyyy").format(aula.getId().getDataAula()) + "\n"
-                            + "(Nesse caso apagará todas as aulas do dia mesmo não sendo mesmo conteúdo)")) {
-                        for (DataHorario.Horario horario : DataHorario.Horario.values()) {
-                            Aula aulaSeguida = new AulaDAO().pegarPorId(new Aula.DataHorarioTurnoTurma(aula.getId().getDataAula(), horario, turno, aula.getId().getTurma()));
-                            if (aulaSeguida != null) {
-                                new AulaDAO().excluir(aulaSeguida);
-                                removerDaLista(aulaSeguida);
-                            }
-                        }
-                    }
-                } else {
-                    if (autoPreencher) {
-                        if (Mensagem.showConfirmation("Excluir aulas recorrentes!", "Você realmente deseja excluir todas aulas recorrentes?\n"
-                                + "(Todas aulas desse horário no dia da semana no mês serão removidos a partir da data selecionada )")) {
-                            Calendar inicio = Calendar.getInstance();
-                            inicio.setTime(aula.getId().getDataAula());
-                            int mes = inicio.get(Calendar.MONTH);
-                            while (inicio.get(Calendar.MONTH) <= mes) {
-                                Aula aulaSeguida = new AulaDAO().pegarPorId(new Aula.DataHorarioTurnoTurma(inicio.getTime(), aula.getId().getHorario(), turno, aula.getId().getTurma()));
-                                if (aulaSeguida != null) {
-                                    new AulaDAO().excluir(aulaSeguida);
-                                    removerDaLista(aulaSeguida);
-                                }
-                                inicio.add(Calendar.DAY_OF_MONTH, 7);
-                            }
-                        }
-                    } else {
-                        if (Mensagem.showConfirmation("Excluir aula", "Você realmente deseja excluir a seguinte aula?\n"
-                                + "Turma: " + aula.getMateriaHorario().getMateriaTurmaIntrutorSemestre().getTurma() + "\n"
-                                + "Ambiente: " + aula.getAmbiente() + "\n"
-                                + "Horário: " + aula.getId().getHorario() + "\n"
-                                + "Instrutor: " + aula.getMateriaHorario().getMateriaTurmaIntrutorSemestre().getInstrutor() + "\n"
-                                + "Data: " + sdfData.format(aula.getId().getDataAula())
-                                + "")) {
-                            new AulaDAO().excluir(aula);
-                            removerDaLista(aula);
+            } else if (aulasGeminadas) {
+                if (Mensagem.showConfirmation("Excluir aulas germinadas!", "Você realmente deseja excluir todas aulas no dia " + new SimpleDateFormat("dd/MM/yyyy").format(aula.getId().getDataAula()) + "\n"
+                        + "(Nesse caso apagará todas as aulas do dia mesmo não sendo mesmo conteúdo)")) {
+                    for (DataHorario.Horario horario : DataHorario.Horario.values()) {
+                        Aula aulaSeguida = new AulaDAO().pegarPorId(new Aula.DataHorarioTurnoTurma(aula.getId().getDataAula(), horario, turno, aula.getId().getTurma()));
+                        if (aulaSeguida != null) {
+                            new AulaDAO().excluir(aulaSeguida);
+                            removerDaLista(aulaSeguida);
                         }
                     }
                 }
+            } else if (autoPreencher) {
+                if (Mensagem.showConfirmation("Excluir aulas recorrentes!", "Você realmente deseja excluir todas aulas recorrentes?\n"
+                        + "(Todas aulas desse horário no dia da semana no mês serão removidos a partir da data selecionada )")) {
+                    Calendar inicio = Calendar.getInstance();
+                    inicio.setTime(aula.getId().getDataAula());
+                    int mes = inicio.get(Calendar.MONTH);
+                    while (inicio.get(Calendar.MONTH) <= mes) {
+                        Aula aulaSeguida = new AulaDAO().pegarPorId(new Aula.DataHorarioTurnoTurma(inicio.getTime(), aula.getId().getHorario(), turno, aula.getId().getTurma()));
+                        if (aulaSeguida != null) {
+                            new AulaDAO().excluir(aulaSeguida);
+                            removerDaLista(aulaSeguida);
+                        }
+                        inicio.add(Calendar.DAY_OF_MONTH, 7);
+                    }
+                }
+            } else if (Mensagem.showConfirmation("Excluir aula", "Você realmente deseja excluir a seguinte aula?\n"
+                    + "Turma: " + aula.getMateriaHorario().getMateriaTurmaIntrutorSemestre().getTurma() + "\n"
+                    + "Ambiente: " + aula.getAmbiente() + "\n"
+                    + "Horário: " + aula.getId().getHorario() + "\n"
+                    + "Instrutor: " + aula.getMateriaHorario().getMateriaTurmaIntrutorSemestre().getInstrutor() + "\n"
+                    + "Data: " + sdfData.format(aula.getId().getDataAula())
+                    + "")) {
+                new AulaDAO().excluir(aula);
+                removerDaLista(aula);
             }
         }
     }

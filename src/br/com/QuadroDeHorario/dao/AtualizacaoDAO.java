@@ -9,6 +9,7 @@ import br.com.QuadroDeHorario.entity.Atualizacao;
 import br.com.QuadroDeHorario.entity.Sistema;
 import br.com.QuadroDeHorario.model.GenericaDAO;
 import br.com.QuadroDeHorario.util.ParametrosBanco;
+import java.util.List;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
@@ -31,6 +32,12 @@ public class AtualizacaoDAO extends GenericaDAO<Atualizacao> {
             return null;
         }
         return entitys.get(0);
+    }
+
+    public List<Atualizacao> pegarTodosPorSistema(Sistema sistema) {
+        entitys = criteria.add(Restrictions.eq("sistema", sistema)).list();
+        session.close();
+        return entitys;
     }
 
 }

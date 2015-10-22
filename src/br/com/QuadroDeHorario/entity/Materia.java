@@ -37,7 +37,7 @@ public class Materia implements Serializable {
     @Basic(optional = false)
     private int cargaHoraria;
     private String nome;
-    @OneToMany(mappedBy = "materiaId")
+    @OneToMany(mappedBy = "materia")
     private List<Conteudo> conteudoList;
     @JoinColumn(name = "curso_id", referencedColumnName = "id")
     @ManyToOne

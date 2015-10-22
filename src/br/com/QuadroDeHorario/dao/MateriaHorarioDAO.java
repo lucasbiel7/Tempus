@@ -5,8 +5,10 @@
  */
 package br.com.QuadroDeHorario.dao;
 
+import br.com.QuadroDeHorario.entity.Aula;
 import br.com.QuadroDeHorario.entity.Materia;
 import br.com.QuadroDeHorario.entity.MateriaHorario;
+import br.com.QuadroDeHorario.entity.MateriaHorarioAmbiente;
 import br.com.QuadroDeHorario.entity.Turma;
 import br.com.QuadroDeHorario.entity.Usuario;
 import br.com.QuadroDeHorario.model.GenericaDAO;
@@ -24,6 +26,12 @@ public class MateriaHorarioDAO extends GenericaDAO<MateriaHorario> {
     @Override
     public void excluir(MateriaHorario entity) {
         entity.setAtivo(false);
+        for (MateriaHorarioAmbiente materiaHorarioAmbiente : new MateriaHorarioAmbienteDAO().pegarTodosPorMateriaHorario(entity)) {
+            new MateriaHorarioAmbienteDAO().excluir(materiaHorarioAmbiente);
+        }
+        for (Aula aula : new AulaDAO().pegarPorMateria(entity)) {
+            new AulaDAO().excluir(aula);
+        }
         editar(entity);
     }
 
@@ -62,7 +70,7 @@ public class MateriaHorarioDAO extends GenericaDAO<MateriaHorario> {
     }
 
     public List<MateriaHorario> pegarTodosPorInstrutorTurnoSemestreAno(Usuario instrutor, DataHorario.Turno turno, DataHorario.Semestre semestre, Integer ano) {
-        List<Turma> turmas = new TurmaDAO().pegarPorTurno(turno!=DataHorario.Turno.noite?new DataHorario.Turno[]{turno,DataHorario.Turno.diurno}:new DataHorario.Turno[]{turno});
+        List<Turma> turmas = new TurmaDAO().pegarPorTurno(turno != DataHorario.Turno.noite ? new DataHorario.Turno[]{turno, DataHorario.Turno.diurno} : new DataHorario.Turno[]{turno});
         if (turmas.isEmpty()) {
             finalizarSession();
             return new ArrayList<>();

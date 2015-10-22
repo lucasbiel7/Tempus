@@ -6,7 +6,10 @@
 package br.com.QuadroDeHorario.dao;
 
 import br.com.QuadroDeHorario.entity.Conteudo;
+import br.com.QuadroDeHorario.entity.Materia;
 import br.com.QuadroDeHorario.model.GenericaDAO;
+import java.util.List;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -18,6 +21,12 @@ public class ConteudoDAO extends GenericaDAO<Conteudo> {
     public void excluir(Conteudo entity) {
         entity.setAtivo(false);
         editar(entity);
+    }
+
+    public List<Conteudo> pegarPorMateria(Materia entity) {
+        entitys = criteria.add(Restrictions.eq("materia", entity)).list();
+        session.close();
+        return entitys;
     }
 
 }

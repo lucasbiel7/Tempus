@@ -35,4 +35,10 @@ public class MateriaRecursosDAO extends GenericaDAO<MateriaRecursos> {
         finalizarSession();
         return entity;
     }
+
+    public List<MateriaRecursos> pegarPorRecurso(Recurso recurso) {
+        entitys = criteria.add(Restrictions.eq("id.recurso", recurso)).list();
+        session.close();
+        return entitys;
+    }
 }

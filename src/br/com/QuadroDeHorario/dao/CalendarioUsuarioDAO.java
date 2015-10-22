@@ -57,4 +57,10 @@ public class CalendarioUsuarioDAO extends GenericaDAO<CalendarioUsuario> {
         finalizarSession();
         return entitys;
     }
+
+    public List<CalendarioUsuario> pegarTodosPorUsuario(Usuario usuario) {
+        entitys = criteria.add(Restrictions.eq("id.usuario", usuario)).list();
+        finalizarSession();
+        return entitys;
+    }
 }

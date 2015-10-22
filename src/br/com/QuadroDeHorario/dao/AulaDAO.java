@@ -169,4 +169,10 @@ public class AulaDAO extends GenericaDAO<Aula> {
         finalizarSession();
         return entitys;
     }
+
+    public List<Aula> pegarTodosPorTurma(Turma turma) {
+        entitys = criteria.add(Restrictions.eq("turma", turma)).list();
+        finalizarSession();
+        return entitys;
+    }
 }

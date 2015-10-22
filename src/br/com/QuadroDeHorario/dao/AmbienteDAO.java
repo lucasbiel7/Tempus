@@ -6,6 +6,11 @@
 package br.com.QuadroDeHorario.dao;
 
 import br.com.QuadroDeHorario.entity.Ambiente;
+import br.com.QuadroDeHorario.entity.AmbienteRecursos;
+import br.com.QuadroDeHorario.entity.Aula;
+import br.com.QuadroDeHorario.entity.CalendarioAmbiente;
+import br.com.QuadroDeHorario.entity.EmprestaChave;
+import br.com.QuadroDeHorario.entity.MateriaHorarioAmbiente;
 import br.com.QuadroDeHorario.model.GenericaDAO;
 import java.util.List;
 import org.hibernate.criterion.ProjectionList;
@@ -21,6 +26,21 @@ public class AmbienteDAO extends GenericaDAO<Ambiente> {
     @Override
     public void excluir(Ambiente entity) {
         entity.setAtivo(false);
+        for (AmbienteRecursos ambienteRecursos : new AmbienteRecursosDAO().pegarPorAmbiente(entity)) {
+            new AmbienteRecursosDAO().excluir(ambienteRecursos);
+        }
+        for (CalendarioAmbiente calendarioAmbiente : new CalendarioAmbienteDAO().pegarPorAmbiente(entity)) {
+            new CalendarioAmbienteDAO().excluir(calendarioAmbiente);
+        }
+        for (MateriaHorarioAmbiente materiaHorarioAmbiente : new MateriaHorarioAmbienteDAO().pegarTodosPorAmbiente(entity)) {
+            new MateriaHorarioAmbienteDAO().excluir(materiaHorarioAmbiente);
+        }
+        for (Aula aula : new AulaDAO().pegarPorAmbiente(entity)) {
+            new AulaDAO().excluir(aula);
+        }
+        for (EmprestaChave emprestaChave : new EmprestaChaveDAO().pegarPorAmbiente(entity)) {
+            new EmprestaChaveDAO().excluir(emprestaChave);
+        }
         editar(entity);
     }
 

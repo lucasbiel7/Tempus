@@ -5,7 +5,9 @@
  */
 package br.com.QuadroDeHorario.dao;
 
+import br.com.QuadroDeHorario.entity.Atualizacao;
 import br.com.QuadroDeHorario.entity.Sistema;
+import br.com.QuadroDeHorario.entity.VariaveisDoSistema;
 import br.com.QuadroDeHorario.model.GenericaDAO;
 import org.hibernate.criterion.Restrictions;
 
@@ -18,6 +20,12 @@ public class SistemaDAO extends GenericaDAO<Sistema> {
     @Override
     public void excluir(Sistema entity) {
         entity.setAtivo(false);
+        for (VariaveisDoSistema variaveisDoSistema : new VariaveisDoSistemaDAO().pegarTodosPorSistema(entity)) {
+            new VariaveisDoSistemaDAO().excluir(variaveisDoSistema);
+        }
+        for (Atualizacao atualizacao : new AtualizacaoDAO().pegarTodosPorSistema(entity)) {
+            new AtualizacaoDAO().excluir(atualizacao);
+        }
         editar(entity);
     }
 
@@ -26,6 +34,5 @@ public class SistemaDAO extends GenericaDAO<Sistema> {
         finalizarSession();
         return entity;
     }
-
 
 }

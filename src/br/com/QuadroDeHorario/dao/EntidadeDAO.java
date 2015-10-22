@@ -6,6 +6,7 @@
 package br.com.QuadroDeHorario.dao;
 
 import br.com.QuadroDeHorario.entity.Entidade;
+import br.com.QuadroDeHorario.entity.Unidade;
 import br.com.QuadroDeHorario.model.GenericaDAO;
 
 /**
@@ -13,5 +14,14 @@ import br.com.QuadroDeHorario.model.GenericaDAO;
  * @author OCTI01
  */
 public class EntidadeDAO extends GenericaDAO<Entidade> {
+
+    @Override
+    public void excluir(Entidade entity) {
+        entity.setAtivo(false);
+        for (Unidade unidade : new UnidadeDAO().pegarTodosPorEntidade(entity)) {
+            new UnidadeDAO().excluir(unidade);
+        }
+        editar(entity);
+    }
 
 }

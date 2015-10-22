@@ -6,7 +6,9 @@
 package br.com.QuadroDeHorario.dao;
 
 import br.com.QuadroDeHorario.entity.TokenCode;
+import br.com.QuadroDeHorario.entity.Usuario;
 import br.com.QuadroDeHorario.model.GenericaDAO;
+import java.util.List;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -25,6 +27,12 @@ public class TokenCodeDAO extends GenericaDAO<TokenCode> {
         entity = (TokenCode) criteria.add(Restrictions.eq("usuario", tokenCode.getUsuario())).add(Restrictions.eq("token", tokenCode.getToken())).uniqueResult();
         finalizarSession();
         return entity;
+    }
+
+    public List<TokenCode> pegarTodosPorUsuario(Usuario usuario) {
+        entitys = criteria.add(Restrictions.eq("usuario", usuario)).list();
+        finalizarSession();
+        return entitys;
     }
 
 }

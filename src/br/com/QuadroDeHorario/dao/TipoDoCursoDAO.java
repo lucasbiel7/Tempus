@@ -5,6 +5,7 @@
  */
 package br.com.QuadroDeHorario.dao;
 
+import br.com.QuadroDeHorario.entity.Curso;
 import br.com.QuadroDeHorario.entity.TipoDoCurso;
 import br.com.QuadroDeHorario.model.GenericaDAO;
 
@@ -17,6 +18,9 @@ public class TipoDoCursoDAO extends GenericaDAO<TipoDoCurso> {
     @Override
     public void excluir(TipoDoCurso entity) {
         entity.setAtivo(false);
+        for (Curso curso : new CursoDAO().pegarTodosPorTipoDoCurso(entity)) {
+            new CursoDAO().excluir(curso);
+        }
         editar(entity);
     }
 

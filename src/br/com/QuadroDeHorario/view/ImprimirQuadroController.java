@@ -52,6 +52,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -72,7 +73,7 @@ import javafx.util.Callback;
  * @author OCTI01
  */
 public class ImprimirQuadroController implements Initializable {
-    
+
     @FXML
     private AnchorPane apContainer;
     @FXML
@@ -126,21 +127,20 @@ public class ImprimirQuadroController implements Initializable {
     //Fim Matéria Horario
     private ObservableList<DataHorario.Semestre> semestres = FXCollections.observableArrayList();
     private ObservableList<MateriaHorario> materiaHorarios = FXCollections.observableArrayList();
-    
+
     private TabelaHorarioImpressao thiMes1;
     private TabelaHorarioImpressao thiMes2;
     private TabelaHorarioImpressao thiMes3;
     private TabelaHorarioImpressao thiMes4;
     private TabelaHorarioImpressao thiMes5;
     private TabelaHorarioImpressao thiMes6;
-    
+
     private Usuario usuario;
     private DataHorario.Turno turno;
     private Turma turma;
     private Turma turmaEspelho;
     private Stage stage;
-    private String fonte = "-fx-font: 12px \"System\"";
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
@@ -153,12 +153,10 @@ public class ImprimirQuadroController implements Initializable {
                         if (turno != null) {
                             carregarTabelas(usuario);
                         }
-                        
                     }
                     if (parametro instanceof Turma) {
                         turma = (Turma) parametro;
                         carregarTabelas(turma);
-                        
                     }
                     if (parametro instanceof DataHorario.Turno) {
                         turno = (DataHorario.Turno) parametro;
@@ -169,6 +167,7 @@ public class ImprimirQuadroController implements Initializable {
                 }
             }
             carregarCabecalho();
+
         });
         cbSemestre.setItems(semestres);
         semestres.setAll(Semestre.values());
@@ -183,7 +182,7 @@ public class ImprimirQuadroController implements Initializable {
                 }
                 setValue(getValue() - steps);
             }
-            
+
             @Override
             public void increment(int steps) {
                 if (spAno.getEditor().getText().isEmpty()) {
@@ -231,7 +230,6 @@ public class ImprimirQuadroController implements Initializable {
             }
             return new SimpleStringProperty();
         });
-        tvMateriaHorario.setStyle(fonte);
         tcAmbiente1.setCellFactory(new RenderAmbiente(1));
         tcAmbiente2.setCellFactory(new RenderAmbiente(2));
         tcAmbiente3.setCellFactory(new RenderAmbiente(3));
@@ -242,7 +240,19 @@ public class ImprimirQuadroController implements Initializable {
         tcAmbiente3.setCellValueFactory(new InserirValorAmbiente(3));
         tcAmbiente4.setCellValueFactory(new InserirValorAmbiente(4));
         tcAmbiente5.setCellValueFactory(new InserirValorAmbiente(5));
+        tvMateriaHorario.getSelectionModel().cellSelectionEnabledProperty().setValue(true);
+        tvMateriaHorario.setRowFactory((TableView<MateriaHorario> param) -> new TableRow<MateriaHorario>() {
+            @Override
+            protected void updateItem(MateriaHorario item, boolean empty) {
+                if (!empty) {
+                    getChildren().stream().forEach((node) -> {
+                        node.setStyle("-fx-text-fill: rgb(" + item.getRed() + "," + item.getGreen() + "," + item.getBlue() + ");");
+                    });
+                }
+            }
+        });
         tvMateriaHorario.setItems(materiaHorarios);
+
     }
 
     //Metodos de evento
@@ -256,7 +266,7 @@ public class ImprimirQuadroController implements Initializable {
             lbNomeQuadro.setText("Instrutor: " + usuario.getNome());
         }
         lbSemestre.setText(cbSemestre.getSelectionModel().getSelectedItem().toString());
-        lbData.setText(sdfData.format(new Date())+(turno!=null?(" Turno: "+turno):""));
+        lbData.setText(sdfData.format(new Date()) + (turno != null ? (" Turno: " + turno) : ""));
         carregarMateriaHorario();
     }
 
@@ -268,11 +278,9 @@ public class ImprimirQuadroController implements Initializable {
                 materiaHorarios.addAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turmaEspelho, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
             }
             TabelaHorarioImpressao.turno = null;
-        } else {
-            if (dados instanceof Usuario) {
-                materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorInstrutorTurnoSemestreAno(usuario, turno, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
-                TabelaHorarioImpressao.turno = turno;
-            }
+        } else if (dados instanceof Usuario) {
+            materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorInstrutorTurnoSemestreAno(usuario, turno, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
+            TabelaHorarioImpressao.turno = turno;
         }
         int mesInicial;
         if (cbSemestre.getSelectionModel().getSelectedItem().equals(DataHorario.Semestre.semestre1)) {
@@ -301,28 +309,20 @@ public class ImprimirQuadroController implements Initializable {
             gpMeses.addRow(3, thiMes4);
             gpMeses.addRow(4, thiMes5);
             gpMeses.addRow(5, thiMes6);
-            thiMes1.setStyle(fonte);
-            thiMes2.setStyle(fonte);
-            thiMes3.setStyle(fonte);
-            thiMes4.setStyle(fonte);
-            thiMes5.setStyle(fonte);
-            thiMes6.setStyle(fonte);
-            
+
         });
-        
+
     }
 
     //CarregarMateriaHoratrio
     public void carregarMateriaHorario() {
         if (turma != null) {
             materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turma, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
-        } else {
-            if (usuario != null) {
-                materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorInstrutorTurnoSemestreAno(usuario, turno, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
-            }
+        } else if (usuario != null) {
+            materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorInstrutorTurnoSemestreAno(usuario, turno, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
         }
     }
-    
+
     @FXML
     private void btImprimirActionEvent(ActionEvent actionEvent) {
 //        ImageView imageView = new ImageView(writableImage);
@@ -346,13 +346,13 @@ public class ImprimirQuadroController implements Initializable {
 
     //Classes aninhadas
     public class RenderAmbiente implements Callback<TableColumn<MateriaHorario, Ambiente>, TableCell<MateriaHorario, Ambiente>> {
-        
+
         int coluna;
-        
+
         public RenderAmbiente(int coluna) {
             this.coluna = coluna;
         }
-        
+
         @Override
         public TableCell<MateriaHorario, Ambiente> call(TableColumn<MateriaHorario, Ambiente> param) {
             return new TableCell<MateriaHorario, Ambiente>() {
@@ -363,7 +363,6 @@ public class ImprimirQuadroController implements Initializable {
                         setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
                     } else if (item != null) {
                         setText(item.getNome());
-                        setStyle(fonte);
                         switch (coluna) {
                             case 1:
                                 setBackground(new Background(new BackgroundFill(corAmbiente1, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -388,20 +387,20 @@ public class ImprimirQuadroController implements Initializable {
             };
         }
     }
-    
+
     public class InserirValorAmbiente implements Callback<TableColumn.CellDataFeatures<MateriaHorario, Ambiente>, ObservableValue<Ambiente>> {
-        
+
         int coluna;
-        
+
         public InserirValorAmbiente(int coluna) {
             this.coluna = coluna;
         }
-        
+
         @Override
         public ObservableValue<Ambiente> call(TableColumn.CellDataFeatures<MateriaHorario, Ambiente> param) {
             MateriaHorarioAmbiente materiaHorarioAmbiente = new MateriaHorarioAmbienteDAO().pegarTodosPorMateriaHorarioNumero(param.getValue(), coluna);
             return new SimpleObjectProperty<>(materiaHorarioAmbiente == null ? null : materiaHorarioAmbiente.getId().getAmbiente());
         }
-        
+
     }
 }

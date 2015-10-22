@@ -10,6 +10,7 @@ import br.com.QuadroDeHorario.dao.AmbienteRecursosDAO;
 import br.com.QuadroDeHorario.dao.MateriaHorarioAmbienteDAO;
 import br.com.QuadroDeHorario.dao.MateriaHorarioDAO;
 import br.com.QuadroDeHorario.dao.MateriaRecursosDAO;
+import br.com.QuadroDeHorario.dao.UsuarioDAO;
 import br.com.QuadroDeHorario.dao.UsuarioMateriaDAO;
 import br.com.QuadroDeHorario.entity.Ambiente;
 import br.com.QuadroDeHorario.entity.AmbienteRecursos;
@@ -32,6 +33,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableCell;
@@ -59,6 +61,8 @@ public class EditarMateriaHorarioController implements Initializable {
     private RadioButton rbPreferencia;
     @FXML
     private RadioButton rbInteresse;
+    @FXML
+    private RadioButton rbTodos;
     @FXML
     private ComboBox<Usuario> cbInstrutor;
     @FXML
@@ -93,7 +97,8 @@ public class EditarMateriaHorarioController implements Initializable {
     private TableView<Ambiente> tvAmbiente5;
     @FXML
     private TableColumn<Ambiente, String> tcNomeAmbiente5;
-
+    @FXML
+    private ColorPicker cpCorFonte;
     private MateriaHorario materiaHorario;
     private Stage stage;
     private ObservableList<Usuario> instrutores = FXCollections.observableArrayList();
@@ -112,7 +117,8 @@ public class EditarMateriaHorarioController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
             stage = (Stage) rbCompetencia.getScene().getWindow();
-            materiaHorario = (MateriaHorario) rbCompetencia.getParent().getUserData();
+            materiaHorario = (MateriaHorario) apContainer.getUserData();
+            cpCorFonte.setValue(Color.rgb(materiaHorario.getRed(), materiaHorario.getGreen(), materiaHorario.getBlue()));
             for (MateriaHorarioAmbiente materiaHorarioAmbiente : new MateriaHorarioAmbienteDAO().pegarTodosPorMateriaHorario(materiaHorario)) {
                 switch (materiaHorarioAmbiente.getNumero()) {
                     case 1:
@@ -138,14 +144,19 @@ public class EditarMateriaHorarioController implements Initializable {
                 }
                 if (materiaHorario.getMateriaTurmaIntrutorSemestre().getInstrutor() != null) {
                     UsuarioMateria usuarioMateria = new UsuarioMateriaDAO().pegarTodosPorUsuarioMateria(materiaHorario.getMateriaTurmaIntrutorSemestre().getInstrutor(), materiaHorario.getMateriaTurmaIntrutorSemestre().getMateria());
-                    rbCompetencia.setSelected(usuarioMateria.getTipo().equals(Tipo.COMPETENCIA));
-                    rbInteresse.setSelected(usuarioMateria.getTipo().equals(Tipo.INTERESSE));
-                    rbPreferencia.setSelected(usuarioMateria.getTipo().equals(Tipo.PREFERENCIA));
+                    if (usuarioMateria != null) {
+                        rbCompetencia.setSelected(usuarioMateria.getTipo().equals(Tipo.COMPETENCIA));
+                        rbInteresse.setSelected(usuarioMateria.getTipo().equals(Tipo.INTERESSE));
+                        rbPreferencia.setSelected(usuarioMateria.getTipo().equals(Tipo.PREFERENCIA));
+                    } else {
+                        rbTodos.setSelected(true);
+                    }
                     rbRadiosActionEvent(null);
                     cbInstrutor.getSelectionModel().select(materiaHorario.getMateriaTurmaIntrutorSemestre().getInstrutor());
+                } else {
+                    rbRadiosActionEvent(null);
                 }
             }
-            rbRadiosActionEvent(null);
         });
         cbInstrutor.setItems(instrutores);
         tvAmbiente.setItems(ambiente);
@@ -263,54 +274,61 @@ public class EditarMateriaHorarioController implements Initializable {
 
     @FXML
     private void btSalvarActionEvent(ActionEvent actionEvent) {
+        materiaHorario.setRed((int) (cpCorFonte.getValue().getRed() * 255));
+        materiaHorario.setBlue((int) (cpCorFonte.getValue().getBlue() * 255));
+        materiaHorario.setGreen((int) (cpCorFonte.getValue().getGreen() * 255));
         materiaHorario.getMateriaTurmaIntrutorSemestre().setInstrutor(cbInstrutor.getSelectionModel().getSelectedItem());
-        materiaHorario.setNumeroSubstituto(new MateriaHorarioDAO().pegarTodosPorTurmaMateria(materiaHorario.getMateriaTurmaIntrutorSemestre().getTurma(), materiaHorario.getMateriaTurmaIntrutorSemestre().getMateria()).size());
-        new MateriaHorarioDAO().editar(materiaHorario);
-        List<MateriaHorarioAmbiente> materiaHorarioAmbientes = new MateriaHorarioAmbienteDAO().pegarTodosSaveDelete(materiaHorario);
-        for (MateriaHorarioAmbiente materiaHorarioAmbiente : materiaHorarioAmbientes) {
-            new MateriaHorarioAmbienteDAO().excluir(materiaHorarioAmbiente);
-        }
-        //Ambiente 1
-        if (!ambiente1.isEmpty()) {
-            if (!materiaHorarioAmbientes.contains(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente1.getItems().get(0)), 1, true))) {
-                new MateriaHorarioAmbienteDAO().cadastrar(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente1.getItems().get(0)), 1, true));
-            } else {
-                new MateriaHorarioAmbienteDAO().editar(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente1.getItems().get(0)), 1, true));
+        if (materiaHorario.getMateriaTurmaIntrutorSemestre().getInstrutor() == null) {
+            Mensagem.showError("Selecione instrutor", "Não é permitido salvar alteração com professor nullo!");
+
+        } else {
+            new MateriaHorarioDAO().editar(materiaHorario);
+            List<MateriaHorarioAmbiente> materiaHorarioAmbientes = new MateriaHorarioAmbienteDAO().pegarTodosSaveDelete(materiaHorario);
+            for (MateriaHorarioAmbiente materiaHorarioAmbiente : materiaHorarioAmbientes) {
+                new MateriaHorarioAmbienteDAO().excluir(materiaHorarioAmbiente);
             }
-        }
-        //Ambiente 2
-        if (!ambiente2.isEmpty()) {
-            if (!materiaHorarioAmbientes.contains(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente2.getItems().get(0)), 2, true))) {
-                new MateriaHorarioAmbienteDAO().cadastrar(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente2.getItems().get(0)), 2, true));
-            } else {
-                new MateriaHorarioAmbienteDAO().editar(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente2.getItems().get(0)), 2, true));
+            //Ambiente 1
+            if (!ambiente1.isEmpty()) {
+                if (!materiaHorarioAmbientes.contains(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente1.getItems().get(0)), 1, true))) {
+                    new MateriaHorarioAmbienteDAO().cadastrar(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente1.getItems().get(0)), 1, true));
+                } else {
+                    new MateriaHorarioAmbienteDAO().editar(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente1.getItems().get(0)), 1, true));
+                }
             }
-        }
-        //Ambiente 3
-        if (!ambiente3.isEmpty()) {
-            if (!materiaHorarioAmbientes.contains(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente3.getItems().get(0)), 3, true))) {
-                new MateriaHorarioAmbienteDAO().cadastrar(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente3.getItems().get(0)), 3, true));
-            } else {
-                new MateriaHorarioAmbienteDAO().editar(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente3.getItems().get(0)), 3, true));
+            //Ambiente 2
+            if (!ambiente2.isEmpty()) {
+                if (!materiaHorarioAmbientes.contains(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente2.getItems().get(0)), 2, true))) {
+                    new MateriaHorarioAmbienteDAO().cadastrar(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente2.getItems().get(0)), 2, true));
+                } else {
+                    new MateriaHorarioAmbienteDAO().editar(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente2.getItems().get(0)), 2, true));
+                }
             }
-        }
-        //Ambiente 4
-        if (!ambiente4.isEmpty()) {
-            if (!materiaHorarioAmbientes.contains(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente4.getItems().get(0)), 4, true))) {
-                new MateriaHorarioAmbienteDAO().cadastrar(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente4.getItems().get(0)), 4, true));
-            } else {
-                new MateriaHorarioAmbienteDAO().editar(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente4.getItems().get(0)), 4, true));
+            //Ambiente 3
+            if (!ambiente3.isEmpty()) {
+                if (!materiaHorarioAmbientes.contains(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente3.getItems().get(0)), 3, true))) {
+                    new MateriaHorarioAmbienteDAO().cadastrar(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente3.getItems().get(0)), 3, true));
+                } else {
+                    new MateriaHorarioAmbienteDAO().editar(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente3.getItems().get(0)), 3, true));
+                }
             }
-        }
-        //Ambiente 5
-        if (!ambiente5.isEmpty()) {
-            if (!materiaHorarioAmbientes.contains(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente5.getItems().get(0)), 5, true))) {
-                new MateriaHorarioAmbienteDAO().cadastrar(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente5.getItems().get(0)), 5, true));
-            } else {
-                new MateriaHorarioAmbienteDAO().editar(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente5.getItems().get(0)), 5, true));
+            //Ambiente 4
+            if (!ambiente4.isEmpty()) {
+                if (!materiaHorarioAmbientes.contains(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente4.getItems().get(0)), 4, true))) {
+                    new MateriaHorarioAmbienteDAO().cadastrar(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente4.getItems().get(0)), 4, true));
+                } else {
+                    new MateriaHorarioAmbienteDAO().editar(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente4.getItems().get(0)), 4, true));
+                }
             }
+            //Ambiente 5
+            if (!ambiente5.isEmpty()) {
+                if (!materiaHorarioAmbientes.contains(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente5.getItems().get(0)), 5, true))) {
+                    new MateriaHorarioAmbienteDAO().cadastrar(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente5.getItems().get(0)), 5, true));
+                } else {
+                    new MateriaHorarioAmbienteDAO().editar(new MateriaHorarioAmbiente(new MateriaHorarioAmbienteID(materiaHorario, tvAmbiente5.getItems().get(0)), 5, true));
+                }
+            }
+            stage.close();
         }
-        stage.close();
     }
 
     @FXML
@@ -319,6 +337,9 @@ public class EditarMateriaHorarioController implements Initializable {
         materiaHorario.getMateriaTurmaIntrutorSemestre().setInstrutor(cbInstrutor.getSelectionModel().getSelectedItem());
         materiaHorario.setSubistito(true);
         materiaHorario.setNumeroSubstituto(new MateriaHorarioDAO().pegarTodosPorTurmaMateria(materiaHorario.getMateriaTurmaIntrutorSemestre().getTurma(), materiaHorario.getMateriaTurmaIntrutorSemestre().getMateria()).size());
+        materiaHorario.setRed((int) (cpCorFonte.getValue().getRed() * 255));
+        materiaHorario.setBlue((int) (cpCorFonte.getValue().getBlue() * 255));
+        materiaHorario.setGreen((int) (cpCorFonte.getValue().getGreen() * 255));
         new MateriaHorarioDAO().cadastrar(materiaHorario);
         List<MateriaHorarioAmbiente> materiaHorarioAmbientes = new MateriaHorarioAmbienteDAO().pegarTodosSaveDelete(materiaHorario);
         for (MateriaHorarioAmbiente materiaHorarioAmbiente : materiaHorarioAmbientes) {
@@ -376,26 +397,18 @@ public class EditarMateriaHorarioController implements Initializable {
                 if (tabela.equals(tvAmbiente1)) {
                     ambiente1.clear();
                     ambiente1.add(tvAmbiente.getSelectionModel().getSelectedItem());
-                } else {
-                    if (tabela.equals(tvAmbiente2)) {
-                        ambiente2.clear();
-                        ambiente2.add(tvAmbiente.getSelectionModel().getSelectedItem());
-                    } else {
-                        if (tabela.equals(tvAmbiente3)) {
-                            ambiente3.clear();
-                            ambiente3.add(tvAmbiente.getSelectionModel().getSelectedItem());
-                        } else {
-                            if (tabela.equals(tvAmbiente4)) {
-                                ambiente4.clear();
-                                ambiente4.add(tvAmbiente.getSelectionModel().getSelectedItem());
-                            } else {
-                                if (tabela.equals(tvAmbiente5)) {
-                                    ambiente5.clear();
-                                    ambiente5.add(tvAmbiente.getSelectionModel().getSelectedItem());
-                                }
-                            }
-                        }
-                    }
+                } else if (tabela.equals(tvAmbiente2)) {
+                    ambiente2.clear();
+                    ambiente2.add(tvAmbiente.getSelectionModel().getSelectedItem());
+                } else if (tabela.equals(tvAmbiente3)) {
+                    ambiente3.clear();
+                    ambiente3.add(tvAmbiente.getSelectionModel().getSelectedItem());
+                } else if (tabela.equals(tvAmbiente4)) {
+                    ambiente4.clear();
+                    ambiente4.add(tvAmbiente.getSelectionModel().getSelectedItem());
+                } else if (tabela.equals(tvAmbiente5)) {
+                    ambiente5.clear();
+                    ambiente5.add(tvAmbiente.getSelectionModel().getSelectedItem());
                 }
             } else {
                 Mensagem.showError("Ambiente duplicado", "Este ambiente já foi selecionado");
@@ -408,16 +421,22 @@ public class EditarMateriaHorarioController implements Initializable {
         UsuarioMateria.Tipo tipo;
         if (rbCompetencia.isSelected()) {
             tipo = UsuarioMateria.Tipo.COMPETENCIA;
+        } else if (rbInteresse.isSelected()) {
+            tipo = UsuarioMateria.Tipo.INTERESSE;
+        } else if (rbPreferencia.isSelected()) {
+            tipo = UsuarioMateria.Tipo.PREFERENCIA;
         } else {
-            if (rbInteresse.isSelected()) {
-                tipo = UsuarioMateria.Tipo.INTERESSE;
-            } else {
-                tipo = UsuarioMateria.Tipo.PREFERENCIA;
-            }
+            tipo = Tipo.OUTROS;
         }
         instrutores.clear();
-        for (UsuarioMateria pe : new UsuarioMateriaDAO().pegarTodosPorMateriaTipo(materiaHorario.getMateriaTurmaIntrutorSemestre().getMateria(), tipo)) {
-            instrutores.add(pe.getId().getUsuario());
+        if (tipo == Tipo.OUTROS) {
+            for (Usuario usuarios : new UsuarioDAO().pegarTodos()) {
+                instrutores.add(usuarios);
+            }
+        } else {
+            for (UsuarioMateria pe : new UsuarioMateriaDAO().pegarTodosPorMateriaTipo(materiaHorario.getMateriaTurmaIntrutorSemestre().getMateria(), tipo)) {
+                instrutores.add(pe.getId().getUsuario());
+            }
         }
         recursoDisciplina.clear();
         for (MateriaRecursos materiaRecursos : new MateriaRecursosDAO().pegarTodosPorMateria(materiaHorario.getMateriaTurmaIntrutorSemestre().getMateria())) {

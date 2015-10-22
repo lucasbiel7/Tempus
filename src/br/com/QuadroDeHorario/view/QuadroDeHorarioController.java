@@ -28,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -55,6 +56,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -153,7 +155,6 @@ public class QuadroDeHorarioController implements Initializable {
                     progressIndicator.setProgress(i / 100.0d);
                     Thread.sleep(100);
                 }
-                Thread.sleep(1000);
                 progressIndicator.setVisible(false);
             } catch (InterruptedException ex) {
                 Logger.getLogger(QuadroDeHorarioController.class.getName()).log(Level.SEVERE, null, ex);
@@ -184,6 +185,9 @@ public class QuadroDeHorarioController implements Initializable {
                         materiaHorario.getMateriaTurmaIntrutorSemestre().setMateria(materia);
                         materiaHorario.getMateriaTurmaIntrutorSemestre().setTurma(turma);
                         materiaHorario.getMateriaTurmaIntrutorSemestre().setSemestre(DataHorario.Semestre.setSemestre(turma.getInicio()));
+                        materiaHorario.setRed(new Random().nextInt(255));
+                        materiaHorario.setGreen(new Random().nextInt(255));
+                        materiaHorario.setBlue(new Random().nextInt(255));
                         if (new MateriaHorarioDAO().pegarTodosPorTurmaMateria(turma, materia).isEmpty()) {
                             new MateriaHorarioDAO().cadastrar(materiaHorario);
                         }
@@ -199,6 +203,9 @@ public class QuadroDeHorarioController implements Initializable {
                             materiaHorario.getMateriaTurmaIntrutorSemestre().setMateria(materia);
                             materiaHorario.getMateriaTurmaIntrutorSemestre().setTurma(turmaEspelho);
                             materiaHorario.getMateriaTurmaIntrutorSemestre().setSemestre(cbSemestre.getSelectionModel().getSelectedItem());
+                            materiaHorario.setRed(new Random().nextInt(255));
+                            materiaHorario.setGreen(new Random().nextInt(255));
+                            materiaHorario.setBlue(new Random().nextInt(255));
                             if (new MateriaHorarioDAO().pegarTodosPorTurmaMateria(turmaEspelho, materia).isEmpty()) {
                                 new MateriaHorarioDAO().cadastrar(materiaHorario);
                             }
@@ -302,6 +309,7 @@ public class QuadroDeHorarioController implements Initializable {
             }
             return new SimpleStringProperty();
         });
+
         tcAmbiente1.setCellFactory(new RenderAmbiente(1));
         tcAmbiente2.setCellFactory(new RenderAmbiente(2));
         tcAmbiente3.setCellFactory(new RenderAmbiente(3));
@@ -314,6 +322,16 @@ public class QuadroDeHorarioController implements Initializable {
         tcAmbiente4.setCellValueFactory(new InserirValorAmbiente(4));
         tcAmbiente5.setCellValueFactory(new InserirValorAmbiente(5));
         tvMateriaHorario.getSelectionModel().cellSelectionEnabledProperty().setValue(true);
+        tvMateriaHorario.setRowFactory((TableView<MateriaHorario> param) -> new TableRow<MateriaHorario>() {
+            @Override
+            protected void updateItem(MateriaHorario item, boolean empty) {
+                if (!empty) {
+                    getChildren().stream().forEach((n) -> {
+                        n.setStyle("-fx-text-fill:rgb(" + item.getRed() + "," + item.getGreen() + "," + item.getBlue() + ");");
+                    });
+                }
+            }
+        });
         cbTurno.setItems(turnosDiurmos);
         turnosDiurmos.setAll(DataHorario.Turno.manha, DataHorario.Turno.tarde);
     }
@@ -336,10 +354,11 @@ public class QuadroDeHorarioController implements Initializable {
     }
 
     @FXML
-    private void tvMateriaHorarioActionEvent(ActionEvent mouseEvent) {
+    private void tvMateriaHorarioActionEvent(ActionEvent actionEvent) {
         materiaHorario = tvMateriaHorario.getSelectionModel().getSelectedItem();
         if (materiaHorario != null) {
             FxMananger.show("EditarMateriaHorario", "Editar disciplina do horário", true, false, materiaHorario);
+            carregarTabelas();
             materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turma, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
             if (turmaEspelho != null) {
                 materiaHorarios.addAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turmaEspelho, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
@@ -357,7 +376,8 @@ public class QuadroDeHorarioController implements Initializable {
                 break;
             }
         }
-        if (valido) {
+        boolean modulos = turma.getModulo() + 1 <= turma.getCurso().getModulo();
+        if (valido && modulos) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Deseja Continuar?");
             ((Stage) (alert.getDialogPane().getScene().getWindow())).getIcons().add(FxMananger.image);
@@ -374,12 +394,12 @@ public class QuadroDeHorarioController implements Initializable {
                     } else {
                         passarDeModulo(spAno.getValue() + 1, DataHorario.Semestre.semestre1);
                     }
-                } else {
-                    if (t.equals(btSemestre)) {
-                        passarDeModulo(spAno.getValue(), cbSemestre.getSelectionModel().getSelectedItem());
-                    }
+                } else if (t.equals(btSemestre)) {
+                    passarDeModulo(spAno.getValue(), cbSemestre.getSelectionModel().getSelectedItem());
                 }
             });
+        } else if (!modulos) {
+            Mensagem.showError("Curso completo", "Não há mais módulos para o curso " + turma.getCurso() + "!");
         } else {
             Mensagem.showError("Módulo incompleto", "Não é possível ir para o próximo módulo porque possui\n"
                     + "disciplinas que não alcançaram a carga horária.");
@@ -462,8 +482,8 @@ public class QuadroDeHorarioController implements Initializable {
 
     private void passarDeModulo(Integer ano, DataHorario.Semestre semestre) {
         turma.setModulo(turma.getModulo() + 1);
-        turmaEspelho.setModulo(turmaEspelho.getModulo() + 1);
         if (turmaEspelho != null) {
+            turmaEspelho.setModulo(turmaEspelho.getModulo() + 1);
             if (turmaEspelho.getCurso().getModulo() >= turmaEspelho.getModulo()) {
                 for (Materia materia : new MateriaDAO().pegarTodosPorCursoModulo(turmaEspelho.getCurso(), turmaEspelho.getModulo())) {
                     MateriaHorario materiaHorario = new MateriaHorario();
@@ -471,6 +491,9 @@ public class QuadroDeHorarioController implements Initializable {
                     materiaHorario.getMateriaTurmaIntrutorSemestre().setSemestre(semestre);
                     materiaHorario.getMateriaTurmaIntrutorSemestre().setMateria(materia);
                     materiaHorario.setAno(ano);
+                    materiaHorario.setRed(new Random().nextInt(255));
+                    materiaHorario.setGreen(new Random().nextInt(255));
+                    materiaHorario.setBlue(new Random().nextInt(255));
                     if (new MateriaHorarioDAO().pegarTodosPorTurmaMateria(turmaEspelho, materia).isEmpty()) {
                         new MateriaHorarioDAO().cadastrar(materiaHorario);
                     }

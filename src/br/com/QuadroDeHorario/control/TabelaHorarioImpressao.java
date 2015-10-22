@@ -127,44 +127,25 @@ public class TabelaHorarioImpressao extends TableView<MesCalendario> {
     public static DataHorario.Turno turno;
 
     public TabelaHorarioImpressao(int mes, int ano, Object tipo) {
-        this.getStylesheets().add("/br/com/QuadroDeHorario/view/estilo.css");
-        this.getStyleClass().add("tabelaImpressao");
+//        this.getStylesheets().add("/br/com/QuadroDeHorario/view/estilo.css");
+//        this.getStyleClass().add("tabelaImpressao");
         try {
             if (tipo instanceof Usuario) {
                 instrutor = (Usuario) tipo;
                 turma = null;
                 turmaEspelho = null;
-            } else {
-                if (tipo instanceof Turma) {
-                    turma = (Turma) tipo;
-                    instrutor = null;
-                    if (turma.isEspelho()) {
-                        turmaEspelho = turma;
-                        turma = turmaEspelho.getTurmaPrincipal();
-                    }
+            } else if (tipo instanceof Turma) {
+                turma = (Turma) tipo;
+                instrutor = null;
+                if (turma.isEspelho()) {
+                    turmaEspelho = turma;
+                    turma = turmaEspelho.getTurmaPrincipal();
                 }
             }
             inicio = data.parse("01/" + mes + "/" + ano);
             fim = data.parse("01/" + (mes + 1) + "/" + ano);
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(inicio);
-//            setRowFactory(new Callback<TableView<MesCalendario>, TableRow<MesCalendario>>() {
-//
-//                @Override
-//                public TableRow<MesCalendario> call(TableView<MesCalendario> param) {
-//                    return new TableRow<MesCalendario>() {
-//
-//                        @Override
-//                        protected void updateItem(MesCalendario item, boolean empty) {
-//                            super.updateItem(item, empty); //To change body of generated methods, choose Tools | Templates.
-//                            setMaxHeight(linha);
-//                            setPrefHeight(linha);
-//                            setMaxHeight(linha);
-//                        }
-//                    };
-//                }
-//            });
-
             tcNomeMes = new TableColumn<>(nomeMes.format(inicio) + "(" + mes + ")");
             getColumns().add(tcNomeMes);
             setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY);
@@ -344,51 +325,56 @@ public class TabelaHorarioImpressao extends TableView<MesCalendario> {
                 protected void updateItem(Aula item, boolean empty) {
                     if (empty) {
                         setText("");
-                    } else {
-                        if (item != null) {
-                            if (turno != null) {
-                                setText(item.getMateriaHorario().getMateriaTurmaIntrutorSemestre().getTurma().getDescricao());
-                                setTooltip(new Tooltip(item.toString()));
-                            } else {
-                                setText(item.toString());
-                            }
-                            List<MateriaHorarioAmbiente> materiaHorarioAmbientes = new MateriaHorarioAmbienteDAO().pegarTodosPorMateriaHorario(item.getMateriaHorario());
-                            int numeroAmbiente = 0;
-                            for (MateriaHorarioAmbiente materiaHorarioAmbiente : materiaHorarioAmbientes) {
-                                if (materiaHorarioAmbiente.getId().getAmbiente().equals(item.getAmbiente())) {
-                                    numeroAmbiente = materiaHorarioAmbiente.getNumero();
-                                }
-                            }
-                            switch (numeroAmbiente) {
-                                case 1:
-                                    setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente1, CornerRadii.EMPTY, Insets.EMPTY)));
-                                    break;
-                                case 2:
-                                    setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente2, CornerRadii.EMPTY, Insets.EMPTY)));
-                                    break;
-                                case 3:
-                                    setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente3, CornerRadii.EMPTY, Insets.EMPTY)));
-                                    break;
-                                case 4:
-                                    setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente4, CornerRadii.EMPTY, Insets.EMPTY)));
-                                    break;
-                                case 5:
-                                    setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente5, CornerRadii.EMPTY, Insets.EMPTY)));
-                                    break;
-                            }
+                    } else if (item != null) {
+                        if (turno != null) {
+                            setText(item.toString());
+                            setTooltip(new Tooltip(item.getMateriaHorario().getMateriaTurmaIntrutorSemestre().getTurma().getDescricao()));
                         } else {
-                            setText("");
-                            setOnMouseReleased(null);
-                            setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
-                            if (param.getParentColumn().getText().equalsIgnoreCase("Sáb")) {
-                                setBackground(new Background(new BackgroundFill(Color.rgb(224, 224, 224), CornerRadii.EMPTY, Insets.EMPTY)));
-                            } else {
-                                if (param.getParentColumn().getText().equalsIgnoreCase("Dom")) {
-                                    setBackground(new Background(new BackgroundFill(Color.rgb(204, 204, 204), CornerRadii.EMPTY, Insets.EMPTY)));
-                                } else {
-                                    setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
-                                }
+                            setText(item.toString());
+                        }
+                        setTextFill(Color.rgb(item.getMateriaHorario().getRed(), item.getMateriaHorario().getGreen(), item.getMateriaHorario().getBlue()));
+                        List<MateriaHorarioAmbiente> materiaHorarioAmbientes = new MateriaHorarioAmbienteDAO().pegarTodosPorMateriaHorario(item.getMateriaHorario());
+                        int numeroAmbiente = 0;
+                        for (MateriaHorarioAmbiente materiaHorarioAmbiente : materiaHorarioAmbientes) {
+                            if (materiaHorarioAmbiente.getId().getAmbiente().equals(item.getAmbiente())) {
+                                numeroAmbiente = materiaHorarioAmbiente.getNumero();
+                                System.out.println(materiaHorarioAmbiente.getId().getAmbiente());
+                                break;
                             }
+                        }
+//                        System.out.println("Data: " + new SimpleDateFormat("dd/MM/yyyy").format(item.getId().getDataAula()));
+//                        System.out.println("Ambiente: "+item.getAmbiente());
+//                        System.out.println("Turma: "+item.getId().getTurma());
+//                        System.out.println("Número ambiente: " + numeroAmbiente);
+//                        System.out.println("Materia Horario: "+item.getMateriaHorario().getId());
+//                        System.out.println("_______________________________________________");
+                        switch (numeroAmbiente) {
+                            case 1:
+                                setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente1, CornerRadii.EMPTY, Insets.EMPTY)));
+                                break;
+                            case 2:
+                                setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente2, CornerRadii.EMPTY, Insets.EMPTY)));
+                                break;
+                            case 3:
+                                setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente3, CornerRadii.EMPTY, Insets.EMPTY)));
+                                break;
+                            case 4:
+                                setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente4, CornerRadii.EMPTY, Insets.EMPTY)));
+                                break;
+                            case 5:
+                                setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente5, CornerRadii.EMPTY, Insets.EMPTY)));
+                                break;
+                        }
+                    } else {
+                        setText("");
+                        setOnMouseReleased(null);
+                        setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+                        if (param.getParentColumn().getText().equalsIgnoreCase("Sáb")) {
+                            setBackground(new Background(new BackgroundFill(Color.rgb(224, 224, 224), CornerRadii.EMPTY, Insets.EMPTY)));
+                        } else if (param.getParentColumn().getText().equalsIgnoreCase("Dom")) {
+                            setBackground(new Background(new BackgroundFill(Color.rgb(204, 204, 204), CornerRadii.EMPTY, Insets.EMPTY)));
+                        } else {
+                            setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
                         }
                     }
                 }
@@ -416,10 +402,8 @@ public class TabelaHorarioImpressao extends TableView<MesCalendario> {
                     } else {
                         aula = new AulaDAO().pegarPorHorarioDiaTurma(mesCalendario.getHorario(), calendar.getTime(), turma);
                     }
-                } else {
-                    if (instrutor != null) {
-                        aula = new AulaDAO().pegarPorInstrutorTurnoDiaHorario(instrutor, turno, calendar.getTime(), mesCalendario.getHorario());
-                    }
+                } else if (instrutor != null) {
+                    aula = new AulaDAO().pegarPorInstrutorTurnoDiaHorario(instrutor, turno, calendar.getTime(), mesCalendario.getHorario());
                 }
                 inserirDados(mesCalendario, calendar.getTime(), horario, aula);
                 calendar.add(Calendar.DAY_OF_MONTH, 1);

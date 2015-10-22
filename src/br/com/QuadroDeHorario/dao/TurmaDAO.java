@@ -5,7 +5,9 @@
  */
 package br.com.QuadroDeHorario.dao;
 
+import br.com.QuadroDeHorario.entity.Aula;
 import br.com.QuadroDeHorario.entity.Curso;
+import br.com.QuadroDeHorario.entity.MateriaHorario;
 import br.com.QuadroDeHorario.entity.Projeto;
 import br.com.QuadroDeHorario.entity.Turma;
 import br.com.QuadroDeHorario.model.GenericaDAO;
@@ -24,6 +26,12 @@ public class TurmaDAO extends GenericaDAO<Turma> {
     @Override
     public void excluir(Turma entity) {
         entity.setAtivo(false);
+        for (MateriaHorario materiaHorario : new MateriaHorarioDAO().pegarPorTurma(entity)) {
+            new MateriaHorarioDAO().excluir(materiaHorario);
+        }
+        for (Aula aula : new AulaDAO().pegarTodosPorTurma(entity)) {
+            new AulaDAO().excluir(aula);
+        }
         editar(entity);
     }
 
@@ -51,7 +59,7 @@ public class TurmaDAO extends GenericaDAO<Turma> {
         return entitys;
     }
 
-    public List<Turma> pegarPorTurno(DataHorario.Turno ... turno) {
+    public List<Turma> pegarPorTurno(DataHorario.Turno... turno) {
         if (turno.length == 0) {
             finalizarSession();
             return new ArrayList<>();

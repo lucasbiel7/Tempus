@@ -5,6 +5,7 @@
  */
 package br.com.QuadroDeHorario.dao;
 
+import br.com.QuadroDeHorario.entity.Ambiente;
 import br.com.QuadroDeHorario.entity.MateriaHorario;
 import br.com.QuadroDeHorario.entity.MateriaHorarioAmbiente;
 import br.com.QuadroDeHorario.model.GenericaDAO;
@@ -28,16 +29,23 @@ public class MateriaHorarioAmbienteDAO extends GenericaDAO<MateriaHorarioAmbient
         finalizarSession();
         return entitys;
     }
-     public List<MateriaHorarioAmbiente> pegarTodosSaveDelete(MateriaHorario materiaHorario) {
+
+    public List<MateriaHorarioAmbiente> pegarTodosSaveDelete(MateriaHorario materiaHorario) {
         entitys = session.createCriteria(classe).add(Restrictions.eq("id.materiaHorario", materiaHorario)).list();
         finalizarSession();
         return entitys;
     }
-    
+
     public MateriaHorarioAmbiente pegarTodosPorMateriaHorarioNumero(MateriaHorario materiaHorario, int numero) {
         entity = (MateriaHorarioAmbiente) criteria.add(Restrictions.eq("id.materiaHorario", materiaHorario)).add(Restrictions.eq("numero", numero)).uniqueResult();
         finalizarSession();
         return entity;
+    }
+
+    public List<MateriaHorarioAmbiente> pegarTodosPorAmbiente(Ambiente ambiente) {
+        entitys = criteria.add(Restrictions.eq("id.ambiente", ambiente)).list();
+        finalizarSession();
+        return entitys;
     }
 
 }

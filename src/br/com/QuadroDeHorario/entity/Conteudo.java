@@ -34,7 +34,7 @@ public class Conteudo implements Serializable {
     private boolean ativo=true;
     @JoinColumn(name = "materia_id", referencedColumnName = "id")
     @ManyToOne
-    private Materia materiaId;
+    private Materia materia;
 
     public Conteudo() {
     }
@@ -72,12 +72,12 @@ public class Conteudo implements Serializable {
         this.ativo = ativo;
     }
 
-    public Materia getMateriaId() {
-        return materiaId;
+    public Materia getMateria() {
+        return materia;
     }
 
-    public void setMateriaId(Materia materiaId) {
-        this.materiaId = materiaId;
+    public void setMateria(Materia materia) {
+        this.materia = materia;
     }
 
     @Override

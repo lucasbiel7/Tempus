@@ -24,13 +24,15 @@ import javax.persistence.OneToMany;
 @NamedQueries({
     @NamedQuery(name = "Entidade.findAll", query = "SELECT e FROM Entidade e")})
 public class Entidade implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     private Integer id;
     private String nome;
-    @OneToMany(mappedBy = "entidadeId")
+    private boolean ativo = true;
+    @OneToMany(mappedBy = "entidade")
     private List<Unidade> unidadeList;
 
     public Entidade() {
@@ -84,9 +86,17 @@ public class Entidade implements Serializable {
         return true;
     }
 
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
     @Override
     public String toString() {
-        return "br.com.QuadroDeHorario.entity.Entidade[ id=" + id + " ]";
+        return getNome();
     }
-    
+
 }

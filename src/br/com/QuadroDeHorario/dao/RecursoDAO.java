@@ -5,6 +5,8 @@
  */
 package br.com.QuadroDeHorario.dao;
 
+import br.com.QuadroDeHorario.entity.AmbienteRecursos;
+import br.com.QuadroDeHorario.entity.MateriaRecursos;
 import br.com.QuadroDeHorario.entity.Recurso;
 import br.com.QuadroDeHorario.model.GenericaDAO;
 import java.util.List;
@@ -19,6 +21,12 @@ public class RecursoDAO extends GenericaDAO<Recurso> {
     @Override
     public void excluir(Recurso entity) {
         entity.setAtivo(false);
+        for (AmbienteRecursos ambienteRecursos : new AmbienteRecursosDAO().pegarPorRecurso(entity)) {
+            new AmbienteRecursosDAO().excluir(ambienteRecursos);
+        }
+        for (MateriaRecursos materiaRecursos : new MateriaRecursosDAO().pegarPorRecurso(entity)) {
+            new MateriaRecursosDAO().excluir(materiaRecursos);
+        }
         editar(entity);
     }
 

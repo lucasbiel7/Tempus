@@ -5,6 +5,7 @@
  */
 package br.com.QuadroDeHorario.dao;
 
+import br.com.QuadroDeHorario.entity.Calendario;
 import br.com.QuadroDeHorario.entity.Evento;
 import br.com.QuadroDeHorario.model.GenericaDAO;
 import java.util.List;
@@ -19,6 +20,9 @@ public class EventoDAO extends GenericaDAO<Evento> {
     @Override
     public void excluir(Evento entity) {
         entity.setAtivo(false);
+        for (Calendario calendario : new CalendarioDAO().pegarPorEvento(entity)) {
+            new CalendarioDAO().excluir(calendario);
+        }
         editar(entity);
     }
 

@@ -34,6 +34,9 @@ public class MateriaHorario implements Serializable {
     private boolean subistito;
     private int numeroSubstituto;
     private boolean ativo = true;
+    private int red;
+    private int green;
+    private int blue;
 
     @Embeddable
     public static class MateriaTurmaIntrutorSemestre implements Serializable {
@@ -203,6 +206,30 @@ public class MateriaHorario implements Serializable {
             return false;
         }
         return true;
+    }
+
+    public int getRed() {
+        return red;
+    }
+
+    public void setRed(int red) {
+        this.red = red;
+    }
+
+    public int getGreen() {
+        return green;
+    }
+
+    public void setGreen(int green) {
+        this.green = green;
+    }
+
+    public int getBlue() {
+        return blue;
+    }
+
+    public void setBlue(int blue) {
+        this.blue = blue;
     }
 
     @Override

@@ -5,6 +5,7 @@
  */
 package br.com.QuadroDeHorario.dao;
 
+import br.com.QuadroDeHorario.entity.Ambiente;
 import br.com.QuadroDeHorario.entity.Aula;
 import br.com.QuadroDeHorario.entity.EmprestaChave;
 import br.com.QuadroDeHorario.model.GenericaDAO;
@@ -17,9 +18,21 @@ import org.hibernate.criterion.Restrictions;
  */
 public class EmprestaChaveDAO extends GenericaDAO<EmprestaChave> {
 
+    @Override
+    public void excluir(EmprestaChave entity) {
+        entity.setAtivo(false);
+        editar(entity);
+    }
+
     public List<EmprestaChave> pegarPorAula(Aula aula) {
         entitys = criteria.add(Restrictions.eq("ambiente", aula.getAmbiente())).add(Restrictions.eq("usuario", aula.getMateriaHorario().getMateriaTurmaIntrutorSemestre().getInstrutor())).add(Restrictions.eq("dia", aula.getId().getDataAula())).list();
         finalizarSession();
+        return entitys;
+    }
+
+    public List<EmprestaChave> pegarPorAmbiente(Ambiente ambiente) {
+        entitys = criteria.add(Restrictions.eq("ambiente", ambiente)).list();
+        session.close();
         return entitys;
     }
 

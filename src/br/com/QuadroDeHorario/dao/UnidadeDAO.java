@@ -5,13 +5,32 @@
  */
 package br.com.QuadroDeHorario.dao;
 
+import br.com.QuadroDeHorario.entity.Entidade;
 import br.com.QuadroDeHorario.entity.Unidade;
+import br.com.QuadroDeHorario.entity.Usuario;
 import br.com.QuadroDeHorario.model.GenericaDAO;
+import java.util.List;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
  * @author OCTI01
  */
 public class UnidadeDAO extends GenericaDAO<Unidade> {
-    
+
+    @Override
+    public void excluir(Unidade entity) {
+        for (Usuario usuario : new UsuarioDAO().pegarPorUnidade(entity)) {
+            new UsuarioDAO().excluir(usuario);
+        }
+        entity.setAtivo(false);
+        editar(entity);
+    }
+
+    public List<Unidade> pegarTodosPorEntidade(Entidade entidade) {
+        entitys = criteria.add(Restrictions.eq("entidade", entidade)).list();
+        finalizarSession();
+        return entitys;
+    }
+
 }

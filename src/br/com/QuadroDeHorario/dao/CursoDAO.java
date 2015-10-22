@@ -6,6 +6,9 @@
 package br.com.QuadroDeHorario.dao;
 
 import br.com.QuadroDeHorario.entity.Curso;
+import br.com.QuadroDeHorario.entity.Materia;
+import br.com.QuadroDeHorario.entity.TipoDoCurso;
+import br.com.QuadroDeHorario.entity.Turma;
 import br.com.QuadroDeHorario.model.GenericaDAO;
 import java.util.List;
 import org.hibernate.criterion.Order;
@@ -25,11 +28,23 @@ public class CursoDAO extends GenericaDAO<Curso> {
     @Override
     public void excluir(Curso entity) {
         entity.setAtivo(false);
+        for (Materia materia : new MateriaDAO().pegarTodosPorCurso(entity)) {
+            new MateriaDAO().excluir(materia);
+        }
+        for (Turma turma : new TurmaDAO().pegarTodosPorCurso(entity)) {
+            new TurmaDAO().excluir(turma);
+        }
         editar(entity);
     }
 
     public List<Curso> pesquisarPorNome(String text) {
         entitys = criteria.add(Restrictions.like("nome", "%" + text + "%")).list();
+        finalizarSession();
+        return entitys;
+    }
+
+    public List<Curso> pegarTodosPorTipoDoCurso(TipoDoCurso tipoDoCurso) {
+        entitys = criteria.add(Restrictions.eq("tipoDoCurso", tipoDoCurso)).list();
         finalizarSession();
         return entitys;
     }
