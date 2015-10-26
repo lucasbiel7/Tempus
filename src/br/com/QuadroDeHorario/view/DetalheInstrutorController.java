@@ -22,15 +22,19 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.util.Duration;
 import javafx.util.converter.PercentageStringConverter;
 
 /**
@@ -72,6 +76,9 @@ public class DetalheInstrutorController implements Initializable {
             lcGrafico.setData(dadosGrafico);
             carregarGrafico();
         });
+        new Timeline(new KeyFrame(Duration.seconds(1), (ActionEvent action)->{
+            carregarGrafico();
+        })).play();
         naAulas.setTickLabelFormatter(new PercentageStringConverter(Locale.ROOT));
     }
 

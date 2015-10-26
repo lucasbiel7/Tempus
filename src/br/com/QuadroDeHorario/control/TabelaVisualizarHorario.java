@@ -39,6 +39,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
 
 /**
@@ -159,6 +160,8 @@ public class TabelaVisualizarHorario extends TableView<HorarioDiario> {
 
                 @Override
                 protected void updateItem(Aula item, boolean empty) {
+                    setTextAlignment(TextAlignment.CENTER);
+                    setAlignment(Pos.CENTER);
                     if (empty) {
                         setText("");
                     } else if (item != null) {

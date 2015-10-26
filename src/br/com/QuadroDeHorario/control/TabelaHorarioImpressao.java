@@ -29,6 +29,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -41,6 +42,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
 
 /**
@@ -323,6 +325,8 @@ public class TabelaHorarioImpressao extends TableView<MesCalendario> {
             return new TableCell<MesCalendario, Aula>() {
                 @Override
                 protected void updateItem(Aula item, boolean empty) {
+                    setTextAlignment(TextAlignment.CENTER);
+                    setAlignment(Pos.CENTER);
                     if (empty) {
                         setText("");
                     } else if (item != null) {

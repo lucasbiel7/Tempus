@@ -51,6 +51,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
@@ -88,6 +89,9 @@ public class QuadroDeHorarioController implements Initializable {
     private CheckBox cbAutoPreencher;
     @FXML
     private ComboBox<DataHorario.Turno> cbTurno;
+    @FXML
+    private MenuItem miExcluir;
+
     //MateriaHorario
     @FXML
     private TableView<MateriaHorario> tvMateriaHorario;
@@ -140,6 +144,8 @@ public class QuadroDeHorarioController implements Initializable {
     private Turma turma;
     private Turma turmaEspelho;
     private MateriaHorario materiaHorario;
+
+    //Isso aqui nao devia entrar no fxml
     public static final Color corAmbiente1 = Color.WHITE;
     public static final Color corAmbiente2 = Color.rgb(153, 255, 153);
     public static final Color corAmbiente3 = Color.rgb(255, 255, 102);
@@ -419,6 +425,26 @@ public class QuadroDeHorarioController implements Initializable {
                 }
                 new MateriaHorarioDAO().cadastrar(materiaHorario);
             }
+        }
+    }
+
+    @FXML
+    private void miExcluirActionEvent(ActionEvent actionEvent) {
+        if (tvMateriaHorario.getSelectionModel().getSelectedItem() != null) {
+            MateriaHorario materiaHorario = tvMateriaHorario.getSelectionModel().getSelectedItem();
+            if (materiaHorario.isSubistito()) {
+                if (Mensagem.showConfirmation("Excluir disciplina do quadro", "Cuidado!\n"
+                        + "Ao excluir uma disciplina do quadro de horário você estará apagando TODAS as \n"
+                        + "aulas registradas para a Disciplina/Instrutor. Deseja Continuar?")) {
+                    new MateriaHorarioDAO().excluir(materiaHorario);
+                    carregarTabelas();
+                }
+            } else {
+                Mensagem.showError("Discicplina principal", "Não é possível apagar a disciplina principal, só será\n"
+                        + " possível nas disciplinas em que os intrutores são substitutos!");
+            }
+        } else {
+            Mensagem.showError("Selecione uma disciplina", "Para excluir uma disciplina é necessário primeiro seleciona-la!");
         }
     }
 

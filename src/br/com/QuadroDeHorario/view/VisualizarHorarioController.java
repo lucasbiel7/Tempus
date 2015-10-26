@@ -69,14 +69,8 @@ public class VisualizarHorarioController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
             stage = (Stage) lbLogo.getScene().getWindow();
-            comunication = new Thread(SerialUtil.serialCommunication,"VisualizarHorarioCommunicationSerial");
+            comunication = new Thread(SerialUtil.serialCommunication, "VisualizarHorarioCommunicationSerial");
             comunication.start();
-//            if (!SerialUtil.serialCommunication.isConexao()) {
-//                SerialUtil.serialCommunication.reConectar();
-//            } else {
-//                System.out.println("Ainda está conectado");
-//            }
-            
         });
         if (SerialUtil.serialCommunication == null) {
             SerialUtil.serialCommunication = new SerialCommunication();
@@ -151,7 +145,8 @@ public class VisualizarHorarioController implements Initializable {
 
     private void carregarTabela(Class classe) {
         apHorario.getChildren().clear();
-        apHorario.getChildren().add(new TabelaVisualizarHorario(cbTurno.getSelectionModel().getSelectedItem(), classe, Date.from(dpDataAula.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant())));
+        TabelaVisualizarHorario tabelaVisualizarHorario = new TabelaVisualizarHorario(cbTurno.getSelectionModel().getSelectedItem(), classe, Date.from(dpDataAula.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        apHorario.getChildren().add(tabelaVisualizarHorario);
     }
 
     @FXML

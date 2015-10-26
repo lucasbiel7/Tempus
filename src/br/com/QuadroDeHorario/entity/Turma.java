@@ -57,6 +57,8 @@ public class Turma implements Serializable {
     private Projeto projeto;
     @OneToMany(mappedBy = "materiaTurmaIntrutorSemestre.turma")
     private List<MateriaHorario> materiaHorarios;
+    @OneToMany(mappedBy = "turma")
+    private List<ObservacaoAula> observacaoAulas;
 
     public Turma() {
     }

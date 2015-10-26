@@ -42,5 +42,6 @@
         <mapping class="br.com.QuadroDeHorario.entity.PermissaoGrupo"/>
         <mapping class="br.com.QuadroDeHorario.entity.PermissaoUsuario"/>
         <mapping class="br.com.QuadroDeHorario.entity.EmprestaChave"/>
+        <mapping class="br.com.QuadroDeHorario.entity.ObservacaoAula"/>
     </session-factory>
 </hibernate-configuration>

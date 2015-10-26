@@ -53,6 +53,7 @@
                 <ContextMenu>
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#tvMateriaHorarioActionEvent" text="Editar" />
+                  <MenuItem fx:id="miExcluir" mnemonicParsing="false" onAction="#miExcluirActionEvent" text="Excluir" />
                     </items>
                 </ContextMenu>
             </contextMenu>
@@ -99,6 +100,6 @@
                 </VBox>
             </children>
         </HBox>
-        <ProgressIndicator id="loadHorario" fx:id="progressIndicator" layoutX="6.0" layoutY="8.0" opacity="0.6" prefHeight="495.0" prefWidth="989.0" progress="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <ProgressIndicator id="loadHorario" fx:id="progressIndicator" layoutX="6.0" layoutY="8.0" opacity="0.6" prefHeight="495.0" prefWidth="989.0" progress="0.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
     </children>
 </AnchorPane>

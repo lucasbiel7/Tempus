@@ -39,7 +39,7 @@ public class Run extends Application {
         usuario.setSenha("Lucas5@");
         SessaoUsuario.setUsuario(new UsuarioDAO().login(usuario));
         FxMananger.show("Principal", "Principal", false, true, true);
-        //Teste Visualizar Horário/Interface para usuário final
+//        Teste Visualizar Horário/Interface para usuário final
 //        FxMananger.show("VisualizarHorario", "Visualizar Horário", false, true, true);
     }
 

@@ -112,6 +112,16 @@ public class TabelaMensal extends TableView<SemanaCalendario> {
         tcSabado.setCellFactory(new RenderTableView());
         tcSabado.setCellFactory(new RenderTableView());
         tcDomingo.setCellFactory(new RenderTableView());
+        //Nao deixar as colunas poderem ser ordenar
+        tcSegunda.sortableProperty().set(false);
+        tcTerca.sortableProperty().set(false);
+        tcQuarta.sortableProperty().set(false);
+        tcQuinta.sortableProperty().set(false);
+        tcSexta.sortableProperty().set(false);
+        tcSabado.sortableProperty().set(false);
+        tcDomingo.sortableProperty().set(false);
+        setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY);
+        
     }
 
     private void carregarDados(int mes, int ano) {
@@ -155,7 +165,6 @@ public class TabelaMensal extends TableView<SemanaCalendario> {
             if (datas.getDomingo() != null) {
                 semanasCalendarios.add(datas);
             }
-
             semanaCalendarios.setAll(semanasCalendarios);
         } catch (ParseException ex) {
             Logger.getLogger(TabelaMensal.class.getName()).log(Level.SEVERE, null, ex);

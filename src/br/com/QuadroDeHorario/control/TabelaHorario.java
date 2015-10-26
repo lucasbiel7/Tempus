@@ -5,6 +5,7 @@ import br.com.QuadroDeHorario.dao.CalendarioAmbienteDAO;
 import br.com.QuadroDeHorario.dao.CalendarioDAO;
 import br.com.QuadroDeHorario.dao.CalendarioUsuarioDAO;
 import br.com.QuadroDeHorario.dao.MateriaHorarioAmbienteDAO;
+import br.com.QuadroDeHorario.dao.ObservacaoAulaDAO;
 import br.com.QuadroDeHorario.entity.Ambiente;
 import br.com.QuadroDeHorario.entity.Aula;
 import br.com.QuadroDeHorario.entity.Calendario;
@@ -12,9 +13,11 @@ import br.com.QuadroDeHorario.entity.CalendarioAmbiente;
 import br.com.QuadroDeHorario.entity.CalendarioUsuario;
 import br.com.QuadroDeHorario.entity.MateriaHorario;
 import br.com.QuadroDeHorario.entity.MateriaHorarioAmbiente;
+import br.com.QuadroDeHorario.entity.ObservacaoAula;
 import br.com.QuadroDeHorario.entity.Turma;
 import br.com.QuadroDeHorario.util.DataHorario;
 import br.com.QuadroDeHorario.util.FxMananger;
+import br.com.QuadroDeHorario.util.GerenciarImagem;
 import br.com.QuadroDeHorario.util.Mensagem;
 import br.com.QuadroDeHorario.util.MesCalendario;
 import br.com.QuadroDeHorario.view.QuadroDeHorarioController;
@@ -30,6 +33,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -38,11 +45,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.hibernate.exception.ConstraintViolationException;
 
@@ -266,6 +277,7 @@ public class TabelaHorario extends TableView<MesCalendario> {
         tcNomeMes.getColumns().add(tcNome);
         tcDia.setCellValueFactory(new PropertyValueFactory<>("dia" + Integer.parseInt(numeroDia.format(dia))));
         List<Calendario> calendarios = new CalendarioDAO().pegarTodosPorData(dia, true);
+
         if (!calendarios.isEmpty()) {
             String eventos = "";
             for (Calendario calendario : calendarios) {
@@ -310,6 +322,29 @@ public class TabelaHorario extends TableView<MesCalendario> {
         if (!tcNome.getText().equals("Dom")) {
             tcDia.setOnEditStart(new SelecionarDia(dia));
         }
+        tcDia.setUserData(tcDia.getText());
+        tcDia.sortableProperty().set(false);
+        adicionarObservacao(tcDia, turma, dia);
+    }
+
+    private void adicionarObservacao(TableColumn<MesCalendario, Aula> tcNome, Turma turma, Date dia) {
+        List<ObservacaoAula> observacaoAulas = new ObservacaoAulaDAO().pegarPorDiaTurma(dia, turma);
+        if (!observacaoAulas.isEmpty()) {
+            String observacao = "";
+            Label label = new Label((String) tcNome.getUserData());
+            for (ObservacaoAula observacaoAula : observacaoAulas) {
+                observacao += observacaoAula.getObservacao();
+            }
+            label.setTooltip(new Tooltip(observacao));
+            tcNome.setGraphic(label);
+            tcNome.setText("");
+            label.setGraphic(new ImageView(new Image(GerenciarImagem.carregarImagem("information.png"), 10, 10, true, true)));
+            label.setContentDisplay(ContentDisplay.RIGHT);
+            label.setOnMouseReleased((MouseEvent event) -> {
+                FxMananger.show("AdicionarObservacao", "Adicionar observação", true, false, observacaoAulas.get(0));
+                adicionarObservacao(tcNome, turma, dia);
+            });
+        }
     }
 
     private class RenderDia implements Callback<TableColumn<MesCalendario, Aula>, TableCell<MesCalendario, Aula>> {
@@ -325,6 +360,8 @@ public class TabelaHorario extends TableView<MesCalendario> {
             return new TableCell<MesCalendario, Aula>() {
                 @Override
                 protected void updateItem(Aula item, boolean empty) {
+                    setTextAlignment(TextAlignment.CENTER);
+                    setAlignment(Pos.CENTER);
                     if (empty) {
                         setText("");
                     } else if (item != null) {
@@ -665,7 +702,7 @@ public class TabelaHorario extends TableView<MesCalendario> {
         @Override
         public void handle(ActionEvent event) {
             if (aulasGeminadas && autoPreencher) {
-                if (Mensagem.showConfirmation("Excluir todas aulas germinadas e recorrentes!", "Você tem certeza que deseja excluir todas aulas\n"
+                if (Mensagem.showConfirmation("Excluir todas aulas geminadas e recorrentes!", "Você tem certeza que deseja excluir todas aulas\n"
                         + " germinadas e recorrentes a partir do dia " + new SimpleDateFormat("dd/MM/yyyy").format(aula.getId().getDataAula()))) {
                     for (DataHorario.Horario horario : DataHorario.Horario.values()) {
                         Calendar inicio = Calendar.getInstance();
@@ -682,14 +719,24 @@ public class TabelaHorario extends TableView<MesCalendario> {
                     }
                 }
             } else if (aulasGeminadas) {
-                if (Mensagem.showConfirmation("Excluir aulas germinadas!", "Você realmente deseja excluir todas aulas no dia " + new SimpleDateFormat("dd/MM/yyyy").format(aula.getId().getDataAula()) + "\n"
-                        + "(Nesse caso apagará todas as aulas do dia mesmo não sendo mesmo conteúdo)")) {
+                String menssagem = "Você realmente deseja excluir todas aulas no dia " + new SimpleDateFormat("dd/MM/yyyy").format(aula.getId().getDataAula()) + "\n"
+                        + "(Nesse caso apagará todas as aulas do dia mesmo não sendo mesmo conteúdo)";
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, menssagem, ButtonType.YES, new ButtonType("Sim, com observação"), ButtonType.NO);
+                alert.setTitle("Deseja Continuar?");
+                ((Stage) (alert.getDialogPane().getScene().getWindow())).getIcons().add(FxMananger.image);
+                alert.setHeaderText("Excluir aulas geminadas!");
+                alert.setContentText(menssagem);
+                ButtonType botao = alert.showAndWait().get();
+                if (!botao.equals(ButtonType.NO)) {
                     for (DataHorario.Horario horario : DataHorario.Horario.values()) {
                         Aula aulaSeguida = new AulaDAO().pegarPorId(new Aula.DataHorarioTurnoTurma(aula.getId().getDataAula(), horario, turno, aula.getId().getTurma()));
                         if (aulaSeguida != null) {
                             new AulaDAO().excluir(aulaSeguida);
                             removerDaLista(aulaSeguida);
                         }
+                    }
+                    if (!botao.equals(ButtonType.YES)) {
+                        FxMananger.show("AdicionarObservacao", "Adicionar observação", true, false, aula);
                     }
                 }
             } else if (autoPreencher) {
