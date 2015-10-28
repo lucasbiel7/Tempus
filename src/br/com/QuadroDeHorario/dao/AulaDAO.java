@@ -171,7 +171,13 @@ public class AulaDAO extends GenericaDAO<Aula> {
     }
 
     public List<Aula> pegarTodosPorTurma(Turma turma) {
-        entitys = criteria.add(Restrictions.eq("turma", turma)).list();
+        entitys = criteria.add(Restrictions.eq("id.turma", turma)).list();
+        finalizarSession();
+        return entitys;
+    }
+
+    public List<Aula> pegarPorMateriaAmbiente(MateriaHorario materiaHorario, Ambiente ambiente) {
+        entitys = criteria.add(Restrictions.eq("materiaHorario", materiaHorario)).add(Restrictions.eq("ambiente", ambiente)).list();
         finalizarSession();
         return entitys;
     }

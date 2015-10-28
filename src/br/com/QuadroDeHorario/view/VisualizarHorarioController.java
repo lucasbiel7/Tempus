@@ -14,6 +14,7 @@ import br.com.QuadroDeHorario.entity.Turma;
 import br.com.QuadroDeHorario.entity.Usuario;
 import br.com.QuadroDeHorario.model.SerialConstants;
 import br.com.QuadroDeHorario.util.DataHorario;
+import br.com.QuadroDeHorario.util.Efeito;
 import br.com.QuadroDeHorario.util.FxMananger;
 import java.net.URL;
 import java.time.LocalDate;
@@ -35,6 +36,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -49,6 +51,8 @@ public class VisualizarHorarioController implements Initializable {
 
     @FXML
     private Label lbLogo;
+    @FXML
+    private ImageView ivLogo;
     @FXML
     private ComboBox<DataHorario.Turno> cbTurno;
     @FXML
@@ -72,6 +76,7 @@ public class VisualizarHorarioController implements Initializable {
             comunication = new Thread(SerialUtil.serialCommunication, "VisualizarHorarioCommunicationSerial");
             comunication.start();
         });
+        Efeito.logo(lbLogo, ivLogo);
         if (SerialUtil.serialCommunication == null) {
             SerialUtil.serialCommunication = new SerialCommunication();
         }
@@ -99,7 +104,6 @@ public class VisualizarHorarioController implements Initializable {
         lbLogo.setText(FxMananger.NOME_PROGRAMA);
         turnos.setAll(DataHorario.Turno.values());
         turnos.remove(DataHorario.Turno.diurno);
-        System.out.println(DataHorario.Horario.getHorarioAtual());
     }
 
     @FXML

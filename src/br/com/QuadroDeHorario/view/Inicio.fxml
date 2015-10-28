@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="279.0" prefWidth="480.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.InicioController">
+<AnchorPane id="AnchorPane" prefHeight="279.0" prefWidth="480.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.InicioController">
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
@@ -28,7 +28,6 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <Label fx:id="lbLogo" layoutX="14.0" layoutY="13.0" prefHeight="77.0" prefWidth="441.0" styleClass="logo" />
       <Label fx:id="lbAtualizacao" layoutX="14.0" layoutY="202.0" prefHeight="37.0" prefWidth="452.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0">
          <font>
             <Font name="System Italic" size="18.0" />
@@ -37,6 +36,14 @@
       <Label fx:id="lbVersao" layoutX="354.0" layoutY="257.0" prefHeight="17.0" prefWidth="123.0" text="Tempus">
          <font>
             <Font name="System Italic" size="9.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbLogo" layoutX="34.0" layoutY="22.0" prefHeight="75.0" prefWidth="393.0">
+         <graphic>
+            <ImageView fx:id="ivLogo" fitHeight="61.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" />
+         </graphic>
+         <font>
+            <Font size="25.0" />
          </font>
       </Label>
    </children>

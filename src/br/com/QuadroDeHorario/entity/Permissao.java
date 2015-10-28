@@ -12,7 +12,7 @@ package br.com.QuadroDeHorario.entity;
 public enum Permissao {
 
     INICIO("Início"), INFOGRAFICO("Infográfico"), CALENDARIO_EVENTOS("Calendário de eventos"), CALENDARIO_ESCOLAR("Calendário escolar"),
-    AREA_ADMINISTRATIVA("Área administrativa"), PROJETO("Projeto"), CURSO("Curso"), RECURSO("Recursos"), AMBIENTE("Ambiente"), TURMA("Turma"), DISCIPLINA("Disciplina"), INSTRUTOR("Instrutor"), CONSTANTES("Contantes do sistema"),
+    AREA_ADMINISTRATIVA("Área administrativa"), PROJETO("Projeto"), CURSO("Curso"), RECURSO("Recursos"), AMBIENTE("Ambiente"), TURMA("Turma"), DISCIPLINA("Componente curricular"), INSTRUTOR("Instrutor"), CONSTANTES("Contantes do sistema"),
     QUADRO_HORARIO("Quadro de Horário"), CRIAR_QUADRO("Criar quadro de horário"), VISUALIZAR_TURMA("Visualizar quadro horário da turma"), VISUALIZAR_INSTRUTOR("Visualizar quadro horário do instrutor"),
     ESTATISTICA("Estatística"),
     LIXEIRA("Lixeria");

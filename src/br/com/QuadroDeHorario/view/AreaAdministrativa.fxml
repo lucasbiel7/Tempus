@@ -60,7 +60,7 @@
                   </ScrollPane>
                </content>
             </Tab>
-            <Tab onSelectionChanged="#tbDisciplinaActionEvent" text="Disciplina">
+            <Tab onSelectionChanged="#tbDisciplinaActionEvent" text="Componente curricular">
               <content>
                   <ScrollPane fitToHeight="true" fitToWidth="true">
                      <content>

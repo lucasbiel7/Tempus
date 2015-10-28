@@ -200,10 +200,10 @@ public class GerenciarDisciplinaController implements Initializable {
         materia.setModulo(spModulo.getValue());
         if (materia.getId() == null) {
             new MateriaDAO().cadastrar(materia);
-            Mensagem.showInformation("Cadastrado", "Disciplina cadastrada com sucesso!");
+            Mensagem.showInformation("Cadastrado", "Componente curricular cadastrado com sucesso!");
         } else {
             new MateriaDAO().editar(materia);
-            Mensagem.showInformation("Editado", "Disciplina editada com sucesso!");
+            Mensagem.showInformation("Editado", "Componente curricular editado com sucesso!");
         }
         for (MateriaRecursos materiaRecursos : new MateriaRecursosDAO().pegarTodosPorMateria(materia)) {
             materiaRecursos.setAtivo(false);
@@ -237,7 +237,7 @@ public class GerenciarDisciplinaController implements Initializable {
         materia = tvMateria.getSelectionModel().getSelectedItem();
         if (materia != null) {
             List<MateriaHorario> materiaHorarios = new MateriaHorarioDAO().pegarPorMateria(materia);
-            if (Mensagem.showConfirmation("Confirmar exclusão", "Você realmente deseja excluir essa disciplina?" + (materiaHorarios.isEmpty() ? "" : "Está disciplina está sendo usada no quadro de horário"))) {
+            if (Mensagem.showConfirmation("Confirmar exclusão", "Você realmente deseja excluir esse componente curricular?" + (materiaHorarios.isEmpty() ? "" : "Este componente curricular está sendo usada no quadro de horário"))) {
                 new MateriaDAO().excluir(materia);
             }
         }

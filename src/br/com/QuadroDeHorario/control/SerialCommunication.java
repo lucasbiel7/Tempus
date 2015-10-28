@@ -129,7 +129,6 @@ public class SerialCommunication implements Runnable, SerialPortEventListener {
     }
 
     public void reConectar() {
-        System.out.println("Reconectando");
         testarConexao(new SerialConnection().getPortaFavorita());
 
     }
@@ -161,7 +160,6 @@ public class SerialCommunication implements Runnable, SerialPortEventListener {
                         }, "Resetar equipamento"));
                 }
             } catch (IOException ex) {
-                System.out.println("Falha no envio da mensagem");
                 Logger.getLogger(SerialCommunication.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

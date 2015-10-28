@@ -7,6 +7,7 @@ package br.com.QuadroDeHorario.view;
 
 import br.com.QuadroDeHorario.dao.UsuarioDAO;
 import br.com.QuadroDeHorario.entity.Usuario;
+import br.com.QuadroDeHorario.util.Efeito;
 import br.com.QuadroDeHorario.util.FxMananger;
 import br.com.QuadroDeHorario.util.Mensagem;
 import br.com.QuadroDeHorario.util.ParametrosBanco;
@@ -20,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /**
@@ -32,6 +34,8 @@ public class LoginController implements Initializable {
     @FXML
     private Label lbLogo;
     @FXML
+    private ImageView ivLogo;
+    @FXML
     private TextField tfLogin;
     @FXML
     private PasswordField pfSenha;
@@ -43,6 +47,7 @@ public class LoginController implements Initializable {
         Platform.runLater(() -> {
             stage = (Stage) lbLogo.getScene().getWindow();
         });
+        Efeito.logo(lbLogo, ivLogo);
         lbLogo.setText(FxMananger.NOME_PROGRAMA);
     }
 

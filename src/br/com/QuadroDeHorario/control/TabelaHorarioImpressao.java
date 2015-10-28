@@ -34,13 +34,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import static javafx.scene.control.TableView.CONSTRAINED_RESIZE_POLICY;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
-import static javafx.scene.layout.Region.USE_PREF_SIZE;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
@@ -129,8 +127,8 @@ public class TabelaHorarioImpressao extends TableView<MesCalendario> {
     public static DataHorario.Turno turno;
 
     public TabelaHorarioImpressao(int mes, int ano, Object tipo) {
-//        this.getStylesheets().add("/br/com/QuadroDeHorario/view/estilo.css");
-//        this.getStyleClass().add("tabelaImpressao");
+        this.getStylesheets().add("/br/com/QuadroDeHorario/view/estilo.css");
+        this.getStyleClass().add("tabelaImpressao");
         try {
             if (tipo instanceof Usuario) {
                 instrutor = (Usuario) tipo;
@@ -254,11 +252,10 @@ public class TabelaHorarioImpressao extends TableView<MesCalendario> {
         }
         setEditable(true);
         this.getSelectionModel().cellSelectionEnabledProperty().setValue(Boolean.TRUE);
-        setPrefSize(USE_PREF_SIZE, 190);
+        setMaxSize(31 * 40 + 5, 195);
         setSortPolicy(null);
         setItems(aulas);
         carregarDados();
-//        scrollTo(6);
     }
 
     private void adicionarColuna(Date dia, TableColumn<MesCalendario, Aula> tcNome, TableColumn<MesCalendario, Aula> tcDia) {
@@ -266,16 +263,15 @@ public class TabelaHorarioImpressao extends TableView<MesCalendario> {
         tcDia = new TableColumn<>(numeroDia.format(dia));
         tcNome.getColumns().add(tcDia);
         tcNomeMes.getColumns().add(tcNome);
-//        getColumns().add(tcNome);
         tcDia.setCellValueFactory(new PropertyValueFactory<>("dia" + Integer.parseInt(numeroDia.format(dia))));
         List<Calendario> calendarios = new CalendarioDAO().pegarTodosPorData(dia);
-
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dia);
         if (!calendarios.isEmpty()) {
             String eventos = "";
             for (Calendario calendario : calendarios) {
                 eventos += calendario.getId().getEvento().getNome() + "\n";
             }
-//            Calendario calendario = calendarios.get(0);
             Label label = new Label(tcNome.getText());
             label.setTooltip(new Tooltip(eventos));
             Color[] todasCores = new Color[calendarios.size()];
@@ -342,16 +338,9 @@ public class TabelaHorarioImpressao extends TableView<MesCalendario> {
                         for (MateriaHorarioAmbiente materiaHorarioAmbiente : materiaHorarioAmbientes) {
                             if (materiaHorarioAmbiente.getId().getAmbiente().equals(item.getAmbiente())) {
                                 numeroAmbiente = materiaHorarioAmbiente.getNumero();
-                                System.out.println(materiaHorarioAmbiente.getId().getAmbiente());
                                 break;
                             }
                         }
-//                        System.out.println("Data: " + new SimpleDateFormat("dd/MM/yyyy").format(item.getId().getDataAula()));
-//                        System.out.println("Ambiente: "+item.getAmbiente());
-//                        System.out.println("Turma: "+item.getId().getTurma());
-//                        System.out.println("Número ambiente: " + numeroAmbiente);
-//                        System.out.println("Materia Horario: "+item.getMateriaHorario().getId());
-//                        System.out.println("_______________________________________________");
                         switch (numeroAmbiente) {
                             case 1:
                                 setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente1, CornerRadii.EMPTY, Insets.EMPTY)));

@@ -28,11 +28,20 @@ import javax.persistence.Temporal;
     @NamedQuery(name = "Aula.pegarPorHorarioDiaUsuario", query = "SELECT a FROM Aula a WHERE a.id.dataAula=:dataAula AND a.id.horario=:horario AND a.materiaHorario.materiaTurmaIntrutorSemestre.instrutor=:usuario AND a.id.turno=:turno AND a.ativo=true"),
     @NamedQuery(name = "Aula.pegarPorDiaInstrutor", query = "SELECT a FROM Aula a WHERE a.id.dataAula=:dataAula  AND a.materiaHorario.materiaTurmaIntrutorSemestre.instrutor=:usuario AND a.ativo=true"),
     @NamedQuery(name = "Aula.pegarPorDiaInstrutorTurno", query = "SELECT a FROM Aula a WHERE a.id.dataAula=:dataAula  AND a.materiaHorario.materiaTurmaIntrutorSemestre.instrutor=:usuario AND a.id.turno =:turno AND a.ativo=true"),
-    @NamedQuery(name = "Aula.pegarPorInstrutorTurnoDiaHorario", query = "SELECT a FROM Aula a where a.materiaHorario.materiaTurmaIntrutorSemestre.instrutor=:instrutor and a.id.turno=:turno and a.id.dataAula=:dataAula and a.id.horario=:horario")
+    @NamedQuery(name = "Aula.pegarPorInstrutorTurnoDiaHorario", query = "SELECT a FROM Aula a where a.materiaHorario.materiaTurmaIntrutorSemestre.instrutor=:instrutor and a.id.turno=:turno and a.id.dataAula=:dataAula and a.id.horario=:horario AND a.ativo=true")
 })
 public class Aula implements Serializable {
 
     //Classe para gerar Id Composto
+    //Atributos 
+    @EmbeddedId
+    private DataHorarioTurnoTurma id;
+    @ManyToOne
+    private Ambiente ambiente;
+    private boolean ativo = true;
+    @ManyToOne
+    private MateriaHorario materiaHorario;
+
     @Embeddable
     public static class DataHorarioTurnoTurma implements Serializable {
 
@@ -115,15 +124,6 @@ public class Aula implements Serializable {
             return true;
         }
     }
-    //Atributos 
-    @EmbeddedId
-    private DataHorarioTurnoTurma id;
-    @ManyToOne
-    private Ambiente ambiente;
-    private boolean ativo = true;
-
-    @ManyToOne
-    private MateriaHorario materiaHorario;
 
     public boolean isAtivo() {
         return ativo;

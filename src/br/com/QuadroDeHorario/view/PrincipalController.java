@@ -11,11 +11,13 @@ import br.com.QuadroDeHorario.dao.UsuarioDAO;
 import br.com.QuadroDeHorario.entity.Permissao;
 import br.com.QuadroDeHorario.entity.PermissaoGrupo;
 import br.com.QuadroDeHorario.entity.PermissaoUsuario;
+import br.com.QuadroDeHorario.util.Efeito;
 import br.com.QuadroDeHorario.util.FxMananger;
 import br.com.QuadroDeHorario.util.SessaoUsuario;
 import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,6 +25,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -53,7 +56,13 @@ public class PrincipalController implements Initializable {
     private Button btLixeira;
     @FXML
     private Button btAtivarPermissoes;
+    @FXML
+    private Label lbLogo;
+    @FXML
+    private ImageView ivLogo;
     private Stage stage;
+    private Timeline logo;
+    private int casoLogo = 2;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -66,6 +75,7 @@ public class PrincipalController implements Initializable {
                 cProfile.setFill(new ImagePattern(new Image(getClass().getResourceAsStream("/br/com/QuadroDeHorario/view/image/perfil.png"))));
             }
         });
+        Efeito.logo(lbLogo, ivLogo);
         permissoes();
     }
 

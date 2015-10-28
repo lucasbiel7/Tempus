@@ -7,6 +7,7 @@ package br.com.QuadroDeHorario.view;
 
 import br.com.QuadroDeHorario.dao.AmbienteDAO;
 import br.com.QuadroDeHorario.dao.AmbienteRecursosDAO;
+import br.com.QuadroDeHorario.dao.AulaDAO;
 import br.com.QuadroDeHorario.dao.MateriaHorarioAmbienteDAO;
 import br.com.QuadroDeHorario.dao.MateriaHorarioDAO;
 import br.com.QuadroDeHorario.dao.MateriaRecursosDAO;
@@ -175,14 +176,12 @@ public class EditarMateriaHorarioController implements Initializable {
         tcNomeAmbiente5.setCellValueFactory(new PropertyValueFactory<>("nome"));
         //Colorir Ambientes
         tcNomeAmbiente1.setCellFactory((TableColumn<Ambiente, String> param) -> new TableCell<Ambiente, String>() {
-
             @Override
             protected void updateItem(String item, boolean empty) {
                 setText(item);
                 setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
             }
         });
-
         tcNomeAmbiente2.setCellFactory((TableColumn<Ambiente, String> param) -> new TableCell<Ambiente, String>() {
             @Override
             protected void updateItem(String item, boolean empty) {
@@ -190,18 +189,14 @@ public class EditarMateriaHorarioController implements Initializable {
                 setBackground(new Background(new BackgroundFill(Color.rgb(153, 255, 153), CornerRadii.EMPTY, Insets.EMPTY)));
             }
         });
-
         tcNomeAmbiente3.setCellFactory((TableColumn<Ambiente, String> param) -> new TableCell<Ambiente, String>() {
-
             @Override
             protected void updateItem(String item, boolean empty) {
                 setText(item);
                 setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 102), CornerRadii.EMPTY, Insets.EMPTY)));
             }
         });
-
         tcNomeAmbiente4.setCellFactory((TableColumn<Ambiente, String> param) -> new TableCell<Ambiente, String>() {
-
             @Override
             protected void updateItem(String item, boolean empty) {
                 setText(item);
@@ -244,27 +239,62 @@ public class EditarMateriaHorarioController implements Initializable {
 
     @FXML
     private void btRemoverAmbiente1ActionEvent(ActionEvent actionEvent) {
-        ambiente1.clear();
+        if (!ambiente1.isEmpty()) {
+            if (new AulaDAO().pegarPorMateriaAmbiente(materiaHorario, ambiente1.get(0)).isEmpty()) {
+                ambiente1.clear();
+            } else {
+                Mensagem.showError("Ambiente utilizado", "Este ambiente está sendo ultilizado em algumas aulas,\n"
+                        + " por isso não é possivel remove-lo.");
+            }
+        }
     }
 
     @FXML
     private void btRemoverAmbiente2ActionEvent(ActionEvent actionEvent) {
-        ambiente2.clear();
+        if (!ambiente2.isEmpty()) {
+            if (new AulaDAO().pegarPorMateriaAmbiente(materiaHorario, ambiente2.get(0)).isEmpty()) {
+                ambiente2.clear();
+            } else {
+                Mensagem.showError("Ambiente utilizado", "Este ambiente está sendo ultilizado em algumas aulas,\n"
+                        + " por isso não é possivel remove-lo.");
+            }
+        }
     }
 
     @FXML
     private void btRemoverAmbiente3ActionEvent(ActionEvent actionEvent) {
-        ambiente3.clear();
+        if (!ambiente3.isEmpty()) {
+            if (new AulaDAO().pegarPorMateriaAmbiente(materiaHorario, ambiente3.get(0)).isEmpty()) {
+                ambiente3.clear();
+            } else {
+                Mensagem.showError("Ambiente utilizado", "Este ambiente está sendo ultilizado em algumas aulas,\n"
+                        + " por isso não é possivel remove-lo.");
+            }
+        }
     }
 
     @FXML
     private void btRemoverAmbiente4ActionEvent(ActionEvent actionEvent) {
-        ambiente4.clear();
+        if (!ambiente4.isEmpty()) {
+            if (new AulaDAO().pegarPorMateriaAmbiente(materiaHorario, ambiente4.get(0)).isEmpty()) {
+                ambiente4.clear();
+            } else {
+                Mensagem.showError("Ambiente utilizado", "Este ambiente está sendo ultilizado em algumas aulas,\n"
+                        + " por isso não é possivel remove-lo.");
+            }
+        }
     }
 
     @FXML
     private void btRemoverAmbiente5ActionEvent(ActionEvent actionEvent) {
-        ambiente5.clear();
+        if (!ambiente5.isEmpty()) {
+            if (new AulaDAO().pegarPorMateriaAmbiente(materiaHorario, ambiente5.get(0)).isEmpty()) {
+                ambiente5.clear();
+            } else {
+                Mensagem.showError("Ambiente utilizado", "Este ambiente está sendo ultilizado em algumas aulas,\n"
+                        + " por isso não é possivel remove-lo.");
+            }
+        }
     }
 
     @FXML
@@ -390,28 +420,27 @@ public class EditarMateriaHorarioController implements Initializable {
 
     @FXML
     private void meAdicionarAmbienteMouseReleased(MouseEvent mouseEvent) {
-        Object tabela = mouseEvent.getSource();
+        TableView<Ambiente> tabela = (TableView<Ambiente>) mouseEvent.getSource();
         Ambiente ambienteSelecionado = tvAmbiente.getSelectionModel().getSelectedItem();
         if (tvAmbiente.getSelectionModel().getSelectedItem() != null) {
             if (!ambiente1.contains(ambienteSelecionado) && !ambiente2.contains(ambienteSelecionado) && !ambiente3.contains(ambienteSelecionado) && !ambiente4.contains(ambienteSelecionado) && !ambiente5.contains(ambienteSelecionado)) {
-                if (tabela.equals(tvAmbiente1)) {
-                    ambiente1.clear();
-                    ambiente1.add(tvAmbiente.getSelectionModel().getSelectedItem());
-                } else if (tabela.equals(tvAmbiente2)) {
-                    ambiente2.clear();
-                    ambiente2.add(tvAmbiente.getSelectionModel().getSelectedItem());
-                } else if (tabela.equals(tvAmbiente3)) {
-                    ambiente3.clear();
-                    ambiente3.add(tvAmbiente.getSelectionModel().getSelectedItem());
-                } else if (tabela.equals(tvAmbiente4)) {
-                    ambiente4.clear();
-                    ambiente4.add(tvAmbiente.getSelectionModel().getSelectedItem());
-                } else if (tabela.equals(tvAmbiente5)) {
-                    ambiente5.clear();
-                    ambiente5.add(tvAmbiente.getSelectionModel().getSelectedItem());
+                if (tabela.getItems().isEmpty()) {
+                    tabela.getItems().setAll(ambienteSelecionado);
+                } else if (validarAmbiente(tabela.getItems().get(0))) {
+                    tabela.getItems().setAll(tvAmbiente.getSelectionModel().getSelectedItem());
+                } else {
+                    Mensagem.showError("Ambiente utilizado", "Este ambiente está sendo ultilizado em algumas aulas,\n"
+                            + " por isso não é possivel remove-lo.");
                 }
+            } else if (tabela.getItems().isEmpty()) {
+                removerAmbiente(ambienteSelecionado);
+                tabela.getItems().setAll(ambienteSelecionado);
+            } else if (validarAmbiente(tabela.getItems().get(0))) {
+                removerAmbiente(ambienteSelecionado);
+                tabela.getItems().setAll(ambienteSelecionado);
             } else {
-                Mensagem.showError("Ambiente duplicado", "Este ambiente já foi selecionado");
+                Mensagem.showError("Ambiente utilizado", "Este ambiente está sendo ultilizado em algumas aulas,\n"
+                        + " por isso não é possivel remove-lo.");
             }
         }
     }
@@ -444,4 +473,21 @@ public class EditarMateriaHorarioController implements Initializable {
         }
     }
 
+    private boolean validarAmbiente(Ambiente ambiente) {
+        return new AulaDAO().pegarPorMateriaAmbiente(materiaHorario, ambiente).isEmpty();
+    }
+
+    private void removerAmbiente(Ambiente ambienteSelecionado) {
+        if (ambiente1.contains(ambienteSelecionado)) {
+            ambiente1.clear();
+        } else if (ambiente2.contains(ambienteSelecionado)) {
+            ambiente2.clear();
+        } else if (ambiente3.contains(ambienteSelecionado)) {
+            ambiente3.clear();
+        } else if (ambiente4.contains(ambienteSelecionado)) {
+            ambiente4.clear();
+        } else if (ambiente5.contains(ambienteSelecionado)) {
+            ambiente5.clear();
+        }
+    }
 }

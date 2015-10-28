@@ -56,6 +56,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -63,7 +64,6 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -150,24 +150,17 @@ public class ImprimirQuadroController implements Initializable {
                 for (Object parametro : parametros) {
                     if (parametro instanceof Usuario) {
                         usuario = (Usuario) parametro;
-                        if (turno != null) {
-                            carregarTabelas(usuario);
-                        }
                     }
                     if (parametro instanceof Turma) {
                         turma = (Turma) parametro;
-                        carregarTabelas(turma);
                     }
                     if (parametro instanceof DataHorario.Turno) {
                         turno = (DataHorario.Turno) parametro;
-                        if (usuario != null) {
-                            carregarTabelas(usuario);
-                        }
                     }
                 }
+                carregarTabelas();
             }
             carregarCabecalho();
-
         });
         cbSemestre.setItems(semestres);
         semestres.setAll(Semestre.values());
@@ -208,7 +201,7 @@ public class ImprimirQuadroController implements Initializable {
             }
         });
         tcCargaHoraria.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> new SimpleStringProperty(String.valueOf(param.getValue().getMateriaTurmaIntrutorSemestre().getMateria().getCargaHoraria())));
-        tcCargaDisciplina.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> new SimpleStringProperty(String.valueOf(new AulaDAO().pegarPorDisciplinaTurma(param.getValue().getMateriaTurmaIntrutorSemestre().getMateria(), turma).size())));
+        tcCargaDisciplina.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> new SimpleStringProperty(String.valueOf(new AulaDAO().pegarPorDisciplinaTurma(param.getValue().getMateriaTurmaIntrutorSemestre().getMateria(), param.getValue().getMateriaTurmaIntrutorSemestre().getTurma()).size())));
         tcCargaInstrutor.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> {
             return new SimpleStringProperty(String.valueOf(new AulaDAO().pegarPorMateria(param.getValue()).size()));
         });
@@ -255,6 +248,18 @@ public class ImprimirQuadroController implements Initializable {
 
     }
 
+    @FXML
+    private void cbSemestreActionEvent(ActionEvent actionEvent) {
+        carregarMateriaHorario();
+        carregarCabecalho();
+        carregarTabelas();
+    }
+
+    @FXML
+    private void spAnoMouseReleased(MouseEvent mouseEvent) {
+        cbSemestreActionEvent(null);
+    }
+
     //Metodos de evento
     //Metodos de carregamento
     //Cabecalho
@@ -265,20 +270,23 @@ public class ImprimirQuadroController implements Initializable {
         if (usuario != null) {
             lbNomeQuadro.setText("Instrutor: " + usuario.getNome());
         }
-        lbSemestre.setText(cbSemestre.getSelectionModel().getSelectedItem().toString());
-        lbData.setText(sdfData.format(new Date()) + (turno != null ? (" Turno: " + turno) : ""));
+        lbSemestre.setText(cbSemestre.getSelectionModel().getSelectedItem() + "/" + spAno.getValue() + (turno != null ? (" Turno: " + turno) : ""));
+        lbData.setText(sdfData.format(new Date()));
         carregarMateriaHorario();
     }
 
     //Todas as tabelas 
-    public void carregarTabelas(Object dados) {
-        if (dados instanceof Turma) {
+    public void carregarTabelas() {
+        Object dados = null;
+        if (turma != null) {
+            dados = turma;
             materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turma, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
             if (turmaEspelho != null) {
                 materiaHorarios.addAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turmaEspelho, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
             }
             TabelaHorarioImpressao.turno = null;
-        } else if (dados instanceof Usuario) {
+        } else if (usuario != null && turno != null) {
+            dados = usuario;
             materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorInstrutorTurnoSemestreAno(usuario, turno, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
             TabelaHorarioImpressao.turno = turno;
         }
@@ -309,9 +317,7 @@ public class ImprimirQuadroController implements Initializable {
             gpMeses.addRow(3, thiMes4);
             gpMeses.addRow(4, thiMes5);
             gpMeses.addRow(5, thiMes6);
-
         });
-
     }
 
     //CarregarMateriaHoratrio
@@ -325,21 +331,22 @@ public class ImprimirQuadroController implements Initializable {
 
     @FXML
     private void btImprimirActionEvent(ActionEvent actionEvent) {
-//        ImageView imageView = new ImageView(writableImage);
         Printer printer = Printer.getDefaultPrinter();
-        PageLayout pageLayout = printer.createPageLayout(Paper.A1, PageOrientation.LANDSCAPE, 0, 0, 0, 0);
+        PageLayout pageLayout = printer.createPageLayout(Paper.A4, PageOrientation.PORTRAIT, 20, 0, 20, 0);
         PrinterJob printerJob = PrinterJob.createPrinterJob();
-        double scaleX = pageLayout.getPrintableWidth() / quadro.getBoundsInParent().getWidth();
-        double scaleY = pageLayout.getPrintableHeight() / quadro.getBoundsInParent().getHeight();
-        quadro.getTransforms().add(new Scale(scaleX, scaleY));
         WritableImage wi = quadro.snapshot(new SnapshotParameters(), (wi = null));
         ImageView imageView = new ImageView(wi);
+        imageView.setFitHeight(pageLayout.getPrintableHeight());
+        imageView.setFitWidth(pageLayout.getPrintableWidth());
         imageView.setPreserveRatio(true);
         if (printerJob.showPrintDialog(stage)) {
             boolean sucess = printerJob.printPage(pageLayout, imageView);
             printerJob.endJob();
             if (sucess) {
                 Mensagem.showInformation("Impressão concluída", "Impressão do quadro foi executada com sucesso!");
+            } else {
+                Mensagem.showInformation("Impressão falhou", "ocorreu um erro ao realizar a impressão do quadro\n"
+                        + "de horário. Verifique a existencia da impressora!");
             }
         }
     }

@@ -29,7 +29,6 @@ public class Run extends Application {
 //            primaryStage.setScene(scene);
 //            primaryStage.initStyle(StageStyle.UNDECORATED);
 //            primaryStage.show();
-//            
 //        } catch (IOException ex) {
 //            Logger.getLogger(Run.class.getName()).log(Level.SEVERE, null, ex);
 //        }

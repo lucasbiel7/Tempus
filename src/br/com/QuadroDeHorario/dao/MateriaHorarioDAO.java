@@ -75,7 +75,6 @@ public class MateriaHorarioDAO extends GenericaDAO<MateriaHorario> {
             finalizarSession();
             return new ArrayList<>();
         }
-        System.out.println(turmas.size());
         entitys = criteria.add(Restrictions.in("materiaTurmaIntrutorSemestre.turma", turmas)).add(Restrictions.eq("materiaTurmaIntrutorSemestre.instrutor", instrutor)).add(Restrictions.eq("materiaTurmaIntrutorSemestre.semestre", semestre)).add(Restrictions.eq("ano", ano)).list();
         finalizarSession();
         return entitys;

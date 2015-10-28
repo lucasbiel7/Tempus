@@ -156,15 +156,15 @@ public class QuadroDeHorarioController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         new Thread(() -> {
-            try {
-                for (int i = 0; i < 101; i++) {
-                    progressIndicator.setProgress(i / 100.0d);
+            for (int i = 0; i < 101; i++) {
+                progressIndicator.setProgress(i / 100d);
+                try {
                     Thread.sleep(100);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(QuadroDeHorarioController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                progressIndicator.setVisible(false);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(QuadroDeHorarioController.class.getName()).log(Level.SEVERE, null, ex);
             }
+            progressIndicator.setVisible(false);
         }).start();
         Platform.runLater(() -> {
             turma = (Turma) apContainer.getUserData();
@@ -225,19 +225,16 @@ public class QuadroDeHorarioController implements Initializable {
                     cbTurno.getSelectionModel().select(DataHorario.Turno.manha);
                 } else {
                     cbTurno.getSelectionModel().select(turma.getTurno());
+
                 }
                 carregarDados.run();
             }
         });
         //Carregar componentes
         carregarDados = new Task<Void>() {
-
             @Override
             protected Void call() throws Exception {
-                synchronized (turma) {
-                    carregarTabelas();
-                    turma.notifyAll();
-                }
+                carregarTabelas();
                 return null;
             }
         };
@@ -363,12 +360,8 @@ public class QuadroDeHorarioController implements Initializable {
     private void tvMateriaHorarioActionEvent(ActionEvent actionEvent) {
         materiaHorario = tvMateriaHorario.getSelectionModel().getSelectedItem();
         if (materiaHorario != null) {
-            FxMananger.show("EditarMateriaHorario", "Editar disciplina do horário", true, false, materiaHorario);
+            FxMananger.show("EditarMateriaHorario", "Editar componente curricular do horário", true, false, materiaHorario);
             carregarTabelas();
-            materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turma, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
-            if (turmaEspelho != null) {
-                materiaHorarios.addAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turmaEspelho, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
-            }
         }
     }
 
@@ -408,7 +401,7 @@ public class QuadroDeHorarioController implements Initializable {
             Mensagem.showError("Curso completo", "Não há mais módulos para o curso " + turma.getCurso() + "!");
         } else {
             Mensagem.showError("Módulo incompleto", "Não é possível ir para o próximo módulo porque possui\n"
-                    + "disciplinas que não alcançaram a carga horária.");
+                    + "componente curriculares que não alcançaram a carga horária.");
         }
     }
 
@@ -433,18 +426,18 @@ public class QuadroDeHorarioController implements Initializable {
         if (tvMateriaHorario.getSelectionModel().getSelectedItem() != null) {
             MateriaHorario materiaHorario = tvMateriaHorario.getSelectionModel().getSelectedItem();
             if (materiaHorario.isSubistito()) {
-                if (Mensagem.showConfirmation("Excluir disciplina do quadro", "Cuidado!\n"
-                        + "Ao excluir uma disciplina do quadro de horário você estará apagando TODAS as \n"
-                        + "aulas registradas para a Disciplina/Instrutor. Deseja Continuar?")) {
+                if (Mensagem.showConfirmation("Excluir componente curricular do quadro", "Cuidado!\n"
+                        + "Ao excluir um componente curricular do quadro de horário você estará apagando TODAS as \n"
+                        + "aulas registradas para o componente curricular/Instrutor. Deseja Continuar?")) {
                     new MateriaHorarioDAO().excluir(materiaHorario);
                     carregarTabelas();
                 }
             } else {
-                Mensagem.showError("Discicplina principal", "Não é possível apagar a disciplina principal, só será\n"
-                        + " possível nas disciplinas em que os intrutores são substitutos!");
+                Mensagem.showError("Componente curricular principal", "Não é possível apagar o componente curricular principal, só será\n"
+                        + " possível nos componente curricular em que os intrutores são substitutos!");
             }
         } else {
-            Mensagem.showError("Selecione uma disciplina", "Para excluir uma disciplina é necessário primeiro seleciona-la!");
+            Mensagem.showError("Selecione um componente curricular", "Para excluir um componente curricular é necessário primeiro seleciona-lo!");
         }
     }
 
@@ -467,7 +460,6 @@ public class QuadroDeHorarioController implements Initializable {
             } else {
                 mesInicial = 7;
             }
-
             thMes1 = new TabelaHorario(mesInicial, spAno.getValue());
             mesInicial++;
             thMes2 = new TabelaHorario(mesInicial, spAno.getValue());
@@ -578,8 +570,8 @@ public class QuadroDeHorarioController implements Initializable {
         @Override
         public void handle(MouseEvent event) {
             MateriaHorario materiaHorario = tvMateriaHorario.getSelectionModel().getSelectedItem();
-            lbSelecionado.setText("Seleção no Quadro Disciplina/Ambiente\n"
-                    + "Disciplina: " + (materiaHorario == null ? "Não selecionado" : materiaHorario.getMateriaTurmaIntrutorSemestre().getMateria().getNome()) + "\n"
+            lbSelecionado.setText("Seleção no Quadro de componentes curriculares/Ambiente\n"
+                    + "Componente curricular: " + (materiaHorario == null ? "Não selecionado" : materiaHorario.getMateriaTurmaIntrutorSemestre().getMateria().getNome()) + "\n"
                     + "Ambiente: " + ambiente);
             TabelaHorario.ambienteSelecionado = ambiente;
             TabelaHorario.materiaHorarioSelecionado = materiaHorario;

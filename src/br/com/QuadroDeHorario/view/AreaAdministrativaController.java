@@ -53,7 +53,9 @@ public class AreaAdministrativaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
             tbProjetoActionEvent(null);
-            stage = (Stage) apAmbiente.getScene().getWindow();
+            if (apAmbiente.getScene() != null) {
+                stage = (Stage) apAmbiente.getScene().getWindow();
+            }
         });
         permissao();
     }

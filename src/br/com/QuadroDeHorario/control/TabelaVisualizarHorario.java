@@ -102,15 +102,15 @@ public class TabelaVisualizarHorario extends TableView<HorarioDiario> {
         tcDados.setCellValueFactory((TableColumn.CellDataFeatures<HorarioDiario, String> param) -> {
             String sequenciaDados;
             if (param.getValue().getObjeto() instanceof Usuario) {
-                sequenciaDados = "Disciplina\n"
+                sequenciaDados = "Componente curricular\n"
                         + "Turma\n"
                         + "Ambiente";
             } else if (param.getValue().getObjeto() instanceof Turma) {
-                sequenciaDados = "Disciplina\n"
+                sequenciaDados = "Componente curricular\n"
                         + "Ambiente\n"
                         + "Instrutor";
             } else {
-                sequenciaDados = "Disciplina\n"
+                sequenciaDados = "Componente curricular\n"
                         + "Instrutor\n"
                         + "Turma";
             }

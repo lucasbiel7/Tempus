@@ -32,19 +32,23 @@
         </ScrollPane>
         <TableView fx:id="tvMateriaHorario" layoutY="427.0" prefHeight="185.0" prefWidth="704.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="303.0">
             <columns>
-                <TableColumn fx:id="tcSigla" prefWidth="75.0" text="Sigla" />
-                <TableColumn fx:id="tcDisciplina" prefWidth="75.0" text="Disciplina" />
+                <TableColumn fx:id="tcSigla" maxWidth="60.0" minWidth="60.0" prefWidth="75.0" text="Sigla" />
+                <TableColumn fx:id="tcDisciplina" minWidth="150.0" prefWidth="75.0" text="Unidade curricular" />
                 <TableColumn fx:id="tcInstrutor" prefWidth="75.0" text="Instrutor" />
-                <TableColumn fx:id="tcAmbiente1" prefWidth="75.0" text="Amb. 1" />
-                <TableColumn fx:id="tcAmbiente2" prefWidth="75.0" text="Amb. 2" />
-                <TableColumn fx:id="tcAmbiente3" prefWidth="75.0" text="Amb. 3" />
-                <TableColumn fx:id="tcAmbiente4" prefWidth="75.0" text="Amb. 4" />
-                <TableColumn fx:id="tcAmbiente5" prefWidth="75.0" text="Amb. 5" />
-                <TableColumn fx:id="tcCargaHoraria" prefWidth="75.0" text="C.Horaria" />
-                <TableColumn fx:id="tcCargaInstrutor" prefWidth="75.0" text="C. Instrutor" />
-                <TableColumn fx:id="tcDataInicio" prefWidth="75.0" text="Data início" />
-                <TableColumn fx:id="tcDataFim" prefWidth="75.0" text="Data Fim" />
-                <TableColumn fx:id="tcCargaDisciplina" prefWidth="75.0" text="C. Disciplina" />
+                <TableColumn fx:id="tcAmbiente1" maxWidth="80.0" minWidth="70.0" prefWidth="75.0" text="Amb. 1" />
+                <TableColumn fx:id="tcAmbiente2" maxWidth="80.0" minWidth="70.0" prefWidth="75.0" text="Amb. 2" />
+                <TableColumn fx:id="tcAmbiente3" maxWidth="80.0" minWidth="70.0" prefWidth="75.0" text="Amb. 3" />
+                <TableColumn fx:id="tcAmbiente4" maxWidth="80.0" minWidth="70.0" prefWidth="75.0" text="Amb. 4" />
+                <TableColumn fx:id="tcAmbiente5" maxWidth="80.0" minWidth="70.0" prefWidth="75.0" text="Amb. 5" />
+                <TableColumn fx:id="tcDataInicio" maxWidth="120.0" minWidth="100.0" prefWidth="75.0" text="Data início" />
+                <TableColumn fx:id="tcDataFim" maxWidth="120.0" minWidth="100.0" prefWidth="75.0" text="Data Fim" />
+            <TableColumn prefWidth="75.0" text="Carga horária">
+               <columns>
+                      <TableColumn fx:id="tcCargaHoraria" maxWidth="60.0" minWidth="60.0" prefWidth="75.0" text="Plano de&#10;curso" />
+                      <TableColumn fx:id="tcCargaInstrutor" maxWidth="60.0" minWidth="60.0" prefWidth="75.0" text="Lecio&#10;nada" />
+                      <TableColumn fx:id="tcCargaDisciplina" maxWidth="60.0" minWidth="60.0" prefWidth="75.0" text="Final" />
+               </columns>
+            </TableColumn>
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -100,6 +104,6 @@
                 </VBox>
             </children>
         </HBox>
-        <ProgressIndicator id="loadHorario" fx:id="progressIndicator" layoutX="6.0" layoutY="8.0" opacity="0.6" prefHeight="495.0" prefWidth="989.0" progress="0.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <ProgressIndicator id="loadHorario" fx:id="progressIndicator" layoutX="6.0" layoutY="8.0" opacity="0.6" prefHeight="495.0" prefWidth="989.0" progress="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
     </children>
 </AnchorPane>

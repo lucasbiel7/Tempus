@@ -17,6 +17,8 @@
 .label{
     -fx-text-fill:#FFFFFF;
     -fx-background-color: transparent;
+
+
 }
 
 .radio-button{
@@ -223,6 +225,8 @@
 /*Botão desconectar*/
 .logout{
     -fx-background-color: transparent;
+    -fx-content-display: graphic-only;
+    -fx-padding: 0px;
 }
 
 .logout:hover{

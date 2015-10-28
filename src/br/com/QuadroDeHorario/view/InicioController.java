@@ -8,6 +8,7 @@ package br.com.QuadroDeHorario.view;
 import br.com.QuadroDeHorario.dao.AtualizacaoDAO;
 import br.com.QuadroDeHorario.dao.SistemaDAO;
 import br.com.QuadroDeHorario.entity.Atualizacao;
+import br.com.QuadroDeHorario.util.Efeito;
 import br.com.QuadroDeHorario.util.FxMananger;
 import br.com.QuadroDeHorario.util.ParametrosBanco;
 import java.awt.Desktop;
@@ -25,6 +26,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -39,6 +41,8 @@ public class InicioController implements Initializable {
 
     @FXML
     private Label lbLogo;
+    @FXML
+    private ImageView ivLogo;
     @FXML
     private Label lbAtualizacao;
     @FXML
@@ -70,7 +74,8 @@ public class InicioController implements Initializable {
                 });
             }
         });
-        lbVersao.setText(FxMananger.NOME_PROGRAMA+" Versão: "+ParametrosBanco.VERSAO);
+        Efeito.logo(lbLogo, ivLogo);
+        lbVersao.setText(FxMananger.NOME_PROGRAMA + " Versão: " + ParametrosBanco.VERSAO);
         Atualizacao atualizacao = new AtualizacaoDAO().pegarPorSistema(new SistemaDAO().pegarPorNome(FxMananger.NOME_PROGRAMA));
         if (atualizacao != null) {
             lbAtualizacao.setText("Existe uma atualização para ser baixada: " + atualizacao.getNome());
@@ -79,7 +84,7 @@ public class InicioController implements Initializable {
                     try {
                         Desktop.getDesktop().browse(new URI(atualizacao.getUrl()));
                     } catch (IOException | URISyntaxException ex) {
-                        
+
                     }
                 }
             });

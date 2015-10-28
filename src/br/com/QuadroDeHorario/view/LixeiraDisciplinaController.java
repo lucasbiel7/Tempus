@@ -57,7 +57,7 @@ public class LixeiraDisciplinaController implements Initializable {
     private void miRestaurarActionEvent(ActionEvent actionEvent) {
         materia = tvMateria.getSelectionModel().getSelectedItem();
         if (materia != null) {
-            if (Mensagem.showConfirmation("Restaurar disciplina", "Você deseja restaurar essa disciplina?")) {
+            if (Mensagem.showConfirmation("Restaurar componente curricular", "Você deseja restaurar esse componente curricular?")) {
                 materia.setAtivo(true);
                 new MateriaDAO().editar(materia);
             }

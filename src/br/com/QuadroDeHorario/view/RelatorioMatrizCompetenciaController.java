@@ -102,7 +102,7 @@ public class RelatorioMatrizCompetenciaController implements Initializable {
                     + competencia + " " + UsuarioMateria.Tipo.COMPETENCIA + "<br/>"
                     + preferencia + " " + UsuarioMateria.Tipo.PREFERENCIA + "<br/>"
                     + interesse + " " + UsuarioMateria.Tipo.INTERESSE + "<br/><br/>";
-            dados += "<font size=4><b><i>Disciplinas</i></b></font><br/>";
+            dados += "<font size=4><b><i>Componente curriculares</i></b></font><br/>";
             for (Materia materia : new MateriaDAO().pegarTodosPorCurso(curso)) {
                 dados += "<font size=4><b>" + materia.getNome() + "</b></font><br/>";
                 for (UsuarioMateria usuarioMateria : new UsuarioMateriaDAO().pegarTodosPorMateria(materia)) {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
@@ -9,68 +10,93 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="apContainer" prefHeight="564.0" prefWidth="952.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.ImprimirQuadroController">
+<AnchorPane id="AnchorPane" fx:id="apContainer" prefHeight="589.0" prefWidth="1280.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.ImprimirQuadroController">
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
    <children>
-      <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="2.0" prefHeight="516.0" prefViewportHeight="515.0" prefViewportWidth="930.0" prefWidth="952.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0">
-         <content>
-            <VBox fx:id="quadro" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <HBox id="pane-user" alignment="CENTER" layoutX="-2.0" layoutY="2.0" minHeight="30.0" prefHeight="35.0" prefWidth="940.0" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <Label fx:id="lbNomeQuadro" prefHeight="2.0" prefWidth="227.0" styleClass="label-preto" textFill="#0d0c0c" />
-                        <Label prefHeight="6.0" prefWidth="348.0" styleClass="label-preto" text="SENAI -Centro tecnológico &quot;César Rodrigues&quot;" textFill="#0d0c0c" />
-                        <Label fx:id="lbSemestre" prefHeight="0.0" prefWidth="176.0" styleClass="label-preto" />
-                        <Label fx:id="lbData" prefHeight="0.0" prefWidth="232.0" styleClass="label-preto" textFill="#0d0c0c" />
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </HBox>
-                  <GridPane fx:id="gpMeses" layoutX="1.0" layoutY="46.0" prefHeight="326.0" prefWidth="950.0" AnchorPane.bottomAnchor="234.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="46.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints minHeight="-Infinity" prefHeight="195.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="-Infinity" prefHeight="195.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="-Infinity" prefHeight="195.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="-Infinity" prefHeight="195.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="-Infinity" prefHeight="195.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="-Infinity" prefHeight="195.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                  </GridPane>
-                  <TableView fx:id="tvMateriaHorario" layoutX="8.0" layoutY="355.0" minHeight="350.0" prefHeight="93.0" prefWidth="950.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="357.0">
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                     <columns>
-                        <TableColumn fx:id="tcSigla" maxWidth="2600.0" prefWidth="20.0" text="Sigla" />
-                        <TableColumn fx:id="tcDisciplina" prefWidth="108.0" text="Disciplina" />
-                        <TableColumn fx:id="tcInstrutor" prefWidth="75.0" text="Instrutor" />
-                        <TableColumn fx:id="tcAmbiente1" prefWidth="75.0" text="Amb. 1" />
-                        <TableColumn fx:id="tcAmbiente2" prefWidth="75.0" text="Amb. 2" />
-                        <TableColumn fx:id="tcAmbiente3" prefWidth="75.0" text="Amb. 3" />
-                        <TableColumn fx:id="tcAmbiente4" prefWidth="75.0" text="Amb. 4" />
-                        <TableColumn fx:id="tcAmbiente5" prefWidth="75.0" text="Amb. 5" />
-                        <TableColumn fx:id="tcCargaHoraria" prefWidth="75.0" text="C.Horaria" />
-                        <TableColumn fx:id="tcCargaInstrutor" prefWidth="75.0" text="C. Instrutor" />
-                        <TableColumn fx:id="tcDataInicio" prefWidth="75.0" text="Data início" />
-                        <TableColumn fx:id="tcDataFim" prefWidth="75.0" text="Data Fim" />
-                        <TableColumn fx:id="tcCargaDisciplina" prefWidth="75.0" text="C. Disciplina" />
-                     </columns>
-                  </TableView>
-               </children>
-            </VBox>
-         </content>
-      </ScrollPane>
-      <AnchorPane layoutX="-6.0" layoutY="556.0" prefHeight="46.0" prefWidth="936.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="518.0">
+      <HBox alignment="CENTER" layoutX="26.0" layoutY="14.0" AnchorPane.bottomAnchor="59.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0">
          <children>
-            <Button layoutX="854.0" layoutY="7.0" mnemonicParsing="false" onAction="#btImprimirActionEvent" text="Imprimir" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="6.0" />
-            <ComboBox fx:id="cbSemestre" layoutX="14.0" layoutY="8.0" prefHeight="30.0" prefWidth="150.0" />
-            <Spinner fx:id="spAno" layoutX="173.0" layoutY="8.0" prefHeight="30.0" />
+            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="516.0" prefViewportHeight="515.0" prefViewportWidth="1240.0" prefWidth="1240.0">
+               <content>
+                  <VBox fx:id="quadro" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <HBox id="pane-user" alignment="CENTER" layoutX="-2.0" layoutY="2.0" minHeight="30.0" prefHeight="35.0" prefWidth="940.0" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label prefHeight="16.0" prefWidth="92.0" styleClass="label-preto">
+                                 <graphic>
+                                    <ImageView fitHeight="18.0" fitWidth="91.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@image/fiemg.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Label>
+                              <Label prefHeight="27.0" prefWidth="110.0" styleClass="label-preto" text="BH-CETEL">
+                                 <graphic>
+                                    <ImageView fitHeight="27.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@image/tori.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Label>
+                              <Label fx:id="lbNomeQuadro" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="591.0" styleClass="label-preto" textFill="#0d0c0c" />
+                              <Label fx:id="lbSemestre" prefHeight="0.0" prefWidth="176.0" styleClass="label-preto" />
+                              <Label fx:id="lbData" prefHeight="0.0" prefWidth="232.0" styleClass="label-preto" textFill="#0d0c0c" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                        <GridPane fx:id="gpMeses" layoutX="1.0" layoutY="46.0" prefHeight="326.0" prefWidth="950.0" AnchorPane.bottomAnchor="234.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="46.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                              <RowConstraints minHeight="-Infinity" prefHeight="195.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="-Infinity" prefHeight="195.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="-Infinity" prefHeight="195.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="-Infinity" prefHeight="195.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="-Infinity" prefHeight="195.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="-Infinity" prefHeight="195.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                        <TableView fx:id="tvMateriaHorario" layoutX="8.0" layoutY="355.0" minHeight="570.0" prefHeight="200.0" prefWidth="1090.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="357.0">
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                           <columns>
+                              <TableColumn fx:id="tcSigla" maxWidth="60.0" minWidth="60.0" prefWidth="20.0" text="Sigla" />
+                              <TableColumn fx:id="tcDisciplina" minWidth="150.0" prefWidth="108.0" text="Unidade curricular" />
+                              <TableColumn fx:id="tcInstrutor" prefWidth="75.0" text="Instrutor" />
+                              <TableColumn fx:id="tcAmbiente1" maxWidth="80.0" minWidth="70.0" prefWidth="75.0" text="Amb. 1" />
+                              <TableColumn fx:id="tcAmbiente2" maxWidth="80.0" minWidth="70.0" prefWidth="75.0" text="Amb. 2" />
+                              <TableColumn fx:id="tcAmbiente3" maxWidth="80.0" minWidth="70.0" prefWidth="75.0" text="Amb. 3" />
+                              <TableColumn fx:id="tcAmbiente4" maxWidth="80.0" minWidth="70.0" prefWidth="75.0" text="Amb. 4" />
+                              <TableColumn fx:id="tcAmbiente5" maxWidth="80.0" minWidth="70.0" prefWidth="75.0" text="Amb. 5" />
+                              <TableColumn fx:id="tcDataInicio" maxWidth="120.0" minWidth="100.0" prefWidth="75.0" text="Data início" />
+                              <TableColumn fx:id="tcDataFim" maxWidth="120.0" minWidth="100.0" prefWidth="75.0" text="Data Fim" />
+                              <TableColumn prefWidth="75.0" text="Carga Horária">
+                                 <columns>
+                                    <TableColumn fx:id="tcCargaHoraria" maxWidth="60.0" minWidth="60.0" prefWidth="75.0" text="Plano de &#10;curso" />
+                                    <TableColumn fx:id="tcCargaInstrutor" maxWidth="60.0" minWidth="60.0" prefWidth="75.0" text="Lecio&#10;nada" />
+                                    <TableColumn fx:id="tcCargaDisciplina" maxWidth="60.0" minWidth="60.0" prefWidth="75.0" text="Final" />
+                                 </columns>
+                              </TableColumn>
+                           </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </HBox>
+      <AnchorPane layoutX="-6.0" layoutY="556.0" prefHeight="46.0" prefWidth="936.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Button layoutX="854.0" layoutY="7.0" mnemonicParsing="false" onAction="#btImprimirActionEvent" text="Imprimir" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="14.0" />
+            <ComboBox fx:id="cbSemestre" layoutX="14.0" layoutY="8.0" onAction="#cbSemestreActionEvent" prefHeight="30.0" prefWidth="150.0" />
+            <Spinner fx:id="spAno" layoutX="173.0" layoutY="8.0" onMouseReleased="#spAnoMouseReleased" prefHeight="30.0" />
          </children>
       </AnchorPane>
    </children>
