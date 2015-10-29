@@ -70,7 +70,7 @@ public class MateriaHorarioDAO extends GenericaDAO<MateriaHorario> {
     }
 
     public List<MateriaHorario> pegarTodosPorInstrutorTurnoSemestreAno(Usuario instrutor, DataHorario.Turno turno, DataHorario.Semestre semestre, Integer ano) {
-        List<Turma> turmas = new TurmaDAO().pegarPorTurno(turno != DataHorario.Turno.noite ? new DataHorario.Turno[]{turno, DataHorario.Turno.diurno} : new DataHorario.Turno[]{turno});
+        List<Turma> turmas = new TurmaDAO().pegarPorTurno(turno != DataHorario.Turno.NOITE ? new DataHorario.Turno[]{turno, DataHorario.Turno.DIURNO} : new DataHorario.Turno[]{turno});
         if (turmas.isEmpty()) {
             finalizarSession();
             return new ArrayList<>();

@@ -46,9 +46,9 @@ public class TurmaDAO extends GenericaDAO<Turma> {
         finalizarSession();
         return entitys;
     }
-
+    
     public List<Turma> pegarTodasEntreDataTurno(Date dia, DataHorario.Turno turno) {
-        entitys = criteria.add(Restrictions.lt("inicio", dia)).add(Restrictions.gt("fim", dia)).add(turno == DataHorario.Turno.noite ? Restrictions.eq("turno", turno) : Restrictions.in("turno", new DataHorario.Turno[]{turno, DataHorario.Turno.diurno})).list();
+        entitys = criteria.add(Restrictions.lt("inicio", dia)).add(Restrictions.gt("fim", dia)).add(turno == DataHorario.Turno.NOITE ? Restrictions.eq("turno", turno) : Restrictions.in("turno", new DataHorario.Turno[]{turno, DataHorario.Turno.DIURNO})).list();
         finalizarSession();
         return entitys;
     }

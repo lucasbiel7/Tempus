@@ -35,6 +35,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
+                  <Button layoutX="81.0" layoutY="9.0" mnemonicParsing="false" onAction="#btSemestralActionEvent" text="Semestral" />
                </children>
             </AnchorPane>
          </content>

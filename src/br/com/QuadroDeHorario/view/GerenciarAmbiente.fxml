@@ -7,25 +7,40 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="595.0" prefWidth="755.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.GerenciarAmbienteController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="595.0" prefWidth="807.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.GerenciarAmbienteController">
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
    <children>
-      <Label layoutX="42.0" layoutY="23.0" prefHeight="23.0" prefWidth="39.0" text="Nome" />
-      <Label layoutX="25.0" layoutY="64.0" text="Descrição" />
-      <ListView fx:id="lvRecurso" layoutX="20.0" layoutY="183.0" onMouseReleased="#lvRecursoMouseReleased" prefHeight="200.0" prefWidth="141.0" />
-      <Label layoutX="63.0" layoutY="154.0" text="Recursos" />
-      <TextField fx:id="tfNome" layoutX="94.0" layoutY="19.0" prefHeight="30.0" prefWidth="213.0" />
-      <TextArea fx:id="taDescricao" layoutX="96.0" layoutY="64.0" prefHeight="83.0" prefWidth="213.0" />
-      <Label layoutX="206.0" layoutY="154.0" text="Recursos adicionados" />
-      <ListView fx:id="lvRecursoAdicionado" layoutX="193.0" layoutY="183.0" onMouseReleased="#lvRecursosAdicionadosMouseReleased" prefHeight="200.0" prefWidth="141.0" />
-      <Label layoutX="25.0" layoutY="403.0" text="Capacidade" />
-      <Spinner fx:id="spCapacidade" editable="true" layoutX="100.0" layoutY="393.0" prefHeight="35.0" prefWidth="233.0" />
-      <Button layoutX="180.0" layoutY="521.0" mnemonicParsing="false" onAction="#btSalvarActionEvent" text="Salvar" />
-      <Button layoutX="278.0" layoutY="521.0" mnemonicParsing="false" onAction="#btNovoActionEvent" text="Novo" />
-      <Separator layoutX="354.0" layoutY="14.0" orientation="VERTICAL" prefHeight="552.0" prefWidth="1.0" AnchorPane.bottomAnchor="14.0" AnchorPane.topAnchor="14.0" />
-      <TableView fx:id="tvAmbiente" layoutX="369.0" layoutY="61.0" onMouseReleased="#tvAmbienteMouseReleased" prefHeight="499.0" prefWidth="372.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="369.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="61.0">
+      <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="14.0" layoutY="19.0" prefHeight="565.0" prefWidth="365.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="15.0">
+         <content>
+            <AnchorPane prefHeight="537.0" prefWidth="327.0" styleClass="mainFxmlClass">
+               <children>
+                  <Label layoutX="42.0" layoutY="16.0" prefHeight="23.0" prefWidth="39.0" text="Nome" />
+                  <Label layoutX="25.0" layoutY="57.0" text="Descrição" />
+                  <ListView fx:id="lvRecurso" layoutX="20.0" layoutY="176.0" onMouseReleased="#lvRecursoMouseReleased" prefHeight="200.0" prefWidth="141.0" />
+                  <Label layoutX="63.0" layoutY="147.0" text="Recursos" />
+                  <TextField fx:id="tfNome" layoutX="94.0" layoutY="12.0" prefHeight="30.0" prefWidth="213.0" />
+                  <TextArea fx:id="taDescricao" layoutX="96.0" layoutY="57.0" prefHeight="83.0" prefWidth="213.0" />
+                  <Label layoutX="206.0" layoutY="147.0" text="Recursos adicionados" />
+                  <ListView fx:id="lvRecursoAdicionado" layoutX="193.0" layoutY="176.0" onMouseReleased="#lvRecursosAdicionadosMouseReleased" prefHeight="200.0" prefWidth="141.0" />
+                  <Label layoutX="25.0" layoutY="396.0" text="Capacidade" />
+                  <Spinner fx:id="spCapacidade" editable="true" layoutX="100.0" layoutY="386.0" prefHeight="35.0" prefWidth="233.0" />
+                  <Button layoutX="180.0" layoutY="514.0" mnemonicParsing="false" onAction="#btSalvarActionEvent" text="Salvar" />
+                  <Button layoutX="278.0" layoutY="514.0" mnemonicParsing="false" onAction="#btNovoActionEvent" text="Novo" />
+                  <Label layoutX="51.0" layoutY="438.0" text="Chave" />
+                  <TextField fx:id="tfChave" disable="true" editable="false" layoutX="100.0" layoutY="431.0" prefHeight="31.0" prefWidth="141.0" />
+                  <Button fx:id="btLerChave" layoutX="253.0" layoutY="429.0" mnemonicParsing="false" onAction="#btLerChaveActionEvent" text="Conectar" />
+                  <TextField fx:id="tfChaveReserva" disable="true" editable="false" layoutX="100.0" layoutY="471.0" prefHeight="35.0" prefWidth="141.0" />
+                  <Label layoutX="14.0" layoutY="480.0" text="Chave reserva" />
+                  <Button fx:id="btLerChaveReserva" layoutX="253.0" layoutY="471.0" mnemonicParsing="false" onAction="#btLerChaveActionEvent" text="Conectar" />
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <Separator layoutX="388.0" layoutY="14.0" orientation="VERTICAL" prefHeight="552.0" prefWidth="1.0" AnchorPane.bottomAnchor="14.0" AnchorPane.topAnchor="14.0" />
+      <TextField fx:id="tfPesquisar" layoutX="404.0" layoutY="15.0" onKeyReleased="#tfPesquisarKeyRelease" prefHeight="30.0" prefWidth="389.0" promptText="Pesquisar por nome" />
+      <TableView fx:id="tvAmbiente" layoutX="404.0" layoutY="61.0" onMouseReleased="#tvAmbienteMouseReleased" prefHeight="520.0" prefWidth="389.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="404.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="61.0">
         <columns>
           <TableColumn fx:id="tcNome" prefWidth="75.0" text="Nome" />
             <TableColumn fx:id="tcDescricao" prefWidth="75.0" text="Descrição" />
@@ -42,12 +57,5 @@
             </ContextMenu>
          </contextMenu>
       </TableView>
-      <TextField fx:id="tfPesquisar" layoutX="369.0" layoutY="19.0" onKeyReleased="#tfPesquisarKeyRelease" prefHeight="30.0" prefWidth="372.0" promptText="Pesquisar por nome" AnchorPane.leftAnchor="369.0" AnchorPane.rightAnchor="14.0" />
-      <Label layoutX="51.0" layoutY="445.0" text="Chave" />
-      <TextField fx:id="tfChave" disable="true" editable="false" layoutX="100.0" layoutY="438.0" prefHeight="31.0" prefWidth="141.0" />
-      <Button fx:id="btLerChave" layoutX="253.0" layoutY="436.0" mnemonicParsing="false" onAction="#btLerChaveActionEvent" text="Conectar" />
-      <TextField fx:id="tfChaveReserva" disable="true" editable="false" layoutX="100.0" layoutY="478.0" prefHeight="35.0" prefWidth="141.0" />
-      <Label layoutX="14.0" layoutY="487.0" text="Chave reserva" />
-      <Button fx:id="btLerChaveReserva" layoutX="253.0" layoutY="478.0" mnemonicParsing="false" onAction="#btLerChaveActionEvent" text="Conectar" />
    </children>
 </AnchorPane>

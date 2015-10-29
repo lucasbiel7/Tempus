@@ -82,7 +82,7 @@ public class UsuarioDAO extends GenericaDAO<Usuario> {
     }
 
     public List<Usuario> pegarPorGrupoTurno(Grupo grupo, DataHorario.Turno turno) {
-        entitys = criteria.add(Restrictions.eq("grupo", grupo)).add(Restrictions.eq(turno == DataHorario.Turno.manha ? "manha" : turno == DataHorario.Turno.tarde ? "tarde" : "noite", true)).list();
+        entitys = criteria.add(Restrictions.eq("grupo", grupo)).add(Restrictions.eq(turno == DataHorario.Turno.MANHA ? "manha" : turno == DataHorario.Turno.TARDE ? "tarde" : "noite", true)).list();
         finalizarSession();
         return entitys;
     }

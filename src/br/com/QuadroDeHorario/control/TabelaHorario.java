@@ -150,8 +150,11 @@ public class TabelaHorario extends TableView<MesCalendario> {
     private static boolean cargaHoraria;
     private SimpleDateFormat sdfData = new SimpleDateFormat("dd/MM/yyyy");
 
+    private int mes;
+
     public TabelaHorario(int mes, int ano) {
         try {
+            this.mes = mes;
             inicio = data.parse("01/" + mes + "/" + ano);
             fim = data.parse("01/" + (mes + 1) + "/" + ano);
             Calendar calendar = Calendar.getInstance();
@@ -766,4 +769,30 @@ public class TabelaHorario extends TableView<MesCalendario> {
             }
         }
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + this.mes;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TabelaHorario other = (TabelaHorario) obj;
+        if (this.mes != other.mes) {
+            return false;
+        }
+        return true;
+    }
+
 }

@@ -79,7 +79,7 @@ public class CarregarQuadroDeHorarioController implements Initializable {
         cursosImpressao.setAll(new CursoDAO().pegarTodos());
         usuarios.setAll(new UsuarioDAO().pegarPorGrupo(new GrupoDAO().pegarPorId(2)));
         turnos.setAll(Turno.values());
-        turnos.removeIf((Turno t) -> t == Turno.diurno);
+        turnos.removeIf((Turno t) -> t == Turno.DIURNO);
         permissoes();
     }
 

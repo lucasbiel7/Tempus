@@ -209,9 +209,9 @@ public class AdicionarGrupoUsuarioEventoController implements Initializable {
             for (Usuario usuariosAdicionado : usuariosAdicionados) {
                 try {
                     CalendarioUsuario calendarioUsuario = new CalendarioUsuario(new CalendarioUsuarioID(calendariosAdicionado, usuariosAdicionado));
-                    calendarioUsuario.setManha(usuariosAdicionado.isManha() && new AulaDAO().pegarPorDiaInstrutorTurnos(usuariosAdicionado, calendariosAdicionado.getId().getDataAcontecimento(), DataHorario.Turno.manha).isEmpty());
-                    calendarioUsuario.setTarde(usuariosAdicionado.isTarde() && new AulaDAO().pegarPorDiaInstrutorTurnos(usuariosAdicionado, calendariosAdicionado.getId().getDataAcontecimento(), DataHorario.Turno.tarde).isEmpty());
-                    calendarioUsuario.setNoite(usuariosAdicionado.isNoite() && new AulaDAO().pegarPorDiaInstrutorTurnos(usuariosAdicionado, calendariosAdicionado.getId().getDataAcontecimento(), DataHorario.Turno.noite).isEmpty());
+                    calendarioUsuario.setManha(usuariosAdicionado.isManha() && new AulaDAO().pegarPorDiaInstrutorTurnos(usuariosAdicionado, calendariosAdicionado.getId().getDataAcontecimento(), DataHorario.Turno.MANHA).isEmpty());
+                    calendarioUsuario.setTarde(usuariosAdicionado.isTarde() && new AulaDAO().pegarPorDiaInstrutorTurnos(usuariosAdicionado, calendariosAdicionado.getId().getDataAcontecimento(), DataHorario.Turno.TARDE).isEmpty());
+                    calendarioUsuario.setNoite(usuariosAdicionado.isNoite() && new AulaDAO().pegarPorDiaInstrutorTurnos(usuariosAdicionado, calendariosAdicionado.getId().getDataAcontecimento(), DataHorario.Turno.NOITE).isEmpty());
                     if (new CalendarioUsuarioDAO().pegarPorId(calendarioUsuario.getId()) == null) {
                         new CalendarioUsuarioDAO().cadastrar(calendarioUsuario);
                     } else {

@@ -20,9 +20,6 @@ import br.com.QuadroDeHorario.entity.CalendarioUsuario;
 import br.com.QuadroDeHorario.entity.CalendarioUsuarioID;
 import br.com.QuadroDeHorario.entity.Usuario;
 import br.com.QuadroDeHorario.util.DataHorario;
-import static br.com.QuadroDeHorario.util.DataHorario.Turno.manha;
-import static br.com.QuadroDeHorario.util.DataHorario.Turno.noite;
-import static br.com.QuadroDeHorario.util.DataHorario.Turno.tarde;
 import br.com.QuadroDeHorario.util.FxMananger;
 import br.com.QuadroDeHorario.util.Mensagem;
 import java.net.URL;
@@ -45,6 +42,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
+import static br.com.QuadroDeHorario.util.DataHorario.Turno.MANHA;
+import static br.com.QuadroDeHorario.util.DataHorario.Turno.TARDE;
+import static br.com.QuadroDeHorario.util.DataHorario.Turno.NOITE;
 
 /**
  * FXML Controller class
@@ -118,9 +118,9 @@ public class AdicionarRecursosEventoController implements Initializable {
         tcManhaAmbiente.setCellValueFactory((TableColumn.CellDataFeatures<CalendarioAmbiente, CalendarioAmbiente> param) -> new SimpleObjectProperty<>(param.getValue()));
         tcTardeAmbiente.setCellValueFactory((TableColumn.CellDataFeatures<CalendarioAmbiente, CalendarioAmbiente> param) -> new SimpleObjectProperty<>(param.getValue()));
         tcNoiteAmbiente.setCellValueFactory((TableColumn.CellDataFeatures<CalendarioAmbiente, CalendarioAmbiente> param) -> new SimpleObjectProperty<>(param.getValue()));
-        tcManhaAmbiente.setCellFactory(new HorarioAmbienteTableRender(DataHorario.Turno.manha));
-        tcTardeAmbiente.setCellFactory(new HorarioAmbienteTableRender(DataHorario.Turno.tarde));
-        tcNoiteAmbiente.setCellFactory(new HorarioAmbienteTableRender(DataHorario.Turno.noite));
+        tcManhaAmbiente.setCellFactory(new HorarioAmbienteTableRender(DataHorario.Turno.MANHA));
+        tcTardeAmbiente.setCellFactory(new HorarioAmbienteTableRender(DataHorario.Turno.TARDE));
+        tcNoiteAmbiente.setCellFactory(new HorarioAmbienteTableRender(DataHorario.Turno.NOITE));
         //Configurar Colunas Usuarios
         //Setando os valores das colunas
         tcNomeUsuario.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -128,9 +128,9 @@ public class AdicionarRecursosEventoController implements Initializable {
         tcTardeUsuario.setCellValueFactory((TableColumn.CellDataFeatures<CalendarioUsuario, CalendarioUsuario> param) -> new SimpleObjectProperty<>(param.getValue()));
         tcNoiteUsuario.setCellValueFactory((TableColumn.CellDataFeatures<CalendarioUsuario, CalendarioUsuario> param) -> new SimpleObjectProperty<>(param.getValue()));
         //Render das colunas
-        tcManhaUsuario.setCellFactory(new HorarioUsuarioTableRender(DataHorario.Turno.manha));
-        tcTardeUsuario.setCellFactory(new HorarioUsuarioTableRender(DataHorario.Turno.tarde));
-        tcNoiteUsuario.setCellFactory(new HorarioUsuarioTableRender(DataHorario.Turno.noite));
+        tcManhaUsuario.setCellFactory(new HorarioUsuarioTableRender(DataHorario.Turno.MANHA));
+        tcTardeUsuario.setCellFactory(new HorarioUsuarioTableRender(DataHorario.Turno.TARDE));
+        tcNoiteUsuario.setCellFactory(new HorarioUsuarioTableRender(DataHorario.Turno.NOITE));
         cbUsuario.setItems(usuarios);
         cbCalendario.setItems(calendarios);
         tvAmbiente.setItems(calendarioAmbientes);
@@ -144,13 +144,13 @@ public class AdicionarRecursosEventoController implements Initializable {
         if (cbAmbiente.getSelectionModel().getSelectedItem() != null) {
             List<DataHorario.Turno> turnos = new ArrayList<>();
             if (cbManha.isSelected()) {
-                turnos.add(DataHorario.Turno.manha);
+                turnos.add(DataHorario.Turno.MANHA);
             }
             if (cbTarde.isSelected()) {
-                turnos.add(DataHorario.Turno.tarde);
+                turnos.add(DataHorario.Turno.TARDE);
             }
             if (cbNoite.isSelected()) {
-                turnos.add(DataHorario.Turno.noite);
+                turnos.add(DataHorario.Turno.NOITE);
             }
             List<Aula> aulas = new AulaDAO().pegarPorAmbienteDia(dataSelecionada, cbAmbiente.getSelectionModel().getSelectedItem(), turnos.toArray(new DataHorario.Turno[turnos.size()]));
             List<CalendarioAmbiente> calendarioAmbientes = new CalendarioAmbienteDAO().pegarTodosPorDataAmbiente(dataSelecionada, cbAmbiente.getSelectionModel().getSelectedItem());
@@ -193,13 +193,13 @@ public class AdicionarRecursosEventoController implements Initializable {
         if (cbUsuario.getSelectionModel().getSelectedItem() != null) {
             List<DataHorario.Turno> turnos = new ArrayList<>();
             if (cbManha.isSelected()) {
-                turnos.add(DataHorario.Turno.manha);
+                turnos.add(DataHorario.Turno.MANHA);
             }
             if (cbTarde.isSelected()) {
-                turnos.add(DataHorario.Turno.tarde);
+                turnos.add(DataHorario.Turno.TARDE);
             }
             if (cbNoite.isSelected()) {
-                turnos.add(DataHorario.Turno.noite);
+                turnos.add(DataHorario.Turno.NOITE);
             }
             List<Aula> aulas = new AulaDAO().pegarPorDiaInstrutorTurnos(cbUsuario.getSelectionModel().getSelectedItem(), dataSelecionada, turnos.toArray(new DataHorario.Turno[]{}));
             List<CalendarioUsuario> calendarioUsuarios = new CalendarioUsuarioDAO().pegarTodosPorUsuarioData(cbUsuario.getSelectionModel().getSelectedItem(), dataSelecionada);
@@ -289,13 +289,13 @@ public class AdicionarRecursosEventoController implements Initializable {
                     } else {
                         CheckBox checkBox = new CheckBox();
                         switch (turno) {
-                            case manha:
+                            case MANHA:
                                 checkBox.setSelected(item.isManha());
                                 break;
-                            case tarde:
+                            case TARDE:
                                 checkBox.setSelected(item.isTarde());
                                 break;
-                            case noite:
+                            case NOITE:
                                 checkBox.setSelected(item.isNoite());
                                 break;
                         }
@@ -303,13 +303,13 @@ public class AdicionarRecursosEventoController implements Initializable {
                             List<Aula> aulas = new AulaDAO().pegarPorDiaInstrutorTurnos(item.getId().getUsuario(), dataSelecionada, turno);
                             if (aulas.isEmpty() || !checkBox.isSelected()) {
                                 switch (turno) {
-                                    case manha:
+                                    case MANHA:
                                         item.setManha(checkBox.isSelected());
                                         break;
-                                    case tarde:
+                                    case TARDE:
                                         item.setTarde(checkBox.isSelected());
                                         break;
-                                    case noite:
+                                    case NOITE:
                                         item.setNoite(checkBox.isSelected());
                                         break;
                                 }
@@ -348,13 +348,13 @@ public class AdicionarRecursosEventoController implements Initializable {
                     } else {
                         CheckBox checkBox = new CheckBox();
                         switch (turno) {
-                            case manha:
+                            case MANHA:
                                 checkBox.setSelected(item.isManha());
                                 break;
-                            case tarde:
+                            case TARDE:
                                 checkBox.setSelected(item.isTarde());
                                 break;
-                            case noite:
+                            case NOITE:
                                 checkBox.setSelected(item.isNoite());
                                 break;
                         }
@@ -362,13 +362,13 @@ public class AdicionarRecursosEventoController implements Initializable {
                             List<Aula> aulas = new AulaDAO().pegarPorAmbienteDia(dataSelecionada, item.getId().getAmbiente(), turno);
                             if (aulas.isEmpty() || !checkBox.isSelected()) {
                                 switch (turno) {
-                                    case manha:
+                                    case MANHA:
                                         item.setManha(checkBox.isSelected());
                                         break;
-                                    case tarde:
+                                    case TARDE:
                                         item.setTarde(checkBox.isSelected());
                                         break;
-                                    case noite:
+                                    case NOITE:
                                         item.setNoite(checkBox.isSelected());
                                         break;
                                 }

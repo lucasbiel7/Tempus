@@ -161,6 +161,7 @@ public class ImprimirQuadroController implements Initializable {
                 carregarTabelas();
             }
             carregarCabecalho();
+            tcInstrutor.setText(turma != null ? "Instrutor" : "Turma");
         });
         cbSemestre.setItems(semestres);
         semestres.setAll(Semestre.values());
@@ -192,7 +193,7 @@ public class ImprimirQuadroController implements Initializable {
         //Tabela MateriaHorario
         tcSigla.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> new SimpleStringProperty(param.getValue().toString()));
         tcDisciplina.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> new SimpleStringProperty(param.getValue().getMateriaTurmaIntrutorSemestre().getMateria().toString()));
-        tcInstrutor.setText(turma != null ? "Instrutor" : "Turma");
+        
         tcInstrutor.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> {
             if (turma != null) {
                 return new SimpleStringProperty(param.getValue().getMateriaTurmaIntrutorSemestre().getInstrutor() != null ? param.getValue().getMateriaTurmaIntrutorSemestre().getInstrutor().toString() : "");
@@ -291,7 +292,7 @@ public class ImprimirQuadroController implements Initializable {
             TabelaHorarioImpressao.turno = turno;
         }
         int mesInicial;
-        if (cbSemestre.getSelectionModel().getSelectedItem().equals(DataHorario.Semestre.semestre1)) {
+        if (cbSemestre.getSelectionModel().getSelectedItem().equals(DataHorario.Semestre.SEMESTRE1)) {
             mesInicial = 1;
         } else {
             mesInicial = 7;

@@ -33,8 +33,8 @@
         <TableView fx:id="tvMateriaHorario" layoutY="427.0" prefHeight="185.0" prefWidth="704.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="303.0">
             <columns>
                 <TableColumn fx:id="tcSigla" maxWidth="60.0" minWidth="60.0" prefWidth="75.0" text="Sigla" />
-                <TableColumn fx:id="tcDisciplina" minWidth="150.0" prefWidth="75.0" text="Unidade curricular" />
-                <TableColumn fx:id="tcInstrutor" prefWidth="75.0" text="Instrutor" />
+                <TableColumn fx:id="tcDisciplina" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="-1.0" text="Unidade curricular" />
+                <TableColumn fx:id="tcInstrutor" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="-1.0" text="Instrutor" />
                 <TableColumn fx:id="tcAmbiente1" maxWidth="80.0" minWidth="70.0" prefWidth="75.0" text="Amb. 1" />
                 <TableColumn fx:id="tcAmbiente2" maxWidth="80.0" minWidth="70.0" prefWidth="75.0" text="Amb. 2" />
                 <TableColumn fx:id="tcAmbiente3" maxWidth="80.0" minWidth="70.0" prefWidth="75.0" text="Amb. 3" />

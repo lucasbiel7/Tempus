@@ -37,7 +37,7 @@ public class ParametrosBanco {
     public static String IP;
     public static String USUARIO;
     public static String SENHA;
-    public static final double VERSAO = 3.4201;
+    public static final double VERSAO = 3.43;
 
     static {
         try {

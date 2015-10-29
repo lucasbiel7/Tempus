@@ -103,7 +103,7 @@ public class VisualizarHorarioController implements Initializable {
         cbTurno.getSelectionModel().select(DataHorario.Turno.getTurnoAtual());
         lbLogo.setText(FxMananger.NOME_PROGRAMA);
         turnos.setAll(DataHorario.Turno.values());
-        turnos.remove(DataHorario.Turno.diurno);
+        turnos.remove(DataHorario.Turno.DIURNO);
     }
 
     @FXML
@@ -122,6 +122,11 @@ public class VisualizarHorarioController implements Initializable {
     private void btInstrutorActionEvent(ActionEvent actionEvent) {
         clicado = Usuario.class;
         carregarTabela(clicado);
+    }
+
+    @FXML
+    private void btSemestralActionEvent(ActionEvent actionEvent) {
+        FxMananger.show("VisualizarHorarioSemestral", "Visualizar horário semestral", true, false,clicado);
     }
 
     @FXML

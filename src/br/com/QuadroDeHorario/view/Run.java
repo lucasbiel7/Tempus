@@ -5,12 +5,16 @@
  */
 package br.com.QuadroDeHorario.view;
 
-import br.com.QuadroDeHorario.dao.UsuarioDAO;
-import br.com.QuadroDeHorario.entity.Usuario;
 import br.com.QuadroDeHorario.util.FxMananger;
-import br.com.QuadroDeHorario.util.SessaoUsuario;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -21,23 +25,23 @@ public class Run extends Application {
     @Override
     public void start(Stage primaryStage) {
         //Código para criar o instalador
-//        try {
-//            primaryStage.setResizable(false);
-//            primaryStage.setTitle(FxMananger.NOME_PROGRAMA + " - Loading");
-//            Scene scene = new Scene(FXMLLoader.load(getClass().getResource("LoadScreen.fxml")));
-//            primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("image/icone.png")));
-//            primaryStage.setScene(scene);
-//            primaryStage.initStyle(StageStyle.UNDECORATED);
-//            primaryStage.show();
-//        } catch (IOException ex) {
-//            Logger.getLogger(Run.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            primaryStage.setResizable(false);
+            primaryStage.setTitle(FxMananger.NOME_PROGRAMA + " - Loading");
+            Scene scene = new Scene(FXMLLoader.load(getClass().getResource("LoadScreen.fxml")));
+            primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("image/icone.png")));
+            primaryStage.setScene(scene);
+            primaryStage.initStyle(StageStyle.UNDECORATED);
+            primaryStage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Run.class.getName()).log(Level.SEVERE, null, ex);
+        }
         //Modo desenvolvedor
-        Usuario usuario = new Usuario();
-        usuario.setLogin("ldutra");
-        usuario.setSenha("Lucas5@");
-        SessaoUsuario.setUsuario(new UsuarioDAO().login(usuario));
-        FxMananger.show("Principal", "Principal", false, true, true);
+//        Usuario usuario = new Usuario();
+//        usuario.setLogin("ldutra");
+//        usuario.setSenha("Lucas5@");
+//        SessaoUsuario.setUsuario(new UsuarioDAO().login(usuario));
+//        FxMananger.show("Principal", "Principal", false, true, true);
 //        Teste Visualizar Horário/Interface para usuário final
 //        FxMananger.show("VisualizarHorario", "Visualizar Horário", false, true, true);
     }

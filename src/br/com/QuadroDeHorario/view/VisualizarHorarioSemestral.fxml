@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="apContainer" prefHeight="180.0" prefWidth="295.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.VisualizarHorarioSemestralController">
+    <stylesheets>
+        <URL value="@estilo.css" />
+    </stylesheets>
+   <children>
+      <ComboBox fx:id="cbObjeto" layoutX="74.0" layoutY="29.0" prefHeight="25.0" prefWidth="201.0" />
+      <Label fx:id="lbObjeto" layoutX="25.0" layoutY="33.0" text="objeto" />
+      <Label fx:id="lbTurno" layoutX="27.0" layoutY="80.0" text="Turno" />
+      <ComboBox fx:id="cbTurno" layoutX="74.0" layoutY="76.0" prefHeight="25.0" prefWidth="201.0" />
+      <Button layoutX="74.0" layoutY="122.0" mnemonicParsing="false" onAction="#btVerSemestralActionEvent" text="Ver semestral" />
+   </children>
+</AnchorPane>

@@ -69,9 +69,9 @@ public class DetalheInstrutorController implements Initializable {
             data = (Date) ((Object[]) lbTitulo.getParent().getUserData())[1];
             lbTitulo.setText(usuario.getNome());
             lbDetalhe.setText("Aulas por periodo:\n"
-                    + DataHorario.Turno.manha + ": " + new AulaDAO().pegarPorDiaInstrutor(usuario, data, DataHorario.Turno.manha).size() + "\n"
-                    + DataHorario.Turno.tarde + ": " + new AulaDAO().pegarPorDiaInstrutor(usuario, data, DataHorario.Turno.tarde).size() + "\n"
-                    + DataHorario.Turno.noite + ": " + new AulaDAO().pegarPorDiaInstrutor(usuario, data, DataHorario.Turno.noite).size() + "\n");
+                    + DataHorario.Turno.MANHA + ": " + new AulaDAO().pegarPorDiaInstrutor(usuario, data, DataHorario.Turno.MANHA).size() + "\n"
+                    + DataHorario.Turno.TARDE + ": " + new AulaDAO().pegarPorDiaInstrutor(usuario, data, DataHorario.Turno.TARDE).size() + "\n"
+                    + DataHorario.Turno.NOITE + ": " + new AulaDAO().pegarPorDiaInstrutor(usuario, data, DataHorario.Turno.NOITE).size() + "\n");
             lcGrafico.setTitle("Ocupação referente ao mês de " + sdfMes.format(data));
             lcGrafico.setData(dadosGrafico);
             carregarGrafico();

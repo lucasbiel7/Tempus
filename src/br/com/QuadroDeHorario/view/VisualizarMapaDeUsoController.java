@@ -52,7 +52,7 @@ public class VisualizarMapaDeUsoController implements Initializable {
 
     private void carregarTabelas() {
         int mes = 0;
-        if (semestre == DataHorario.Semestre.semestre2) {
+        if (semestre == DataHorario.Semestre.SEMESTRE2) {
             mes += 6;
         }
         mes++;

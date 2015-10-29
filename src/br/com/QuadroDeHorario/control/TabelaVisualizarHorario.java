@@ -69,11 +69,11 @@ public class TabelaVisualizarHorario extends TableView<HorarioDiario> {
         setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY);
         tcTipo = new TableColumn<>(classe.equals(Turma.class) ? "Turmas" : classe.equals(Usuario.class) ? "Instrutor" : "Ambiente");
         tcPrimeiroHorario = new TableColumn<>("Tipo");
-        tcPrimeiroHorario = new TableColumn<>(DataHorario.Horario.horario1.toString());
-        tcSegundoHorario = new TableColumn<>(DataHorario.Horario.horario2.toString());
-        tcTerceiroHorario = new TableColumn<>(DataHorario.Horario.horario3.toString());
-        tcQuartoHorario = new TableColumn<>(DataHorario.Horario.horario4.toString());
-        tcQuintoHorario = new TableColumn<>(DataHorario.Horario.horario5.toString());
+        tcPrimeiroHorario = new TableColumn<>(DataHorario.Horario.HORARIO1.toString());
+        tcSegundoHorario = new TableColumn<>(DataHorario.Horario.HORARIO2.toString());
+        tcTerceiroHorario = new TableColumn<>(DataHorario.Horario.HORARIO3.toString());
+        tcQuartoHorario = new TableColumn<>(DataHorario.Horario.HORARIO4.toString());
+        tcQuintoHorario = new TableColumn<>(DataHorario.Horario.HORARIO5.toString());
         tcNome = new TableColumn<>("Nome");
         tcDados = new TableColumn<>("Dados");
         tcNome.setCellValueFactory((TableColumn.CellDataFeatures<HorarioDiario, String> param) -> new SimpleStringProperty(param.getValue().getObjeto().toString()));
@@ -198,33 +198,33 @@ public class TabelaVisualizarHorario extends TableView<HorarioDiario> {
             for (Turma turma : new TurmaDAO().pegarTodasEntreDataTurno(dia, turno)) {
                 HorarioDiario horarioDiario = new HorarioDiario();
                 horarioDiario.setObjeto(turma);
-                horarioDiario.setAula1Horario(new AulaDAO().pegarPorHorarioDiaTurmaTurno(DataHorario.Horario.horario1, dia, turma, turno));
-                horarioDiario.setAula2Horario(new AulaDAO().pegarPorHorarioDiaTurmaTurno(DataHorario.Horario.horario2, dia, turma, turno));
-                horarioDiario.setAula3Horario(new AulaDAO().pegarPorHorarioDiaTurmaTurno(DataHorario.Horario.horario3, dia, turma, turno));
-                horarioDiario.setAula4Horario(new AulaDAO().pegarPorHorarioDiaTurmaTurno(DataHorario.Horario.horario4, dia, turma, turno));
-                horarioDiario.setAula5Horario(new AulaDAO().pegarPorHorarioDiaTurmaTurno(DataHorario.Horario.horario5, dia, turma, turno));
+                horarioDiario.setAula1Horario(new AulaDAO().pegarPorHorarioDiaTurmaTurno(DataHorario.Horario.HORARIO1, dia, turma, turno));
+                horarioDiario.setAula2Horario(new AulaDAO().pegarPorHorarioDiaTurmaTurno(DataHorario.Horario.HORARIO2, dia, turma, turno));
+                horarioDiario.setAula3Horario(new AulaDAO().pegarPorHorarioDiaTurmaTurno(DataHorario.Horario.HORARIO3, dia, turma, turno));
+                horarioDiario.setAula4Horario(new AulaDAO().pegarPorHorarioDiaTurmaTurno(DataHorario.Horario.HORARIO4, dia, turma, turno));
+                horarioDiario.setAula5Horario(new AulaDAO().pegarPorHorarioDiaTurmaTurno(DataHorario.Horario.HORARIO5, dia, turma, turno));
                 horarioDiarios.add(horarioDiario);
             }
         } else if (classe.equals(Ambiente.class)) {
             for (Ambiente ambiente : new AmbienteDAO().pegarTodos()) {
                 HorarioDiario horarioDiario = new HorarioDiario();
                 horarioDiario.setObjeto(ambiente);
-                horarioDiario.setAula1Horario(new AulaDAO().pegarPorDisciplinaAmbiente(DataHorario.Horario.horario1, dia, ambiente, turno));
-                horarioDiario.setAula2Horario(new AulaDAO().pegarPorDisciplinaAmbiente(DataHorario.Horario.horario2, dia, ambiente, turno));
-                horarioDiario.setAula3Horario(new AulaDAO().pegarPorDisciplinaAmbiente(DataHorario.Horario.horario3, dia, ambiente, turno));
-                horarioDiario.setAula4Horario(new AulaDAO().pegarPorDisciplinaAmbiente(DataHorario.Horario.horario4, dia, ambiente, turno));
-                horarioDiario.setAula5Horario(new AulaDAO().pegarPorDisciplinaAmbiente(DataHorario.Horario.horario5, dia, ambiente, turno));
+                horarioDiario.setAula1Horario(new AulaDAO().pegarPorDisciplinaAmbiente(DataHorario.Horario.HORARIO1, dia, ambiente, turno));
+                horarioDiario.setAula2Horario(new AulaDAO().pegarPorDisciplinaAmbiente(DataHorario.Horario.HORARIO2, dia, ambiente, turno));
+                horarioDiario.setAula3Horario(new AulaDAO().pegarPorDisciplinaAmbiente(DataHorario.Horario.HORARIO3, dia, ambiente, turno));
+                horarioDiario.setAula4Horario(new AulaDAO().pegarPorDisciplinaAmbiente(DataHorario.Horario.HORARIO4, dia, ambiente, turno));
+                horarioDiario.setAula5Horario(new AulaDAO().pegarPorDisciplinaAmbiente(DataHorario.Horario.HORARIO5, dia, ambiente, turno));
                 horarioDiarios.add(horarioDiario);
             }
         } else if (classe.equals(Usuario.class)) {
             for (Usuario usuario : new UsuarioDAO().pegarPorGrupoTurno(new GrupoDAO().pegarGrupo("Instrutor"), turno)) {
                 HorarioDiario horarioDiario = new HorarioDiario();
                 horarioDiario.setObjeto(usuario);
-                horarioDiario.setAula1Horario(new AulaDAO().pegarPorDisciplinaUsuario(DataHorario.Horario.horario1, dia, usuario, turno));
-                horarioDiario.setAula2Horario(new AulaDAO().pegarPorDisciplinaUsuario(DataHorario.Horario.horario2, dia, usuario, turno));
-                horarioDiario.setAula3Horario(new AulaDAO().pegarPorDisciplinaUsuario(DataHorario.Horario.horario3, dia, usuario, turno));
-                horarioDiario.setAula4Horario(new AulaDAO().pegarPorDisciplinaUsuario(DataHorario.Horario.horario4, dia, usuario, turno));
-                horarioDiario.setAula5Horario(new AulaDAO().pegarPorDisciplinaUsuario(DataHorario.Horario.horario5, dia, usuario, turno));
+                horarioDiario.setAula1Horario(new AulaDAO().pegarPorDisciplinaUsuario(DataHorario.Horario.HORARIO1, dia, usuario, turno));
+                horarioDiario.setAula2Horario(new AulaDAO().pegarPorDisciplinaUsuario(DataHorario.Horario.HORARIO2, dia, usuario, turno));
+                horarioDiario.setAula3Horario(new AulaDAO().pegarPorDisciplinaUsuario(DataHorario.Horario.HORARIO3, dia, usuario, turno));
+                horarioDiario.setAula4Horario(new AulaDAO().pegarPorDisciplinaUsuario(DataHorario.Horario.HORARIO4, dia, usuario, turno));
+                horarioDiario.setAula5Horario(new AulaDAO().pegarPorDisciplinaUsuario(DataHorario.Horario.HORARIO5, dia, usuario, turno));
                 horarioDiarios.add(horarioDiario);
             }
         }
