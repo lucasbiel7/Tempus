@@ -7,17 +7,25 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.GerenciarRecursoController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.GerenciarRecursoController">
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
    <children>
-      <Label layoutX="54.0" layoutY="31.0" text="Nome" />
-      <Label layoutX="35.0" layoutY="65.0" text="Descrição" />
-      <TextField fx:id="tfNome" layoutX="119.0" layoutY="25.0" prefHeight="30.0" prefWidth="206.0" />
-      <TextArea fx:id="taDescricao" layoutX="119.0" layoutY="65.0" prefHeight="178.0" prefWidth="206.0" />
-      <Button layoutX="119.0" layoutY="256.0" mnemonicParsing="false" onAction="#btSalvarActionEvent" text="Salvar" />
-      <Button layoutX="256.0" layoutY="256.0" mnemonicParsing="false" onAction="#btNovoActionEvent" text="Novo" />
+      <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="35.0" layoutY="25.0" prefHeight="370.0" prefWidth="331.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+         <content>
+            <AnchorPane styleClass="mainFxmlClass">
+               <children>
+                  <Label layoutX="38.0" layoutY="20.0" text="Nome" />
+                  <Label layoutX="19.0" layoutY="54.0" text="Descrição" />
+                  <TextField fx:id="tfNome" layoutX="103.0" layoutY="14.0" prefHeight="30.0" prefWidth="206.0" />
+                  <TextArea fx:id="taDescricao" layoutX="103.0" layoutY="54.0" prefHeight="178.0" prefWidth="206.0" />
+                  <Button layoutX="103.0" layoutY="245.0" mnemonicParsing="false" onAction="#btSalvarActionEvent" text="Salvar" />
+                  <Button layoutX="240.0" layoutY="245.0" mnemonicParsing="false" onAction="#btNovoActionEvent" text="Novo" />
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
       <Separator layoutX="359.0" layoutY="14.0" orientation="VERTICAL" prefHeight="200.0" AnchorPane.bottomAnchor="14.0" AnchorPane.topAnchor="14.0" />
       <TableView fx:id="tvRecurso" layoutX="374.0" layoutY="52.0" onMouseReleased="#tvRecursoMouseReleased" prefHeight="334.0" prefWidth="212.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="374.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="52.0">
         <columns>

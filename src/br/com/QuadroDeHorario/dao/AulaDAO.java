@@ -76,7 +76,7 @@ public class AulaDAO extends GenericaDAO<Aula> {
         return entitys;
     }
 
-    public Aula pegarPorDisciplinaAmbiente(DataHorario.Horario horario, Date dia, Ambiente ambiente, DataHorario.Turno turno) {
+    public Aula pegarPorHorarioDiaAmbiente(DataHorario.Horario horario, Date dia, Ambiente ambiente, DataHorario.Turno turno) {
         if (ambiente != null) {
             entitys = session.getNamedQuery("Aula.pegarPorHorarioDiaAmbiente").setDate("dataAula", dia).setParameter("horario", horario).setEntity("ambiente", ambiente).setParameter("turno", turno).list();
         }
@@ -181,4 +181,5 @@ public class AulaDAO extends GenericaDAO<Aula> {
         finalizarSession();
         return entitys;
     }
+
 }

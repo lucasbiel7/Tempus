@@ -5,6 +5,7 @@
  */
 package br.com.QuadroDeHorario.dao;
 
+import br.com.QuadroDeHorario.entity.Ambiente;
 import br.com.QuadroDeHorario.entity.Aula;
 import br.com.QuadroDeHorario.entity.Materia;
 import br.com.QuadroDeHorario.entity.MateriaHorario;
@@ -95,6 +96,29 @@ public class MateriaHorarioDAO extends GenericaDAO<MateriaHorario> {
     public List<MateriaHorario> pegarTodosPorInstrutor(Usuario instrutor) {
         entitys = criteria.add(Restrictions.eq("materiaTurmaIntrutorSemestre.instrutor", instrutor)).list();
         finalizarSession();
+        return entitys;
+    }
+
+    public List<MateriaHorario> pegarTodosPorAmbienteTurnoSemestreAno(Ambiente ambiente, DataHorario.Turno turno, DataHorario.Semestre semestre, int ano) {
+        List<Turma> turmas = new TurmaDAO().pegarPorTurno(turno != DataHorario.Turno.NOITE ? new DataHorario.Turno[]{turno, DataHorario.Turno.DIURNO} : new DataHorario.Turno[]{turno});
+        if (turmas.isEmpty()) {
+            finalizarSession();
+            return new ArrayList<>();
+        }
+        entitys = criteria.add(
+                Restrictions.in("materiaTurmaIntrutorSemestre.turma", turmas)).
+                add(Restrictions.eq("materiaTurmaIntrutorSemestre.semestre", semestre)).
+                add(Restrictions.eq("ano", ano)).list();
+        finalizarSession();
+        List<MateriaHorarioAmbiente> materiaHorarioAmbientes = new MateriaHorarioAmbienteDAO().pegarTodosPorAmbiente(ambiente);
+        entitys.removeIf((MateriaHorario t) -> {
+            for (MateriaHorarioAmbiente materiaHorarioAmbiente : materiaHorarioAmbientes) {
+                if (materiaHorarioAmbiente.getId().getMateriaHorario().equals(t)) {
+                    return false;
+                }
+            }
+            return true;
+        });
         return entitys;
     }
 

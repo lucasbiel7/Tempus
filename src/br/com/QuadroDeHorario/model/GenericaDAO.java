@@ -6,6 +6,7 @@
 package br.com.QuadroDeHorario.model;
 
 import br.com.QuadroDeHorario.control.Banco;
+import br.com.QuadroDeHorario.util.Mensagem;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.Date;
@@ -13,6 +14,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.exception.SQLGrammarException;
 
 /**
  *
@@ -29,8 +31,10 @@ public class GenericaDAO<Entity> implements DAO<Entity> {
 
     public GenericaDAO() {
         session = Banco.getSessionFactory().openSession();
-        classe = (Class<Entity>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-        criteria = session.createCriteria(classe).add(Restrictions.eq("ativo", true));
+        if (!getClass().getGenericSuperclass().equals(Object.class)) {
+            classe = (Class<Entity>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+            criteria = session.createCriteria(classe).add(Restrictions.eq("ativo", true));
+        }
     }
 
     @Override
@@ -52,9 +56,16 @@ public class GenericaDAO<Entity> implements DAO<Entity> {
     @Override
     public void excluir(Entity entity) {
         session.beginTransaction();
-        session.delete(entity);
-        session.getTransaction().commit();
-        finalizarSession();
+        try {
+            session.delete(entity);
+            session.getTransaction().commit();
+        } catch (SQLGrammarException e) {
+            Mensagem.showError("Sem permissão", "Você não tem permissão para utilizar essa função\n"
+                    + "do sistema!É necessário ser administrador da base de dados para excluir \n"
+                    + "qualquer registro!");
+        } finally {
+            finalizarSession();
+        }
     }
 
     public List<Entity> pegarTodos() {

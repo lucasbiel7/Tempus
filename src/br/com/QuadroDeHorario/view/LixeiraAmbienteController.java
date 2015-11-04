@@ -7,6 +7,7 @@ package br.com.QuadroDeHorario.view;
 
 import br.com.QuadroDeHorario.dao.AmbienteDAO;
 import br.com.QuadroDeHorario.entity.Ambiente;
+import br.com.QuadroDeHorario.model.GenericaDAO;
 import br.com.QuadroDeHorario.util.Mensagem;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -62,4 +63,14 @@ public class LixeiraAmbienteController implements Initializable {
         ambientes.setAll(new AmbienteDAO().pegarTodosLixeira());
     }
 
+    @FXML
+    private void miExcluirActionEvent(ActionEvent actionEvent) {
+        ambiente = tvAmbiente.getSelectionModel().getSelectedItem();
+        if (ambiente != null) {
+            if (Mensagem.showConfirmation("Excluir permanentemente", "Você realmente deseja excluir permanentemente esse ambiente?")) {
+                new GenericaDAO<Ambiente>().excluir(ambiente);
+                ambientes.setAll(new AmbienteDAO().pegarTodosLixeira());
+            }
+        }
+    }
 }

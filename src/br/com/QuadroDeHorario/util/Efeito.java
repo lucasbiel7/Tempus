@@ -63,7 +63,7 @@ public class Efeito {
                     imageView.setImage(new Image(GerenciarImagem.carregarImagem("fiemg.png")));
                     break;
                 case 3:
-                    label.setText("BH-CETEL");
+                    label.setText("SENAI Belo Horizonte CETEL César Rodrigues");
                     imageView.setImage(new Image(GerenciarImagem.carregarImagem("tori.png")));
                     break;
             }

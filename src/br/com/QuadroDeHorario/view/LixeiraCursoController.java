@@ -7,6 +7,7 @@ package br.com.QuadroDeHorario.view;
 
 import br.com.QuadroDeHorario.dao.CursoDAO;
 import br.com.QuadroDeHorario.entity.Curso;
+import br.com.QuadroDeHorario.model.GenericaDAO;
 import br.com.QuadroDeHorario.util.Mensagem;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -59,5 +60,16 @@ public class LixeiraCursoController implements Initializable {
             }
         }
         cursos.setAll(new CursoDAO().pegarTodosLixeira());
+    }
+
+    @FXML
+    private void miExcluirActionEvent(ActionEvent actionEvent) {
+        Curso curso = tvCursos.getSelectionModel().getSelectedItem();
+        if (curso != null) {
+            if (Mensagem.showConfirmation("Excluir", "Você realmente excluir permanentemente esse curso?")) {
+                new GenericaDAO<Curso>().excluir(curso);
+                cursos.setAll(new CursoDAO().pegarTodosLixeira());
+            }
+        }
     }
 }

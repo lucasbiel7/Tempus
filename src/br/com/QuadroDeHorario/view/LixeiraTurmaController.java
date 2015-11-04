@@ -7,6 +7,7 @@ package br.com.QuadroDeHorario.view;
 
 import br.com.QuadroDeHorario.dao.TurmaDAO;
 import br.com.QuadroDeHorario.entity.Turma;
+import br.com.QuadroDeHorario.model.GenericaDAO;
 import br.com.QuadroDeHorario.util.Mensagem;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -29,7 +30,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
  * @author OCTI01
  */
 public class LixeiraTurmaController implements Initializable {
-    
+
     @FXML
     private TableView<Turma> tvTurma;
     @FXML
@@ -46,10 +47,10 @@ public class LixeiraTurmaController implements Initializable {
     private TableColumn<Turma, Date> tcFim;
     @FXML
     private TableColumn<Turma, String> tcTurno;
-    
+
     private ObservableList<Turma> turmas = FXCollections.observableArrayList();
     private Turma turma;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         turmas.setAll(new TurmaDAO().pegarTodosLixeira());
@@ -82,7 +83,7 @@ public class LixeiraTurmaController implements Initializable {
                     setText("");
                 }
             }
-            
+
         });
         tcFim.setCellFactory((TableColumn<Turma, Date> param) -> new TableCell<Turma, Date>() {
             @Override
@@ -93,10 +94,10 @@ public class LixeiraTurmaController implements Initializable {
                     setText("");
                 }
             }
-            
+
         });
     }
-    
+
     @FXML
     private void miRestaurarActionEvent(ActionEvent actionEvent) {
         turma = tvTurma.getSelectionModel().getSelectedItem();
@@ -107,5 +108,16 @@ public class LixeiraTurmaController implements Initializable {
             }
         }
         turmas.setAll(new TurmaDAO().pegarTodosLixeira());
+    }
+
+    @FXML
+    private void miExcluirActionEvent(ActionEvent actionEvent) {
+        turma = tvTurma.getSelectionModel().getSelectedItem();
+        if (turma != null) {
+            if (Mensagem.showConfirmation("Excluir permanentemente", "Você realmente deseja excluir essa turma?")) {
+                new GenericaDAO<Turma>().excluir(turma);
+                turmas.setAll(new TurmaDAO().pegarTodosLixeira());
+            }
+        }
     }
 }

@@ -154,6 +154,7 @@ public class EditarMateriaHorarioController implements Initializable {
                     }
                     rbRadiosActionEvent(null);
                     cbInstrutor.getSelectionModel().select(materiaHorario.getMateriaTurmaIntrutorSemestre().getInstrutor());
+                    cbInstrutor.setDisable(!new AulaDAO().pegarPorMateria(materiaHorario).isEmpty());
                 } else {
                     rbRadiosActionEvent(null);
                 }
@@ -203,7 +204,6 @@ public class EditarMateriaHorarioController implements Initializable {
                 setBackground(new Background(new BackgroundFill(Color.rgb(204, 204, 255), CornerRadii.EMPTY, Insets.EMPTY)));
             }
         });
-
         tcNomeAmbiente5.setCellFactory((TableColumn<Ambiente, String> param) -> new TableCell<Ambiente, String>() {
             @Override
             protected void updateItem(String item, boolean empty) {
@@ -211,7 +211,6 @@ public class EditarMateriaHorarioController implements Initializable {
                 setBackground(new Background(new BackgroundFill(Color.rgb(255, 153, 255), CornerRadii.EMPTY, Insets.EMPTY)));
             }
         });
-
         //Outras colunas 
         tcNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         tcNomeRecursoDisciplina.setCellValueFactory(new PropertyValueFactory<>("nome"));

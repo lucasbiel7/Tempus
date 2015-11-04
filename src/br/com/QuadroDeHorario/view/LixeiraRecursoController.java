@@ -7,6 +7,7 @@ package br.com.QuadroDeHorario.view;
 
 import br.com.QuadroDeHorario.dao.RecursoDAO;
 import br.com.QuadroDeHorario.entity.Recurso;
+import br.com.QuadroDeHorario.model.GenericaDAO;
 import br.com.QuadroDeHorario.util.Mensagem;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -54,5 +55,16 @@ public class LixeiraRecursoController implements Initializable {
             }
         }
         recursos.setAll(new RecursoDAO().pegarTodosLixeira());
+    }
+
+    @FXML
+    private void miExcluirActionEvent(ActionEvent actionEvent) {
+        recurso = tvRecursos.getSelectionModel().getSelectedItem();
+        if (recurso != null) {
+            if (Mensagem.showConfirmation("Excluir permanente", "Você realmente deseja excluir permanentemente o recurso?")) {
+                new GenericaDAO<Recurso>().excluir(recurso);
+                recursos.setAll(new RecursoDAO().pegarTodosLixeira());
+            }
+        }
     }
 }

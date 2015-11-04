@@ -84,6 +84,7 @@ public class TabelaMensal extends TableView<SemanaCalendario> {
         setItems(semanaCalendarios);
         setSortPolicy(null);
         tcTitulo.getColumns().addListener(new ListChangeListener<TableColumn<SemanaCalendario, ?>>() {
+
             private boolean suspender;
 
             @Override
@@ -121,7 +122,7 @@ public class TabelaMensal extends TableView<SemanaCalendario> {
         tcSabado.sortableProperty().set(false);
         tcDomingo.sortableProperty().set(false);
         setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY);
-        
+
     }
 
     private void carregarDados(int mes, int ano) {

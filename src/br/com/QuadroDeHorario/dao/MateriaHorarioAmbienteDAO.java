@@ -47,5 +47,5 @@ public class MateriaHorarioAmbienteDAO extends GenericaDAO<MateriaHorarioAmbient
         finalizarSession();
         return entitys;
     }
-
+    
 }

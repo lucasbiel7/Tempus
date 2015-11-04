@@ -5,13 +5,13 @@
  */
 package br.com.QuadroDeHorario.view;
 
-import br.com.QuadroDeHorario.dao.SistemaDAO;
 import br.com.QuadroDeHorario.dao.UsuarioDAO;
 import br.com.QuadroDeHorario.util.FxMananger;
 import br.com.QuadroDeHorario.util.Mensagem;
 import br.com.QuadroDeHorario.util.ParametrosBanco;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -19,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ProgressIndicator;
 import javafx.stage.Stage;
+import org.hibernate.HibernateException;
 
 /**
  * FXML Controller class
@@ -37,39 +38,47 @@ public class LoadScreenController implements Initializable {
         Platform.runLater(() -> {
             stage = (Stage) piLoader.getScene().getWindow();
             new Thread(task).start();
+
         });
         task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                try {
-
-                    new UsuarioDAO().pegarTodos();
-                    new ParametrosBanco().atualizacao();
-                    Platform.runLater(() -> {
-                        stage.close();
-                        FxMananger.show("Inicio", "Início", true, false, true);
-                    });
-                } catch (ExceptionInInitializerError e) {
-                    Platform.runLater(() -> {
-                        stage.close();
-                        if (Mensagem.showConfirmation("Erro de conexão", "Talvez as configurações de conexão estão incorretas, deseja fazer alteração nas configurações de conexão do sistema com a base de dados?")) {
-                            try {
-                                FxMananger.show("ConfigurarBanco", "Cofigurar Banco de dados", false, false);
-                                Runtime.getRuntime().exec("java -jar " + new SistemaDAO().pegarPorNome(FxMananger.NOME_PROGRAMA).getNomeJar());
-                                Platform.exit();
-                                System.exit(0);
-                            } catch (IOException ex) {
-                                
-                            }
-                        } else {
-                            System.exit(1);
-                        }
-                    });
-
+                try (Connection connection = ParametrosBanco.getConnection()) {
+                    if (connection != null) {
+                        new UsuarioDAO().pegarTodos();
+                        new ParametrosBanco().atualizacao();
+                        Platform.runLater(() -> {
+                            stage.close();
+                            FxMananger.show("Inicio", "Início", true, false, true);
+                        });
+                        connection.close();
+                    } else {
+                        erroIniciar();
+                    }
+                } catch (HibernateException | ExceptionInInitializerError e) {
+                    erroIniciar();
                 }
                 return null;
             }
         };
     }
 
+    public void erroIniciar() {
+        Platform.runLater(() -> {
+            stage.close();
+            if (Mensagem.showConfirmation("Erro de conexão", "Talvez as configurações de conexão estão incorretas, deseja fazer alteração nas configurações de conexão do sistema com a base de dados?")) {
+                try {
+                    FxMananger.show("ConfigurarBanco", "Cofigurar Banco de dados", true, false);
+                    System.out.println("Configurado");
+                    Runtime.getRuntime().exec("javaw -jar QuadroDeHorarioFX.jar");
+                    Platform.exit();
+                    System.exit(0);
+                } catch (IOException ex) {
+                    System.out.println("Deu merda");
+                }
+            } else {
+                System.exit(1);
+            }
+        });
+    }
 }

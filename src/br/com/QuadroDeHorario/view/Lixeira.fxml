@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.LixeiraController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.LixeiraController">
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
@@ -28,6 +28,11 @@
                   <AnchorPane fx:id="apCurso" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
             </Tab>
+            <Tab onSelectionChanged="#tbDisciplinaActionEvent" text="Componente curricular">
+               <content>
+                  <AnchorPane fx:id="apDisciplina" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
             <Tab onSelectionChanged="#tbRecursoActionEvent" text="Recurso">
                <content>
                   <AnchorPane fx:id="apRecurso" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
@@ -41,11 +46,6 @@
             <Tab onSelectionChanged="#tbTurmaActionEvent" text="Turma">
                <content>
                   <AnchorPane fx:id="apTurma" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-               </content>
-            </Tab>
-            <Tab onSelectionChanged="#tbDisciplinaActionEvent" text="Componente curricular">
-               <content>
-                  <AnchorPane fx:id="apDisciplina" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
             </Tab>
             <Tab onSelectionChanged="#tbInstrutorActionEvent" text="Instrutor/Usuários">

@@ -23,12 +23,14 @@ import br.com.QuadroDeHorario.util.MesCalendario;
 import br.com.QuadroDeHorario.view.QuadroDeHorarioController;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -63,76 +65,10 @@ import org.hibernate.exception.ConstraintViolationException;
  */
 public class TabelaHorario extends TableView<MesCalendario> {
 
-    //Dias do mês
-    private TableColumn<MesCalendario, Aula> tcDia1;
-    private TableColumn<MesCalendario, Aula> tcDia2;
-    private TableColumn<MesCalendario, Aula> tcDia3;
-    private TableColumn<MesCalendario, Aula> tcDia4;
-    private TableColumn<MesCalendario, Aula> tcDia5;
-    private TableColumn<MesCalendario, Aula> tcDia6;
-    private TableColumn<MesCalendario, Aula> tcDia7;
-    private TableColumn<MesCalendario, Aula> tcDia8;
-    private TableColumn<MesCalendario, Aula> tcDia9;
-    private TableColumn<MesCalendario, Aula> tcDia10;
-    private TableColumn<MesCalendario, Aula> tcDia11;
-    private TableColumn<MesCalendario, Aula> tcDia12;
-    private TableColumn<MesCalendario, Aula> tcDia13;
-    private TableColumn<MesCalendario, Aula> tcDia14;
-    private TableColumn<MesCalendario, Aula> tcDia15;
-    private TableColumn<MesCalendario, Aula> tcDia16;
-    private TableColumn<MesCalendario, Aula> tcDia17;
-    private TableColumn<MesCalendario, Aula> tcDia18;
-    private TableColumn<MesCalendario, Aula> tcDia19;
-    private TableColumn<MesCalendario, Aula> tcDia20;
-    private TableColumn<MesCalendario, Aula> tcDia21;
-    private TableColumn<MesCalendario, Aula> tcDia22;
-    private TableColumn<MesCalendario, Aula> tcDia23;
-    private TableColumn<MesCalendario, Aula> tcDia24;
-    private TableColumn<MesCalendario, Aula> tcDia25;
-    private TableColumn<MesCalendario, Aula> tcDia26;
-    private TableColumn<MesCalendario, Aula> tcDia27;
-    private TableColumn<MesCalendario, Aula> tcDia28;
-    private TableColumn<MesCalendario, Aula> tcDia29;
-    private TableColumn<MesCalendario, Aula> tcDia30;
-    private TableColumn<MesCalendario, Aula> tcDia31;
-    //Nome do Dia
-
-    private TableColumn<MesCalendario, Aula> tcNomeDia1;
-    private TableColumn<MesCalendario, Aula> tcNomeDia2;
-    private TableColumn<MesCalendario, Aula> tcNomeDia3;
-    private TableColumn<MesCalendario, Aula> tcNomeDia4;
-    private TableColumn<MesCalendario, Aula> tcNomeDia5;
-    private TableColumn<MesCalendario, Aula> tcNomeDia6;
-    private TableColumn<MesCalendario, Aula> tcNomeDia7;
-    private TableColumn<MesCalendario, Aula> tcNomeDia8;
-    private TableColumn<MesCalendario, Aula> tcNomeDia9;
-    private TableColumn<MesCalendario, Aula> tcNomeDia10;
-    private TableColumn<MesCalendario, Aula> tcNomeDia11;
-    private TableColumn<MesCalendario, Aula> tcNomeDia12;
-    private TableColumn<MesCalendario, Aula> tcNomeDia13;
-    private TableColumn<MesCalendario, Aula> tcNomeDia14;
-    private TableColumn<MesCalendario, Aula> tcNomeDia15;
-    private TableColumn<MesCalendario, Aula> tcNomeDia16;
-    private TableColumn<MesCalendario, Aula> tcNomeDia17;
-    private TableColumn<MesCalendario, Aula> tcNomeDia18;
-    private TableColumn<MesCalendario, Aula> tcNomeDia19;
-    private TableColumn<MesCalendario, Aula> tcNomeDia20;
-    private TableColumn<MesCalendario, Aula> tcNomeDia21;
-    private TableColumn<MesCalendario, Aula> tcNomeDia22;
-    private TableColumn<MesCalendario, Aula> tcNomeDia23;
-    private TableColumn<MesCalendario, Aula> tcNomeDia24;
-    private TableColumn<MesCalendario, Aula> tcNomeDia25;
-    private TableColumn<MesCalendario, Aula> tcNomeDia26;
-    private TableColumn<MesCalendario, Aula> tcNomeDia27;
-    private TableColumn<MesCalendario, Aula> tcNomeDia28;
-    private TableColumn<MesCalendario, Aula> tcNomeDia29;
-    private TableColumn<MesCalendario, Aula> tcNomeDia30;
-    private TableColumn<MesCalendario, Aula> tcNomeDia31;
+    //Nome do mês
     private TableColumn<MesCalendario, Aula> tcNomeMes;
-
     private ContextMenu cmOpcoes;
     private MenuItem miExcluir;
-
     private ObservableList<MesCalendario> aulas = FXCollections.observableArrayList();
     private SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
     private SimpleDateFormat nomeDia = new SimpleDateFormat("EEE");
@@ -149,7 +85,7 @@ public class TabelaHorario extends TableView<MesCalendario> {
     public static DataHorario.Turno turno;
     private static boolean cargaHoraria;
     private SimpleDateFormat sdfData = new SimpleDateFormat("dd/MM/yyyy");
-
+    private List<TableColumn<MesCalendario, Aula>> colunas;
     private int mes;
 
     public TabelaHorario(int mes, int ano) {
@@ -157,109 +93,11 @@ public class TabelaHorario extends TableView<MesCalendario> {
             this.mes = mes;
             inicio = data.parse("01/" + mes + "/" + ano);
             fim = data.parse("01/" + (mes + 1) + "/" + ano);
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(inicio);
             tcNomeMes = new TableColumn<>(nomeMes.format(inicio) + "(" + mes + ")");
             getColumns().add(tcNomeMes);
             setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY);
-            while (calendar.getTime().before(fim)) {
-                switch (calendar.get(Calendar.DAY_OF_MONTH)) {
-                    case 1:
-                        adicionarColuna(calendar.getTime(), tcNomeDia1, tcDia1);
-                        break;
-                    case 2:
-                        adicionarColuna(calendar.getTime(), tcNomeDia2, tcDia2);
-                        break;
-                    case 3:
-                        adicionarColuna(calendar.getTime(), tcNomeDia3, tcDia3);
-                        break;
-                    case 4:
-                        adicionarColuna(calendar.getTime(), tcNomeDia4, tcDia4);
-                        break;
-                    case 5:
-                        adicionarColuna(calendar.getTime(), tcNomeDia5, tcDia5);
-                        break;
-                    case 6:
-                        adicionarColuna(calendar.getTime(), tcNomeDia6, tcDia6);
-                        break;
-                    case 7:
-                        adicionarColuna(calendar.getTime(), tcNomeDia7, tcDia7);
-                        break;
-                    case 8:
-                        adicionarColuna(calendar.getTime(), tcNomeDia8, tcDia8);
-                        break;
-                    case 9:
-                        adicionarColuna(calendar.getTime(), tcNomeDia9, tcDia9);
-                        break;
-                    case 10:
-                        adicionarColuna(calendar.getTime(), tcNomeDia10, tcDia10);
-                        break;
-                    case 11:
-                        adicionarColuna(calendar.getTime(), tcNomeDia11, tcDia11);
-                        break;
-                    case 12:
-                        adicionarColuna(calendar.getTime(), tcNomeDia12, tcDia12);
-                        break;
-                    case 13:
-                        adicionarColuna(calendar.getTime(), tcNomeDia13, tcDia13);
-                        break;
-                    case 14:
-                        adicionarColuna(calendar.getTime(), tcNomeDia14, tcDia14);
-                        break;
-                    case 15:
-                        adicionarColuna(calendar.getTime(), tcNomeDia15, tcDia15);
-                        break;
-                    case 16:
-                        adicionarColuna(calendar.getTime(), tcNomeDia16, tcDia16);
-                        break;
-                    case 17:
-                        adicionarColuna(calendar.getTime(), tcNomeDia17, tcDia17);
-                        break;
-                    case 18:
-                        adicionarColuna(calendar.getTime(), tcNomeDia18, tcDia18);
-                        break;
-                    case 19:
-                        adicionarColuna(calendar.getTime(), tcNomeDia19, tcDia19);
-                        break;
-                    case 20:
-                        adicionarColuna(calendar.getTime(), tcNomeDia20, tcDia20);
-                        break;
-                    case 21:
-                        adicionarColuna(calendar.getTime(), tcNomeDia21, tcDia21);
-                        break;
-                    case 22:
-                        adicionarColuna(calendar.getTime(), tcNomeDia22, tcDia22);
-                        break;
-                    case 23:
-                        adicionarColuna(calendar.getTime(), tcNomeDia23, tcDia23);
-                        break;
-                    case 24:
-                        adicionarColuna(calendar.getTime(), tcNomeDia24, tcDia24);
-                        break;
-                    case 25:
-                        adicionarColuna(calendar.getTime(), tcNomeDia25, tcDia25);
-                        break;
-                    case 26:
-                        adicionarColuna(calendar.getTime(), tcNomeDia26, tcDia26);
-                        break;
-                    case 27:
-                        adicionarColuna(calendar.getTime(), tcNomeDia27, tcDia27);
-                        break;
-                    case 28:
-                        adicionarColuna(calendar.getTime(), tcNomeDia28, tcDia28);
-                        break;
-                    case 29:
-                        adicionarColuna(calendar.getTime(), tcNomeDia29, tcDia29);
-                        break;
-                    case 30:
-                        adicionarColuna(calendar.getTime(), tcNomeDia30, tcDia30);
-                        break;
-                    case 31:
-                        adicionarColuna(calendar.getTime(), tcNomeDia31, tcDia31);
-                        break;
-                }
-                calendar.add(Calendar.DAY_OF_MONTH, 1);
-            }
+            colunas = new ArrayList<>();
+            carregarColunas();
         } catch (ParseException ex) {
             Logger.getLogger(TabelaHorario.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -271,22 +109,34 @@ public class TabelaHorario extends TableView<MesCalendario> {
         setSortPolicy(null);
         setItems(aulas);
         carregarDados();
+        tcNomeMes.getColumns().addListener(new ListChangeListener<TableColumn<MesCalendario, ?>>() {
+            
+            private boolean suspender;
+
+            @Override
+            public void onChanged(ListChangeListener.Change<? extends TableColumn<MesCalendario, ?>> c) {
+                c.next();
+                if (c.wasReplaced() && !suspender) {
+                    suspender = true;
+                    tcNomeMes.getColumns().setAll(colunas);
+                    suspender = false;
+                }
+            }
+        });
     }
 
-    private void adicionarColuna(Date dia, TableColumn<MesCalendario, Aula> tcNome, TableColumn<MesCalendario, Aula> tcDia) {
-        tcNome = new TableColumn<>(nomeDia.format(dia));
-        tcDia = new TableColumn<>(numeroDia.format(dia));
+    private TableColumn<MesCalendario, Aula> adicionarColuna(Date dia) {
+        TableColumn<MesCalendario, Aula> tcNome = new TableColumn<>(nomeDia.format(dia));
+        TableColumn<MesCalendario, Aula> tcDia = new TableColumn<>(numeroDia.format(dia));
         tcNome.getColumns().add(tcDia);
         tcNomeMes.getColumns().add(tcNome);
         tcDia.setCellValueFactory(new PropertyValueFactory<>("dia" + Integer.parseInt(numeroDia.format(dia))));
         List<Calendario> calendarios = new CalendarioDAO().pegarTodosPorData(dia, true);
-
         if (!calendarios.isEmpty()) {
             String eventos = "";
             for (Calendario calendario : calendarios) {
                 eventos += calendario.getId().getEvento().getNome() + "\n";
             }
-//            Calendario calendario = calendarios.get(0);
             Label label = new Label(tcNome.getText());
             label.setTooltip(new Tooltip(eventos));
             Color[] todasCores = new Color[calendarios.size()];
@@ -319,7 +169,6 @@ public class TabelaHorario extends TableView<MesCalendario> {
             }
             tcNome.setGraphic(label);
             tcNome.setText("");
-
         }
         tcDia.setCellFactory(new RenderDia(dia));
         if (!tcNome.getText().equals("Dom")) {
@@ -328,6 +177,7 @@ public class TabelaHorario extends TableView<MesCalendario> {
         tcDia.setUserData(tcDia.getText());
         tcDia.sortableProperty().set(false);
         adicionarObservacao(tcDia, turma, dia);
+        return tcNome;
     }
 
     private void adicionarObservacao(TableColumn<MesCalendario, Aula> tcNome, Turma turma, Date dia) {
@@ -347,6 +197,15 @@ public class TabelaHorario extends TableView<MesCalendario> {
                 FxMananger.show("AdicionarObservacao", "Adicionar observação", true, false, observacaoAulas.get(0));
                 adicionarObservacao(tcNome, turma, dia);
             });
+        }
+    }
+
+    private void carregarColunas() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(inicio);
+        while (calendar.getTime().before(fim)) {
+            colunas.add(adicionarColuna(calendar.getTime()));
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
     }
 

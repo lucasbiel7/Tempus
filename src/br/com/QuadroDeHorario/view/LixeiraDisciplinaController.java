@@ -7,6 +7,7 @@ package br.com.QuadroDeHorario.view;
 
 import br.com.QuadroDeHorario.dao.MateriaDAO;
 import br.com.QuadroDeHorario.entity.Materia;
+import br.com.QuadroDeHorario.model.GenericaDAO;
 import br.com.QuadroDeHorario.util.Mensagem;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -62,6 +63,17 @@ public class LixeiraDisciplinaController implements Initializable {
                 new MateriaDAO().editar(materia);
             }
             materias.setAll(new MateriaDAO().pegarTodosLixeira());
+        }
+    }
+
+    @FXML
+    private void miExcluirActionEvent(ActionEvent actionEvent) {
+        materia = tvMateria.getSelectionModel().getSelectedItem();
+        if (materia != null) {
+            if (Mensagem.showConfirmation("Excluir", "Deseja excluir permanentemente o componente curricular?")) {
+                new GenericaDAO<Materia>().excluir(materia);
+                materias.setAll(new MateriaDAO().pegarTodosLixeira());
+            }
         }
     }
 

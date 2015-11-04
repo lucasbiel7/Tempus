@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="br.com.QuadroDeHorario.view.LixeiraAmbienteController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.LixeiraAmbienteController">
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
@@ -26,6 +26,7 @@
             <ContextMenu>
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#miRestaurarActionEvent" text="Restaurar" />
+                  <MenuItem mnemonicParsing="false" onAction="#miExcluirActionEvent" text="Excluir permamente" />
               </items>
             </ContextMenu>
          </contextMenu>

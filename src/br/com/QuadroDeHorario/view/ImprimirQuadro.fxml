@@ -32,7 +32,7 @@
                                     </ImageView>
                                  </graphic>
                               </Label>
-                              <Label prefHeight="27.0" prefWidth="110.0" styleClass="label-preto" text="BH-CETEL">
+                              <Label prefHeight="27.0" prefWidth="360.0" styleClass="label-preto" text="SENAI Belo Horizonte CETEL César Rodrigues">
                                  <graphic>
                                     <ImageView fitHeight="27.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                        <image>

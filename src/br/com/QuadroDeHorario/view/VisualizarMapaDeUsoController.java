@@ -27,13 +27,6 @@ public class VisualizarMapaDeUsoController implements Initializable {
     private AnchorPane apPrincipal;
     @FXML
     private GridPane gpTabela;
-    private TabelaMapaDeUso tmu1;
-    private TabelaMapaDeUso tmu2;
-    private TabelaMapaDeUso tmu3;
-    private TabelaMapaDeUso tmu4;
-    private TabelaMapaDeUso tmu5;
-    private TabelaMapaDeUso tmu6;
-
     private Ambiente ambiente;
     private DataHorario.Semestre semestre;
     private int ano;
@@ -47,31 +40,12 @@ public class VisualizarMapaDeUsoController implements Initializable {
             ano = (int) parametros[2];
             carregarTabelas();
         });
-
     }
 
     private void carregarTabelas() {
-        int mes = 0;
-        if (semestre == DataHorario.Semestre.SEMESTRE2) {
-            mes += 6;
+        for (int mes = 1; mes < 7; mes++) {
+            TabelaMapaDeUso tabelaMapaDeUso = new TabelaMapaDeUso(ambiente, ano, semestre.equals(DataHorario.Semestre.SEMESTRE1) ? mes : mes + 6);
+            gpTabela.addRow(mes - 1, tabelaMapaDeUso);
         }
-        mes++;
-        tmu1 = new TabelaMapaDeUso(ambiente, ano, mes);
-        mes++;
-        tmu2 = new TabelaMapaDeUso(ambiente, ano, mes);
-        mes++;
-        tmu3 = new TabelaMapaDeUso(ambiente, ano, mes);
-        mes++;
-        tmu4 = new TabelaMapaDeUso(ambiente, ano, mes);
-        mes++;
-        tmu5 = new TabelaMapaDeUso(ambiente, ano, mes);
-        mes++;
-        tmu6 = new TabelaMapaDeUso(ambiente, ano, mes);
-        gpTabela.addRow(0, tmu1);
-        gpTabela.addRow(1, tmu2);
-        gpTabela.addRow(2, tmu3);
-        gpTabela.addRow(3, tmu4);
-        gpTabela.addRow(4, tmu5);
-        gpTabela.addRow(5, tmu6);
     }
 }

@@ -5,19 +5,12 @@ package br.com.QuadroDeHorario.view;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import br.com.QuadroDeHorario.control.EncriptacaoAES;
 import br.com.QuadroDeHorario.util.Mensagem;
 import br.com.QuadroDeHorario.util.ParametrosBanco;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -25,9 +18,15 @@ import java.nio.file.Paths;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -48,10 +47,14 @@ public class ConfigurarBancoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        try {
         tfUsuario.setText(ParametrosBanco.getUSUARIO());
         pfSenha.setText(ParametrosBanco.getSENHA());
         tfIp.setText(ParametrosBanco.getIP());
 
+        } catch (NoClassDefFoundError e) {
+            System.out.println(e.getCause());
+        }
     }
 
     @FXML

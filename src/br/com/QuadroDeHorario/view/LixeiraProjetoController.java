@@ -7,6 +7,8 @@ package br.com.QuadroDeHorario.view;
 
 import br.com.QuadroDeHorario.dao.ProjetoDAO;
 import br.com.QuadroDeHorario.entity.Projeto;
+import br.com.QuadroDeHorario.model.GenericaDAO;
+import br.com.QuadroDeHorario.util.Mensagem;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -47,5 +49,16 @@ public class LixeiraProjetoController implements Initializable {
             new ProjetoDAO().editar(projeto);
         }
         projetos.setAll(new ProjetoDAO().pegarTodosLixeira());
+    }
+
+    @FXML
+    private void miExcluirActionEvent(ActionEvent actionEvent) {
+        Projeto projeto = tvProjeto.getSelectionModel().getSelectedItem();
+        if (projeto != null) {
+            if (Mensagem.showConfirmation("Excluir permanentemente", "Você realmente deseja excluir permanentemente esse projeto?")) {
+                new GenericaDAO<Projeto>().excluir(projeto);
+                projetos.setAll(new ProjetoDAO().pegarTodosLixeira());
+            }
+        }
     }
 }

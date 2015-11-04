@@ -134,17 +134,14 @@ public class QuadroDeHorarioController implements Initializable {
     private ObservableList<MateriaHorario> materiaHorarios = FXCollections.observableArrayList();
     private ObservableList<DataHorario.Turno> turnosDiurmos = FXCollections.observableArrayList();
 
-    private TabelaHorario thMes1;
-    private TabelaHorario thMes2;
-    private TabelaHorario thMes3;
-    private TabelaHorario thMes4;
-    private TabelaHorario thMes5;
-    private TabelaHorario thMes6;
     private Turma turma;
     private Turma turmaEspelho;
     private MateriaHorario materiaHorario;
 
-    //Isso aqui nao devia entrar no fxml
+    //Isso aqui nao devia entrar no fxml mas entra
+    //Nao sei porque um dia descubro acredito que e por causa que é constante
+    //Enfim fazer o que né
+    //Devia ter feito uma lista mas dexei pra outro dia
     public static final Color corAmbiente1 = Color.WHITE;
     public static final Color corAmbiente2 = Color.rgb(153, 255, 153);
     public static final Color corAmbiente3 = Color.rgb(255, 255, 102);
@@ -154,23 +151,13 @@ public class QuadroDeHorarioController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        new Thread(() -> {
-//            for (int i = 0; i < 101; i++) {
-//                progressIndicator.setProgress(i / 100d);
-//                try {
-//                    Thread.sleep(100);
-//                } catch (InterruptedException ex) {
-//                    Logger.getLogger(QuadroDeHorarioController.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            }
-//            progressIndicator.setVisible(false);
-//        }).start();
         Platform.runLater(() -> {
             turma = (Turma) apContainer.getUserData();
             if (turma.isEspelho()) {
                 turmaEspelho = turma;
                 turma = turma.getTurmaPrincipal();
             }
+            progressIndicator.setProgress(0d);
             if (turma.getTurno().equals(DataHorario.Turno.DIURNO)) {
                 cbTurno.getSelectionModel().select(DataHorario.Turno.MANHA);
             } else {
@@ -332,7 +319,6 @@ public class QuadroDeHorarioController implements Initializable {
     }
 
     @FXML
-
     private void spAnoActionEvent(MouseEvent actionEvent) {
         carregarTabelas();
     }
@@ -440,16 +426,16 @@ public class QuadroDeHorarioController implements Initializable {
     }
 
     public void carregarTabelas() {
-        if (turmaEspelho != null) {
-            lbTurma.setText("Turma\n" + turmaEspelho.getDescricao() + "-" + turmaEspelho.getModulo());
-        } else {
-            lbTurma.setText("Turma\n" + turma.getDescricao() + "-" + turma.getModulo());
-        }
-        TabelaHorario.ambienteSelecionado = null;
-        TabelaHorario.materiaHorarioSelecionado = null;
-        TabelaHorario.turno = cbTurno.getSelectionModel().getSelectedItem();
         new Thread(() -> {
+            TabelaHorario.ambienteSelecionado = null;
+            TabelaHorario.materiaHorarioSelecionado = null;
+            TabelaHorario.turno = cbTurno.getSelectionModel().getSelectedItem();
             Platform.runLater(() -> {
+                if (turmaEspelho != null) {
+                    lbTurma.setText("Turma\n" + turmaEspelho.getDescricao() + "-" + turmaEspelho.getModulo());
+                } else {
+                    lbTurma.setText("Turma\n" + turma.getDescricao() + "-" + turma.getModulo());
+                }
                 materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turma, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
                 if (turmaEspelho != null) {
                     materiaHorarios.addAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turmaEspelho, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
@@ -460,6 +446,7 @@ public class QuadroDeHorarioController implements Initializable {
         carregarDados = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
+                updateProgress(0, 6);
                 Platform.runLater(() -> {
                     gpMeses.getChildren().clear();
                 });
@@ -479,6 +466,7 @@ public class QuadroDeHorarioController implements Initializable {
                 return null;
             }
         };
+
         progressIndicator.progressProperty().bind(carregarDados.progressProperty());
         carregarDados.setOnSucceeded((WorkerStateEvent event) -> {
             progressIndicator.setVisible(false);

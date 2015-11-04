@@ -7,6 +7,7 @@ package br.com.QuadroDeHorario.view;
 
 import br.com.QuadroDeHorario.dao.UsuarioDAO;
 import br.com.QuadroDeHorario.entity.Usuario;
+import br.com.QuadroDeHorario.model.GenericaDAO;
 import br.com.QuadroDeHorario.util.Mensagem;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -72,6 +73,17 @@ public class LixeiraUsuarioController implements Initializable {
                 new UsuarioDAO().editar(usuario);
             }
             usuarios.setAll(new UsuarioDAO().pegarTodosLixeira());
+        }
+    }
+
+    @FXML
+    private void miExcluirActionEvent(ActionEvent actionEvent) {
+        usuario = tvUsuario.getSelectionModel().getSelectedItem();
+        if (usuario != null) {
+            if (Mensagem.showConfirmation("Excluir permanentemente", "Você realmente deseja excluir permanentemente o usuário?")) {
+                new GenericaDAO<Usuario>().excluir(usuario);
+                usuarios.setAll(new UsuarioDAO().pegarTodosLixeira());
+            }
         }
     }
 }

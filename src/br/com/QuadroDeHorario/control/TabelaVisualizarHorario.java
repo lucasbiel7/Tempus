@@ -209,11 +209,11 @@ public class TabelaVisualizarHorario extends TableView<HorarioDiario> {
             for (Ambiente ambiente : new AmbienteDAO().pegarTodos()) {
                 HorarioDiario horarioDiario = new HorarioDiario();
                 horarioDiario.setObjeto(ambiente);
-                horarioDiario.setAula1Horario(new AulaDAO().pegarPorDisciplinaAmbiente(DataHorario.Horario.HORARIO1, dia, ambiente, turno));
-                horarioDiario.setAula2Horario(new AulaDAO().pegarPorDisciplinaAmbiente(DataHorario.Horario.HORARIO2, dia, ambiente, turno));
-                horarioDiario.setAula3Horario(new AulaDAO().pegarPorDisciplinaAmbiente(DataHorario.Horario.HORARIO3, dia, ambiente, turno));
-                horarioDiario.setAula4Horario(new AulaDAO().pegarPorDisciplinaAmbiente(DataHorario.Horario.HORARIO4, dia, ambiente, turno));
-                horarioDiario.setAula5Horario(new AulaDAO().pegarPorDisciplinaAmbiente(DataHorario.Horario.HORARIO5, dia, ambiente, turno));
+                horarioDiario.setAula1Horario(new AulaDAO().pegarPorHorarioDiaAmbiente(DataHorario.Horario.HORARIO1, dia, ambiente, turno));
+                horarioDiario.setAula2Horario(new AulaDAO().pegarPorHorarioDiaAmbiente(DataHorario.Horario.HORARIO2, dia, ambiente, turno));
+                horarioDiario.setAula3Horario(new AulaDAO().pegarPorHorarioDiaAmbiente(DataHorario.Horario.HORARIO3, dia, ambiente, turno));
+                horarioDiario.setAula4Horario(new AulaDAO().pegarPorHorarioDiaAmbiente(DataHorario.Horario.HORARIO4, dia, ambiente, turno));
+                horarioDiario.setAula5Horario(new AulaDAO().pegarPorHorarioDiaAmbiente(DataHorario.Horario.HORARIO5, dia, ambiente, turno));
                 horarioDiarios.add(horarioDiario);
             }
         } else if (classe.equals(Usuario.class)) {

@@ -64,6 +64,8 @@ public class VisualizarQuadroSemestralController implements Initializable {
     @FXML
     private TableColumn<MateriaHorario, String> tcInstrutor;
     @FXML
+    private TableColumn<MateriaHorario, String> tcTurma;
+    @FXML
     private TableColumn<MateriaHorario, Ambiente> tcAmbiente1;
     @FXML
     private TableColumn<MateriaHorario, Ambiente> tcAmbiente2;
@@ -83,18 +85,17 @@ public class VisualizarQuadroSemestralController implements Initializable {
     private TableColumn<MateriaHorario, String> tcDataFim;
     @FXML
     private TableColumn<MateriaHorario, String> tcCargaDisciplina;
-
-    private ObservableList<MateriaHorario> materiaHorarios = FXCollections.observableArrayList();
-
     @FXML
     private AnchorPane apContainer;
     @FXML
     private VBox vbHorarios;
 
+    private ObservableList<MateriaHorario> materiaHorarios = FXCollections.observableArrayList();
     private Task<Void> carregarTabelas;
     private Turma turma;
     private DataHorario.Turno turno;
     private Usuario usuario;
+    private Ambiente ambiente;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -121,21 +122,17 @@ public class VisualizarQuadroSemestralController implements Initializable {
                     } else if (parametro instanceof Usuario) {
                         usuario = (Usuario) parametro;
                         tcInstrutor.setText("Turma");
+                    } else if (parametro instanceof Ambiente) {
+                        ambiente = (Ambiente) parametro;
                     }
                 }
                 new Thread(carregarTabelas, "carregarTabelas").start();
-
             }
         });
         tcSigla.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> new SimpleStringProperty(param.getValue().toString()));
         tcDisciplina.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> new SimpleStringProperty(param.getValue().getMateriaTurmaIntrutorSemestre().getMateria().toString()));
-        tcInstrutor.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> {
-            if (turma != null) {
-                return new SimpleStringProperty(param.getValue().getMateriaTurmaIntrutorSemestre().getTurma() != null ? param.getValue().getMateriaTurmaIntrutorSemestre().getTurma().toString() : "");
-            } else {
-                return new SimpleStringProperty(param.getValue().getMateriaTurmaIntrutorSemestre().getInstrutor() != null ? param.getValue().getMateriaTurmaIntrutorSemestre().getInstrutor().toString() : "");
-            }
-        });
+        tcInstrutor.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> new SimpleStringProperty(param.getValue().getMateriaTurmaIntrutorSemestre().getInstrutor() != null ? param.getValue().getMateriaTurmaIntrutorSemestre().getInstrutor().toString() : ""));
+        tcTurma.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> new SimpleStringProperty(param.getValue().getMateriaTurmaIntrutorSemestre().getTurma() != null ? param.getValue().getMateriaTurmaIntrutorSemestre().getTurma().toString() : ""));
         tcCargaHoraria.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> new SimpleStringProperty(String.valueOf(param.getValue().getMateriaTurmaIntrutorSemestre().getMateria().getCargaHoraria())));
         tcCargaDisciplina.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> new SimpleStringProperty(String.valueOf(new AulaDAO().pegarPorDisciplinaTurma(param.getValue().getMateriaTurmaIntrutorSemestre().getMateria(), param.getValue().getMateriaTurmaIntrutorSemestre().getTurma()).size())));
         tcCargaInstrutor.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> new SimpleStringProperty(String.valueOf(new AulaDAO().pegarPorMateria(param.getValue()).size())));
@@ -199,6 +196,9 @@ public class VisualizarQuadroSemestralController implements Initializable {
         if (turma != null) {
             //Carrengando matérias horarios que correponde a unidade curricular daquela turma para o semestre atual de acordo com servidor
             //LIKE A STONE(8)
+            Platform.runLater(() -> {
+                tcTurma.setVisible(false);
+            });
             materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turma, DataHorario.Semestre.semestreAtual(), calendar.get(Calendar.YEAR)));
             for (int i = 1; i < 7; i++) {
                 TabelaHorarioImpressao tabelaHorarioImpressao = new TabelaHorarioImpressao(DataHorario.Semestre.semestreAtual().equals(DataHorario.Semestre.SEMESTRE1) ? i : i + 6, calendar.get(Calendar.YEAR), turma);
@@ -211,6 +211,9 @@ public class VisualizarQuadroSemestralController implements Initializable {
                 });
             }
         } else if (usuario != null && turno != null) {
+            Platform.runLater(() -> {
+                tcInstrutor.setVisible(false);
+            });
             materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorInstrutorTurnoSemestreAno(usuario, turno, DataHorario.Semestre.semestreAtual(), calendar.get(Calendar.YEAR)));
             TabelaHorarioImpressao.turno = turno;
             for (int i = 1; i < 7; i++) {
@@ -223,8 +226,27 @@ public class VisualizarQuadroSemestralController implements Initializable {
                     vbHorarios.getChildren().add(tabelaHorarioImpressao);
                 });
             }
+        } else if (ambiente != null && turno != null) {
+            Platform.runLater(() -> {
+                tcAmbiente1.setVisible(false);
+                tcAmbiente2.setVisible(false);
+                tcAmbiente3.setVisible(false);
+                tcAmbiente4.setVisible(false);
+                tcAmbiente5.setVisible(false);
+            });
+            materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorAmbienteTurnoSemestreAno(ambiente, turno, DataHorario.Semestre.semestreAtual(), calendar.get(Calendar.YEAR)));
+            TabelaHorarioImpressao.turno = turno;
+            for (int i = 1; i < 7; i++) {
+                TabelaHorarioImpressao tabelaHorarioImpressao = new TabelaHorarioImpressao(DataHorario.Semestre.semestreAtual().equals(DataHorario.Semestre.SEMESTRE1) ? i : i + 6, calendar.get(Calendar.YEAR), ambiente);
+                tabelaHorarioImpressao.getStyleClass().remove("tabelaImpressao");
+                tabelaHorarioImpressao.setMinSize(Control.USE_COMPUTED_SIZE, 195);
+                tabelaHorarioImpressao.setPrefSize(Control.USE_COMPUTED_SIZE, 195);
+                tabelaHorarioImpressao.setMaxSize(Control.USE_COMPUTED_SIZE, Control.USE_COMPUTED_SIZE);
+                Platform.runLater(() -> {
+                    vbHorarios.getChildren().add(tabelaHorarioImpressao);
+                });
+            }
         }
-
     }
 
     public class RenderAmbiente implements Callback<TableColumn<MateriaHorario, Ambiente>, TableCell<MateriaHorario, Ambiente>> {
@@ -244,7 +266,6 @@ public class VisualizarQuadroSemestralController implements Initializable {
                         setText("");
                     } else if (item != null) {
                         setText(item.getNome());
-//                        setOnMouseClicked(new QuadroDeHorarioController.SelecionarAmbiente(item));
                     } else {
                         setText("");
                     }

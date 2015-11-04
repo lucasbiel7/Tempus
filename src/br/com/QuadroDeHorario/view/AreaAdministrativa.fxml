@@ -33,6 +33,15 @@
                   </ScrollPane>
             </content>
           </Tab>
+            <Tab onSelectionChanged="#tbDisciplinaActionEvent" text="Componente curricular">
+              <content>
+                  <ScrollPane fitToHeight="true" fitToWidth="true">
+                     <content>
+                      <AnchorPane fx:id="apDisciplina" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                     </content>
+                  </ScrollPane>
+              </content>
+            </Tab>
             <Tab onSelectionChanged="#tbRecursoActionEvent" text="Recurso">
                <content>
                   <ScrollPane fitToHeight="true" fitToWidth="true">
@@ -59,15 +68,6 @@
                      </content>
                   </ScrollPane>
                </content>
-            </Tab>
-            <Tab onSelectionChanged="#tbDisciplinaActionEvent" text="Componente curricular">
-              <content>
-                  <ScrollPane fitToHeight="true" fitToWidth="true">
-                     <content>
-                      <AnchorPane fx:id="apDisciplina" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                     </content>
-                  </ScrollPane>
-              </content>
             </Tab>
             <Tab onSelectionChanged="#tbInstrutorActionEvent" text="Instrutor/Usuários">
               <content>
