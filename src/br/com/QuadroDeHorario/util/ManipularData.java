@@ -14,7 +14,11 @@ import java.util.Date;
  */
 public class ManipularData {
 
-    public static  String toHour(Date data) {
+    public static String toHour(Date data) {
         return new SimpleDateFormat("HH:mm:ss").format(data);
+    }
+
+    public static String toDate(Date data) {
+        return new SimpleDateFormat("dd/MM/yyyy").format(data);
     }
 }

@@ -62,7 +62,7 @@ public class VisualizarHorarioSemestralController implements Initializable {
             } else if (classe.equals(Usuario.class)) {
                 cbObjeto.setPromptText("Selecione o instrutor...");
                 objetos.setAll(new UsuarioDAO().pegarPorGrupo(new GrupoDAO().pegarGrupo("Instrutor")));
-                lbObjeto.setText("Usuario");
+                lbObjeto.setText("Instrutor");
             } else if (classe.equals(Ambiente.class)) {
                 lbObjeto.setText("Ambiente");
                 cbObjeto.setPromptText("Selecione o ambiente...");

@@ -46,7 +46,7 @@ import javafx.stage.Stage;
  * @author OCTI01
  */
 public class GerenciarTurmaController implements Initializable {
-    
+
     @FXML
     private TextField tfNome;
     @FXML
@@ -91,11 +91,13 @@ public class GerenciarTurmaController implements Initializable {
     private ObservableList<Turma> turmas = FXCollections.observableArrayList();
     private ObservableList<Curso> cursos = FXCollections.observableArrayList();
     private ObservableList<Projeto> projetos = FXCollections.observableArrayList();
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
-            stage = (Stage) tvTurma.getScene().getWindow();
+            if (tvTurma.getScene() != null) {
+                stage = (Stage) tvTurma.getScene().getWindow();
+            }
         });
         turnos.setAll(DataHorario.Turno.values());
         cbTurno.setItems(turnos);
@@ -133,7 +135,7 @@ public class GerenciarTurmaController implements Initializable {
                     setText("");
                 }
             }
-            
+
         });
         tcFim.setCellFactory((TableColumn<Turma, Date> param) -> new TableCell<Turma, Date>() {
             @Override
@@ -144,14 +146,14 @@ public class GerenciarTurmaController implements Initializable {
                     setText("");
                 }
             }
-            
+
         });
         cbProjeto.setItems(projetos);
         projetos.setAll(new ProjetoDAO().pegarTodos());
         turma = new Turma();
         carregarDados();
     }
-    
+
     @FXML
     private void btSalvarActionEvent(ActionEvent actionEvent) {
         turma.setDescricao(tfNome.getText());
@@ -184,19 +186,19 @@ public class GerenciarTurmaController implements Initializable {
         turma = new Turma();
         carregarDados();
     }
-    
+
     @FXML
     private void btNovoActionEvent(ActionEvent actionEvent) {
         turma = new Turma();
         carregarDados();
     }
-    
+
     @FXML
     private void miExcluirActionEvent(ActionEvent actionEvent) {
         turma = tvTurma.getSelectionModel().getSelectedItem();
         if (turma != null) {
-            List<MateriaHorario> materiaHorarios=new MateriaHorarioDAO().pegarPorTurma(turma);
-            if (Mensagem.showConfirmation("Excluir Turma!", "Você tem certeza que deseja excluir essa turma?"+(materiaHorarios.isEmpty()?"":"Esse registro possui dados relacionados a ele!"))) {
+            List<MateriaHorario> materiaHorarios = new MateriaHorarioDAO().pegarPorTurma(turma);
+            if (Mensagem.showConfirmation("Excluir Turma!", "Você tem certeza que deseja excluir essa turma?" + (materiaHorarios.isEmpty() ? "" : "Esse registro possui dados relacionados a ele!"))) {
                 new TurmaDAO().excluir(turma);
             }
         }
@@ -204,18 +206,18 @@ public class GerenciarTurmaController implements Initializable {
         turma = new Turma();
         carregarDados();
     }
-    
+
     @FXML
     private void tvTurmaMouseReleased(MouseEvent mouseEvent) {
         turma = tvTurma.getSelectionModel().getSelectedItem();
         carregarDados();
     }
-    
+
     @FXML
     private void tfPesquisarKeyRelease(KeyEvent keyEvent) {
         turmas.setAll(new TurmaDAO().pesquisarPorNome(tfPesquisar.getText()));
-    }    
-    
+    }
+
     private void carregarDados() {
         if (turma == null) {
             tfNome.setText("");
@@ -245,5 +247,5 @@ public class GerenciarTurmaController implements Initializable {
             cbEspelho.setSelected(turma.isEspelho());
         }
     }
-    
+
 }

@@ -9,9 +9,11 @@ package br.com.QuadroDeHorario.view;
 import br.com.QuadroDeHorario.control.SerialCommunication;
 import br.com.QuadroDeHorario.control.SerialUtil;
 import br.com.QuadroDeHorario.control.TabelaVisualizarHorario;
+import br.com.QuadroDeHorario.dao.VariaveisDoSistemaDAO;
 import br.com.QuadroDeHorario.entity.Ambiente;
 import br.com.QuadroDeHorario.entity.Turma;
 import br.com.QuadroDeHorario.entity.Usuario;
+import br.com.QuadroDeHorario.entity.VariaveisDoSistema;
 import br.com.QuadroDeHorario.model.SerialConstants;
 import br.com.QuadroDeHorario.util.DataHorario;
 import br.com.QuadroDeHorario.util.Efeito;
@@ -73,8 +75,18 @@ public class VisualizarHorarioController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
             stage = (Stage) lbLogo.getScene().getWindow();
-            comunication = new Thread(SerialUtil.serialCommunication, "VisualizarHorarioCommunicationSerial");
-            comunication.start();
+            VariaveisDoSistema variaveisDoSistema = new VariaveisDoSistemaDAO().pegarPorNome(VariaveisDoSistema.NOME.KEYGUARDIAN);
+            if (variaveisDoSistema != null) {
+                lbStatus.setVisible(Boolean.valueOf(variaveisDoSistema.getValor()));
+                btEntregarChave.setVisible(Boolean.valueOf(variaveisDoSistema.getValor()));
+                
+                if (Boolean.valueOf(variaveisDoSistema.getValor())) {
+                    comunication = new Thread(SerialUtil.serialCommunication, "VisualizarHorarioCommunicationSerial");
+                    comunication.start();
+                }
+            } else {
+                lbStatus.setVisible(false);
+            }
         });
         Efeito.logo(lbLogo, ivLogo);
         if (SerialUtil.serialCommunication == null) {
@@ -126,7 +138,7 @@ public class VisualizarHorarioController implements Initializable {
 
     @FXML
     private void btSemestralActionEvent(ActionEvent actionEvent) {
-        FxMananger.show("VisualizarHorarioSemestral", "Visualizar horário semestral", true, false,clicado);
+        FxMananger.show("VisualizarHorarioSemestral", "Visualizar horário semestral", true, false, clicado);
     }
 
     @FXML

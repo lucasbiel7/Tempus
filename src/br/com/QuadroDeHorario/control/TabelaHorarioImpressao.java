@@ -18,7 +18,7 @@ import br.com.QuadroDeHorario.entity.Turma;
 import br.com.QuadroDeHorario.entity.Usuario;
 import br.com.QuadroDeHorario.util.DataHorario;
 import br.com.QuadroDeHorario.util.FxMananger;
-import br.com.QuadroDeHorario.util.MesCalendario;
+import br.com.QuadroDeHorario.model.MesCalendario;
 import br.com.QuadroDeHorario.view.QuadroDeHorarioController;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -8,12 +8,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="apContainer" prefHeight="508.0" prefWidth="1007.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.QuadroDeHorarioController">
+<AnchorPane id="AnchorPane" fx:id="apContainer" prefHeight="524.0" prefWidth="1025.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.QuadroDeHorarioController">
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
     <children>
-        <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="85.0" prefHeight="233.0" prefViewportHeight="328.0" prefViewportWidth="600.0" prefWidth="1007.0" styleClass="mainFxmlClass" AnchorPane.bottomAnchor="190.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+        <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="85.0" prefHeight="233.0" prefViewportHeight="328.0" prefViewportWidth="600.0" prefWidth="1007.0" styleClass="mainFxmlClass" AnchorPane.bottomAnchor="190.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="85.0">
             <content>
                 <GridPane fx:id="gpMeses" layoutX="7.0" layoutY="14.0" styleClass="mainFxmlClass" vgap="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
@@ -30,7 +30,7 @@
                 </GridPane>
             </content>
         </ScrollPane>
-        <TableView fx:id="tvMateriaHorario" layoutY="427.0" prefHeight="185.0" prefWidth="704.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="303.0">
+        <TableView fx:id="tvMateriaHorario" layoutY="427.0" prefHeight="185.0" prefWidth="704.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="303.0">
             <columns>
                 <TableColumn fx:id="tcSigla" maxWidth="60.0" minWidth="60.0" prefWidth="75.0" text="Sigla" />
                 <TableColumn fx:id="tcDisciplina" maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="-1.0" text="Unidade curricular" />
@@ -62,13 +62,13 @@
                 </ContextMenu>
             </contextMenu>
         </TableView>
-        <Pane layoutX="702.0" layoutY="467.0" prefHeight="192.0" prefWidth="300.0" AnchorPane.bottomAnchor="-7.0" AnchorPane.rightAnchor="0.0">
+        <Pane layoutX="702.0" layoutY="467.0" prefHeight="179.0" prefWidth="297.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
             <children>
                 <CheckBox fx:id="cbAulasGerminadas" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#rbChekActionEvent" text="Aulas geminadas" textFill="WHITE" />
-                <CheckBox fx:id="cbAutoPreencher" layoutX="13.0" layoutY="43.0" mnemonicParsing="false" onAction="#rbChekActionEvent" text="Aulas recorrentes&#10;(Mês)" textFill="WHITE" />
-                <Button layoutX="14.0" layoutY="85.0" mnemonicParsing="false" onAction="#btProximoModuloActionEvent" prefHeight="35.0" prefWidth="137.0" text="Próximo módulo" />
-                <Button layoutX="14.0" layoutY="127.0" mnemonicParsing="false" onAction="#btContinuarModuloProximoSemestreActionEvent" prefHeight="51.0" prefWidth="137.0" text="Continuar módulo&#10;próximo semestre&#10;" />
-                <TableView fx:id="tvEvento" layoutX="160.0" layoutY="2.0" prefHeight="154.0" prefWidth="137.0">
+                <CheckBox fx:id="cbAutoPreencher" layoutX="15.0" layoutY="31.0" mnemonicParsing="false" onAction="#rbChekActionEvent" prefHeight="34.0" prefWidth="128.0" text="Aulas recorrentes&#10;(Mês)" textFill="WHITE" />
+                <Button layoutX="14.0" layoutY="72.0" mnemonicParsing="false" onAction="#btProximoModuloActionEvent" prefHeight="35.0" prefWidth="137.0" text="Próximo módulo" />
+                <Button layoutX="14.0" layoutY="113.0" mnemonicParsing="false" onAction="#btContinuarModuloProximoSemestreActionEvent" prefHeight="51.0" prefWidth="137.0" text="Continuar módulo&#10;próximo semestre&#10;" />
+                <TableView fx:id="tvEvento" layoutX="160.0" layoutY="2.0" prefHeight="154.0" prefWidth="128.0">
                     <columns>
                         <TableColumn fx:id="tcNomeEvento" prefWidth="75.0" text="Eventos" />
                     </columns>
@@ -76,10 +76,10 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                     </columnResizePolicy>
                 </TableView>
-                <Label layoutX="160.0" layoutY="164.0" text="(DD)-&gt; Disciplina Dividida" />
+                <Label layoutX="149.0" layoutY="157.0" text="(DD)-&gt; Disciplina Dividida" />
             </children>
         </Pane>
-        <HBox alignment="CENTER" layoutX="5.0" layoutY="-1.0" prefHeight="78.0" prefWidth="1007.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <HBox alignment="CENTER" layoutX="5.0" layoutY="-1.0" prefHeight="78.0" prefWidth="1007.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
             <children>
                 <Label fx:id="lbTurma" layoutX="5.0" layoutY="1.0" prefHeight="37.0" prefWidth="311.0" text="Turma&#10;Carregando ...&#10;">
                     <graphic>

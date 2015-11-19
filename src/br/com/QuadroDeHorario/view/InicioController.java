@@ -23,6 +23,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -47,6 +48,8 @@ public class InicioController implements Initializable {
     private Label lbAtualizacao;
     @FXML
     private Label lbVersao;
+    @FXML
+    private Button btLogin;
     private Stage stage;
 
     @Override
@@ -77,6 +80,7 @@ public class InicioController implements Initializable {
         Efeito.logo(lbLogo, ivLogo);
         lbVersao.setText(FxMananger.NOME_PROGRAMA + " Versão: " + ParametrosBanco.VERSAO);
         Atualizacao atualizacao = new AtualizacaoDAO().pegarPorSistema(new SistemaDAO().pegarPorNome(FxMananger.NOME_PROGRAMA));
+       btLogin.setDisable(!FxMananger.ONLINE);
         if (atualizacao != null) {
             lbAtualizacao.setText("Existe uma atualização para ser baixada: " + atualizacao.getNome());
             lbAtualizacao.setOnMouseReleased((MouseEvent event) -> {

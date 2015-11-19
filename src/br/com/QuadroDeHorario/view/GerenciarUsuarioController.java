@@ -169,7 +169,9 @@ public class GerenciarUsuarioController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
-            stage = (Stage) tvUsuario.getScene().getWindow();
+            if (tvUsuario.getScene() != null) {
+                stage = (Stage) tvUsuario.getScene().getWindow();
+            }
         });
         cbEscolaridade.setItems(tipoEscolaridades);
         tipoEscolaridades.setAll(TipoEscolaridade.values());
@@ -480,7 +482,7 @@ public class GerenciarUsuarioController implements Initializable {
         procuraCartao = new Timeline(new KeyFrame(Duration.seconds(3d), (ActionEvent event) -> {
             if (SerialUtil.serialCommunication.isConexao()) {
                 btLerCartao.setText("Ler Cartão");
-            }else{
+            } else {
                 btLerCartao.setText("Conectar");
             }
             if (SerialUtil.serialCommunication.getLeitura() != null) {

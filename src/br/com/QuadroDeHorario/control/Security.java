@@ -5,17 +5,13 @@
  */
 package br.com.QuadroDeHorario.control;
 
-import br.com.QuadroDeHorario.dao.TokenCodeDAO;
-import br.com.QuadroDeHorario.entity.TokenCode;
 import br.com.QuadroDeHorario.entity.Usuario;
-import br.com.QuadroDeHorario.model.GenericaDAO;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.hibernate.exception.ConstraintViolationException;
 
 /**
  *
@@ -23,18 +19,13 @@ import org.hibernate.exception.ConstraintViolationException;
  */
 public class Security {
 
-    public String codigoDeSeguranca(Usuario usuario) throws ConstraintViolationException {
+    public String codigoDeSeguranca() {
         String cod = "";
         Random random = new Random();
         for (int i = 0; i < 5; i++) {
             cod += String.valueOf(random.nextInt(9));
         }
         cod += (char) (random.nextInt(25) + 65);
-        TokenCode tokenCode = new TokenCode();
-        tokenCode.setUsuario(usuario);
-        tokenCode.setLastChange(new TokenCodeDAO().dataAtual());
-        tokenCode.setToken(cod);
-        new TokenCodeDAO().cadastrar(tokenCode);
         return cod;
     }
 

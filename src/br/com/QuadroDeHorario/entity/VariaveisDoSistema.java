@@ -19,12 +19,24 @@ import javax.persistence.ManyToOne;
 @Entity
 public class VariaveisDoSistema implements Serializable {
 
+    public enum NOME {
+        KEYGUARDIAN("KeyGuardian"), OCUPACAO("ocupacao");
+        private String nome;
+
+        private NOME(String nome) {
+            this.nome = nome;
+        }
+
+        @Override
+        public String toString() {
+            return nome;
+        }
+    }
     @Id
     @GeneratedValue
     private int id;
     @Column(unique = true)
     private String nome;
-
     private String valor;
     @ManyToOne
     private Sistema sistema;

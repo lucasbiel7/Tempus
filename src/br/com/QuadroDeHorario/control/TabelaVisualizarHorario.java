@@ -16,7 +16,7 @@ import br.com.QuadroDeHorario.entity.Aula;
 import br.com.QuadroDeHorario.entity.Turma;
 import br.com.QuadroDeHorario.entity.Usuario;
 import br.com.QuadroDeHorario.util.DataHorario;
-import br.com.QuadroDeHorario.util.HorarioDiario;
+import br.com.QuadroDeHorario.model.HorarioDiario;
 import java.util.Date;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;

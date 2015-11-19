@@ -26,7 +26,7 @@
             <ContextMenu>
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#miRestaurarActionEvent" text="Restaurar" />
-                  <MenuItem mnemonicParsing="false" onAction="#miExcluirActionEvent" text="Excluir permamente" />
+                  <MenuItem mnemonicParsing="false" onAction="#miExcluirActionEvent" text="Excluir permanente" />
               </items>
             </ContextMenu>
          </contextMenu>

@@ -22,6 +22,7 @@ public class Efeito {
 
     public static int imagem;
     public static Timeline logo;
+    public static final int MAX_LOGOS = 3;
 
     public static void logo(Label label, ImageView imageView) {
         imagem = 1;
@@ -39,7 +40,7 @@ public class Efeito {
         fadeTransition.play();
         logo = new Timeline(new KeyFrame(Duration.seconds(5), (ActionEvent actionEvent) -> {
             imagem++;
-            if (imagem > 3) {
+            if (imagem > MAX_LOGOS) {
                 imagem = 1;
             }
             FadeTransition nFadeTransition = new FadeTransition(Duration.seconds(3d), label);

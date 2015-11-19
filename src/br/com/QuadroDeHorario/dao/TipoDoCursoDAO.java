@@ -8,6 +8,8 @@ package br.com.QuadroDeHorario.dao;
 import br.com.QuadroDeHorario.entity.Curso;
 import br.com.QuadroDeHorario.entity.TipoDoCurso;
 import br.com.QuadroDeHorario.model.GenericaDAO;
+import java.util.List;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -22,6 +24,12 @@ public class TipoDoCursoDAO extends GenericaDAO<TipoDoCurso> {
             new CursoDAO().excluir(curso);
         }
         editar(entity);
+    }
+
+    public List<TipoDoCurso> pegarPorPesquisa(String descricao) {
+        entitys = criteria.add(Restrictions.like("descricao", "%" + descricao + "%")).list();
+        finalizarSession();
+        return entitys;
     }
 
 }

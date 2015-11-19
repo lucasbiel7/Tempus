@@ -17,8 +17,8 @@ import org.hibernate.criterion.Restrictions;
  */
 public class VariaveisDoSistemaDAO extends GenericaDAO<VariaveisDoSistema> {
 
-    public VariaveisDoSistema pegarPorNome(String nome) {
-        entity = (VariaveisDoSistema) criteria.add(Restrictions.eq("nome", nome)).uniqueResult();
+    public VariaveisDoSistema pegarPorNome(VariaveisDoSistema.NOME nome) {
+        entity = (VariaveisDoSistema) criteria.add(Restrictions.eq("nome", nome.toString())).uniqueResult();
         finalizarSession();
         return entity;
     }

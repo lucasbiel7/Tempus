@@ -49,7 +49,6 @@ public class InfograficoController implements Initializable {
         Platform.runLater(() -> {
             data = (Date) barChart.getParent().getUserData();
             carregarDados();
-
         });
         new Timeline(new KeyFrame(Duration.seconds(1), (ActionEvent e) -> {
             carregarDados();
@@ -57,7 +56,6 @@ public class InfograficoController implements Initializable {
         barChart.setData(dados);
         naNumeros.setUpperBound(100);
         naNumeros.setTickLabelFormatter(new PercentageStringConverter(Locale.getDefault()));
-
     }
 
     private void carregarDados() {

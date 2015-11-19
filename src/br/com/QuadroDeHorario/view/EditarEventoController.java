@@ -37,7 +37,6 @@ public class EditarEventoController implements Initializable {
     private Evento evento;
     
     @Override
-    
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
             stage = (Stage) tfNome.getScene().getWindow();

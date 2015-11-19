@@ -15,6 +15,14 @@
         <URL value="@estilo.css" />
     </stylesheets>
    <children>
+      <Label fx:id="lbLogo" layoutX="6.0" layoutY="15.0" prefHeight="72.0" prefWidth="224.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="750.0">
+         <graphic>
+            <ImageView fx:id="ivLogo" fitHeight="61.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" />
+         </graphic>
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
       <Button layoutX="908.0" layoutY="14.0" mnemonicParsing="false" onAction="#btInicioActionEvent" prefHeight="72.0" prefWidth="80.0" text="Página&#10;Inicial&#10;" AnchorPane.rightAnchor="4.0" />
       <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="14.0" layoutY="101.0" prefHeight="367.0" prefViewportHeight="304.0" prefViewportWidth="959.0" prefWidth="959.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="101.0">
          <effect>
@@ -40,7 +48,7 @@
             </AnchorPane>
          </content>
       </ScrollPane>
-      <HBox alignment="CENTER" layoutX="242.0" layoutY="14.0" prefHeight="72.0" prefWidth="652.0" spacing="20.0" AnchorPane.leftAnchor="242.0" AnchorPane.rightAnchor="93.0">
+      <HBox alignment="CENTER_RIGHT" layoutX="242.0" layoutY="14.0" prefHeight="72.0" prefWidth="652.0" spacing="20.0" AnchorPane.leftAnchor="242.0" AnchorPane.rightAnchor="93.0">
          <children>
             <Button layoutX="150.0" layoutY="109.0" mnemonicParsing="false" onAction="#btTurmaActionEvent" prefHeight="72.0" prefWidth="198.0" text="Turmas" />
             <Button layoutX="359.0" layoutY="109.0" mnemonicParsing="false" onAction="#btInstrutorActionEvent" prefHeight="72.0" prefWidth="198.0" text="Instrutor" />
@@ -56,13 +64,5 @@
                </image>
             </ImageView>
          </graphic></Label>
-      <Label fx:id="lbLogo" layoutX="6.0" layoutY="15.0" prefHeight="72.0" prefWidth="224.0">
-         <graphic>
-            <ImageView fx:id="ivLogo" fitHeight="61.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" />
-         </graphic>
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
    </children>
 </AnchorPane>

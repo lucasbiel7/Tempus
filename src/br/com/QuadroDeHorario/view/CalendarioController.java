@@ -52,21 +52,35 @@ public class CalendarioController implements Initializable {
                 ano = (int) dados[0];
                 escolar = (boolean) dados[1];
             }
-            tmJaneiro = new TabelaMensal(1, ano,escolar);
-            tmFeveiro = new TabelaMensal(2, ano,escolar);
-            tmMarco = new TabelaMensal(3, ano,escolar);
-            tmAbril = new TabelaMensal(4, ano,escolar);
-            tmMaio = new TabelaMensal(5, ano,escolar);
-            tmJunho = new TabelaMensal(6, ano,escolar);
-            tmJulho = new TabelaMensal(7, ano,escolar);
-            tmAgosto = new TabelaMensal(8, ano,escolar);
-            tmSetembro = new TabelaMensal(9, ano,escolar);
-            tmOutubro = new TabelaMensal(10, ano,escolar);
-            tmNovembro = new TabelaMensal(11, ano,escolar);
-            tmDezembro = new TabelaMensal(12, ano,escolar);
-            gpMesses.addRow(0, tmJaneiro, tmFeveiro, tmMarco, tmAbril);
-            gpMesses.addRow(1, tmMaio, tmJunho, tmJulho, tmAgosto);
-            gpMesses.addRow(2, tmSetembro, tmOutubro, tmNovembro, tmDezembro);
+            new Thread(() -> {
+                tmJaneiro = new TabelaMensal(1, ano, escolar);
+                tmFeveiro = new TabelaMensal(2, ano, escolar);
+                tmMarco = new TabelaMensal(3, ano, escolar);
+                tmAbril = new TabelaMensal(4, ano, escolar);
+                Platform.runLater(() -> {
+                    gpMesses.addRow(0, tmJaneiro, tmFeveiro, tmMarco, tmAbril);
+                });
+                
+            }).start();
+            new Thread(() -> {
+                tmMaio = new TabelaMensal(5, ano, escolar);
+                tmJunho = new TabelaMensal(6, ano, escolar);
+                tmJulho = new TabelaMensal(7, ano, escolar);
+                tmAgosto = new TabelaMensal(8, ano, escolar);
+                Platform.runLater(() -> {
+                    gpMesses.addRow(1, tmMaio, tmJunho, tmJulho, tmAgosto);
+                });
+            }).start();
+            new Thread(() -> {
+                tmSetembro = new TabelaMensal(9, ano, escolar);
+                tmOutubro = new TabelaMensal(10, ano, escolar);
+                tmNovembro = new TabelaMensal(11, ano, escolar);
+                tmDezembro = new TabelaMensal(12, ano, escolar);
+                Platform.runLater(() -> {
+                    gpMesses.addRow(2, tmSetembro, tmOutubro, tmNovembro, tmDezembro);
+                });
+            }).start();
+
         });
     }
 }

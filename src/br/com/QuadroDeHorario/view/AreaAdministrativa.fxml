@@ -12,94 +12,87 @@
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
-   <children>
-      <TabPane fx:id="tbAbas" layoutY="7.0" prefHeight="469.0" prefWidth="742.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <tabs>
-          <Tab onSelectionChanged="#tbProjetoActionEvent" text="Projeto">
-            <content>
-                  <ScrollPane fitToHeight="true" fitToWidth="true">
-                     <content>
-                    <AnchorPane fx:id="apProjeto" minHeight="0.0" minWidth="0.0" prefHeight="351.0" prefWidth="847.0" />
-                     </content>
-                  </ScrollPane>
-            </content>
-          </Tab>
-          <Tab onSelectionChanged="#tbCursoActionEvent" text="Curso">
-            <content>
-                  <ScrollPane fitToHeight="true" fitToWidth="true">
-                     <content>
-                    <AnchorPane fx:id="apCurso" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                     </content>
-                  </ScrollPane>
-            </content>
-          </Tab>
-            <Tab onSelectionChanged="#tbDisciplinaActionEvent" text="Componente curricular">
-              <content>
-                  <ScrollPane fitToHeight="true" fitToWidth="true">
-                     <content>
-                      <AnchorPane fx:id="apDisciplina" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                     </content>
-                  </ScrollPane>
-              </content>
-            </Tab>
-            <Tab onSelectionChanged="#tbRecursoActionEvent" text="Recurso">
+    <children>
+        <TabPane fx:id="tbAbas" layoutY="7.0" prefHeight="469.0" prefWidth="742.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <tabs>
+                <Tab onSelectionChanged="#tbProjetoActionEvent" text="Projeto">
+                    <content>
+                        <ScrollPane fx:id="spProjeto" fitToHeight="true" fitToWidth="true" />
+                    </content>
+                </Tab>
+            <Tab onSelectionChanged="#tbProdutoActionEvent" text="Produto">
                <content>
-                  <ScrollPane fitToHeight="true" fitToWidth="true">
-                     <content>
-                        <AnchorPane fx:id="apRecurso" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                     </content>
+                  <ScrollPane fx:id="spProduto" prefHeight="200.0" prefWidth="200.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                    </content>
                   </ScrollPane>
                </content>
             </Tab>
-            <Tab onSelectionChanged="#tbAmbienteActionEvent" text="Ambiente">
-               <content>
-                  <ScrollPane fitToHeight="true" fitToWidth="true">
-                     <content>
-                        <AnchorPane fx:id="apAmbiente" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                     </content>
-                  </ScrollPane>
-               </content>
-            </Tab>
-            <Tab onSelectionChanged="#tbTurmaActionEvent" text="Turma">
-               <content>
-                  <ScrollPane fitToHeight="true" fitToWidth="true">
-                     <content>
-                        <AnchorPane fx:id="apTurma" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                     </content>
-                  </ScrollPane>
-               </content>
-            </Tab>
-            <Tab onSelectionChanged="#tbInstrutorActionEvent" text="Instrutor/Usuários">
-              <content>
-                  <ScrollPane fitToHeight="true" fitToWidth="true">
-                     <content>
-                      <AnchorPane fx:id="apInstrutor" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                     </content>
-                  </ScrollPane>
-              </content>
-            </Tab>
-            <Tab onSelectionChanged="#tbConstanteDoSistemaActionEvent" text="Constantes do sistema">
-               <content>
-                  <ScrollPane fitToHeight="true" fitToWidth="true">
-                     <content>
-                        <AnchorPane fx:id="apConstanteSistema" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                     </content>
-                  </ScrollPane>
-               </content>
-            </Tab>
-            <Tab onSelectionChanged="#tbPermissaoActionEvent" text="Permissões">
-               <content>
-                  <ScrollPane fitToHeight="true" fitToWidth="true">
-                     <content>
-                        <AnchorPane fx:id="apPermissao" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                     </content>
-                  </ScrollPane>
-               </content>
-            </Tab>
-        </tabs>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </TabPane>
-   </children>
+                <Tab onSelectionChanged="#tbCursoActionEvent" text="Curso">
+                    <content>
+                        <ScrollPane fx:id="spCurso" fitToHeight="true" fitToWidth="true">
+                        </ScrollPane>
+                    </content>
+                </Tab>
+                <Tab onSelectionChanged="#tbDisciplinaActionEvent" text="Componente curricular">
+                    <content>
+                        <ScrollPane fx:id="spDisciplina" fitToHeight="true" fitToWidth="true">
+                     
+                        </ScrollPane>
+                    </content>
+                </Tab>
+                <Tab onSelectionChanged="#tbRecursoActionEvent" text="Recurso">
+                    <content>
+                        <ScrollPane fx:id="spRecurso" fitToHeight="true" fitToWidth="true">
+                     
+                        </ScrollPane>
+                    </content>
+                </Tab>
+                <Tab onSelectionChanged="#tbAmbienteActionEvent" text="Ambiente">
+                    <content>
+                        <ScrollPane fx:id="spAmbiente" fitToHeight="true" fitToWidth="true">
+                     
+                        </ScrollPane>
+                    </content>
+                </Tab>
+                <Tab onSelectionChanged="#tbTurmaActionEvent" text="Turma">
+                    <content>
+                        <ScrollPane fx:id="spTurma" fitToHeight="true" fitToWidth="true">
+                     
+                        </ScrollPane>
+                    </content>
+                </Tab>
+                <Tab onSelectionChanged="#tbInstrutorActionEvent" text="Instrutor/Usuários">
+                    <content>
+                        <ScrollPane fx:id="spInstrutor" fitToHeight="true" fitToWidth="true">
+                     
+                        </ScrollPane>
+                    </content>
+                </Tab>
+                <Tab onSelectionChanged="#tbConstanteDoSistemaActionEvent" text="Constantes do sistema">
+                    <content>
+                        <ScrollPane fx:id="spConstanteSistema" fitToHeight="true" fitToWidth="true">
+                    
+                        </ScrollPane>
+                    </content>
+                </Tab>
+                <Tab onSelectionChanged="#tbPermissaoActionEvent" text="Permissões">
+                    <content>
+                        <ScrollPane fx:id="spPermissao" fitToHeight="true" fitToWidth="true">
+                     
+                        </ScrollPane>
+                    </content>
+                </Tab>
+                <Tab onSelectionChanged="#tbConexaoActionEvent" text="Conexão">
+                    <content>
+                        <ScrollPane fx:id="spConexao" fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" />
+                    </content>
+                </Tab>
+            </tabs>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+        </TabPane>
+    </children>
 </AnchorPane>

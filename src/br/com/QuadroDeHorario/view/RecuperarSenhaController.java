@@ -11,6 +11,7 @@ import br.com.QuadroDeHorario.dao.UsuarioDAO;
 import br.com.QuadroDeHorario.entity.TokenCode;
 import br.com.QuadroDeHorario.entity.Usuario;
 import br.com.QuadroDeHorario.util.Mensagem;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -19,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javax.mail.MessagingException;
 import org.hibernate.exception.ConstraintViolationException;
 
 /**
@@ -57,6 +59,9 @@ public class RecuperarSenhaController implements Initializable {
                 Mensagem.showInformation("Envio do código de segurança", "Código de segurança foi enviado!");
             } catch (ConstraintViolationException e) {
                 Mensagem.showError("Falha ao reenviar e-mail", "Já foi enviado o e-mail espere o tempo de expiração para enviar outro e-mail!");
+            } catch (MessagingException | UnsupportedEncodingException ex) {
+                Mensagem.showError("Falha de conexão", "Não foi possível enviar o e-mail verifique a conexão da sua internet.");
+                System.err.println(ex.getMessage());
             }
         }
         tfEmail.setDisable(false);
@@ -73,24 +78,22 @@ public class RecuperarSenhaController implements Initializable {
         tokenCode = new TokenCodeDAO().pegarToken(tokenCode);
         if (usuario == null || tokenCode == null) {
             Mensagem.showError("Dados não encontrado", "Login ou código de segurança estão incorretos!");
-        } else {
-            if (pfSenha.getText().equals(pfConfirmaSenha.getText())) {
-                usuario.setSenha(pfSenha.getText());
-                if (pfSenha.getText().matches(".*([a-z]{1,}).*") && pfSenha.getText().matches(".*([A-Z]{1,}).*") && pfSenha.getText().matches(".*([0-9]{1,}).*") && pfSenha.getText().matches(".*(\\W{1,}).*")) {
-                    tokenCode.setUsuario(usuario);
-                    new TokenCodeDAO().excluir(tokenCode);
-                    new UsuarioDAO().editar(usuario);
-                    Mensagem.showInformation("Recuperar conta", "A conta foi recuperada com sucesso!");
-                    btCancelarActionEvent(actionEvent);
-                } else {
-                    Mensagem.showError("Senha está no formato incorreto!", "A senha deve conter uma letra minuscula,maiuscula,número e um carácter especial.");
-                }
+        } else if (pfSenha.getText().equals(pfConfirmaSenha.getText())) {
+            usuario.setSenha(pfSenha.getText());
+            if (pfSenha.getText().matches(".*([a-z]{1,}).*") && pfSenha.getText().matches(".*([A-Z]{1,}).*") && pfSenha.getText().matches(".*([0-9]{1,}).*") && pfSenha.getText().matches(".*(\\W{1,}).*")) {
+                tokenCode.setUsuario(usuario);
+                new TokenCodeDAO().excluir(tokenCode);
+                new UsuarioDAO().editar(usuario);
+                Mensagem.showInformation("Recuperar conta", "A conta foi recuperada com sucesso!");
+                btCancelarActionEvent(actionEvent);
             } else {
-                Mensagem.showError("As senhas não coincidem", "As senhas devem ser indênticas!");
-                pfSenha.setText("");
-                pfConfirmaSenha.setText("");
-                pfSenha.requestFocus();
+                Mensagem.showError("Senha está no formato incorreto!", "A senha deve conter uma letra minuscula,maiuscula,número e um carácter especial.");
             }
+        } else {
+            Mensagem.showError("As senhas não coincidem", "As senhas devem ser indênticas!");
+            pfSenha.setText("");
+            pfConfirmaSenha.setText("");
+            pfSenha.requestFocus();
         }
     }
 

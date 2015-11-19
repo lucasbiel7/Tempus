@@ -6,6 +6,7 @@
 package br.com.QuadroDeHorario.control;
 
 import br.com.QuadroDeHorario.util.ParametrosBanco;
+import java.util.Properties;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -17,11 +18,15 @@ import org.hibernate.cfg.Configuration;
  */
 public class Banco {
 
-    private static final SessionFactory sessionFactory;
+    private static SessionFactory sessionFactory;
 
     static {
+        buildSessionFactory(ParametrosBanco.carregarPropriedades());
+    }
+
+    public static void buildSessionFactory(Properties proprieadades) {
         try {
-            sessionFactory = new Configuration().setProperties(ParametrosBanco.carregarPropriedades()).configure().buildSessionFactory();
+            sessionFactory = new Configuration().setProperties(proprieadades).configure().buildSessionFactory();
         } catch (Throwable ex) {
             System.err.println("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);

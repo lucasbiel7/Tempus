@@ -24,9 +24,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -43,7 +43,7 @@ public class PrincipalController implements Initializable {
     @FXML
     private Circle cProfile;
     @FXML
-    private AnchorPane apPrincipal;
+    private ScrollPane spPrincipal;
     @FXML
     private Button btInicio;
     @FXML
@@ -91,27 +91,27 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void btInicioActionEvent(ActionEvent actionEvent) {
-        FxMananger.insertPane(apPrincipal, "AbaInicio");
+        FxMananger.insertPane(spPrincipal, "AbaInicio");
     }
 
     @FXML
     private void btAdministrativoActionEvent(ActionEvent actionEvent) {
-        FxMananger.insertPane(apPrincipal, "AreaAdministrativa");
+        FxMananger.insertPane(spPrincipal, "AreaAdministrativa");
     }
 
     @FXML
     private void btLixeiraActionEvent(ActionEvent actionEvent) {
-        FxMananger.insertPane(apPrincipal, "Lixeira");
+        FxMananger.insertPane(spPrincipal, "Lixeira");
     }
 
     @FXML
     private void btQuadroDeHorarioActionEvent(ActionEvent actionEvent) {
-        FxMananger.insertPane(apPrincipal, "CarregarQuadroDeHorario");
+        FxMananger.insertPane(spPrincipal, "CarregarQuadroDeHorario",spPrincipal);
     }
 
     @FXML
     private void btEstatisticaActionEvent(ActionEvent actionEvent) {
-        FxMananger.insertPane(apPrincipal, "Estatisticas");
+        FxMananger.insertPane(spPrincipal, "Estatisticas",spPrincipal);
     }
 
     @FXML

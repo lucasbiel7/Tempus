@@ -16,8 +16,8 @@ import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -28,81 +28,96 @@ import javafx.stage.Stage;
 public class AreaAdministrativaController implements Initializable {
 
     @FXML
-    private AnchorPane apProjeto;
+    private ScrollPane spProjeto;
     @FXML
-    private AnchorPane apCurso;
+    private ScrollPane spCurso;
     @FXML
-    private AnchorPane apRecurso;
+    private ScrollPane spRecurso;
     @FXML
-    private AnchorPane apAmbiente;
+    private ScrollPane spAmbiente;
     @FXML
-    private AnchorPane apTurma;
+    private ScrollPane spTurma;
     @FXML
-    private AnchorPane apDisciplina;
+    private ScrollPane spDisciplina;
     @FXML
-    private AnchorPane apInstrutor;
+    private ScrollPane spInstrutor;
     @FXML
-    private AnchorPane apPermissao;
+    private ScrollPane spPermissao;
     @FXML
-    private AnchorPane apConstanteSistema;
+    private ScrollPane spConstanteSistema;
+    @FXML
+    private ScrollPane spConexao;
+    @FXML
+    private ScrollPane spProduto;
     @FXML
     private TabPane tbAbas;
+
     private Stage stage;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
             tbProjetoActionEvent(null);
-            if (apAmbiente.getScene() != null) {
-                stage = (Stage) apAmbiente.getScene().getWindow();
+            if (tbAbas.getScene() != null) {
+                stage = (Stage) tbAbas.getScene().getWindow();
             }
         });
         permissao();
     }
 
     @FXML
+    private void tbProdutoActionEvent(Event actionEvent) {
+        FxMananger.insertPane(spProduto, "GerenciarTipoCurso");
+    }
+
+    @FXML
     private void tbProjetoActionEvent(Event actionEvent) {
-        FxMananger.insertPane(apProjeto, "GerenciarProjeto");
+        FxMananger.insertPane(spProjeto, "GerenciarProjeto");
     }
 
     @FXML
     private void tbRecursoActionEvent(Event actionEvent) {
-        FxMananger.insertPane(apRecurso, "GerenciarRecurso");
+        FxMananger.insertPane(spRecurso, "GerenciarRecurso");
     }
 
     @FXML
     private void tbCursoActionEvent(Event actionEvent) {
-        FxMananger.insertPane(apCurso, "GerenciarCurso");
+        FxMananger.insertPane(spCurso, "GerenciarCurso");
     }
 
     @FXML
     private void tbAmbienteActionEvent(Event actionEvent) {
-        FxMananger.insertPane(apAmbiente, "GerenciarAmbiente");
+        FxMananger.insertPane(spAmbiente, "GerenciarAmbiente");
     }
 
     @FXML
     private void tbTurmaActionEvent(Event actionEvent) {
-        FxMananger.insertPane(apTurma, "GerenciarTurma");
+        FxMananger.insertPane(spTurma, "GerenciarTurma");
     }
 
     @FXML
     private void tbDisciplinaActionEvent(Event actionEvent) {
-        FxMananger.insertPane(apDisciplina, "GerenciarDisciplina");
+        FxMananger.insertPane(spDisciplina, "GerenciarDisciplina");
     }
 
     @FXML
     private void tbInstrutorActionEvent(Event actionEvent) {
-        FxMananger.insertPane(apInstrutor, "GerenciarUsuario");
+        FxMananger.insertPane(spInstrutor, "GerenciarUsuario");
     }
 
     @FXML
     private void tbConstanteDoSistemaActionEvent(Event actionEvent) {
-        FxMananger.insertPane(apConstanteSistema, "ConstanteDoSistema");
+        FxMananger.insertPane(spConstanteSistema, "ConstanteDoSistema");
     }
 
     @FXML
     private void tbPermissaoActionEvent(Event actionEvent) {
-        FxMananger.insertPane(apPermissao, "GerenciarPermissao");
+        FxMananger.insertPane(spPermissao, "GerenciarPermissao");
+    }
+
+    @FXML
+    private void tbConexaoActionEvent(Event actionEvent) {
+        FxMananger.insertPane(spConexao, "GerenciarConexoes");
     }
 
     private void permissao() {

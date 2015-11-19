@@ -39,7 +39,7 @@ public class EventoDAO extends GenericaDAO<Evento> {
     }
 
     public List<Evento> pegarTodosPorAnoEscola(int ano, boolean escolar, boolean letivo) {
-        entitys = criteria.add(Restrictions.eq("ano", ano)).add(Restrictions.eq("escolar", escolar)).list();
+        entitys = criteria.add(Restrictions.eq("ano", ano)).add(Restrictions.eq("escolar", escolar)).add(Restrictions.eq("letivo", letivo)).list();
         finalizarSession();
         return entitys;
     }

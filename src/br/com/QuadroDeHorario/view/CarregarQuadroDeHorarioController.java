@@ -22,6 +22,7 @@ import br.com.QuadroDeHorario.util.FxMananger;
 import br.com.QuadroDeHorario.util.SessaoUsuario;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,6 +30,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -52,14 +54,15 @@ public class CarregarQuadroDeHorarioController implements Initializable {
     private ComboBox<DataHorario.Turno> cbTurno;
     @FXML
     private AnchorPane apPrincipal;
-
     @FXML
     private Button btAbrir;
     @FXML
     private Button btVisualizarImpressaoTurma;
     @FXML
     private Button btVisualizarImpressaoInstrutor;
-
+    
+    private ScrollPane spPrincipal;
+    
     private ObservableList<Curso> cursos = FXCollections.observableArrayList();
     private ObservableList<Turma> turmas = FXCollections.observableArrayList();
     private ObservableList<Curso> cursosImpressao = FXCollections.observableArrayList();
@@ -69,6 +72,9 @@ public class CarregarQuadroDeHorarioController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Platform.runLater(() -> {
+            spPrincipal=(ScrollPane) apPrincipal.getUserData();
+        });
         cbCurso.setItems(cursos);
         cbTurma.setItems(turmas);
         cbCursoImpressao.setItems(cursosImpressao);
@@ -112,21 +118,21 @@ public class CarregarQuadroDeHorarioController implements Initializable {
             TabelaHorario.ambienteSelecionado = null;
             TabelaHorario.turma = null;
             TabelaHorario.materiaHorarioSelecionado = null;
-            FxMananger.insertPane(apPrincipal, "QuadroDeHorario", cbTurma.getSelectionModel().getSelectedItem());
+            FxMananger.insertPane(spPrincipal, "QuadroDeHorario", cbTurma.getSelectionModel().getSelectedItem());
         }
     }
 
     @FXML
     private void btVisualizarImpressaoTurmaActionEvent(ActionEvent actionEvent) {
         if (cbTurmaImpressao.getSelectionModel().getSelectedItem() != null) {
-            FxMananger.insertPane(apPrincipal, "ImprimirQuadro", new Object[]{cbTurmaImpressao.getSelectionModel().getSelectedItem()});
+            FxMananger.insertPane(spPrincipal, "ImprimirQuadro", new Object[]{cbTurmaImpressao.getSelectionModel().getSelectedItem()});
         }
     }
 
     @FXML
     private void btVisualizarImpressaoInstrutorActionEvent(ActionEvent actionEvent) {
         if (cbInstrutor.getSelectionModel().getSelectedItem() != null && cbTurno.getSelectionModel().getSelectedItem() != null) {
-            FxMananger.insertPane(apPrincipal, "ImprimirQuadro", new Object[]{cbInstrutor.getSelectionModel().getSelectedItem(), cbTurno.getSelectionModel().getSelectedItem()});
+            FxMananger.insertPane(spPrincipal, "ImprimirQuadro", new Object[]{cbInstrutor.getSelectionModel().getSelectedItem(), cbTurno.getSelectionModel().getSelectedItem()});
         }
     }
 

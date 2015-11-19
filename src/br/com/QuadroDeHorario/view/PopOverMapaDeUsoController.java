@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -7,7 +8,9 @@ package br.com.QuadroDeHorario.view;
 
 import br.com.QuadroDeHorario.entity.Aula;
 import br.com.QuadroDeHorario.entity.CalendarioAmbiente;
-import br.com.QuadroDeHorario.util.DiaMapaDeUso;
+import br.com.QuadroDeHorario.entity.Usuario;
+import br.com.QuadroDeHorario.model.DiaMapaDeUso;
+import br.com.QuadroDeHorario.model.DiaMapaDeUsoInstrutor;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
@@ -42,16 +45,22 @@ public class PopOverMapaDeUsoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
             if (apContainer.getUserData() != null) {
-                DiaMapaDeUso diaMapaDeUso = (DiaMapaDeUso) apContainer.getUserData();
-                eventos.setAll(diaMapaDeUso.getEventos());
-                for (Object evento : diaMapaDeUso.getEventos()) {
-                    if (evento instanceof Aula) {
-                        Aula aula = (Aula) evento;
-                        lbTitulo.setText("Aulas");
-                    } else if (evento instanceof CalendarioAmbiente) {
-                        CalendarioAmbiente calendarioAmbiente = (CalendarioAmbiente) evento;
-                        lbTitulo.setText("Eventos");
+                if (apContainer.getUserData() instanceof DiaMapaDeUso) {
+                    DiaMapaDeUso diaMapaDeUso = (DiaMapaDeUso) apContainer.getUserData();
+                    eventos.setAll(diaMapaDeUso.getEventos());
+                    for (Object evento : diaMapaDeUso.getEventos()) {
+                        if (evento instanceof Aula) {
+                            Aula aula = (Aula) evento;
+                            lbTitulo.setText("Aulas");
+                        } else if (evento instanceof CalendarioAmbiente) {
+                            CalendarioAmbiente calendarioAmbiente = (CalendarioAmbiente) evento;
+                            lbTitulo.setText("Eventos");
+                        }
                     }
+                } else if (apContainer.getUserData() instanceof DiaMapaDeUsoInstrutor) {
+                    lbTitulo.setText("Instrutores livres");
+                    DiaMapaDeUsoInstrutor diaMapaDeUso = (DiaMapaDeUsoInstrutor) apContainer.getUserData();
+                    eventos.setAll(diaMapaDeUso.getUsuario());
                 }
             }
         });
@@ -70,6 +79,9 @@ public class PopOverMapaDeUsoController implements Initializable {
                     CalendarioAmbiente calendarioAmbiente = (CalendarioAmbiente) item;
                     setText("Evento: " + calendarioAmbiente.getId().getCalendario().getId().getEvento() + "\n"
                             + "Data: " + new SimpleDateFormat("dd/MM/yyyy").format(calendarioAmbiente.getId().getCalendario().getId().getDataAcontecimento()) + "\n");
+                } else if (item instanceof Usuario) {
+                    Usuario usuario = (Usuario) item;
+                    setText(usuario.toString());
                 }
             }
         });

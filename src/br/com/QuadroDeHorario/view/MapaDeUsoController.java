@@ -14,12 +14,14 @@ import br.com.QuadroDeHorario.util.Mensagem;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -32,55 +34,99 @@ import javafx.scene.layout.AnchorPane;
 public class MapaDeUsoController implements Initializable {
 
     @FXML
+    private ComboBox<DataHorario.Semestre> cbSemestreInstrutor;
+    @FXML
+    private Spinner<Integer> spAnoInstrutor;
+    @FXML
     private ComboBox<Ambiente> cbAmbiente;
     @FXML
-    private ComboBox<DataHorario.Semestre> cbSemestre;
+    private ComboBox<DataHorario.Semestre> cbSemestreAmbiente;
     @FXML
-    private Spinner<Integer> spAno;
+    private Spinner<Integer> spAnoAmbiente;
     @FXML
     private AnchorPane apPrincipal;
 
+    private ScrollPane spPrincipal;
     private ObservableList<Ambiente> ambientes = FXCollections.observableArrayList();
     private ObservableList<DataHorario.Semestre> semestres = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        spAno.setValueFactory(new SpinnerValueFactory<Integer>() {
+        Platform.runLater(() -> {
+            spPrincipal = (ScrollPane) apPrincipal.getUserData();
+
+        });
+        spAnoAmbiente.setValueFactory(new SpinnerValueFactory<Integer>() {
             @Override
             public void decrement(int steps) {
-                if (spAno.getEditor().getText().isEmpty()) {
+                if (spAnoAmbiente.getEditor().getText().isEmpty()) {
                     setValue(0);
                 } else {
-                    setValue(Integer.parseInt(spAno.getEditor().getText()));
+                    setValue(Integer.parseInt(spAnoAmbiente.getEditor().getText()));
                 }
-                setValue(getValue() + steps);
+                setValue(getValue() - steps);
             }
 
             @Override
             public void increment(int steps) {
-                if (spAno.getEditor().getText().isEmpty()) {
+                if (spAnoAmbiente.getEditor().getText().isEmpty()) {
                     setValue(0);
                 } else {
-                    setValue(Integer.parseInt(spAno.getEditor().getText()));
+                    setValue(Integer.parseInt(spAnoAmbiente.getEditor().getText()));
+                }
+                setValue(getValue() + steps);
+            }
+        });
+        spAnoInstrutor.setValueFactory(new SpinnerValueFactory<Integer>() {
+            @Override
+            public void decrement(int steps) {
+                if (spAnoAmbiente.getEditor().getText().isEmpty()) {
+                    setValue(0);
+                } else {
+                    setValue(Integer.parseInt(spAnoAmbiente.getEditor().getText()));
                 }
                 setValue(getValue() - steps);
+            }
+
+            @Override
+            public void increment(int steps) {
+                if (spAnoAmbiente.getEditor().getText().isEmpty()) {
+                    setValue(0);
+                } else {
+                    setValue(Integer.parseInt(spAnoAmbiente.getEditor().getText()));
+                }
+                setValue(getValue() + steps);
             }
         });
         ambientes.setAll(new AmbienteDAO().pegarTodos());
         semestres.setAll(Semestre.values());
         //Configurando os combobox
         cbAmbiente.setItems(ambientes);
-        cbSemestre.setItems(semestres);
-        spAno.getValueFactory().setValue(Calendar.getInstance().get(Calendar.YEAR));
+        cbSemestreAmbiente.setItems(semestres);
+        cbSemestreInstrutor.setItems(semestres);
+        spAnoAmbiente.getValueFactory().setValue(Calendar.getInstance().get(Calendar.YEAR));
+        spAnoInstrutor.getValueFactory().setValue(Calendar.getInstance().get(Calendar.YEAR));
+
     }
 
     @FXML
     private void btAbrirMapaDeUsoActionEvent(ActionEvent actionEvent) {
-        if (cbAmbiente.getSelectionModel().getSelectedItem() != null && cbSemestre.getSelectionModel().getSelectedItem() != null) {
-            FxMananger.insertPane(apPrincipal.getParent(), "VisualizarMapaDeUso", new Object[]{cbAmbiente.getSelectionModel().getSelectedItem(), cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()});
+        if (cbAmbiente.getSelectionModel().getSelectedItem() != null && cbSemestreAmbiente.getSelectionModel().getSelectedItem() != null) {
+            FxMananger.insertPane(spPrincipal, "VisualizarMapaDeUso", new Object[]{cbAmbiente.getSelectionModel().getSelectedItem(), cbSemestreAmbiente.getSelectionModel().getSelectedItem(), spAnoAmbiente.getValue()});
         } else {
-            Mensagem.showInformation("Preencha os campos!", "Para continuar a utilizando essa parte do sistema e necessário preencher todos os campos,\n"
-                    + "'Ambiente', 'Semestre' e 'Ano'.");
+            Mensagem.showError("Selecione os campos!", "Para continuar a utilizando o mapeamento de ambiente é\n"
+                    + " necessário preencher todos os campos, 'Ambiente', 'Semestre' e 'Ano'.");
+        }
+    }
+
+    @FXML
+    private void btAbrirMapaDeUsoInstrutorActionEvent(ActionEvent actionEvent) {
+        if (cbSemestreInstrutor.getSelectionModel().getSelectedItem() != null) {
+            FxMananger.insertPane(spPrincipal, "VisualizarMapaDeUso", new Object[]{cbSemestreInstrutor.getSelectionModel().getSelectedItem(), spAnoInstrutor.getValue()});
+        } else {
+            Mensagem.showError("Selecione os campos",
+                    "Para continuar usando o mapeamento dos instrutores\n"
+                    + "é necessário selecionar o semestre e o ano.");
         }
     }
 }

@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.ScrollPane;
 
 /**
  * FXML Controller class
@@ -21,7 +21,7 @@ import javafx.scene.layout.AnchorPane;
 public class RelatoriosController implements Initializable {
 
     @FXML
-    private AnchorPane apPrincipal;
+    private ScrollPane spPrincipal;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -30,13 +30,13 @@ public class RelatoriosController implements Initializable {
 
     @FXML
     private void btMatrizDeCompetenciaactionEvent(ActionEvent actionEvent) {
-        FxMananger.insertPane(apPrincipal, "RelatorioMatrizCompetencia");
+        FxMananger.insertPane(spPrincipal, "RelatorioMatrizCompetencia");
 
     }
 
     @FXML
     private void btGradeDoCursoActionEvent(ActionEvent actionEvent) {
-        FxMananger.insertPane(apPrincipal, "RelatorioGradeDoCurso");
+        FxMananger.insertPane(spPrincipal, "RelatorioGradeDoCurso");
     }
-    
+
 }

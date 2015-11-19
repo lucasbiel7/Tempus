@@ -13,6 +13,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -27,7 +28,8 @@ import javafx.stage.WindowEvent;
 public class FxMananger {
 
     public static Image image;
-    public static final String NOME_PROGRAMA = "Tempus";
+    public static String NOME_PROGRAMA = "Tempus";
+    public static boolean ONLINE;
 
     static {
         image = new Image(FxMananger.class.getResourceAsStream("/br/com/QuadroDeHorario/view/image/icone.png"));
@@ -54,7 +56,7 @@ public class FxMananger {
     }
 
     public static String toRGB(Color color) {
-        return "rgb(" + (int)(color.getRed() * 255) + "," + (int)(color.getGreen() * 255) + "," + (int)(color.getBlue() * 255) + ")";
+        return "rgb(" + (int) (color.getRed() * 255) + "," + (int) (color.getGreen() * 255) + "," + (int) (color.getBlue() * 255) + ")";
     }
 
     public static void show(String arquivo, String titulo, boolean dialogo, boolean maximizado, Object object) {
@@ -109,66 +111,32 @@ public class FxMananger {
         return FXMLLoader.load(Run.class.getResource(arquivo + ".fxml"));
     }
 
-    public static void insertPane(Parent parente, String arquivo) {
-        AnchorPane pai = null;
-        if (parente instanceof AnchorPane) {
-            pai = ((AnchorPane) parente);
-            pai.getChildren().clear();
-        }
+    public static void insertPane(ScrollPane parente, String arquivo) {
+        parente.setFitToHeight(true);
+        parente.setFitToWidth(true);
         try {
             Parent child = loadFXML(arquivo);
             AnchorPane.setBottomAnchor(child, 0d);
             AnchorPane.setTopAnchor(child, 0d);
             AnchorPane.setLeftAnchor(child, 0d);
             AnchorPane.setRightAnchor(child, 0d);
-            if (child instanceof AnchorPane && pai != null) {
-                ((AnchorPane) child).setMinSize(pai.getWidth(), pai.getHeight());
-                pai.getChildren().add(child);
-            } else {
-                System.err.println("Deu treta na tela");
-            }
+            parente.setContent(child);
         } catch (IOException ex) {
             Logger.getLogger(FxMananger.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public static void insertPane(Parent parente, Parent child) {
-        AnchorPane pai = null;
-        if (parente instanceof AnchorPane) {
-            pai = ((AnchorPane) parente);
-            pai.getChildren().clear();
-        }
-        AnchorPane.setBottomAnchor(child, 0d);
-        AnchorPane.setTopAnchor(child, 0d);
-        AnchorPane.setLeftAnchor(child, 0d);
-        AnchorPane.setRightAnchor(child, 0d);
-        if (child instanceof AnchorPane && pai != null) {
-            ((AnchorPane) child).setMinSize(pai.getWidth(), pai.getHeight());
-            pai.getChildren().add(child);
-        } else {
-            System.err.println("Deu treta na tela");
-        }
-    }
-
-    public static void insertPane(Parent parente, String arquivo, Object object) {
-        AnchorPane pai = null;
-        if (parente instanceof AnchorPane) {
-            pai = ((AnchorPane) parente);
-            pai.getChildren().clear();
-        }
+    public static void insertPane(ScrollPane parente, String arquivo, Object object) {
+        parente.setFitToHeight(true);
+        parente.setFitToWidth(true);
         try {
             Parent child = loadFXML(arquivo);
-            child.setUserData(object);
             AnchorPane.setBottomAnchor(child, 0d);
             AnchorPane.setTopAnchor(child, 0d);
             AnchorPane.setLeftAnchor(child, 0d);
             AnchorPane.setRightAnchor(child, 0d);
-            if (child instanceof AnchorPane && pai != null) {
-                ((AnchorPane) child).setMinSize(pai.getWidth(), pai.getHeight());
-                pai.getChildren().add(child);
-            } else {
-                System.err.println("Deu treta na tela");
-            }
+            child.setUserData(object);
+            parente.setContent(child);
         } catch (IOException ex) {
             Logger.getLogger(FxMananger.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -16,13 +16,13 @@
         <URL value="@estilo.css" />
     </stylesheets>
    <children>
-      <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="14.0" layoutY="95.0" prefHeight="368.0" prefViewportHeight="347.0" prefViewportWidth="778.0" prefWidth="961.0" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="90.0">
-         <content>
-            <AnchorPane fx:id="apPrincipal" layoutX="14.0" layoutY="95.0" prefHeight="378.0" prefWidth="959.0" style="-: ;" styleClass="mainFxmlClass" AnchorPane.bottomAnchor="93.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="95.0" />
-         </content>
+      <ScrollPane fx:id="spPrincipal" fitToHeight="true" fitToWidth="true" layoutX="14.0" layoutY="71.0" prefHeight="444.0" prefViewportHeight="347.0" prefViewportWidth="778.0" prefWidth="947.0" AnchorPane.bottomAnchor="133.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="71.0">
          <effect>
             <DropShadow color="#353940" height="83.27" radius="29.275" width="35.83" />
          </effect>
+         <content>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="mainFxmlClass" />
+         </content>
       </ScrollPane>
       <AnchorPane layoutX="-34.0" layoutY="508.0" prefHeight="21.0" prefWidth="975.0" styleClass="label-branco" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>

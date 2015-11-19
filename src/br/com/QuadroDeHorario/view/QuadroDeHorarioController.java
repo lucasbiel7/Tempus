@@ -385,18 +385,27 @@ public class QuadroDeHorarioController implements Initializable {
 
     @FXML
     private void btContinuarModuloProximoSemestreActionEvent(ActionEvent actionEvent) {
+        DataHorario.Semestre ultimoSemestre = null;
+        int anoSemestre = 0;
         for (MateriaHorario materiaHorario : new MateriaHorarioDAO().pegarTodosPorTurma(turma)) {
             if (new AulaDAO().pegarPorDisciplinaTurma(materiaHorario.getMateriaTurmaIntrutorSemestre().getMateria(), turma).size() < materiaHorario.getMateriaTurmaIntrutorSemestre().getMateria().getCargaHoraria()) {
                 materiaHorario.setId(0);
                 if (materiaHorario.getMateriaTurmaIntrutorSemestre().getSemestre().equals(DataHorario.Semestre.SEMESTRE1)) {
                     materiaHorario.getMateriaTurmaIntrutorSemestre().setSemestre(DataHorario.Semestre.SEMESTRE2);
+                    ultimoSemestre=DataHorario.Semestre.SEMESTRE2;
+                    anoSemestre=materiaHorario.getAno();
                 } else {
                     materiaHorario.getMateriaTurmaIntrutorSemestre().setSemestre(DataHorario.Semestre.SEMESTRE1);
+                    ultimoSemestre=DataHorario.Semestre.SEMESTRE1;
+                    anoSemestre=materiaHorario.getAno()+1;
                     materiaHorario.setAno(materiaHorario.getAno() + 1);
                 }
                 new MateriaHorarioDAO().cadastrar(materiaHorario);
             }
         }
+        Mensagem.showInformation("Semestre no próximo semestre", 
+                "O módulo vai continuar no semestre "+ultimoSemestre+"\n"
+                + "do ano "+anoSemestre+".");
     }
 
     @FXML

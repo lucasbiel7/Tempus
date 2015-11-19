@@ -15,11 +15,11 @@ import br.com.QuadroDeHorario.entity.MateriaHorario;
 import br.com.QuadroDeHorario.entity.MateriaHorarioAmbiente;
 import br.com.QuadroDeHorario.entity.ObservacaoAula;
 import br.com.QuadroDeHorario.entity.Turma;
+import br.com.QuadroDeHorario.model.MesCalendario;
 import br.com.QuadroDeHorario.util.DataHorario;
 import br.com.QuadroDeHorario.util.FxMananger;
 import br.com.QuadroDeHorario.util.GerenciarImagem;
 import br.com.QuadroDeHorario.util.Mensagem;
-import br.com.QuadroDeHorario.util.MesCalendario;
 import br.com.QuadroDeHorario.view.QuadroDeHorarioController;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -110,7 +110,7 @@ public class TabelaHorario extends TableView<MesCalendario> {
         setItems(aulas);
         carregarDados();
         tcNomeMes.getColumns().addListener(new ListChangeListener<TableColumn<MesCalendario, ?>>() {
-            
+
             private boolean suspender;
 
             @Override
@@ -340,7 +340,7 @@ public class TabelaHorario extends TableView<MesCalendario> {
         aula.setAmbiente(ambienteSelecionado);
         Aula aulaExistente = new AulaDAO().pegarPorId(aula.getId());
         List<Aula> aulasAmbiente = new AulaDAO().validarAmbiente(aula);
-        List<Calendario> calendarios = new CalendarioDAO().pegarTodosPorData(dia, true, true);
+        List<Calendario> calendarios = new CalendarioDAO().pegarTodosPorData(dia, true, false);
         List<CalendarioAmbiente> calendarioAmbientes = new CalendarioAmbienteDAO().pegarTodosPorDataAmbienteTurno(aula.getId().getDataAula(), aula.getAmbiente(), turno);
         List<CalendarioUsuario> calendarioUsuarios = new CalendarioUsuarioDAO().pegarTodosPorUsuarioData(aula.getMateriaHorario().getMateriaTurmaIntrutorSemestre().getInstrutor(), aula.getId().getDataAula(), turno);
         if (aulasAmbiente.isEmpty() && calendarioAmbientes.isEmpty() && calendarioUsuarios.isEmpty() && calendarios.isEmpty()) {
@@ -354,7 +354,8 @@ public class TabelaHorario extends TableView<MesCalendario> {
                                 try {
                                     new AulaDAO().cadastrar(aula);
                                 } catch (ConstraintViolationException e) {
-                                    Mensagem.showError("Aula cadastrada", "Está aula ja foi registrada no sistema tempus, caso não esteja\n"
+                                    Mensagem.showError("Aula cadastrada",
+                                            "Está aula ja foi registrada no sistema tempus, caso não esteja\n"
                                             + "aparecendo no quadro reinicie o progama!");
                                 }
                             } else {
@@ -363,17 +364,18 @@ public class TabelaHorario extends TableView<MesCalendario> {
                             }
                             inserirNaLista(aula, horario);
                         } catch (ConstraintViolationException e) {
-                            Mensagem.showError("Aula cadastrada", "Está Aula já foi cadastrada e não é permitido duplicar,\n "
+                            Mensagem.showError("Aula cadastrada",
+                                    "Está Aula já foi cadastrada e não é permitido duplicar,\n "
                                     + "por favor aguarde a aula carregar no quadro ou reinicie o sistema! ");
                         }
                     }
-
                 } else {
                     if (aulaExistente == null) {
                         try {
                             new AulaDAO().cadastrar(aula);
                         } catch (ConstraintViolationException e) {
-                            Mensagem.showError("Aula cadastrada", "Está aula ja foi registrada no sistema tempus, caso não esteja\n"
+                            Mensagem.showError("Aula cadastrada",
+                                    "Está aula ja foi registrada no sistema tempus, caso não esteja\n"
                                     + "aparecendo no quadro reinicie o progama!");
                         }
                     } else {
@@ -383,27 +385,33 @@ public class TabelaHorario extends TableView<MesCalendario> {
                     inserirNaLista(aula, horario);
                 }
             } else {
-                Mensagem.showError("Impossível cadastrar(Instrutor)", "Não foi possível cadastrar aula no dia " + new SimpleDateFormat("dd/MM/yyyy").format(aula.getId().getDataAula()) + "\n"
+                Mensagem.showError("Impossível cadastrar(Instrutor)",
+                        "Não foi possível cadastrar aula no dia " + new SimpleDateFormat("dd/MM/yyyy").format(aula.getId().getDataAula()) + "\n"
                         + " no " + aula.getId().getHorario() + ". O instrutor(a) " + aulasInstrutor.get(0).getMateriaHorario().getMateriaTurmaIntrutorSemestre().getInstrutor()
                         + "\n já possui aula na turma " + aulasInstrutor.get(0).getId().getTurma() + "!");
             }
         } else {
             if (!calendarios.isEmpty()) {
-                Mensagem.showError("Impossível cadastrar(Dia não letivo)", "Não é possível cadastrar aula nesse dia pois possui evento " + calendarios.get(0).getId().getEvento() + "\n"
+                Mensagem.showError("Impossível cadastrar(Dia não letivo)",
+                        "Esse dia não foi programado como dia letivo.\n"
+                        + "Motivo: " + calendarios.get(0).getId().getEvento() + "\n"
                         + "que está marcado que não será dia letivo.");
             }
             if (!aulasAmbiente.isEmpty()) {
-                Mensagem.showError("Impossível cadastrar(Ambiente)", "Não foi possível cadastrar aula no dia " + new SimpleDateFormat("dd/MM/yyyy").format(aula.getId().getDataAula()) + "\n"
+                Mensagem.showError("Impossível cadastrar(Ambiente)",
+                        "Não foi possível cadastrar aula no dia " + new SimpleDateFormat("dd/MM/yyyy").format(aula.getId().getDataAula()) + "\n"
                         + " no " + aula.getId().getHorario() + ". A turma " + aulasAmbiente.get(0).getMateriaHorario().getMateriaTurmaIntrutorSemestre().getTurma() + "\n"
                         + " já possui aula nessa ambiente!");
             }
             if (!calendarioAmbientes.isEmpty()) {
-                Mensagem.showError("Impossível cadastrar(Evento Ambiente)", "Não foi possível cadastrar a aula no dia " + new SimpleDateFormat("dd/MM/yyyy").format(aula.getId().getDataAula()) + "\n"
+                Mensagem.showError("Impossível cadastrar(Evento Ambiente)",
+                        "Não foi possível cadastrar a aula no dia " + new SimpleDateFormat("dd/MM/yyyy").format(aula.getId().getDataAula()) + "\n"
                         + " no " + aula.getId().getHorario() + ". O evento " + calendarioAmbientes.get(0).getId().getCalendario().getId().getEvento().getNome() + " já \n"
                         + "alocou esse ambiente!");
             }
             if (!calendarioUsuarios.isEmpty()) {
-                Mensagem.showError("Impossível cadastrar(Evento usuário)", "Não foi possivel cadastrar aula no dia " + new SimpleDateFormat("dd/MM/yyyy").format(aula.getId().getDataAula()) + "\n"
+                Mensagem.showError("Impossível cadastrar(Evento usuário)",
+                        "Não foi possivel cadastrar aula no dia " + new SimpleDateFormat("dd/MM/yyyy").format(aula.getId().getDataAula()) + "\n"
                         + "no " + aula.getId().getHorario() + ". O evento " + calendarioUsuarios.get(0).getId().getCalendario().getId().getEvento() + " já\n"
                         + "alocou esse funcionário!");
             }

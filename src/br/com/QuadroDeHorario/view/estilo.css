@@ -17,8 +17,6 @@
 .label{
     -fx-text-fill:#FFFFFF;
     -fx-background-color: transparent;
-
-
 }
 
 .radio-button{
@@ -67,6 +65,18 @@
     -fx-padding: 10 20 10 20;
 }
 
+.button-selected{
+    -fx-background-color: 
+        rgba(0,0,0,0.08),
+        linear-gradient(#9a9a9a, #909090),
+        linear-gradient(#d5faff 0%, #f3f3f3 50%, #ececec 51%, #e4fbff 100%);
+    -fx-background-insets: 0 0 -1 0,0,1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-font-family: "Arial";
+    -fx-background-radius: 5,4,3,5;
+    -fx-padding: 10 20 10 20;
+    -fx-text-fill: #242d35;
+}
 .date-picker .label{
     -fx-text-fill: #090a0c;
 }
@@ -213,7 +223,7 @@
 /*Painel do Usuário*/
 #pane-user{
     -fx-background-color: #C4D3E8;
-    -fx-padding:10;
+    -fx-padding:0;
 }
 /*Fim Painel*/
 

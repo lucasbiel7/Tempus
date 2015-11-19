@@ -10,10 +10,10 @@ import br.com.QuadroDeHorario.dao.CalendarioAmbienteDAO;
 import br.com.QuadroDeHorario.entity.Ambiente;
 import br.com.QuadroDeHorario.entity.Aula;
 import br.com.QuadroDeHorario.entity.CalendarioAmbiente;
+import br.com.QuadroDeHorario.model.DiaMapaDeUso;
+import br.com.QuadroDeHorario.model.MesMapaDeUso;
 import br.com.QuadroDeHorario.util.DataHorario;
-import br.com.QuadroDeHorario.util.DiaMapaDeUso;
 import br.com.QuadroDeHorario.util.FxMananger;
-import br.com.QuadroDeHorario.util.MesMapaDeUso;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,6 +32,7 @@ import javafx.scene.Node;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -43,15 +44,16 @@ import org.controlsfx.control.PopOver;
  *
  * @author OCTI01
  */
-public class TabelaMapaDeUso extends TableView<MesMapaDeUso> {
+public class TabelaMapaDeUso extends TableView<MesMapaDeUso<Ambiente, DiaMapaDeUso>> {
 
     private Ambiente ambiente;
     //Componentes da tabela
     //Novo teste com lista
     //Vamos ver se alivia o uso de dados
-    private TableColumn<MesMapaDeUso, DiaMapaDeUso> tcNomeMes;
-    private List<TableColumn<MesMapaDeUso, DiaMapaDeUso>> lTcDias = new ArrayList<>();
-    private List<TableColumn<MesMapaDeUso, DiaMapaDeUso>> lTcNomeDias = new ArrayList<>();
+    private TableColumn<MesMapaDeUso<Ambiente, DiaMapaDeUso>, DiaMapaDeUso> tcNomeMes;
+    private List<TableColumn<MesMapaDeUso<Ambiente, DiaMapaDeUso>, ?>> colunas = new ArrayList<>();
+    private TableColumn<MesMapaDeUso<Ambiente, DiaMapaDeUso>, DataHorario.Turno> tcTurno;
+
     private SimpleDateFormat sdfData = new SimpleDateFormat("dd/MM/yyyy");
     private SimpleDateFormat sdfDia = new SimpleDateFormat("dd");
     private SimpleDateFormat sdfNomeDia = new SimpleDateFormat("EEE");
@@ -61,7 +63,7 @@ public class TabelaMapaDeUso extends TableView<MesMapaDeUso> {
     private Date inicio;
     private Date fim;
     private PopOver popOver;
-    private ObservableList<MesMapaDeUso> mapaDeUsos = FXCollections.observableArrayList();
+    private ObservableList<MesMapaDeUso<Ambiente, DiaMapaDeUso>> mapaDeUsos = FXCollections.observableArrayList();
     private Node popOverMapaDeUso;
 
     public TabelaMapaDeUso(Ambiente ambiente, int ano, int mes) {
@@ -70,7 +72,7 @@ public class TabelaMapaDeUso extends TableView<MesMapaDeUso> {
         popOver = new PopOver();
         popOver.setTitle("Atividades");
         popOver.setAutoHide(true);
-        setPrefSize(USE_PREF_SIZE, 150d);
+        setPrefSize(USE_PREF_SIZE, 145d);
         try {
             inicio = sdfData.parse("01/" + mes + "/" + ano);
             Calendar calendar = Calendar.getInstance();
@@ -83,15 +85,15 @@ public class TabelaMapaDeUso extends TableView<MesMapaDeUso> {
         setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY);
         setEditable(false);
         carregarColunas();
-        tcNomeMes.getColumns().addListener(new ListChangeListener<TableColumn<MesMapaDeUso, ?>>() {
+        tcNomeMes.getColumns().addListener(new ListChangeListener<TableColumn<MesMapaDeUso<Ambiente, DiaMapaDeUso>, ?>>() {
             private boolean permuted;
 
             @Override
-            public void onChanged(ListChangeListener.Change<? extends TableColumn<MesMapaDeUso, ?>> c) {
+            public void onChanged(ListChangeListener.Change<? extends TableColumn<MesMapaDeUso<Ambiente, DiaMapaDeUso>, ?>> c) {
                 c.next();
                 if (c.wasReplaced() && !permuted) {
                     permuted = true;
-                    tcNomeMes.getColumns().setAll(lTcNomeDias);
+                    tcNomeMes.getColumns().setAll(colunas);
                     permuted = false;
                 }
             }
@@ -102,47 +104,67 @@ public class TabelaMapaDeUso extends TableView<MesMapaDeUso> {
     }
 
     private void carregarDados() {
-        mapaDeUsos.clear();
-        for (DataHorario.Turno turno : DataHorario.Turno.values()) {
-            if (!turno.equals(DataHorario.Turno.DIURNO)) {
-                MesMapaDeUso mapaDeUso = new MesMapaDeUso();
-                mapaDeUso.setTurno(turno);
-                mapaDeUso.setAmbiente(ambiente);
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(inicio);
-                while (calendar.getTime().before(fim)) {
-                    DiaMapaDeUso diaMapaDeUso = new DiaMapaDeUso();
-                    diaMapaDeUso.setData(calendar.getTime());
-                    for (CalendarioAmbiente calendarioAmbiente : new CalendarioAmbienteDAO().pegarTodosPorDataAmbienteTurno(calendar.getTime(), ambiente, mapaDeUso.getTurno())) {
-                        diaMapaDeUso.getEventos().add(calendarioAmbiente);
+        new Thread(() -> {
+            mapaDeUsos.clear();
+            for (DataHorario.Turno turno : DataHorario.Turno.values()) {
+                if (!turno.equals(DataHorario.Turno.DIURNO)) {
+                    MesMapaDeUso mapaDeUso = new MesMapaDeUso();
+                    mapaDeUso.setTurno(turno);
+                    mapaDeUso.setTipo(ambiente);
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(inicio);
+                    while (calendar.getTime().before(fim)) {
+                        DiaMapaDeUso diaMapaDeUso = new DiaMapaDeUso();
+                        diaMapaDeUso.setData(calendar.getTime());
+                        for (CalendarioAmbiente calendarioAmbiente : new CalendarioAmbienteDAO().pegarTodosPorDataAmbienteTurno(calendar.getTime(), ambiente, mapaDeUso.getTurno())) {
+                            diaMapaDeUso.getEventos().add(calendarioAmbiente);
+                        }
+                        for (Aula aula : new AulaDAO().pegarPorAmbienteDia(calendar.getTime(), ambiente, mapaDeUso.getTurno())) {
+                            diaMapaDeUso.getEventos().add(aula);
+                        }
+                        mapaDeUso.getDiaMapaDeUsos().add(diaMapaDeUso);
+                        calendar.add(Calendar.DAY_OF_MONTH, 1);
                     }
-                    for (Aula aula : new AulaDAO().pegarPorAmbienteDia(calendar.getTime(), ambiente, mapaDeUso.getTurno())) {
-                        diaMapaDeUso.getEventos().add(aula);
-                    }
-                    mapaDeUso.getDiaMapaDeUsos().add(diaMapaDeUso);
-                    calendar.add(Calendar.DAY_OF_MONTH, 1);
+                    mapaDeUsos.add(mapaDeUso);
                 }
-                mapaDeUsos.add(mapaDeUso);
             }
-        }
+        }).start();
     }
 
     private void carregarColunas() {
-        tcNomeMes = new TableColumn<>(sdfNomeMes.format(inicio)+" ("+sdfMes.format(inicio)+")");
+        tcNomeMes = new TableColumn<>(sdfNomeMes.format(inicio) + " (" + sdfMes.format(inicio) + ")");
+        tcTurno = new TableColumn<>("Turno");
+        tcTurno.setCellValueFactory(new PropertyValueFactory<>("turno"));
+        tcTurno.setCellFactory((TableColumn<MesMapaDeUso<Ambiente, DiaMapaDeUso>, DataHorario.Turno> param) -> new TableCell<MesMapaDeUso<Ambiente, DiaMapaDeUso>, DataHorario.Turno>() {
+            @Override
+            protected void updateItem(DataHorario.Turno item, boolean empty) {
+                setTextFill(Color.WHITE);
+                setBackground(new Background(new BackgroundFill(Color.rgb(130, 151, 178), CornerRadii.EMPTY, Insets.EMPTY)));
+                if (empty) {
+                    setText(null);
+                } else {
+                    setText(item.toString());
+                }
+            }
+        });
+        colunas.add(tcTurno);
+        tcNomeMes.getColumns().add(tcTurno);
         getColumns().add(tcNomeMes);
         Calendar inicio = Calendar.getInstance();
         inicio.setTime(this.inicio);
         while (inicio.getTime().before(fim)) {
-            TableColumn<MesMapaDeUso, DiaMapaDeUso> tcNomeDia = new TableColumn<>(sdfNomeDia.format(inicio.getTime()));
-            TableColumn<MesMapaDeUso, DiaMapaDeUso> tcNumeroDia = new TableColumn<>(sdfDia.format(inicio.getTime()));
+            TableColumn<MesMapaDeUso<Ambiente, DiaMapaDeUso>, DiaMapaDeUso> tcNomeDia = new TableColumn<>(sdfNomeDia.format(inicio.getTime()));
+            TableColumn<MesMapaDeUso<Ambiente, DiaMapaDeUso>, DiaMapaDeUso> tcNumeroDia = new TableColumn<>(sdfDia.format(inicio.getTime()));
+            tcNumeroDia.sortableProperty().set(false);
             int dia = inicio.get(Calendar.DAY_OF_MONTH) - 1;
-            tcNumeroDia.setCellValueFactory((TableColumn.CellDataFeatures<MesMapaDeUso, DiaMapaDeUso> param) -> {
+            tcNumeroDia.setCellValueFactory((TableColumn.CellDataFeatures<MesMapaDeUso<Ambiente, DiaMapaDeUso>, DiaMapaDeUso> param) -> {
                 if (param.getValue().getDiaMapaDeUsos().isEmpty()) {
                     return null;
                 }
                 return new SimpleObjectProperty<>(param.getValue().getDiaMapaDeUsos().get(dia));
             });
-            tcNumeroDia.setCellFactory((TableColumn<MesMapaDeUso, DiaMapaDeUso> param) -> new TableCell< MesMapaDeUso, DiaMapaDeUso>() {
+            tcNumeroDia.sortableProperty().set(false);
+            tcNumeroDia.setCellFactory((TableColumn<MesMapaDeUso<Ambiente, DiaMapaDeUso>, DiaMapaDeUso> param) -> new TableCell< MesMapaDeUso<Ambiente, DiaMapaDeUso>, DiaMapaDeUso>() {
                 @Override
                 protected void updateItem(DiaMapaDeUso item, boolean empty) {
                     setText("");
@@ -180,8 +202,7 @@ public class TabelaMapaDeUso extends TableView<MesMapaDeUso> {
                 }
             });
             tcNomeDia.getColumns().add(tcNumeroDia);
-            lTcNomeDias.add(tcNomeDia);
-            lTcDias.add(tcNumeroDia);
+            colunas.add(tcNomeDia);
             tcNomeMes.getColumns().add(tcNomeDia);
             inicio.add(Calendar.DAY_OF_MONTH, 1);
         }

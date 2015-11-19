@@ -21,9 +21,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -33,9 +33,9 @@ import javafx.scene.layout.AnchorPane;
 public class AbaInicioController implements Initializable {
 
     @FXML
-    private AnchorPane apPrincipal;
+    private ScrollPane spPrincipal;
     @FXML
-    private AnchorPane apEventos;
+    private ScrollPane spEventos;
     @FXML
     private Spinner<Integer> spAno;
     @FXML
@@ -80,25 +80,23 @@ public class AbaInicioController implements Initializable {
 
     @FXML
     private void btAbrirInfograficoActionEvent(ActionEvent actionEvent) {
-        FxMananger.insertPane(apPrincipal, "Infografico", Date.from(dpData.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        apPrincipal.setUserData(Date.from(dpData.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        FxMananger.insertPane(apEventos, "GerenciarInstrutor", apPrincipal);
+        FxMananger.insertPane(spPrincipal, "Infografico", Date.from(dpData.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        spPrincipal.setUserData(Date.from(dpData.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        FxMananger.insertPane(spEventos, "GerenciarInstrutor", spPrincipal);
     }
 
     @FXML
     private void btCalendarioActionEvent(ActionEvent actionEvent) {
         Object[] dados = new Object[]{spAno.getValue(), false};
-        FxMananger.insertPane(apPrincipal, "Calendario", dados);
-        apEventos.getChildren().clear();
-        FxMananger.insertPane(apEventos, "GerenciarEventos", dados);
+        FxMananger.insertPane(spPrincipal, "Calendario", dados);
+        FxMananger.insertPane(spEventos, "GerenciarEventos", dados);
     }
 
     @FXML
     private void btCalendarioEscolaActionEvent(ActionEvent actionEvent) {
         Object[] dados = new Object[]{spAno.getValue(), true};
-        FxMananger.insertPane(apPrincipal, "Calendario", dados);
-        apEventos.getChildren().clear();
-        FxMananger.insertPane(apEventos, "GerenciarEventos", dados);
+        FxMananger.insertPane(spPrincipal, "Calendario", dados);
+        FxMananger.insertPane(spEventos, "GerenciarEventos", dados);
     }
 
     public void permissao() {

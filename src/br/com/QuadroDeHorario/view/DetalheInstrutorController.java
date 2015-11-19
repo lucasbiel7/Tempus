@@ -76,7 +76,7 @@ public class DetalheInstrutorController implements Initializable {
             lcGrafico.setData(dadosGrafico);
             carregarGrafico();
         });
-        new Timeline(new KeyFrame(Duration.seconds(1), (ActionEvent action)->{
+        new Timeline(new KeyFrame(Duration.seconds(1), (ActionEvent action) -> {
             carregarGrafico();
         })).play();
         naAulas.setTickLabelFormatter(new PercentageStringConverter(Locale.ROOT));
@@ -100,7 +100,7 @@ public class DetalheInstrutorController implements Initializable {
             try {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(data);
-                VariaveisDoSistema variaveisDoSistema = new VariaveisDoSistemaDAO().pegarPorNome("ocupacao");
+                VariaveisDoSistema variaveisDoSistema = new VariaveisDoSistemaDAO().pegarPorNome(VariaveisDoSistema.NOME.OCUPACAO);
                 Date inicio = sdfData.parse("01/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.YEAR));
                 Date fim = sdfData.parse("01/" + (calendar.get(Calendar.MONTH) + 2) + "/" + calendar.get(Calendar.YEAR));
                 Object[] mediaValor = new AulaDAO().mediaMensal(usuario, inicio, fim);

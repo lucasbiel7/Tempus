@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -48,12 +49,19 @@ public class ConfigurarBancoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-        tfUsuario.setText(ParametrosBanco.getUSUARIO());
-        pfSenha.setText(ParametrosBanco.getSENHA());
-        tfIp.setText(ParametrosBanco.getIP());
-
+            tfUsuario.setText(ParametrosBanco.getUSUARIO());
+            pfSenha.setText(ParametrosBanco.getSENHA());
+            tfIp.setText(ParametrosBanco.getIP());
         } catch (NoClassDefFoundError e) {
-            System.out.println(e.getCause());
+            Mensagem.showError("Arquivo de configuração",
+                    "O arquivo de configuração parece estar corrompido,\n"
+                    + "será necessário excluir o arquivo e reiniciar o sistema.");
+            File arquivoConf = new File("etc/banco.txt");
+            if (arquivoConf.delete()) {
+                Platform.runLater(() -> {
+                    ((Stage) tfUsuario.getScene().getWindow()).close();
+                });
+            }
         }
     }
 

@@ -97,7 +97,6 @@ public class GerenciarAmbienteController implements Initializable {
         Platform.runLater(() -> {
             stage = (Stage) tvAmbiente.getScene().getWindow();
         });
-
         spCapacidade.setValueFactory(new SpinnerValueFactory<Integer>() {
             @Override
             public void decrement(int steps) {

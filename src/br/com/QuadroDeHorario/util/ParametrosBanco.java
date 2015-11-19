@@ -37,22 +37,32 @@ public class ParametrosBanco {
     public static String IP;
     public static String USUARIO;
     public static String SENHA;
-    public static final double VERSAO = 3.43;
+    public static final double VERSAO = 3.44;
+    public static final String REMOTO = "banco";
+    public static final String LOCAL = "local";
 
     static {
+        atribuirPropriedades(REMOTO);
+    }
+
+    public static void atribuirPropriedades(String propriedades) {
+        File file = new File("etc/");
+        file.mkdir();
         try {
-            new File("etc/").mkdir();
-            File arquivoConf = new File("etc/banco.txt");
+            File arquivoConf = new File("etc/" + propriedades + ".txt");
             List<String> parametros;
             if (!arquivoConf.isFile()) {
                 parametros = new ArrayList<>();
-                //LocalUser
-//                parametros.add(new EncriptacaoAES().encriptar("localhost"));
-//                parametros.add(new EncriptacaoAES().encriptar("root"));
-//                parametros.add(new EncriptacaoAES().encriptar("OC2015"));
-                parametros.add(new EncriptacaoAES().encriptar("10.31.1.5"));
-                parametros.add(new EncriptacaoAES().encriptar("qHorario"));
-                parametros.add(new EncriptacaoAES().encriptar("qu4dr0!elw"));
+                if (propriedades.equals(LOCAL)) {
+                    //Cluster local
+                    parametros.add(new EncriptacaoAES().encriptar("127.0.0.1"));
+                    parametros.add(new EncriptacaoAES().encriptar("root"));
+                    parametros.add(new EncriptacaoAES().encriptar("OC2015"));
+                } else if (propriedades.equals(REMOTO)) {
+                    parametros.add(new EncriptacaoAES().encriptar("10.31.1.5"));
+                    parametros.add(new EncriptacaoAES().encriptar("qHorario"));
+                    parametros.add(new EncriptacaoAES().encriptar("qu4dr0!elw"));
+                }
                 //Administrador database
 //                parametros.add(new EncriptacaoAES().encriptar("root"));
 //                parametros.add(new EncriptacaoAES().encriptar("FIEMG2015"));

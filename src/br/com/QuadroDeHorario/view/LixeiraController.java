@@ -16,8 +16,8 @@ import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -28,19 +28,21 @@ import javafx.stage.Stage;
 public class LixeiraController implements Initializable {
 
     @FXML
-    private AnchorPane apProjeto;
+    private ScrollPane spProjeto;
     @FXML
-    private AnchorPane apCurso;
+    private ScrollPane spCurso;
     @FXML
-    private AnchorPane apRecurso;
+    private ScrollPane spRecurso;
     @FXML
-    private AnchorPane apAmbiente;
+    private ScrollPane spAmbiente;
     @FXML
-    private AnchorPane apTurma;
+    private ScrollPane spTurma;
     @FXML
-    private AnchorPane apDisciplina;
+    private ScrollPane spDisciplina;
     @FXML
-    private AnchorPane apInstrutor;
+    private ScrollPane spProduto;
+    @FXML
+    private ScrollPane spInstrutor;
     @FXML
     private TabPane tbAbas;
     private Stage stage;
@@ -49,44 +51,49 @@ public class LixeiraController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
             tbProjetoActionEvent(null);
-            stage = (Stage) apAmbiente.getScene().getWindow();
+            stage = (Stage) tbAbas.getScene().getWindow();
         });
         permissoes();
     }
 
     @FXML
     private void tbProjetoActionEvent(Event actionEvent) {
-        FxMananger.insertPane(apProjeto, "LixeiraProjeto");
+        FxMananger.insertPane(spProjeto, "LixeiraProjeto");
     }
 
     @FXML
     private void tbRecursoActionEvent(Event actionEvent) {
-        FxMananger.insertPane(apRecurso, "LixeiraRecurso");
+        FxMananger.insertPane(spRecurso, "LixeiraRecurso");
     }
 
     @FXML
     private void tbCursoActionEvent(Event actionEvent) {
-        FxMananger.insertPane(apCurso, "LixeiraCurso");
+        FxMananger.insertPane(spCurso, "LixeiraCurso");
     }
 
     @FXML
     private void tbAmbienteActionEvent(Event actionEvent) {
-        FxMananger.insertPane(apAmbiente, "LixeiraAmbiente");
+        FxMananger.insertPane(spAmbiente, "LixeiraAmbiente");
     }
 
     @FXML
     private void tbTurmaActionEvent(Event actionEvent) {
-        FxMananger.insertPane(apTurma, "LixeiraTurma");
+        FxMananger.insertPane(spTurma, "LixeiraTurma");
     }
 
     @FXML
     private void tbDisciplinaActionEvent(Event actionEvent) {
-        FxMananger.insertPane(apDisciplina, "LixeiraDisciplina");
+        FxMananger.insertPane(spDisciplina, "LixeiraDisciplina");
     }
 
     @FXML
     private void tbInstrutorActionEvent(Event actionEvent) {
-        FxMananger.insertPane(apInstrutor, "LixeiraUsuario");
+        FxMananger.insertPane(spInstrutor, "LixeiraUsuario");
+    }
+
+    @FXML
+    private void tbProdutoActionEvent(Event actionEvent) {
+        FxMananger.insertPane(spProduto, "LixeiraProduto");
     }
 
     private void permissoes() {

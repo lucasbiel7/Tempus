@@ -165,6 +165,10 @@ public class AulaDAO extends GenericaDAO<Aula> {
     }
 
     public List<Aula> pegarPorAmbienteDia(Date data, Ambiente ambiente, DataHorario.Turno... turnos) {
+        if (turnos.length == 0) {
+            finalizarSession();
+            return new ArrayList<>();
+        }
         entitys = criteria.add(Restrictions.eq("id.dataAula", data)).add(Restrictions.eq("ambiente", ambiente)).add(Restrictions.in("id.turno", turnos)).list();
         finalizarSession();
         return entitys;

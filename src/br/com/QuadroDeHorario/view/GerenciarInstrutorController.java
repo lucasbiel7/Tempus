@@ -19,7 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -34,6 +34,8 @@ import javafx.scene.layout.AnchorPane;
 public class GerenciarInstrutorController implements Initializable {
 
     @FXML
+    private AnchorPane apPrincipal;
+    @FXML
     private TableView<Usuario> tvUsuario;
     @FXML
     private TableColumn<Usuario, String> tcNome;
@@ -44,14 +46,16 @@ public class GerenciarInstrutorController implements Initializable {
 
     private ObservableList<Usuario> usuarios = FXCollections.observableArrayList();
     private Date data;
+    private ScrollPane spPrincipal;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        tvUsuario.setItems(usuarios);
         Platform.runLater(() -> {
-            data = (Date) ((Parent) tvUsuario.getParent().getUserData()).getUserData();
+            spPrincipal = (ScrollPane) apPrincipal.getUserData();
+            data = (Date) spPrincipal.getUserData();
             usuarios.setAll(new UsuarioDAO().pegarPorGrupo(new GrupoDAO().pegarGrupo("Instrutor")));
         });
+        tvUsuario.setItems(usuarios);
         tcNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         tcJanelas.setCellValueFactory((TableColumn.CellDataFeatures<Usuario, Integer> param) -> new SimpleObjectProperty<>(param.getValue().getCargaHoraria() - new AulaDAO().pegarPorDiaInstrutor(param.getValue(), data).size()));
         tcAulas.setCellValueFactory((TableColumn.CellDataFeatures<Usuario, Integer> param) -> {
@@ -62,11 +66,9 @@ public class GerenciarInstrutorController implements Initializable {
     @FXML
     private void tvUsuarioMouseReleased(MouseEvent mouseEvent) {
         if (tvUsuario.getSelectionModel().getSelectedItem() != null) {
-            AnchorPane anchorPane = (AnchorPane) tvUsuario.getParent().getUserData();
             Object[] dados = new Object[]{tvUsuario.getSelectionModel().getSelectedItem(), data};
-            FxMananger.insertPane(anchorPane, "DetalheInstrutor", dados);
+            FxMananger.insertPane(spPrincipal, "DetalheInstrutor", dados);
         }
     }
-    
-    
+
 }

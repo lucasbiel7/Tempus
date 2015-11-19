@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
@@ -38,18 +39,20 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="10.0" layoutY="14.0" prefHeight="416.0" prefWidth="704.0" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+      <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="10.0" layoutY="14.0" prefHeight="416.0" prefWidth="704.0" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="50.0">
          <content>
-            <VBox fx:id="vbHorarios" alignment="CENTER" prefHeight="194.0" prefWidth="992.0" spacing="10.0" styleClass="mainFxmlClass">
-               <children>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@image/loading2.gif" />
-                     </image>
-                  </ImageView>
-               </children>
-            </VBox>
+            <VBox fx:id="vbHorarios" alignment="CENTER" prefHeight="194.0" prefWidth="992.0" spacing="10.0" styleClass="mainFxmlClass" />
          </content>
       </ScrollPane>
+      <AnchorPane id="pane-user" prefHeight="48.0" prefWidth="1026.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Label fx:id="lbTitulo" alignment="CENTER" layoutX="283.0" layoutY="20.0" prefHeight="37.0" prefWidth="421.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="0.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Button layoutX="960.0" layoutY="12.0" mnemonicParsing="false" onAction="#btEnviarEmailActionEvent" text="Enviar por&#10;E-mail" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children></AnchorPane>
+      <ProgressIndicator id="loadHorario" fx:id="piLoader" progress="0.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>

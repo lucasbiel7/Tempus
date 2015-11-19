@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="424.0" prefWidth="629.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.RelatoriosController">
+<AnchorPane id="AnchorPane" prefHeight="424.0" prefWidth="629.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.RelatoriosController">
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
@@ -35,6 +35,9 @@
             </Button>
          </children>
       </VBox>
-      <AnchorPane fx:id="apPrincipal" layoutX="190.0" layoutY="14.0" prefHeight="396.0" prefWidth="425.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
+      <ScrollPane fx:id="spPrincipal" fitToHeight="true" fitToWidth="true" layoutX="190.0" layoutY="14.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+         <content>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="mainFxmlClass" />
+         </content></ScrollPane>
    </children>
 </AnchorPane>

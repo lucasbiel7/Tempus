@@ -8,9 +8,9 @@ package br.com.QuadroDeHorario.control;
 import br.com.QuadroDeHorario.dao.CalendarioDAO;
 import br.com.QuadroDeHorario.entity.Calendario;
 import br.com.QuadroDeHorario.entity.Evento;
+import br.com.QuadroDeHorario.model.SemanaCalendario;
 import br.com.QuadroDeHorario.util.FxMananger;
 import br.com.QuadroDeHorario.util.Mensagem;
-import br.com.QuadroDeHorario.util.SemanaCalendario;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,6 +30,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
@@ -63,6 +64,7 @@ public class TabelaMensal extends TableView<SemanaCalendario> {
         this.escolar = escolar;
         carregarDados(mes, ano);
         setEditable(true);
+        int a = 0xff;
         tcSegunda = new TableColumn<>("Seg");
         tcTerca = new TableColumn<>("Ter");
         tcQuarta = new TableColumn<>("Qua");
@@ -80,11 +82,11 @@ public class TabelaMensal extends TableView<SemanaCalendario> {
         tcTitulo.getColumns().addAll(tcDomingo, tcSegunda, tcTerca, tcQuarta, tcQuinta, tcSexta, tcSabado);
         getColumns().setAll(tcTitulo);
         setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY);
-        setPrefSize(250d, 200d);
+        setMinSize(250d, 150d);
+        setPrefSize(250d, 175d);
         setItems(semanaCalendarios);
         setSortPolicy(null);
         tcTitulo.getColumns().addListener(new ListChangeListener<TableColumn<SemanaCalendario, ?>>() {
-
             private boolean suspender;
 
             @Override
@@ -184,12 +186,14 @@ public class TabelaMensal extends TableView<SemanaCalendario> {
                     if (new CalendarioDAO().pegarPorId(calendario.getId()) == null) {
                         try {
                             new CalendarioDAO().cadastrar(calendario);
+                            event.consume();
                         } catch (ConstraintViolationException e) {
                             Mensagem.showError("Evento cadastrado!", "O evento " + evento.getNome() + " já foi adicionado a este dia\n"
                                     + "do ano, não e permitido cadastrar no mesmo dia o mesmo evento!");
                         }
                     } else {
                         new CalendarioDAO().editar(calendario);
+                        event.consume();
                     }
                 }
                 Calendar calendar = Calendar.getInstance();
@@ -212,6 +216,11 @@ public class TabelaMensal extends TableView<SemanaCalendario> {
                             setText(new SimpleDateFormat("dd").format(item));
                             List<Calendario> calendarios = new CalendarioDAO().pegarTodosPorData(item, escolar);
                             if (!calendarios.isEmpty()) {
+                                String tooltip="";
+                                for (Calendario calendario : calendarios) {
+                                    tooltip+=calendario.getId().getEvento().toString()+"\n";
+                                }
+                                setTooltip(new Tooltip(tooltip));
                                 Color[] todasCores = new Color[calendarios.size()];
                                 int i = 0;
                                 for (Calendario calendario : calendarios) {
@@ -242,11 +251,11 @@ public class TabelaMensal extends TableView<SemanaCalendario> {
                                     }
                                     setBackground(new Background(new BackgroundFill(LinearGradient.valueOf("linear-gradient(from 0% 0% to 100% 100%, " + FxMananger.toRGB(todasCores[0]) + "  0% , " + FxMananger.toRGB(todasCores[1]) + " 30%," + FxMananger.toRGB(todasCores.length > 2 ? todasCores[2] : todasCores[1]) + " 100%)"), CornerRadii.EMPTY, Insets.EMPTY)));
                                 }
-                                MenuItem miAdicionarRecursos = new MenuItem("Adicionar recursos");
+                                MenuItem miAdicionarRecursos = new MenuItem("Manipular recursos");
                                 MenuItem miExcluir = new MenuItem("Excluir");
                                 ContextMenu cmOpcoes = new ContextMenu(miAdicionarRecursos, miExcluir);
                                 miAdicionarRecursos.setOnAction((ActionEvent event) -> {
-                                    FxMananger.show("AdicionarRecursosEvento", "Adicionar Recursos/Ambiente aos eventos", true, false, item);
+                                    FxMananger.show("AdicionarRecursosEvento", "Manipular Recursos/Ambiente aos eventos", true, false, item);
                                 });
                                 miExcluir.setOnAction((ActionEvent event) -> {
                                     for (Calendario calendario : calendarios) {
@@ -274,6 +283,7 @@ public class TabelaMensal extends TableView<SemanaCalendario> {
                         }
                     } else {
                         setText("");
+                        setTooltip(null);
                         setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
                         setTextFill(Color.BLACK);
                     }
