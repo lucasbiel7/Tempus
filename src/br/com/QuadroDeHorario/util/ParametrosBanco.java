@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
 
 /**
  *
@@ -37,7 +36,7 @@ public class ParametrosBanco {
     public static String IP;
     public static String USUARIO;
     public static String SENHA;
-    public static final double VERSAO = 3.44;
+    public static final double VERSAO = 3.46;
     public static final String REMOTO = "banco";
     public static final String LOCAL = "local";
 
@@ -79,7 +78,7 @@ public class ParametrosBanco {
         }
     }
 
-    public void atualizacao() {
+    public boolean atualizacao() {
         Sistema sistema = new SistemaDAO().pegarPorNome(FxMananger.NOME_PROGRAMA);
         if (sistema == null) {
             try {
@@ -104,15 +103,13 @@ public class ParametrosBanco {
             if (atualizacao.getJar() != null) {
                 try {
                     Files.write(Paths.get(System.getProperty("user.dir") + File.separatorChar + sistema.getNomeJar()), atualizacao.getJar());
-                    Runtime runtime = Runtime.getRuntime();
-                    runtime.exec("java -jar " + sistema.getNomeJar());
-                    Platform.exit();
-                    System.exit(0);
+                    return true;
                 } catch (IOException ex) {
                     System.err.println(ex.getMessage());
                 }
             }
         }
+        return false;
     }
 
     public static String getIP() {

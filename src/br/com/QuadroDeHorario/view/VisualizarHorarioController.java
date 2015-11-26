@@ -79,13 +79,14 @@ public class VisualizarHorarioController implements Initializable {
             if (variaveisDoSistema != null) {
                 lbStatus.setVisible(Boolean.valueOf(variaveisDoSistema.getValor()));
                 btEntregarChave.setVisible(Boolean.valueOf(variaveisDoSistema.getValor()));
-                
+
                 if (Boolean.valueOf(variaveisDoSistema.getValor())) {
                     comunication = new Thread(SerialUtil.serialCommunication, "VisualizarHorarioCommunicationSerial");
                     comunication.start();
                 }
             } else {
                 lbStatus.setVisible(false);
+                btEntregarChave.setVisible(false);
             }
         });
         Efeito.logo(lbLogo, ivLogo);

@@ -6,16 +6,15 @@
 package br.com.QuadroDeHorario.view;
 
 import br.com.QuadroDeHorario.dao.UsuarioDAO;
-import br.com.QuadroDeHorario.model.GenericaDAO;
 import br.com.QuadroDeHorario.util.FxMananger;
-import br.com.QuadroDeHorario.util.ManipularData;
 import br.com.QuadroDeHorario.util.Mensagem;
 import br.com.QuadroDeHorario.util.ParametrosBanco;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -51,20 +50,20 @@ public class LoadScreenController implements Initializable {
                     if (connection != null) {
                         connection.close();
                         FxMananger.ONLINE = true;
-                        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-                            try {
-                                File file = new File("backup/");
-                                file.mkdirs();
-                                Runtime.getRuntime().exec("mysqldump -u" + ParametrosBanco.getUSUARIO() + " -p" + ParametrosBanco.getSENHA() + " -h" + ParametrosBanco.getIP() + " --database sisCetel > backup/sisCetel-" + (ManipularData.toDate(new GenericaDAO<>().dataAtual()).replace("/", "-")) + ".sql");
-                            } catch (IOException ex) {
-                                System.out.println("Erro ao tentar Realizar backup!");
-                            }
-                        }));
                         new UsuarioDAO().pegarTodos();
-                        new ParametrosBanco().atualizacao();
                         Platform.runLater(() -> {
-                            stage.close();
-                            FxMananger.show("Inicio", "Início", true, false, true);
+                            if (new ParametrosBanco().atualizacao()) {
+                                try {
+                                    Runtime.getRuntime().exec("javaw -jar QuadroDeHorarioFX.jar");
+                                    Platform.exit();
+                                    System.exit(0);
+                                } catch (IOException ex) {
+                                    Logger.getLogger(LoadScreenController.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            } else {
+                                stage.close();
+                                FxMananger.show("Inicio", "Início", true, false, true);
+                            }
                         });
                     } else {
                         ParametrosBanco.atribuirPropriedades(ParametrosBanco.LOCAL);
@@ -96,15 +95,8 @@ public class LoadScreenController implements Initializable {
         Platform.runLater(() -> {
             stage.close();
             if (Mensagem.showConfirmation("Erro de conexão", "Talvez as configurações de conexão estão incorretas, deseja fazer alteração nas configurações de conexão do sistema com a base de dados?")) {
-                try {
-                    FxMananger.show("ConfigurarBanco", "Cofigurar Banco de dados", true, false);
-                    Runtime.getRuntime().exec("javaw -jar QuadroDeHorarioFX.jar");
-                    Platform.exit();
-                    System.exit(0);
-                } catch (IOException ex) {
-                    Mensagem.showError("Falha ao iniciar", "Não foi possível iniciar o sistema,\n"
-                            + "foi encontrado erros em arquivos de configuração!");
-                }
+                FxMananger.show("ConfigurarBanco", "Cofigurar Banco de dados", true, false);
+
             } else {
                 System.exit(1);
             }

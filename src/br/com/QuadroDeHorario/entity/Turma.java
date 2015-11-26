@@ -30,8 +30,7 @@ import javax.persistence.Temporal;
 @NamedQueries({
     @NamedQuery(name = "Turma.findAll", query = "SELECT t FROM Turma t")})
 public class Turma implements Serializable {
-   
-    
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,6 +52,8 @@ public class Turma implements Serializable {
     private String email;
     private Turno turno;
     private int modulo;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date envioHorario;
     @ManyToOne
     private Projeto projeto;
     @OneToMany(mappedBy = "materiaTurmaIntrutorSemestre.turma")
@@ -174,6 +175,22 @@ public class Turma implements Serializable {
 
     public void setMateriaHorarios(List<MateriaHorario> materiaHorarios) {
         this.materiaHorarios = materiaHorarios;
+    }
+
+    public Date getEnvioHorario() {
+        return envioHorario;
+    }
+
+    public void setEnvioHorario(Date envioHorario) {
+        this.envioHorario = envioHorario;
+    }
+
+    public List<ObservacaoAula> getObservacaoAulas() {
+        return observacaoAulas;
+    }
+
+    public void setObservacaoAulas(List<ObservacaoAula> observacaoAulas) {
+        this.observacaoAulas = observacaoAulas;
     }
 
     @Override

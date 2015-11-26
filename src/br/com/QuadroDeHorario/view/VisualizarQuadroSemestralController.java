@@ -5,10 +5,12 @@
  */
 package br.com.QuadroDeHorario.view;
 
+import br.com.QuadroDeHorario.control.Mail;
 import br.com.QuadroDeHorario.control.TabelaHorarioImpressao;
 import br.com.QuadroDeHorario.dao.AulaDAO;
 import br.com.QuadroDeHorario.dao.MateriaHorarioAmbienteDAO;
 import br.com.QuadroDeHorario.dao.MateriaHorarioDAO;
+import br.com.QuadroDeHorario.dao.TurmaDAO;
 import br.com.QuadroDeHorario.dao.UsuarioDAO;
 import br.com.QuadroDeHorario.entity.Ambiente;
 import br.com.QuadroDeHorario.entity.Aula;
@@ -16,15 +18,20 @@ import br.com.QuadroDeHorario.entity.MateriaHorario;
 import br.com.QuadroDeHorario.entity.MateriaHorarioAmbiente;
 import br.com.QuadroDeHorario.entity.Turma;
 import br.com.QuadroDeHorario.entity.Usuario;
+import br.com.QuadroDeHorario.model.GenericaDAO;
 import br.com.QuadroDeHorario.util.DataHorario;
+import br.com.QuadroDeHorario.util.Mensagem;
 import static br.com.QuadroDeHorario.view.QuadroDeHorarioController.corAmbiente1;
 import static br.com.QuadroDeHorario.view.QuadroDeHorarioController.corAmbiente2;
 import static br.com.QuadroDeHorario.view.QuadroDeHorarioController.corAmbiente3;
 import static br.com.QuadroDeHorario.view.QuadroDeHorarioController.corAmbiente4;
 import static br.com.QuadroDeHorario.view.QuadroDeHorarioController.corAmbiente5;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -39,6 +46,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
@@ -46,6 +55,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ZoomEvent;
@@ -97,6 +107,8 @@ public class VisualizarQuadroSemestralController implements Initializable {
     private Label lbTitulo;
     @FXML
     private ProgressIndicator piLoader;
+    @FXML
+    private Button btEnviarEmail;
 
     private ObservableList<MateriaHorario> materiaHorarios = FXCollections.observableArrayList();
     private Task<Void> carregarTabelas;
@@ -135,6 +147,7 @@ public class VisualizarQuadroSemestralController implements Initializable {
                     } else if (parametro instanceof Ambiente) {
                         ambiente = (Ambiente) parametro;
                         lbTitulo.setText("Ambiente " + ambiente.toString());
+                        btEnviarEmail.setVisible(false);
                     }
                 }
                 Calendar calendar = Calendar.getInstance();
@@ -202,7 +215,30 @@ public class VisualizarQuadroSemestralController implements Initializable {
     @FXML
     private void btEnviarEmailActionEvent(ActionEvent actionEvent) {
         if (turma != null) {
-            
+            Date dataAtual = new GenericaDAO<>().dataAtual();
+            Calendar turmaCalendar = Calendar.getInstance();
+            if (turma.getEnvioHorario() != null) {
+                turmaCalendar.setTime(turma.getEnvioHorario());
+            } else {
+                turmaCalendar.add(Calendar.DAY_OF_MONTH, -30);
+            }
+            Calendar dataAtualCalendar = Calendar.getInstance();
+            dataAtualCalendar.setTime(dataAtual);
+            if (dataAtualCalendar.get(Calendar.DAY_OF_MONTH) == turmaCalendar.get(Calendar.DAY_OF_MONTH) && dataAtualCalendar.get(Calendar.MONTH) == turmaCalendar.get(Calendar.MONTH)) {
+                Mensagem.showError("Erro ao enviar",
+                        "Não é possível enviar seu horário porque\n"
+                        + "a sua turma ja requisitou o horario\n"
+                        + "hoje!");
+            } else {
+                Mail mail = new Mail();
+                WritableImage wi = vbHorarios.snapshot(new SnapshotParameters(), (wi = null));
+                Usuario usuario = new UsuarioDAO().pegarPorId(64);
+                InputStream inputStream = null;
+                mail.sendEmail(turma.getEmail(), "Horário - " + turma.getDescricao(), "Segue em anexo o horário", new ByteArrayInputStream(usuario.getFoto()));
+                System.out.println("Enviando email");
+                turma.setEnvioHorario(dataAtual);
+                new TurmaDAO().editar(turma);
+            }
         } else if (usuario != null) {
 
         } else if (ambiente != null) {

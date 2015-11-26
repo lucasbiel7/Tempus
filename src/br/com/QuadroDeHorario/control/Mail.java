@@ -61,31 +61,30 @@ public class Mail {
     }
 
     public void sendEmail(Usuario usuario) throws ConstraintViolationException, MessagingException, UnsupportedEncodingException {
-       
-            MimeMessage email = new MimeMessage(session);
-            email.setFrom(new InternetAddress("bquestao@gmail.com", FxMananger.NOME_PROGRAMA + " - CETEL"));
-            email.addRecipient(Message.RecipientType.TO, new InternetAddress(usuario.getEmail()));
-            email.setSubject(FxMananger.NOME_PROGRAMA + " - Recuperar Senha");
-            String codigo = new Security().codigoDeSeguranca();
-            email.setText("Sr.(a) " + usuario.getNome() + "\n "
-                    + "Recebemos a solicitação do código de segurança para alterar sua senha,\n"
-                    + "caso você não tenha solicitado ingnore este e-mail e troque sua senha pois pode ter sido uma tentativa de roubo.\n"
-                    + "Código de Segurança:\n"
-                    + "" + codigo);
-            Transport transporte = session.getTransport("smtp");
-            transporte.connect("smtp." + domain, smtpPort, user, senha);
-            transporte.sendMessage(email, email.getRecipients(Message.RecipientType.TO));
-            transporte.close();
-            TokenCode tokenCode = new TokenCode();
-            tokenCode.setUsuario(usuario);
-            tokenCode.setLastChange(new TokenCodeDAO().dataAtual());
-            tokenCode.setToken(codigo);
-            new TokenCodeDAO().cadastrar(tokenCode);
 
-       
+        MimeMessage email = new MimeMessage(session);
+        email.setFrom(new InternetAddress("bquestao@gmail.com", FxMananger.NOME_PROGRAMA + " - CETEL"));
+        email.addRecipient(Message.RecipientType.TO, new InternetAddress(usuario.getEmail()));
+        email.setSubject(FxMananger.NOME_PROGRAMA + " - Recuperar Senha");
+        String codigo = new Security().codigoDeSeguranca();
+        email.setText("Sr.(a) " + usuario.getNome() + "\n "
+                + "Recebemos a solicitação do código de segurança para alterar sua senha,\n"
+                + "caso você não tenha solicitado ingnore este e-mail e troque sua senha pois pode ter sido uma tentativa de roubo.\n"
+                + "Código de Segurança:\n"
+                + "" + codigo);
+        Transport transporte = session.getTransport("smtp");
+        transporte.connect("smtp." + domain, smtpPort, user, senha);
+        transporte.sendMessage(email, email.getRecipients(Message.RecipientType.TO));
+        transporte.close();
+        TokenCode tokenCode = new TokenCode();
+        tokenCode.setUsuario(usuario);
+        tokenCode.setLastChange(new TokenCodeDAO().dataAtual());
+        tokenCode.setToken(codigo);
+        new TokenCodeDAO().cadastrar(tokenCode);
+
     }
 
-    public void sendEmail(String recipiente, String title, String mensagem, InputStream dados) {
+    public void sendEmail(String recipiente, String title, String mensagem, InputStream... dados) {
         try {
             MimeMessage mimeMessage = new MimeMessage(session);
             mimeMessage.setFrom(new InternetAddress("bquestao@gmail.com", FxMananger.NOME_PROGRAMA + " - CETEL"));
@@ -93,10 +92,12 @@ public class Mail {
             mimeMessage.setSubject(FxMananger.NOME_PROGRAMA + " - " + title);
             mimeMessage.setText(mensagem);
             //Parte dos dados
-            MimeBodyPart mimeBodyPart = new MimeBodyPart(dados);
-            //Onde é fica todos arquivos
             Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(mimeBodyPart);
+            for (InputStream dado : dados) {
+                MimeBodyPart mimeBodyPart = new MimeBodyPart(dado);
+                //Onde é fica todos arquivos
+                multipart.addBodyPart(mimeBodyPart);
+            }
             //Adicionar o conteúdo
             mimeMessage.setContent(multipart);
             Transport transporte = session.getTransport("smtp");

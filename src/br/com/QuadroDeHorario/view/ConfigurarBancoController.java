@@ -92,6 +92,14 @@ public class ConfigurarBancoController implements Initializable {
                 Mensagem.showError("Conexão inválida", "Não foi possivel encontrar uma conexão com esses parametros");
             }
         }
+        try {
+            Runtime.getRuntime().exec("javaw -jar QuadroDeHorarioFX.jar");
+            Platform.exit();
+            System.exit(0);
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+            System.exit(1);
+        }
     }
 
     @FXML

@@ -29,12 +29,12 @@ public class Efeito {
         label.setText(FxMananger.NOME_PROGRAMA);
         imageView.setImage(new Image(GerenciarImagem.carregarImagem("logo.png")));
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(3d), label);
-        fadeTransition.setFromValue(0.0);
-        fadeTransition.setToValue(1.0);
+        fadeTransition.setFromValue(0d);
+        fadeTransition.setToValue(1d);
         fadeTransition.setOnFinished((ActionEvent event) -> {
-            FadeTransition fadeTransition1 = new FadeTransition(Duration.seconds(2), label);
-            fadeTransition1.setFromValue(1.0);
-            fadeTransition1.setToValue(0.0);
+            FadeTransition fadeTransition1 = new FadeTransition(Duration.seconds(2d), label);
+            fadeTransition1.setFromValue(1d);
+            fadeTransition1.setToValue(0d);
             fadeTransition1.play();
         });
         fadeTransition.play();
