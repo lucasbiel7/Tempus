@@ -8,6 +8,7 @@ package br.com.QuadroDeHorario.view;
 import br.com.QuadroDeHorario.dao.ObservacaoAulaDAO;
 import br.com.QuadroDeHorario.entity.Aula;
 import br.com.QuadroDeHorario.entity.ObservacaoAula;
+import br.com.QuadroDeHorario.util.DatePickerValidator;
 import java.net.URL;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -56,6 +57,7 @@ public class AdicionarObservacaoController implements Initializable {
             dpData.setValue(LocalDateTime.ofInstant(Instant.ofEpochMilli(observacaoAula.getDia().getTime()), ZoneId.systemDefault()).toLocalDate());
         });
         observacaoAula = new ObservacaoAula();
+         dpData.setOnKeyReleased(new DatePickerValidator(dpData));
     }
 
     @FXML

@@ -16,6 +16,7 @@ import br.com.QuadroDeHorario.entity.Usuario;
 import br.com.QuadroDeHorario.entity.VariaveisDoSistema;
 import br.com.QuadroDeHorario.model.SerialConstants;
 import br.com.QuadroDeHorario.util.DataHorario;
+import br.com.QuadroDeHorario.util.DatePickerValidator;
 import br.com.QuadroDeHorario.util.Efeito;
 import br.com.QuadroDeHorario.util.FxMananger;
 import java.net.URL;
@@ -117,6 +118,7 @@ public class VisualizarHorarioController implements Initializable {
         lbLogo.setText(FxMananger.NOME_PROGRAMA);
         turnos.setAll(DataHorario.Turno.values());
         turnos.remove(DataHorario.Turno.DIURNO);
+        dpDataAula.setOnKeyReleased(new DatePickerValidator(dpDataAula));
     }
 
     @FXML

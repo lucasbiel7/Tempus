@@ -8,6 +8,7 @@ package br.com.QuadroDeHorario.view;
 import br.com.QuadroDeHorario.dao.PermissaoUsuarioDAO;
 import br.com.QuadroDeHorario.entity.Permissao;
 import br.com.QuadroDeHorario.entity.PermissaoUsuario;
+import br.com.QuadroDeHorario.util.DatePickerValidator;
 import br.com.QuadroDeHorario.util.FxMananger;
 import br.com.QuadroDeHorario.util.SessaoUsuario;
 import java.net.URL;
@@ -75,6 +76,7 @@ public class AbaInicioController implements Initializable {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         spAno.getValueFactory().setValue(calendar.get(Calendar.YEAR));
+        dpData.setOnKeyReleased(new DatePickerValidator(dpData));
         permissao();
     }
 

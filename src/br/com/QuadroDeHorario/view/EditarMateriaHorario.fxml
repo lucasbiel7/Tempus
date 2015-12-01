@@ -125,7 +125,7 @@
       </VBox>
       <Button defaultButton="true" layoutX="581.0" layoutY="403.0" mnemonicParsing="false" onAction="#btSalvarActionEvent" prefHeight="35.0" prefWidth="154.0" text="Salvar Alteração" />
       <Button layoutX="753.0" layoutY="403.0" mnemonicParsing="false" onAction="#btAdicionarSubstitutoActionEvent" text="Adicionar substituto" />
-      <Button cancelButton="true" layoutX="915.0" layoutY="403.0" mnemonicParsing="false" onAction="#btCancelarActionEvent" prefHeight="35.0" prefWidth="89.0" text="Canelar" />
+      <Button cancelButton="true" layoutX="915.0" layoutY="403.0" mnemonicParsing="false" onAction="#btCancelarActionEvent" prefHeight="35.0" prefWidth="89.0" text="Cancelar" />
       <ColorPicker fx:id="cpCorFonte" layoutX="103.0" layoutY="133.0" prefHeight="25.0" prefWidth="239.0" />
       <Label layoutX="14.0" layoutY="137.0" text="Cor da fonte" />
    </children>

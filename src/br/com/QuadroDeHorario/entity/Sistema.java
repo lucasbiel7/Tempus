@@ -25,6 +25,7 @@ import javax.persistence.OneToMany;
 @NamedQueries({
     @NamedQuery(name = "Sistema.findAll", query = "SELECT s FROM Sistema s")})
 public class Sistema implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +36,7 @@ public class Sistema implements Serializable {
     private String nome;
     private String nomeJar;
     @Basic(optional = false)
-    private boolean ativo=true;
+    private boolean ativo = true;
     @OneToMany(mappedBy = "sistema")
     private List<Atualizacao> atualizacaoList;
 
@@ -121,7 +122,7 @@ public class Sistema implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.QuadroDeHorario.entity.Sistema[ id=" + id + " ]";
+        return getNome();
     }
-    
+
 }

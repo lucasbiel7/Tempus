@@ -491,6 +491,7 @@ public class QuadroDeHorarioController implements Initializable {
         if (turmaEspelho != null) {
             turmaEspelho.setModulo(turmaEspelho.getModulo() + 1);
             if (turmaEspelho.getCurso().getModulo() >= turmaEspelho.getModulo()) {
+                new TurmaDAO().editar(turmaEspelho);
                 for (Materia materia : new MateriaDAO().pegarTodosPorCursoModulo(turmaEspelho.getCurso(), turmaEspelho.getModulo())) {
                     MateriaHorario materiaHorario = new MateriaHorario();
                     materiaHorario.getMateriaTurmaIntrutorSemestre().setTurma(turmaEspelho);

@@ -80,6 +80,7 @@ public class ParametrosBanco {
 
     public boolean atualizacao() {
         Sistema sistema = new SistemaDAO().pegarPorNome(FxMananger.NOME_PROGRAMA);
+        System.out.println(sistema);
         if (sistema == null) {
             try {
                 sistema = new Sistema();
@@ -100,12 +101,15 @@ public class ParametrosBanco {
         }
         Atualizacao atualizacao = new AtualizacaoDAO().pegarPorSistema(sistema);
         if (atualizacao != null) {
-            if (atualizacao.getJar() != null) {
-                try {
-                    Files.write(Paths.get(System.getProperty("user.dir") + File.separatorChar + sistema.getNomeJar()), atualizacao.getJar());
-                    return true;
-                } catch (IOException ex) {
-                    System.err.println(ex.getMessage());
+            if (atualizacao.getVersion() > VERSAO) {
+                System.out.println("maior");
+                if (atualizacao.getJar() != null) {
+                    try {
+                        Files.write(Paths.get(System.getProperty("user.dir") + File.separatorChar + sistema.getNomeJar()), atualizacao.getJar());
+                        return true;
+                    } catch (IOException ex) {
+                        System.err.println(ex.getMessage());
+                    }
                 }
             }
         }

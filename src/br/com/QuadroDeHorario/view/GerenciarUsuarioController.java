@@ -20,6 +20,7 @@ import br.com.QuadroDeHorario.entity.Grupo;
 import br.com.QuadroDeHorario.entity.Materia;
 import br.com.QuadroDeHorario.entity.Usuario;
 import br.com.QuadroDeHorario.entity.UsuarioMateria;
+import br.com.QuadroDeHorario.entity.UsuarioMateria.Tipo;
 import br.com.QuadroDeHorario.entity.UsuarioMateriaID;
 import br.com.QuadroDeHorario.model.SerialConstants;
 import br.com.QuadroDeHorario.util.Mensagem;
@@ -151,14 +152,14 @@ public class GerenciarUsuarioController implements Initializable {
     @FXML
     private Button btLerCartao;
 
-    private ObservableList<Escolaridade.TipoEscolaridade> tipoEscolaridades = FXCollections.observableArrayList();
-    private ObservableList<Escolaridade> escolaridades = FXCollections.observableArrayList();
-    private ObservableList<UsuarioMateria.Tipo> tipo = FXCollections.observableArrayList();
-    private ObservableList<Materia> materias = FXCollections.observableArrayList();
-    private ObservableList<UsuarioMateria> usuarioMaterias = FXCollections.observableArrayList();
-    private ObservableList<Usuario> usuarios = FXCollections.observableArrayList();
-    private ObservableList<Grupo> grupos = FXCollections.observableArrayList();
-    private ObservableList<Curso> cursos = FXCollections.observableArrayList();
+    private final ObservableList<Escolaridade.TipoEscolaridade> tipoEscolaridades = FXCollections.observableArrayList();
+    private final ObservableList<Escolaridade> escolaridades = FXCollections.observableArrayList();
+    private final ObservableList<UsuarioMateria.Tipo> tipo = FXCollections.observableArrayList();
+    private final ObservableList<Materia> materias = FXCollections.observableArrayList();
+    private final ObservableList<UsuarioMateria> usuarioMaterias = FXCollections.observableArrayList();
+    private final ObservableList<Usuario> usuarios = FXCollections.observableArrayList();
+    private final ObservableList<Grupo> grupos = FXCollections.observableArrayList();
+    private final ObservableList<Curso> cursos = FXCollections.observableArrayList();
     private Stage stage;
     private Usuario usuario;
     private Escolaridade escolaridade;
@@ -265,6 +266,7 @@ public class GerenciarUsuarioController implements Initializable {
         usuario = new Usuario();
         btLerCartao.setText("Conectar");
         carregarDados();
+        tipo.remove(Tipo.OUTROS);
     }
 
     @FXML

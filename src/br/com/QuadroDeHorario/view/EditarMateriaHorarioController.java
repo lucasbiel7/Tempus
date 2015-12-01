@@ -155,6 +155,10 @@ public class EditarMateriaHorarioController implements Initializable {
                     rbRadiosActionEvent(null);
                     cbInstrutor.getSelectionModel().select(materiaHorario.getMateriaTurmaIntrutorSemestre().getInstrutor());
                     cbInstrutor.setDisable(!new AulaDAO().pegarPorMateria(materiaHorario).isEmpty());
+                    rbCompetencia.setDisable(cbInstrutor.isDisable());
+                    rbInteresse.setDisable(cbInstrutor.isDisable());
+                    rbTodos.setDisable(cbInstrutor.isDisable());
+                    rbPreferencia.setDisable(cbInstrutor.isDisable());
                 } else {
                     rbRadiosActionEvent(null);
                 }

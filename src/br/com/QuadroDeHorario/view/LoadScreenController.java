@@ -40,7 +40,6 @@ public class LoadScreenController implements Initializable {
         Platform.runLater(() -> {
             stage = (Stage) piLoader.getScene().getWindow();
             new Thread(task).start();
-
         });
         task = new Task<Void>() {
             @Override
@@ -80,6 +79,7 @@ public class LoadScreenController implements Initializable {
                             });
                             connection.close();
                         } else {
+                            ParametrosBanco.atribuirPropriedades(ParametrosBanco.REMOTO);
                             erroIniciar();
                         }
                     }
@@ -96,7 +96,6 @@ public class LoadScreenController implements Initializable {
             stage.close();
             if (Mensagem.showConfirmation("Erro de conexão", "Talvez as configurações de conexão estão incorretas, deseja fazer alteração nas configurações de conexão do sistema com a base de dados?")) {
                 FxMananger.show("ConfigurarBanco", "Cofigurar Banco de dados", true, false);
-
             } else {
                 System.exit(1);
             }

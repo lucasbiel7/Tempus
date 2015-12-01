@@ -14,6 +14,7 @@ import br.com.QuadroDeHorario.entity.MateriaHorario;
 import br.com.QuadroDeHorario.entity.Projeto;
 import br.com.QuadroDeHorario.entity.Turma;
 import br.com.QuadroDeHorario.util.DataHorario;
+import br.com.QuadroDeHorario.util.DatePickerValidator;
 import br.com.QuadroDeHorario.util.Mensagem;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -152,6 +153,8 @@ public class GerenciarTurmaController implements Initializable {
         projetos.setAll(new ProjetoDAO().pegarTodos());
         turma = new Turma();
         carregarDados();
+        dpInicio.setOnKeyReleased(new DatePickerValidator(dpInicio));
+        dpFim.setOnKeyReleased(new DatePickerValidator(dpFim));
     }
 
     @FXML

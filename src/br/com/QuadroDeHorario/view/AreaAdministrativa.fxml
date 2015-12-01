@@ -35,16 +35,16 @@
                         </ScrollPane>
                     </content>
                 </Tab>
-                <Tab onSelectionChanged="#tbDisciplinaActionEvent" text="Componente curricular">
+                <Tab onSelectionChanged="#tbRecursoActionEvent" text="Recurso">
                     <content>
-                        <ScrollPane fx:id="spDisciplina" fitToHeight="true" fitToWidth="true">
+                        <ScrollPane fx:id="spRecurso" fitToHeight="true" fitToWidth="true">
                      
                         </ScrollPane>
                     </content>
                 </Tab>
-                <Tab onSelectionChanged="#tbRecursoActionEvent" text="Recurso">
+                <Tab onSelectionChanged="#tbDisciplinaActionEvent" text="Componente curricular">
                     <content>
-                        <ScrollPane fx:id="spRecurso" fitToHeight="true" fitToWidth="true">
+                        <ScrollPane fx:id="spDisciplina" fitToHeight="true" fitToWidth="true">
                      
                         </ScrollPane>
                     </content>

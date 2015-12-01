@@ -19,7 +19,7 @@
                     <Label layoutX="39.0" layoutY="17.0" text="Nome" />
                     <Label layoutX="43.0" layoutY="61.0" text="Sigla" />
                     <Label layoutX="42.0" layoutY="104.0" text="Curso" />
-                    <Label layoutX="21.0" layoutY="151.0" text="Carga Horária" />
+                    <Label layoutX="21.0" layoutY="151.0" text="N° de Aulas" />
                     <Label layoutX="35.0" layoutY="190.0" text="Módulo" />
                     <Label layoutX="77.0" layoutY="228.0" text="Recursos" />
                     <TextField fx:id="tfNome" layoutX="129.0" layoutY="11.0" prefHeight="30.0" prefWidth="176.0" />
