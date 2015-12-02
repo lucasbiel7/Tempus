@@ -42,7 +42,7 @@
                 <TableColumn fx:id="tcAmbiente5" maxWidth="80.0" minWidth="70.0" prefWidth="75.0" text="Amb. 5" />
                 <TableColumn fx:id="tcDataInicio" maxWidth="120.0" minWidth="100.0" prefWidth="75.0" text="Data início" />
                 <TableColumn fx:id="tcDataFim" maxWidth="120.0" minWidth="100.0" prefWidth="75.0" text="Data Fim" />
-            <TableColumn prefWidth="75.0" text="Carga horária">
+            <TableColumn prefWidth="75.0" text="Número de aulas">
                <columns>
                       <TableColumn fx:id="tcCargaHoraria" maxWidth="60.0" minWidth="60.0" prefWidth="75.0" text="Plano de&#10;curso" />
                       <TableColumn fx:id="tcCargaInstrutor" maxWidth="60.0" minWidth="60.0" prefWidth="75.0" text="Lecio&#10;nada" />

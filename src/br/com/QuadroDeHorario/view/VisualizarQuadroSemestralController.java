@@ -26,14 +26,16 @@ import static br.com.QuadroDeHorario.view.QuadroDeHorarioController.corAmbiente2
 import static br.com.QuadroDeHorario.view.QuadroDeHorarioController.corAmbiente3;
 import static br.com.QuadroDeHorario.view.QuadroDeHorarioController.corAmbiente4;
 import static br.com.QuadroDeHorario.view.QuadroDeHorarioController.corAmbiente5;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -42,6 +44,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -66,6 +69,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javax.imageio.ImageIO;
 
 public class VisualizarQuadroSemestralController implements Initializable {
 
@@ -214,35 +218,51 @@ public class VisualizarQuadroSemestralController implements Initializable {
 
     @FXML
     private void btEnviarEmailActionEvent(ActionEvent actionEvent) {
-        if (turma != null) {
-            Date dataAtual = new GenericaDAO<>().dataAtual();
-            Calendar turmaCalendar = Calendar.getInstance();
-            if (turma.getEnvioHorario() != null) {
-                turmaCalendar.setTime(turma.getEnvioHorario());
-            } else {
-                turmaCalendar.add(Calendar.DAY_OF_MONTH, -30);
-            }
-            Calendar dataAtualCalendar = Calendar.getInstance();
-            dataAtualCalendar.setTime(dataAtual);
-            if (dataAtualCalendar.get(Calendar.DAY_OF_MONTH) == turmaCalendar.get(Calendar.DAY_OF_MONTH) && dataAtualCalendar.get(Calendar.MONTH) == turmaCalendar.get(Calendar.MONTH)) {
-                Mensagem.showError("Erro ao enviar",
-                        "Não é possível enviar seu horário porque\n"
-                        + "a sua turma ja requisitou o horario\n"
-                        + "hoje!");
-            } else {
+        try {
+            WritableImage wiHorarios = vbHorarios.snapshot(new SnapshotParameters(), (wiHorarios = null));
+            WritableImage wiLegenda = tvMateriaHorario.snapshot(new SnapshotParameters(), (wiLegenda = null));
+            File fHorario = new File("horario.png");
+            File fLegenda = new File("legenda.png");
+            ImageIO.write(SwingFXUtils.fromFXImage(wiHorarios, null), "png", fHorario);
+            ImageIO.write(SwingFXUtils.fromFXImage(wiLegenda, null), "png", fLegenda);
+            if (turma != null) {
+                Date dataAtual = new GenericaDAO<>().dataAtual();
+                Calendar turmaCalendar = Calendar.getInstance();
+                if (turma.getEnvioHorario() != null) {
+                    turmaCalendar.setTime(turma.getEnvioHorario());
+                } else {
+                    turmaCalendar.add(Calendar.DAY_OF_MONTH, -30);
+                }
+                Calendar dataAtualCalendar = Calendar.getInstance();
+                dataAtualCalendar.setTime(dataAtual);
+                if (dataAtualCalendar.get(Calendar.DAY_OF_MONTH) == turmaCalendar.get(Calendar.DAY_OF_MONTH) && dataAtualCalendar.get(Calendar.MONTH) == turmaCalendar.get(Calendar.MONTH)) {
+                    Mensagem.showError("Erro ao enviar",
+                            "Não é possível enviar seu horário porque\n"
+                            + "a sua turma ja requisitou o horario\n"
+                            + "hoje!");
+                } else {
+                    Mail mail = new Mail();
+                    mail.sendEmail(turma.getEmail(), turma.getDescricao(), "Horário - " + turma.getDescricao(), "Segue em anexo o horário", fHorario, fLegenda);
+                    Mensagem.showInformation("Envio de e-mail", "O horário foi enviado para o e-mail da turma!\n"
+                            + "Obs: Só é possível o envio do horário uma vez por\n"
+                            + "dia.");
+                    turma.setEnvioHorario(dataAtual);
+                    new TurmaDAO().editar(turma);
+                }
+            } else if (usuario != null) {
                 Mail mail = new Mail();
-                WritableImage wi = vbHorarios.snapshot(new SnapshotParameters(), (wi = null));
-                Usuario usuario = new UsuarioDAO().pegarPorId(64);
-                InputStream inputStream = null;
-                mail.sendEmail(turma.getEmail(), "Horário - " + turma.getDescricao(), "Segue em anexo o horário", new ByteArrayInputStream(usuario.getFoto()));
-                System.out.println("Enviando email");
-                turma.setEnvioHorario(dataAtual);
-                new TurmaDAO().editar(turma);
+                mail.sendEmail(usuario.getEmail(), usuario.getNome(), "Horário - " + usuario.getNome() + " " + turno, "Segue em anexo o horário", fHorario, fLegenda);
+                Mensagem.showInformation("Envio de e-mail", "O horário foi enviado com sucesso para \n"
+                        + "o e-mail " + usuario.getEmail() + "!");
+                fHorario.delete();
+                fLegenda.delete();
+            } else if (ambiente != null) {
+
             }
-        } else if (usuario != null) {
-
-        } else if (ambiente != null) {
-
+            fHorario.delete();
+            fLegenda.delete();
+        } catch (IOException ex) {
+            Logger.getLogger(VisualizarQuadroSemestralController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

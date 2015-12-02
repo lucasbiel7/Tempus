@@ -9,11 +9,13 @@ import br.com.QuadroDeHorario.dao.TokenCodeDAO;
 import br.com.QuadroDeHorario.entity.TokenCode;
 import br.com.QuadroDeHorario.entity.Usuario;
 import br.com.QuadroDeHorario.util.FxMananger;
-import java.io.InputStream;
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -57,7 +59,7 @@ public class Mail {
             }
         });
         //Lembrar de comentar depois
-        session.setDebug(true);
+        session.setDebug(false);
     }
 
     public void sendEmail(Usuario usuario) throws ConstraintViolationException, MessagingException, UnsupportedEncodingException {
@@ -84,17 +86,22 @@ public class Mail {
 
     }
 
-    public void sendEmail(String recipiente, String title, String mensagem, InputStream... dados) {
+    public void sendEmail(String email, String nome, String title, String mensagem, File... dados) {
         try {
             MimeMessage mimeMessage = new MimeMessage(session);
             mimeMessage.setFrom(new InternetAddress("bquestao@gmail.com", FxMananger.NOME_PROGRAMA + " - CETEL"));
-            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(recipiente));
+            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(email, nome));
             mimeMessage.setSubject(FxMananger.NOME_PROGRAMA + " - " + title);
-            mimeMessage.setText(mensagem);
             //Parte dos dados
             Multipart multipart = new MimeMultipart();
-            for (InputStream dado : dados) {
-                MimeBodyPart mimeBodyPart = new MimeBodyPart(dado);
+            MimeBodyPart textPart = new MimeBodyPart();
+            textPart.setText(mensagem);
+            multipart.addBodyPart(textPart);
+            for (File dado : dados) {
+                MimeBodyPart mimeBodyPart = new MimeBodyPart();
+                FileDataSource fileDataSource = new FileDataSource(dado);
+                mimeBodyPart.setDataHandler(new DataHandler(fileDataSource));
+                mimeBodyPart.setFileName(fileDataSource.getName());
                 //Onde é fica todos arquivos
                 multipart.addBodyPart(mimeBodyPart);
             }

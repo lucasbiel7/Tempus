@@ -96,7 +96,7 @@ public class GerenciarCursoController implements Initializable {
                         setValue(0);
                     }
                 }
-                if (getValue() + 1 < 4) {
+                if (getValue() + 1 < 6) {
                     setValue(spModulo.getValue() + 1);
                 }
             }
