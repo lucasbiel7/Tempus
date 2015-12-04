@@ -5,10 +5,10 @@
  */
 package br.com.QuadroDeHorario.view;
 
-import br.com.QuadroDeHorario.dao.ObservacaoAulaDAO;
-import br.com.QuadroDeHorario.entity.Aula;
-import br.com.QuadroDeHorario.entity.ObservacaoAula;
-import br.com.QuadroDeHorario.util.DatePickerValidator;
+import br.com.QuadroDeHorario.control.dao.ObservacaoAulaDAO;
+import br.com.QuadroDeHorario.model.entity.Aula;
+import br.com.QuadroDeHorario.model.entity.ObservacaoAula;
+import br.com.QuadroDeHorario.model.util.DatePickerValidator;
 import java.net.URL;
 import java.time.Instant;
 import java.time.LocalDateTime;

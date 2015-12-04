@@ -5,12 +5,12 @@
  */
 package br.com.QuadroDeHorario.view;
 
-import br.com.QuadroDeHorario.dao.AmbienteDAO;
-import br.com.QuadroDeHorario.entity.Ambiente;
-import br.com.QuadroDeHorario.util.DataHorario;
-import br.com.QuadroDeHorario.util.DataHorario.Semestre;
-import br.com.QuadroDeHorario.util.FxMananger;
-import br.com.QuadroDeHorario.util.Mensagem;
+import br.com.QuadroDeHorario.control.dao.AmbienteDAO;
+import br.com.QuadroDeHorario.model.entity.Ambiente;
+import br.com.QuadroDeHorario.model.util.DataHorario;
+import br.com.QuadroDeHorario.model.util.DataHorario.Semestre;
+import br.com.QuadroDeHorario.model.util.FxMananger;
+import br.com.QuadroDeHorario.model.util.Mensagem;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.ResourceBundle;

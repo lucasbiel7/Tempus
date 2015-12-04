@@ -6,7 +6,7 @@
 package br.com.QuadroDeHorario.model;
 
 import br.com.QuadroDeHorario.control.Banco;
-import br.com.QuadroDeHorario.util.Mensagem;
+import br.com.QuadroDeHorario.model.util.Mensagem;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.Date;

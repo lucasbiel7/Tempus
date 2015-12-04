@@ -5,11 +5,11 @@
  */
 package br.com.QuadroDeHorario.view;
 
-import br.com.QuadroDeHorario.dao.ProjetoDAO;
-import br.com.QuadroDeHorario.dao.TurmaDAO;
-import br.com.QuadroDeHorario.entity.Projeto;
-import br.com.QuadroDeHorario.entity.Turma;
-import br.com.QuadroDeHorario.util.Mensagem;
+import br.com.QuadroDeHorario.control.dao.ProjetoDAO;
+import br.com.QuadroDeHorario.control.dao.TurmaDAO;
+import br.com.QuadroDeHorario.model.entity.Projeto;
+import br.com.QuadroDeHorario.model.entity.Turma;
+import br.com.QuadroDeHorario.model.util.Mensagem;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;

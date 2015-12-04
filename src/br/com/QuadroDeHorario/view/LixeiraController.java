@@ -5,11 +5,11 @@
  */
 package br.com.QuadroDeHorario.view;
 
-import br.com.QuadroDeHorario.dao.PermissaoUsuarioDAO;
-import br.com.QuadroDeHorario.entity.Permissao;
-import br.com.QuadroDeHorario.entity.PermissaoUsuario;
-import br.com.QuadroDeHorario.util.FxMananger;
-import br.com.QuadroDeHorario.util.SessaoUsuario;
+import br.com.QuadroDeHorario.control.dao.PermissaoUsuarioDAO;
+import br.com.QuadroDeHorario.model.entity.Permissao;
+import br.com.QuadroDeHorario.model.entity.PermissaoUsuario;
+import br.com.QuadroDeHorario.model.util.FxMananger;
+import br.com.QuadroDeHorario.model.util.SessaoUsuario;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;

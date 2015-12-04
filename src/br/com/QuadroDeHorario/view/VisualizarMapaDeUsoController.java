@@ -7,8 +7,8 @@ package br.com.QuadroDeHorario.view;
 
 import br.com.QuadroDeHorario.control.TabelaMapaDeUso;
 import br.com.QuadroDeHorario.control.TabelaMapaDeUsoInstrutor;
-import br.com.QuadroDeHorario.entity.Ambiente;
-import br.com.QuadroDeHorario.util.DataHorario;
+import br.com.QuadroDeHorario.model.entity.Ambiente;
+import br.com.QuadroDeHorario.model.util.DataHorario;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;

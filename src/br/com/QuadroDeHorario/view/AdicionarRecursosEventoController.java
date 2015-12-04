@@ -5,23 +5,23 @@
  */
 package br.com.QuadroDeHorario.view;
 
-import br.com.QuadroDeHorario.dao.AmbienteDAO;
-import br.com.QuadroDeHorario.dao.AulaDAO;
-import br.com.QuadroDeHorario.dao.CalendarioAmbienteDAO;
-import br.com.QuadroDeHorario.dao.CalendarioDAO;
-import br.com.QuadroDeHorario.dao.CalendarioUsuarioDAO;
-import br.com.QuadroDeHorario.dao.UsuarioDAO;
-import br.com.QuadroDeHorario.entity.Ambiente;
-import br.com.QuadroDeHorario.entity.Aula;
-import br.com.QuadroDeHorario.entity.Calendario;
-import br.com.QuadroDeHorario.entity.CalendarioAmbiente;
-import br.com.QuadroDeHorario.entity.CalendarioAmbienteID;
-import br.com.QuadroDeHorario.entity.CalendarioUsuario;
-import br.com.QuadroDeHorario.entity.CalendarioUsuarioID;
-import br.com.QuadroDeHorario.entity.Usuario;
-import br.com.QuadroDeHorario.util.DataHorario;
-import br.com.QuadroDeHorario.util.FxMananger;
-import br.com.QuadroDeHorario.util.Mensagem;
+import br.com.QuadroDeHorario.control.dao.AmbienteDAO;
+import br.com.QuadroDeHorario.control.dao.AulaDAO;
+import br.com.QuadroDeHorario.control.dao.CalendarioAmbienteDAO;
+import br.com.QuadroDeHorario.control.dao.CalendarioDAO;
+import br.com.QuadroDeHorario.control.dao.CalendarioUsuarioDAO;
+import br.com.QuadroDeHorario.control.dao.UsuarioDAO;
+import br.com.QuadroDeHorario.model.entity.Ambiente;
+import br.com.QuadroDeHorario.model.entity.Aula;
+import br.com.QuadroDeHorario.model.entity.Calendario;
+import br.com.QuadroDeHorario.model.entity.CalendarioAmbiente;
+import br.com.QuadroDeHorario.model.entity.CalendarioAmbienteID;
+import br.com.QuadroDeHorario.model.entity.CalendarioUsuario;
+import br.com.QuadroDeHorario.model.entity.CalendarioUsuarioID;
+import br.com.QuadroDeHorario.model.entity.Usuario;
+import br.com.QuadroDeHorario.model.util.DataHorario;
+import br.com.QuadroDeHorario.model.util.FxMananger;
+import br.com.QuadroDeHorario.model.util.Mensagem;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,9 +42,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
-import static br.com.QuadroDeHorario.util.DataHorario.Turno.MANHA;
-import static br.com.QuadroDeHorario.util.DataHorario.Turno.TARDE;
-import static br.com.QuadroDeHorario.util.DataHorario.Turno.NOITE;
+import static br.com.QuadroDeHorario.model.util.DataHorario.Turno.MANHA;
+import static br.com.QuadroDeHorario.model.util.DataHorario.Turno.TARDE;
+import static br.com.QuadroDeHorario.model.util.DataHorario.Turno.NOITE;
 
 /**
  * FXML Controller class

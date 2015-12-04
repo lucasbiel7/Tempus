@@ -5,9 +5,9 @@
  */
 package br.com.QuadroDeHorario.control;
 
-import br.com.QuadroDeHorario.dao.TokenCodeDAO;
-import br.com.QuadroDeHorario.entity.TokenCode;
-import br.com.QuadroDeHorario.entity.Usuario;
+import br.com.QuadroDeHorario.control.dao.TokenCodeDAO;
+import br.com.QuadroDeHorario.model.entity.TokenCode;
+import br.com.QuadroDeHorario.model.entity.Usuario;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

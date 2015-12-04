@@ -5,12 +5,11 @@
  */
 package br.com.QuadroDeHorario.view;
 
-import br.com.QuadroDeHorario.dao.CursoDAO;
-import br.com.QuadroDeHorario.dao.MateriaDAO;
-import br.com.QuadroDeHorario.entity.Curso;
-import br.com.QuadroDeHorario.entity.Materia;
-import br.com.QuadroDeHorario.util.Relatorios;
-import java.awt.Image;
+import br.com.QuadroDeHorario.control.dao.CursoDAO;
+import br.com.QuadroDeHorario.control.dao.MateriaDAO;
+import br.com.QuadroDeHorario.model.entity.Curso;
+import br.com.QuadroDeHorario.model.entity.Materia;
+import br.com.QuadroDeHorario.model.util.Relatorios;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -58,7 +57,7 @@ public class RelatorioGradeDoCursoController implements Initializable {
             for (Materia materia : new MateriaDAO().pegarTodosPorCurso(curso)) {
                 dtmTabela.addRow(new Object[]{materia.getNome(), materia.getCargaHoraria()});
             }
-            parametros.put("image", new ImageIcon(getClass().getResource("/br/com/QuadroDeHorario/report/senaifiemg.png")).getImage());
+            parametros.put("image", new ImageIcon(getClass().getResource("/br/com/QuadroDeHorario/view/report/senaifiemg.png")).getImage());
             Relatorios relatorios = new Relatorios("MatrizDoCurso", parametros,dtmTabela);
             relatorios.carregarPainelSwingNode(swRelatorio);
         }

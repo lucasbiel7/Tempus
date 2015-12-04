@@ -5,10 +5,10 @@
  */
 package br.com.QuadroDeHorario.view;
 
-import br.com.QuadroDeHorario.dao.TipoDoCursoDAO;
-import br.com.QuadroDeHorario.entity.TipoDoCurso;
+import br.com.QuadroDeHorario.control.dao.TipoDoCursoDAO;
+import br.com.QuadroDeHorario.model.entity.TipoDoCurso;
 import br.com.QuadroDeHorario.model.GenericaDAO;
-import br.com.QuadroDeHorario.util.Mensagem;
+import br.com.QuadroDeHorario.model.util.Mensagem;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;

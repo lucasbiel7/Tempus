@@ -5,12 +5,12 @@
  */
 package br.com.QuadroDeHorario.view;
 
-import br.com.QuadroDeHorario.dao.AtualizacaoDAO;
-import br.com.QuadroDeHorario.dao.SistemaDAO;
-import br.com.QuadroDeHorario.entity.Atualizacao;
-import br.com.QuadroDeHorario.util.Efeito;
-import br.com.QuadroDeHorario.util.FxMananger;
-import br.com.QuadroDeHorario.util.ParametrosBanco;
+import br.com.QuadroDeHorario.control.dao.AtualizacaoDAO;
+import br.com.QuadroDeHorario.control.dao.SistemaDAO;
+import br.com.QuadroDeHorario.model.entity.Atualizacao;
+import br.com.QuadroDeHorario.model.util.Efeito;
+import br.com.QuadroDeHorario.model.util.FxMananger;
+import br.com.QuadroDeHorario.model.util.ParametrosBanco;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;

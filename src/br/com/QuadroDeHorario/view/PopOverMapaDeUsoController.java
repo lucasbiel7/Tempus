@@ -6,9 +6,9 @@
  */
 package br.com.QuadroDeHorario.view;
 
-import br.com.QuadroDeHorario.entity.Aula;
-import br.com.QuadroDeHorario.entity.CalendarioAmbiente;
-import br.com.QuadroDeHorario.entity.Usuario;
+import br.com.QuadroDeHorario.model.entity.Aula;
+import br.com.QuadroDeHorario.model.entity.CalendarioAmbiente;
+import br.com.QuadroDeHorario.model.entity.Usuario;
 import br.com.QuadroDeHorario.model.DiaMapaDeUso;
 import br.com.QuadroDeHorario.model.DiaMapaDeUsoInstrutor;
 import java.net.URL;

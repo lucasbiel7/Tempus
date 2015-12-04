@@ -5,18 +5,18 @@
  */
 package br.com.QuadroDeHorario.view;
 
-import br.com.QuadroDeHorario.dao.CursoDAO;
-import br.com.QuadroDeHorario.dao.MateriaDAO;
-import br.com.QuadroDeHorario.dao.MateriaHorarioDAO;
-import br.com.QuadroDeHorario.dao.MateriaRecursosDAO;
-import br.com.QuadroDeHorario.dao.RecursoDAO;
-import br.com.QuadroDeHorario.entity.Curso;
-import br.com.QuadroDeHorario.entity.Materia;
-import br.com.QuadroDeHorario.entity.MateriaHorario;
-import br.com.QuadroDeHorario.entity.MateriaRecursos;
-import br.com.QuadroDeHorario.entity.MateriaRecursosID;
-import br.com.QuadroDeHorario.entity.Recurso;
-import br.com.QuadroDeHorario.util.Mensagem;
+import br.com.QuadroDeHorario.control.dao.CursoDAO;
+import br.com.QuadroDeHorario.control.dao.MateriaDAO;
+import br.com.QuadroDeHorario.control.dao.MateriaHorarioDAO;
+import br.com.QuadroDeHorario.control.dao.MateriaRecursosDAO;
+import br.com.QuadroDeHorario.control.dao.RecursoDAO;
+import br.com.QuadroDeHorario.model.entity.Curso;
+import br.com.QuadroDeHorario.model.entity.Materia;
+import br.com.QuadroDeHorario.model.entity.MateriaHorario;
+import br.com.QuadroDeHorario.model.entity.MateriaRecursos;
+import br.com.QuadroDeHorario.model.entity.MateriaRecursosID;
+import br.com.QuadroDeHorario.model.entity.Recurso;
+import br.com.QuadroDeHorario.model.util.Mensagem;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;

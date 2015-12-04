@@ -5,7 +5,7 @@
  */
 package br.com.QuadroDeHorario.control;
 
-import br.com.QuadroDeHorario.util.ParametrosBanco;
+import br.com.QuadroDeHorario.model.util.ParametrosBanco;
 import java.util.Properties;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

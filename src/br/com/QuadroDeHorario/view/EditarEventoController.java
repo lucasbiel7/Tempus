@@ -5,8 +5,8 @@
  */
 package br.com.QuadroDeHorario.view;
 
-import br.com.QuadroDeHorario.dao.EventoDAO;
-import br.com.QuadroDeHorario.entity.Evento;
+import br.com.QuadroDeHorario.control.dao.EventoDAO;
+import br.com.QuadroDeHorario.model.entity.Evento;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;

@@ -5,17 +5,17 @@
  */
 package br.com.QuadroDeHorario.view;
 
-import br.com.QuadroDeHorario.dao.CursoDAO;
-import br.com.QuadroDeHorario.dao.MateriaHorarioDAO;
-import br.com.QuadroDeHorario.dao.ProjetoDAO;
-import br.com.QuadroDeHorario.dao.TurmaDAO;
-import br.com.QuadroDeHorario.entity.Curso;
-import br.com.QuadroDeHorario.entity.MateriaHorario;
-import br.com.QuadroDeHorario.entity.Projeto;
-import br.com.QuadroDeHorario.entity.Turma;
-import br.com.QuadroDeHorario.util.DataHorario;
-import br.com.QuadroDeHorario.util.DatePickerValidator;
-import br.com.QuadroDeHorario.util.Mensagem;
+import br.com.QuadroDeHorario.control.dao.CursoDAO;
+import br.com.QuadroDeHorario.control.dao.MateriaHorarioDAO;
+import br.com.QuadroDeHorario.control.dao.ProjetoDAO;
+import br.com.QuadroDeHorario.control.dao.TurmaDAO;
+import br.com.QuadroDeHorario.model.entity.Curso;
+import br.com.QuadroDeHorario.model.entity.MateriaHorario;
+import br.com.QuadroDeHorario.model.entity.Projeto;
+import br.com.QuadroDeHorario.model.entity.Turma;
+import br.com.QuadroDeHorario.model.util.DataHorario;
+import br.com.QuadroDeHorario.model.util.DatePickerValidator;
+import br.com.QuadroDeHorario.model.util.Mensagem;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.Instant;

@@ -5,11 +5,11 @@
  */
 package br.com.QuadroDeHorario.view;
 
-import br.com.QuadroDeHorario.dao.SistemaDAO;
-import br.com.QuadroDeHorario.dao.VariaveisDoSistemaDAO;
-import br.com.QuadroDeHorario.entity.VariaveisDoSistema;
-import br.com.QuadroDeHorario.util.FxMananger;
-import br.com.QuadroDeHorario.util.Mensagem;
+import br.com.QuadroDeHorario.control.dao.SistemaDAO;
+import br.com.QuadroDeHorario.control.dao.VariaveisDoSistemaDAO;
+import br.com.QuadroDeHorario.model.entity.VariaveisDoSistema;
+import br.com.QuadroDeHorario.model.util.FxMananger;
+import br.com.QuadroDeHorario.model.util.Mensagem;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;

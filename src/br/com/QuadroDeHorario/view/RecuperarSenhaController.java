@@ -6,11 +6,11 @@
 package br.com.QuadroDeHorario.view;
 
 import br.com.QuadroDeHorario.control.Mail;
-import br.com.QuadroDeHorario.dao.TokenCodeDAO;
-import br.com.QuadroDeHorario.dao.UsuarioDAO;
-import br.com.QuadroDeHorario.entity.TokenCode;
-import br.com.QuadroDeHorario.entity.Usuario;
-import br.com.QuadroDeHorario.util.Mensagem;
+import br.com.QuadroDeHorario.control.dao.TokenCodeDAO;
+import br.com.QuadroDeHorario.control.dao.UsuarioDAO;
+import br.com.QuadroDeHorario.model.entity.TokenCode;
+import br.com.QuadroDeHorario.model.entity.Usuario;
+import br.com.QuadroDeHorario.model.util.Mensagem;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.ResourceBundle;

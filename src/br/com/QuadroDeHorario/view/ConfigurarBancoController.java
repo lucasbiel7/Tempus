@@ -6,8 +6,8 @@ package br.com.QuadroDeHorario.view;
  * and open the template in the editor.
  */
 import br.com.QuadroDeHorario.control.EncriptacaoAES;
-import br.com.QuadroDeHorario.util.Mensagem;
-import br.com.QuadroDeHorario.util.ParametrosBanco;
+import br.com.QuadroDeHorario.model.util.Mensagem;
+import br.com.QuadroDeHorario.model.util.ParametrosBanco;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;

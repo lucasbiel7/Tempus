@@ -5,17 +5,17 @@
  */
 package br.com.QuadroDeHorario.view;
 
-import br.com.QuadroDeHorario.dao.CursoDAO;
-import br.com.QuadroDeHorario.dao.GrupoDAO;
-import br.com.QuadroDeHorario.dao.MateriaDAO;
-import br.com.QuadroDeHorario.dao.UsuarioDAO;
-import br.com.QuadroDeHorario.dao.UsuarioMateriaDAO;
-import br.com.QuadroDeHorario.entity.Curso;
-import br.com.QuadroDeHorario.entity.Materia;
-import br.com.QuadroDeHorario.entity.Usuario;
-import br.com.QuadroDeHorario.entity.UsuarioMateria;
-import br.com.QuadroDeHorario.util.Mensagem;
-import br.com.QuadroDeHorario.util.Relatorios;
+import br.com.QuadroDeHorario.control.dao.CursoDAO;
+import br.com.QuadroDeHorario.control.dao.GrupoDAO;
+import br.com.QuadroDeHorario.control.dao.MateriaDAO;
+import br.com.QuadroDeHorario.control.dao.UsuarioDAO;
+import br.com.QuadroDeHorario.control.dao.UsuarioMateriaDAO;
+import br.com.QuadroDeHorario.model.entity.Curso;
+import br.com.QuadroDeHorario.model.entity.Materia;
+import br.com.QuadroDeHorario.model.entity.Usuario;
+import br.com.QuadroDeHorario.model.entity.UsuarioMateria;
+import br.com.QuadroDeHorario.model.util.Mensagem;
+import br.com.QuadroDeHorario.model.util.Relatorios;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
@@ -78,7 +78,7 @@ public class RelatorioMatrizCompetenciaController implements Initializable {
                     dados += "<br>";
                 }
             }
-            parametros.put("image", new ImageIcon(getClass().getResource("/br/com/QuadroDeHorario/report/logo.png")).getImage());
+            parametros.put("image", new ImageIcon(getClass().getResource("/br/com/QuadroDeHorario/view/report/logo.png")).getImage());
             
             parametros.put("dados", dados);
             Relatorios relatorios = new Relatorios("MatrizCompetenciaUsuario", parametros);
@@ -111,7 +111,7 @@ public class RelatorioMatrizCompetenciaController implements Initializable {
                 dados += "<br/>";
             }
             parametros.put("dados", dados);
-            parametros.put("image", new ImageIcon(getClass().getResource("/br/com/QuadroDeHorario/report/logo.png")).getImage());
+            parametros.put("image", new ImageIcon(getClass().getResource("/br/com/QuadroDeHorario/view/report/logo.png")).getImage());
             Relatorios relatorios = new Relatorios("MatrizCompetenciaCurso", parametros);
             relatorios.carregarPainelSwingNode(swPrincipal);
         } else {

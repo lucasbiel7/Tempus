@@ -5,7 +5,7 @@
  */
 package br.com.QuadroDeHorario.model;
 
-import br.com.QuadroDeHorario.entity.Usuario;
+import br.com.QuadroDeHorario.model.entity.Usuario;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;

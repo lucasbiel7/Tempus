@@ -5,10 +5,10 @@
  */
 package br.com.QuadroDeHorario.control;
 
-import br.com.QuadroDeHorario.dao.TokenCodeDAO;
-import br.com.QuadroDeHorario.entity.TokenCode;
-import br.com.QuadroDeHorario.entity.Usuario;
-import br.com.QuadroDeHorario.util.FxMananger;
+import br.com.QuadroDeHorario.control.dao.TokenCodeDAO;
+import br.com.QuadroDeHorario.model.entity.TokenCode;
+import br.com.QuadroDeHorario.model.entity.Usuario;
+import br.com.QuadroDeHorario.model.util.FxMananger;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;

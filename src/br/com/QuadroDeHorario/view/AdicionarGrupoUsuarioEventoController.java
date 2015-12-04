@@ -5,19 +5,19 @@
  */
 package br.com.QuadroDeHorario.view;
 
-import br.com.QuadroDeHorario.dao.AulaDAO;
-import br.com.QuadroDeHorario.dao.CalendarioDAO;
-import br.com.QuadroDeHorario.dao.CalendarioUsuarioDAO;
-import br.com.QuadroDeHorario.dao.EventoDAO;
-import br.com.QuadroDeHorario.dao.GrupoDAO;
-import br.com.QuadroDeHorario.dao.UsuarioDAO;
-import br.com.QuadroDeHorario.entity.Calendario;
-import br.com.QuadroDeHorario.entity.CalendarioUsuario;
-import br.com.QuadroDeHorario.entity.CalendarioUsuarioID;
-import br.com.QuadroDeHorario.entity.Evento;
-import br.com.QuadroDeHorario.entity.Grupo;
-import br.com.QuadroDeHorario.entity.Usuario;
-import br.com.QuadroDeHorario.util.DataHorario;
+import br.com.QuadroDeHorario.control.dao.AulaDAO;
+import br.com.QuadroDeHorario.control.dao.CalendarioDAO;
+import br.com.QuadroDeHorario.control.dao.CalendarioUsuarioDAO;
+import br.com.QuadroDeHorario.control.dao.EventoDAO;
+import br.com.QuadroDeHorario.control.dao.GrupoDAO;
+import br.com.QuadroDeHorario.control.dao.UsuarioDAO;
+import br.com.QuadroDeHorario.model.entity.Calendario;
+import br.com.QuadroDeHorario.model.entity.CalendarioUsuario;
+import br.com.QuadroDeHorario.model.entity.CalendarioUsuarioID;
+import br.com.QuadroDeHorario.model.entity.Evento;
+import br.com.QuadroDeHorario.model.entity.Grupo;
+import br.com.QuadroDeHorario.model.entity.Usuario;
+import br.com.QuadroDeHorario.model.util.DataHorario;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;

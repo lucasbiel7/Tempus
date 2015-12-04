@@ -5,7 +5,7 @@
  */
 package br.com.QuadroDeHorario.model;
 
-import br.com.QuadroDeHorario.util.DataHorario;
+import br.com.QuadroDeHorario.model.util.DataHorario;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

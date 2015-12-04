@@ -5,12 +5,12 @@
  */
 package br.com.QuadroDeHorario.control;
 
-import br.com.QuadroDeHorario.dao.AmbienteDAO;
-import br.com.QuadroDeHorario.dao.EmprestaChaveDAO;
-import br.com.QuadroDeHorario.dao.UsuarioDAO;
-import br.com.QuadroDeHorario.entity.Ambiente;
-import br.com.QuadroDeHorario.entity.EmprestaChave;
-import br.com.QuadroDeHorario.entity.Usuario;
+import br.com.QuadroDeHorario.control.dao.AmbienteDAO;
+import br.com.QuadroDeHorario.control.dao.EmprestaChaveDAO;
+import br.com.QuadroDeHorario.control.dao.UsuarioDAO;
+import br.com.QuadroDeHorario.model.entity.Ambiente;
+import br.com.QuadroDeHorario.model.entity.EmprestaChave;
+import br.com.QuadroDeHorario.model.entity.Usuario;
 import br.com.QuadroDeHorario.model.SerialConstants;
 import gnu.io.CommPortIdentifier;
 import gnu.io.PortInUseException;

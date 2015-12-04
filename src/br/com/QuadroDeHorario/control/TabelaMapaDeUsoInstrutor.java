@@ -5,16 +5,16 @@
  */
 package br.com.QuadroDeHorario.control;
 
-import br.com.QuadroDeHorario.dao.AulaDAO;
-import br.com.QuadroDeHorario.dao.CalendarioUsuarioDAO;
-import br.com.QuadroDeHorario.dao.GrupoDAO;
-import br.com.QuadroDeHorario.dao.UsuarioDAO;
-import br.com.QuadroDeHorario.entity.Usuario;
+import br.com.QuadroDeHorario.control.dao.AulaDAO;
+import br.com.QuadroDeHorario.control.dao.CalendarioUsuarioDAO;
+import br.com.QuadroDeHorario.control.dao.GrupoDAO;
+import br.com.QuadroDeHorario.control.dao.UsuarioDAO;
+import br.com.QuadroDeHorario.model.entity.Usuario;
 import br.com.QuadroDeHorario.model.DiaMapaDeUsoInstrutor;
 import br.com.QuadroDeHorario.model.MesMapaDeUso;
-import br.com.QuadroDeHorario.util.DataHorario;
-import br.com.QuadroDeHorario.util.DataHorario.Turno;
-import br.com.QuadroDeHorario.util.FxMananger;
+import br.com.QuadroDeHorario.model.util.DataHorario;
+import br.com.QuadroDeHorario.model.util.DataHorario.Turno;
+import br.com.QuadroDeHorario.model.util.FxMananger;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
