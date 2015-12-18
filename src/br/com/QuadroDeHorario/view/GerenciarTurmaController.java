@@ -147,7 +147,6 @@ public class GerenciarTurmaController implements Initializable {
                     setText("");
                 }
             }
-
         });
         cbProjeto.setItems(projetos);
         projetos.setAll(new ProjetoDAO().pegarTodos());
@@ -178,11 +177,33 @@ public class GerenciarTurmaController implements Initializable {
                 turmaEspelho.setInicio(Date.from(dpInicio.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
                 turmaEspelho.setFim(Date.from(dpFim.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
                 turmaEspelho.setTurno(cbTurno.getSelectionModel().getSelectedItem());
+                turmaEspelho.setProjeto(cbProjeto.getSelectionModel().getSelectedItem());
                 new TurmaDAO().cadastrar(turmaEspelho);
             }
             Mensagem.showInformation("Cadastrado", "Turma foi cadastrada com sucesso!");
         } else {
             new TurmaDAO().editar(turma);
+            if (cbEspelho.isSelected() && !turma.isEspelho()) {
+                Turma turmaEspelho = new TurmaDAO().pegarPorTurmaPrincipal(turma);
+                if (turmaEspelho == null) {
+                    turmaEspelho = new Turma();
+                }
+                turmaEspelho.setAtivo(true);
+                turmaEspelho.setTurmaPrincipal(turma);
+                turmaEspelho.setEspelho(true);
+                turmaEspelho.setDescricao(turma.getDescricao() + "(2)");
+                turmaEspelho.setCurso(cbCurso.getSelectionModel().getSelectedItem());
+                turmaEspelho.setEmail(tfEmail.getText());
+                turmaEspelho.setInicio(Date.from(dpInicio.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+                turmaEspelho.setFim(Date.from(dpFim.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+                turmaEspelho.setTurno(cbTurno.getSelectionModel().getSelectedItem());
+                turmaEspelho.setProjeto(cbProjeto.getSelectionModel().getSelectedItem());
+                if (turmaEspelho.getId() == null) {
+                    new TurmaDAO().cadastrar(turmaEspelho);
+                } else {
+                    new TurmaDAO().editar(turmaEspelho);
+                }
+            }
             Mensagem.showInformation("Editado", "Turma foi editada com sucesso!");
         }
         turmas.setAll(new TurmaDAO().pegarTodos());

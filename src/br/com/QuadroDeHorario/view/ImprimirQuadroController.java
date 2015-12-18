@@ -193,17 +193,17 @@ public class ImprimirQuadroController implements Initializable {
         spAno.getValueFactory().setValue(calendar.get(Calendar.YEAR));
         //Tabela MateriaHorario
         tcSigla.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> new SimpleStringProperty(param.getValue().toString()));
-        tcDisciplina.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> new SimpleStringProperty(param.getValue().getMateriaTurmaIntrutorSemestre().getMateria().toString()));
+        tcDisciplina.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> new SimpleStringProperty(param.getValue().getMateriaTurmaInstrutorSemestre().getMateria().toString()));
         
         tcInstrutor.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> {
             if (turma != null) {
-                return new SimpleStringProperty(param.getValue().getMateriaTurmaIntrutorSemestre().getInstrutor() != null ? param.getValue().getMateriaTurmaIntrutorSemestre().getInstrutor().toString() : "");
+                return new SimpleStringProperty(param.getValue().getMateriaTurmaInstrutorSemestre().getInstrutor() != null ? param.getValue().getMateriaTurmaInstrutorSemestre().getInstrutor().toString() : "");
             } else {
-                return new SimpleStringProperty(param.getValue().getMateriaTurmaIntrutorSemestre().getTurma().toString());
+                return new SimpleStringProperty(param.getValue().getMateriaTurmaInstrutorSemestre().getTurma().toString());
             }
         });
-        tcCargaHoraria.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> new SimpleStringProperty(String.valueOf(param.getValue().getMateriaTurmaIntrutorSemestre().getMateria().getCargaHoraria())));
-        tcCargaDisciplina.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> new SimpleStringProperty(String.valueOf(new AulaDAO().pegarPorDisciplinaTurma(param.getValue().getMateriaTurmaIntrutorSemestre().getMateria(), param.getValue().getMateriaTurmaIntrutorSemestre().getTurma()).size())));
+        tcCargaHoraria.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> new SimpleStringProperty(String.valueOf(param.getValue().getMateriaTurmaInstrutorSemestre().getMateria().getCargaHoraria())));
+        tcCargaDisciplina.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> new SimpleStringProperty(String.valueOf(new AulaDAO().pegarPorDisciplinaTurma(param.getValue().getMateriaTurmaInstrutorSemestre().getMateria(), param.getValue().getMateriaTurmaInstrutorSemestre().getTurma()).size())));
         tcCargaInstrutor.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> {
             return new SimpleStringProperty(String.valueOf(new AulaDAO().pegarPorMateria(param.getValue()).size()));
         });

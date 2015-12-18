@@ -74,7 +74,7 @@ public class PopOverMapaDeUsoController implements Initializable {
                     Aula aula = (Aula) item;
                     setText("Turma: " + aula.getId().getTurma() + "\n"
                             + "Horário: " + aula.getId().getHorario() + "\n"
-                            + "Disclina: " + aula.getMateriaHorario().getMateriaTurmaIntrutorSemestre().getMateria());
+                            + "Disclina: " + aula.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getMateria());
                 } else if (item instanceof CalendarioAmbiente) {
                     CalendarioAmbiente calendarioAmbiente = (CalendarioAmbiente) item;
                     setText("Evento: " + calendarioAmbiente.getId().getCalendario().getId().getEvento() + "\n"

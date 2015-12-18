@@ -10,6 +10,7 @@ import java.time.Month;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.control.DatePicker;
 
 /**
@@ -23,10 +24,16 @@ public class DatePickerValidator implements EventHandler<Event> {
     public DatePickerValidator(DatePicker datePicker) {
         this.datePicker = datePicker;
         datePicker.getEditor().setOnMouseReleased(this);
-        datePicker.setOnAction((ActionEvent event) -> {
-            DatePickerValidator.this.handle(null);
-        });
-        datePicker.getStylesheets().add("/br/com/QuadroDeHorario/view/estilo.css");
+        if (datePicker.getOnAction() == null) {
+            datePicker.setOnAction((ActionEvent e)->{
+                DatePickerValidator.this.handle(e);
+            });
+        } else {
+            datePicker.addEventHandler(new EventType<ActionEvent>(""), (ActionEvent event) -> {
+                DatePickerValidator.this.handle(event);
+            });
+        }
+        datePicker.getStylesheets().add(FxMananger.VIEW + "estilo.css");
     }
 
     @Override

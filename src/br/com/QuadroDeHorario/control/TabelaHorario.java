@@ -6,6 +6,7 @@ import br.com.QuadroDeHorario.control.dao.CalendarioDAO;
 import br.com.QuadroDeHorario.control.dao.CalendarioUsuarioDAO;
 import br.com.QuadroDeHorario.control.dao.MateriaHorarioAmbienteDAO;
 import br.com.QuadroDeHorario.control.dao.ObservacaoAulaDAO;
+import br.com.QuadroDeHorario.model.MesCalendario;
 import br.com.QuadroDeHorario.model.entity.Ambiente;
 import br.com.QuadroDeHorario.model.entity.Aula;
 import br.com.QuadroDeHorario.model.entity.Calendario;
@@ -15,7 +16,6 @@ import br.com.QuadroDeHorario.model.entity.MateriaHorario;
 import br.com.QuadroDeHorario.model.entity.MateriaHorarioAmbiente;
 import br.com.QuadroDeHorario.model.entity.ObservacaoAula;
 import br.com.QuadroDeHorario.model.entity.Turma;
-import br.com.QuadroDeHorario.model.MesCalendario;
 import br.com.QuadroDeHorario.model.util.DataHorario;
 import br.com.QuadroDeHorario.model.util.FxMananger;
 import br.com.QuadroDeHorario.model.util.GerenciarImagem;
@@ -29,6 +29,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -87,6 +88,8 @@ public class TabelaHorario extends TableView<MesCalendario> {
     private SimpleDateFormat sdfData = new SimpleDateFormat("dd/MM/yyyy");
     private List<TableColumn<MesCalendario, Aula>> colunas;
     private int mes;
+    private ContextMenu cmObservacao;
+    private MenuItem miExcluirObservacao;
 
     public TabelaHorario(int mes, int ano) {
         try {
@@ -103,6 +106,8 @@ public class TabelaHorario extends TableView<MesCalendario> {
         }
         miExcluir = new MenuItem("Excluir");
         cmOpcoes = new ContextMenu(miExcluir);
+        miExcluirObservacao = new MenuItem("Excluir observação");
+        cmObservacao = new ContextMenu(miExcluirObservacao);
         setEditable(true);
         this.getSelectionModel().cellSelectionEnabledProperty().setValue(Boolean.TRUE);
         setPrefSize(USE_PREF_SIZE, 195);
@@ -181,7 +186,7 @@ public class TabelaHorario extends TableView<MesCalendario> {
     }
 
     private void adicionarObservacao(TableColumn<MesCalendario, Aula> tcNome, Turma turma, Date dia) {
-        List<ObservacaoAula> observacaoAulas = new ObservacaoAulaDAO().pegarPorDiaTurma(dia, turma);
+        final List<ObservacaoAula> observacaoAulas = new ObservacaoAulaDAO().pegarPorDiaTurma(dia, turma);
         if (!observacaoAulas.isEmpty()) {
             String observacao = "";
             Label label = new Label((String) tcNome.getUserData());
@@ -194,9 +199,24 @@ public class TabelaHorario extends TableView<MesCalendario> {
             label.setGraphic(new ImageView(new Image(GerenciarImagem.carregarImagem("information.png"), 10, 10, true, true)));
             label.setContentDisplay(ContentDisplay.RIGHT);
             label.setOnMouseReleased((MouseEvent event) -> {
-                FxMananger.show("AdicionarObservacao", "Adicionar observação", true, false, observacaoAulas.get(0));
-                adicionarObservacao(tcNome, turma, dia);
+                if (event.isPopupTrigger()) {
+                    miExcluirObservacao.setOnAction((ActionEvent actionEvent) -> {
+                        new ObservacaoAulaDAO().excluir(observacaoAulas.get(0));
+                        adicionarObservacao(tcNome, turma, dia);
+                        actionEvent.consume();
+                    });
+                    cmObservacao.show(this, event.getScreenX(), event.getScreenY());
+                } else {
+                    Platform.runLater(() -> {
+                        FxMananger.show("AdicionarObservacao", "Adicionar observação", true, false, observacaoAulas.get(0));
+                        adicionarObservacao(tcNome, turma, dia);
+                    });
+                }
+                event.consume();
             });
+        } else {
+            tcNome.setGraphic(null);
+            tcNome.setText(DataHorario.toDay(dia));
         }
     }
 
@@ -209,144 +229,20 @@ public class TabelaHorario extends TableView<MesCalendario> {
         }
     }
 
-    private class RenderDia implements Callback<TableColumn<MesCalendario, Aula>, TableCell<MesCalendario, Aula>> {
-
-        private Date dia;
-
-        public RenderDia(Date dia) {
-            this.dia = dia;
-        }
-
-        @Override
-        public TableCell<MesCalendario, Aula> call(TableColumn<MesCalendario, Aula> param) {
-            return new TableCell<MesCalendario, Aula>() {
-                @Override
-                protected void updateItem(Aula item, boolean empty) {
-                    setTextAlignment(TextAlignment.CENTER);
-                    setAlignment(Pos.CENTER);
-                    if (empty) {
-                        setText("");
-                    } else if (item != null) {
-                        setText(item.toString());
-                        setTextFill(Color.rgb(item.getMateriaHorario().getRed(), item.getMateriaHorario().getGreen(), item.getMateriaHorario().getBlue()));
-                        List<MateriaHorarioAmbiente> materiaHorarioAmbientes = new MateriaHorarioAmbienteDAO().pegarTodosPorMateriaHorario(item.getMateriaHorario());
-                        int numeroAmbiente = 0;
-                        for (MateriaHorarioAmbiente materiaHorarioAmbiente : materiaHorarioAmbientes) {
-                            if (materiaHorarioAmbiente.getId().getAmbiente().equals(item.getAmbiente())) {
-                                numeroAmbiente = materiaHorarioAmbiente.getNumero();
-                            }
-                        }
-                        setOnMouseReleased((MouseEvent event) -> {
-                            if (event.isPopupTrigger()) {
-                                miExcluir.setOnAction(new ExcluirAulas(item));
-                                cmOpcoes.show(TabelaHorario.this, event.getScreenX(), event.getScreenY());
-                            }
-                        });
-                        switch (numeroAmbiente) {
-                            case 1:
-                                setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente1, CornerRadii.EMPTY, Insets.EMPTY)));
-                                break;
-                            case 2:
-                                setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente2, CornerRadii.EMPTY, Insets.EMPTY)));
-                                break;
-                            case 3:
-                                setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente3, CornerRadii.EMPTY, Insets.EMPTY)));
-                                break;
-                            case 4:
-                                setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente4, CornerRadii.EMPTY, Insets.EMPTY)));
-                                break;
-                            case 5:
-                                setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente5, CornerRadii.EMPTY, Insets.EMPTY)));
-                                break;
-                        }
-                    } else {
-                        setText("");
-                        setOnMouseReleased(null);
-                        setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
-                        if (param.getParentColumn().getText().equalsIgnoreCase("Sáb")) {
-                            setBackground(new Background(new BackgroundFill(Color.rgb(224, 224, 224), CornerRadii.EMPTY, Insets.EMPTY)));
-                        } else if (param.getParentColumn().getText().equalsIgnoreCase("Dom")) {
-                            setBackground(new Background(new BackgroundFill(Color.rgb(204, 204, 204), CornerRadii.EMPTY, Insets.EMPTY)));
-                        }
-                    }
-                }
-            };
-        }
-    }
-
-    private class SelecionarDia implements EventHandler<TableColumn.CellEditEvent<MesCalendario, Aula>> {
-
-        private Date dia;
-
-        public SelecionarDia(Date dia) {
-            this.dia = dia;
-        }
-
-        @Override
-        public void handle(TableColumn.CellEditEvent<MesCalendario, Aula> event) {
-            if (!clicou) {
-                if (ambienteSelecionado == null || turma == null || materiaHorarioSelecionado == null) {
-                    Mensagem.showError("Selecionar Ambiente/Componente curricular", "É necessário selecionar ambiente/componente curricular\n para poder cadastrar uma aula!");
-                } else {
-                    clicou = true;
-                    if (!autoPreencher) {
-                        if (aulasGeminadas) {
-                            for (DataHorario.Horario horario : DataHorario.Horario.values()) {
-                                try {
-                                    cadastrarAula(dia, horario);
-                                } catch (Exception ex) {
-                                    break;
-                                }
-                            }
-                        } else {
-                            try {
-                                cadastrarAula(dia, getSelectionModel().getSelectedItem().getHorario());
-                            } catch (Exception ex) {
-                            }
-                        }
-                    } else {
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.setTime(dia);
-                        while (calendar.getTime().before(fim)) {
-                            if (aulasGeminadas) {
-                                for (DataHorario.Horario horario : DataHorario.Horario.values()) {
-                                    try {
-                                        cadastrarAula(calendar.getTime(), horario);
-                                    } catch (Exception ex) {
-                                        break;
-                                    }
-                                }
-                            } else {
-                                try {
-                                    cadastrarAula(calendar.getTime(), getSelectionModel().getSelectedItem().getHorario());
-                                } catch (Exception ex) {
-                                    break;
-                                }
-                            }
-                            calendar.add(Calendar.DAY_OF_MONTH, 7);
-                        }
-                    }
-                    clicou = false;
-                }
-            }
-            cargaHoraria = false;
-        }
-    }
-
     public void cadastrarAula(Date dia, DataHorario.Horario horario) throws Exception {
         Aula aula = new Aula();
         aula.setMateriaHorario(materiaHorarioSelecionado);
-        aula.setId(new Aula.DataHorarioTurnoTurma(dia, horario, turno, materiaHorarioSelecionado.getMateriaTurmaIntrutorSemestre().getTurma()));
+        aula.setId(new Aula.DataHorarioTurnoTurma(dia, horario, turno, materiaHorarioSelecionado.getMateriaTurmaInstrutorSemestre().getTurma()));
         aula.setAmbiente(ambienteSelecionado);
         Aula aulaExistente = new AulaDAO().pegarPorId(aula.getId());
         List<Aula> aulasAmbiente = new AulaDAO().validarAmbiente(aula);
         List<Calendario> calendarios = new CalendarioDAO().pegarTodosPorData(dia, true, false);
         List<CalendarioAmbiente> calendarioAmbientes = new CalendarioAmbienteDAO().pegarTodosPorDataAmbienteTurno(aula.getId().getDataAula(), aula.getAmbiente(), turno);
-        List<CalendarioUsuario> calendarioUsuarios = new CalendarioUsuarioDAO().pegarTodosPorUsuarioData(aula.getMateriaHorario().getMateriaTurmaIntrutorSemestre().getInstrutor(), aula.getId().getDataAula(), turno);
+        List<CalendarioUsuario> calendarioUsuarios = new CalendarioUsuarioDAO().pegarTodosPorUsuarioData(aula.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getInstrutor(), aula.getId().getDataAula(), turno);
         if (aulasAmbiente.isEmpty() && calendarioAmbientes.isEmpty() && calendarioUsuarios.isEmpty() && calendarios.isEmpty()) {
             List<Aula> aulasInstrutor = new AulaDAO().validarInstrutor(aula);
             if (aulasInstrutor.isEmpty()) {
-                if (new AulaDAO().pegarPorDisciplinaTurma(materiaHorarioSelecionado.getMateriaTurmaIntrutorSemestre().getMateria(), materiaHorarioSelecionado.getMateriaTurmaIntrutorSemestre().getTurma()).size() + 1 > materiaHorarioSelecionado.getMateriaTurmaIntrutorSemestre().getMateria().getCargaHoraria() && !cargaHoraria) {
+                if (new AulaDAO().pegarPorDisciplinaTurma(materiaHorarioSelecionado.getMateriaTurmaInstrutorSemestre().getMateria(), materiaHorarioSelecionado.getMateriaTurmaInstrutorSemestre().getTurma()).size() + 1 > materiaHorarioSelecionado.getMateriaTurmaInstrutorSemestre().getMateria().getCargaHoraria() && !cargaHoraria) {
                     if (Mensagem.showConfirmation("Carga horária excedida", "A Carga Horária para essa materia foi excedida deseja continuar?")) {
                         cargaHoraria = true;
                         try {
@@ -387,7 +283,7 @@ public class TabelaHorario extends TableView<MesCalendario> {
             } else {
                 Mensagem.showError("Impossível cadastrar(Instrutor)",
                         "Não foi possível cadastrar aula no dia " + new SimpleDateFormat("dd/MM/yyyy").format(aula.getId().getDataAula()) + "\n"
-                        + " no " + aula.getId().getHorario() + ". O instrutor(a) " + aulasInstrutor.get(0).getMateriaHorario().getMateriaTurmaIntrutorSemestre().getInstrutor()
+                        + " no " + aula.getId().getHorario() + ". O instrutor(a) " + aulasInstrutor.get(0).getMateriaHorario().getMateriaTurmaInstrutorSemestre().getInstrutor()
                         + "\n já possui aula na turma " + aulasInstrutor.get(0).getId().getTurma() + "!");
             }
         } else {
@@ -400,7 +296,7 @@ public class TabelaHorario extends TableView<MesCalendario> {
             if (!aulasAmbiente.isEmpty()) {
                 Mensagem.showError("Impossível cadastrar(Ambiente)",
                         "Não foi possível cadastrar aula no dia " + new SimpleDateFormat("dd/MM/yyyy").format(aula.getId().getDataAula()) + "\n"
-                        + " no " + aula.getId().getHorario() + ". A turma " + aulasAmbiente.get(0).getMateriaHorario().getMateriaTurmaIntrutorSemestre().getTurma() + "\n"
+                        + " no " + aula.getId().getHorario() + ". A turma " + aulasAmbiente.get(0).getMateriaHorario().getMateriaTurmaInstrutorSemestre().getTurma() + "\n"
                         + " já possui aula nessa ambiente!");
             }
             if (!calendarioAmbientes.isEmpty()) {
@@ -625,15 +521,141 @@ public class TabelaHorario extends TableView<MesCalendario> {
                     }
                 }
             } else if (Mensagem.showConfirmation("Excluir aula", "Você realmente deseja excluir a seguinte aula?\n"
-                    + "Turma: " + aula.getMateriaHorario().getMateriaTurmaIntrutorSemestre().getTurma() + "\n"
+                    + "Turma: " + aula.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getTurma() + "\n"
                     + "Ambiente: " + aula.getAmbiente() + "\n"
                     + "Horário: " + aula.getId().getHorario() + "\n"
-                    + "Instrutor: " + aula.getMateriaHorario().getMateriaTurmaIntrutorSemestre().getInstrutor() + "\n"
+                    + "Instrutor: " + aula.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getInstrutor() + "\n"
                     + "Data: " + sdfData.format(aula.getId().getDataAula())
                     + "")) {
                 new AulaDAO().excluir(aula);
                 removerDaLista(aula);
             }
+        }
+    }
+
+    private class RenderDia implements Callback<TableColumn<MesCalendario, Aula>, TableCell<MesCalendario, Aula>> {
+
+        private Date dia;
+
+        public RenderDia(Date dia) {
+            this.dia = dia;
+        }
+
+        @Override
+        public TableCell<MesCalendario, Aula> call(TableColumn<MesCalendario, Aula> param) {
+            return new TableCell<MesCalendario, Aula>() {
+                @Override
+                protected void updateItem(Aula item, boolean empty) {
+                    setTextAlignment(TextAlignment.CENTER);
+                    setAlignment(Pos.CENTER);
+                    if (empty) {
+                        setText("");
+                    } else if (item != null) {
+                        setText(item.toString());
+                        setTooltip(new Tooltip(item.toString() + "\n"
+                                + item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getMateria().toString()));
+                        setTextFill(Color.rgb(item.getMateriaHorario().getRed(), item.getMateriaHorario().getGreen(), item.getMateriaHorario().getBlue()));
+                        List<MateriaHorarioAmbiente> materiaHorarioAmbientes = new MateriaHorarioAmbienteDAO().pegarTodosPorMateriaHorario(item.getMateriaHorario());
+                        int numeroAmbiente = 0;
+                        for (MateriaHorarioAmbiente materiaHorarioAmbiente : materiaHorarioAmbientes) {
+                            if (materiaHorarioAmbiente.getId().getAmbiente().equals(item.getAmbiente())) {
+                                numeroAmbiente = materiaHorarioAmbiente.getNumero();
+                            }
+                        }
+                        setOnMouseReleased((MouseEvent event) -> {
+                            if (event.isPopupTrigger()) {
+                                miExcluir.setOnAction(new ExcluirAulas(item));
+                                cmOpcoes.show(TabelaHorario.this, event.getScreenX(), event.getScreenY());
+                            }
+                        });
+                        switch (numeroAmbiente) {
+                            case 1:
+                                setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente1, CornerRadii.EMPTY, Insets.EMPTY)));
+                                break;
+                            case 2:
+                                setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente2, CornerRadii.EMPTY, Insets.EMPTY)));
+                                break;
+                            case 3:
+                                setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente3, CornerRadii.EMPTY, Insets.EMPTY)));
+                                break;
+                            case 4:
+                                setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente4, CornerRadii.EMPTY, Insets.EMPTY)));
+                                break;
+                            case 5:
+                                setBackground(new Background(new BackgroundFill(QuadroDeHorarioController.corAmbiente5, CornerRadii.EMPTY, Insets.EMPTY)));
+                                break;
+                        }
+                    } else {
+                        setText("");
+                        setOnMouseReleased(null);
+                        setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+                        if (param.getParentColumn().getText().equalsIgnoreCase("Sáb")) {
+                            setBackground(new Background(new BackgroundFill(Color.rgb(224, 224, 224), CornerRadii.EMPTY, Insets.EMPTY)));
+                        } else if (param.getParentColumn().getText().equalsIgnoreCase("Dom")) {
+                            setBackground(new Background(new BackgroundFill(Color.rgb(204, 204, 204), CornerRadii.EMPTY, Insets.EMPTY)));
+                        }
+                    }
+                }
+            };
+        }
+    }
+
+    private class SelecionarDia implements EventHandler<TableColumn.CellEditEvent<MesCalendario, Aula>> {
+
+        private Date dia;
+
+        public SelecionarDia(Date dia) {
+            this.dia = dia;
+        }
+
+        @Override
+        public void handle(TableColumn.CellEditEvent<MesCalendario, Aula> event) {
+            if (!clicou) {
+                if (ambienteSelecionado == null || turma == null || materiaHorarioSelecionado == null) {
+                    Mensagem.showError("Selecionar Ambiente/Componente curricular", "É necessário selecionar ambiente/componente curricular\n para poder cadastrar uma aula!");
+                } else {
+                    clicou = true;
+                    if (!autoPreencher) {
+                        if (aulasGeminadas) {
+                            for (DataHorario.Horario horario : DataHorario.Horario.values()) {
+                                try {
+                                    cadastrarAula(dia, horario);
+                                } catch (Exception ex) {
+                                    break;
+                                }
+                            }
+                        } else {
+                            try {
+                                cadastrarAula(dia, getSelectionModel().getSelectedItem().getHorario());
+                            } catch (Exception ex) {
+                            }
+                        }
+                    } else {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(dia);
+                        while (calendar.getTime().before(fim)) {
+                            if (aulasGeminadas) {
+                                for (DataHorario.Horario horario : DataHorario.Horario.values()) {
+                                    try {
+                                        cadastrarAula(calendar.getTime(), horario);
+                                    } catch (Exception ex) {
+                                        break;
+                                    }
+                                }
+                            } else {
+                                try {
+                                    cadastrarAula(calendar.getTime(), getSelectionModel().getSelectedItem().getHorario());
+                                } catch (Exception ex) {
+                                    break;
+                                }
+                            }
+                            calendar.add(Calendar.DAY_OF_MONTH, 7);
+                        }
+                    }
+                    clicou = false;
+                }
+            }
+            cargaHoraria = false;
         }
     }
 
@@ -661,5 +683,4 @@ public class TabelaHorario extends TableView<MesCalendario> {
         }
         return true;
     }
-
 }

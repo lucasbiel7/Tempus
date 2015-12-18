@@ -5,11 +5,12 @@
  */
 package br.com.QuadroDeHorario.control.dao;
 
+import br.com.QuadroDeHorario.model.GenericaDAO;
 import br.com.QuadroDeHorario.model.entity.Curso;
 import br.com.QuadroDeHorario.model.entity.Materia;
 import br.com.QuadroDeHorario.model.entity.Usuario;
 import br.com.QuadroDeHorario.model.entity.UsuarioMateria;
-import br.com.QuadroDeHorario.model.GenericaDAO;
+import br.com.QuadroDeHorario.model.util.DataHorario;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.criterion.Restrictions;
@@ -40,6 +41,17 @@ public class UsuarioMateriaDAO extends GenericaDAO<UsuarioMateria> {
 
     public List<UsuarioMateria> pegarTodosPorMateriaTipo(Materia materia, UsuarioMateria.Tipo tipo) {
         entitys = criteria.add(Restrictions.eq("id.materia", materia)).add(Restrictions.eq("tipo", tipo)).list();
+        finalizarSession();
+        return entitys;
+    }
+
+    public List<UsuarioMateria> pegarTodosPorMateriaTipoTurno(Materia materia, UsuarioMateria.Tipo tipo, DataHorario.Turno turno) {
+        List<Usuario> usuarios = new UsuarioDAO().pegarPorTurno(turno);
+        if (usuarios.isEmpty()) {
+            finalizarSession();
+            return entitys;
+        }
+        entitys = criteria.add(Restrictions.in("id.usuario", usuarios)).add(Restrictions.eq("id.materia", materia)).add(Restrictions.eq("tipo", tipo)).list();
         finalizarSession();
         return entitys;
     }

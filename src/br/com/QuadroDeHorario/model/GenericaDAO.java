@@ -9,6 +9,7 @@ import br.com.QuadroDeHorario.control.Banco;
 import br.com.QuadroDeHorario.model.util.Mensagem;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -31,6 +32,7 @@ public class GenericaDAO<Entity> implements DAO<Entity> {
 
     public GenericaDAO() {
         session = Banco.getSessionFactory().openSession();
+        entitys = new ArrayList<>();
         if (!getClass().getGenericSuperclass().equals(Object.class)) {
             classe = (Class<Entity>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
             criteria = session.createCriteria(classe).add(Restrictions.eq("ativo", true));

@@ -25,7 +25,7 @@ public class EmprestaChaveDAO extends GenericaDAO<EmprestaChave> {
     }
 
     public List<EmprestaChave> pegarPorAula(Aula aula) {
-        entitys = criteria.add(Restrictions.eq("ambiente", aula.getAmbiente())).add(Restrictions.eq("usuario", aula.getMateriaHorario().getMateriaTurmaIntrutorSemestre().getInstrutor())).add(Restrictions.eq("dia", aula.getId().getDataAula())).list();
+        entitys = criteria.add(Restrictions.eq("ambiente", aula.getAmbiente())).add(Restrictions.eq("usuario", aula.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getInstrutor())).add(Restrictions.eq("dia", aula.getId().getDataAula())).list();
         finalizarSession();
         return entitys;
     }

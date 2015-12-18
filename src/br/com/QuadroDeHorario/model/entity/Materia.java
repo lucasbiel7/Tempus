@@ -44,7 +44,7 @@ public class Materia implements Serializable {
     private Curso curso;
     @Basic(optional = false)
     private boolean ativo = true;
-    @OneToMany(mappedBy = "materiaTurmaIntrutorSemestre.materia")
+    @OneToMany(mappedBy = "materiaTurmaInstrutorSemestre.materia")
     private List<MateriaHorario> materiaHorarios;
 
     public Materia() {

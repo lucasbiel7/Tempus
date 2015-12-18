@@ -57,7 +57,7 @@ public class AdicionarObservacaoController implements Initializable {
             dpData.setValue(LocalDateTime.ofInstant(Instant.ofEpochMilli(observacaoAula.getDia().getTime()), ZoneId.systemDefault()).toLocalDate());
         });
         observacaoAula = new ObservacaoAula();
-         dpData.setOnKeyReleased(new DatePickerValidator(dpData));
+        dpData.setOnKeyReleased(new DatePickerValidator(dpData));
     }
 
     @FXML
@@ -74,5 +74,7 @@ public class AdicionarObservacaoController implements Initializable {
     @FXML
     private void btCancelarActionEvent(ActionEvent actionEvent) {
         ((Stage) apContainer.getScene().getWindow()).close();
+        actionEvent.consume();
     }
+
 }

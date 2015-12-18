@@ -5,7 +5,10 @@
  */
 package br.com.QuadroDeHorario.view;
 
+import br.com.QuadroDeHorario.control.dao.GrupoDAO;
 import br.com.QuadroDeHorario.control.dao.UsuarioDAO;
+import br.com.QuadroDeHorario.model.entity.Grupo;
+import br.com.QuadroDeHorario.model.entity.Usuario;
 import br.com.QuadroDeHorario.model.util.FxMananger;
 import br.com.QuadroDeHorario.model.util.Mensagem;
 import br.com.QuadroDeHorario.model.util.ParametrosBanco;
@@ -49,7 +52,22 @@ public class LoadScreenController implements Initializable {
                     if (connection != null) {
                         connection.close();
                         FxMananger.ONLINE = true;
-                        new UsuarioDAO().pegarTodos();
+                        if (new UsuarioDAO().pegarTodos().isEmpty()) {
+                            Usuario usuario = new Usuario();
+//                            usuario.setGrupo();
+                            usuario.setLogin("admin");
+                            if (new GrupoDAO().pegarTodos().isEmpty()) {
+                                Grupo grupo = new Grupo();
+                                grupo.setDescricao("Coordenação");
+                                new GrupoDAO().cadastrar(grupo);
+                                grupo = new Grupo();
+                                grupo.setDescricao("Instrutor");
+                                new GrupoDAO().cadastrar(grupo);
+                            }
+                            usuario.setGrupo(new GrupoDAO().pegarGrupo("Coordenação"));
+                            usuario.setSenha("admin");
+                            new UsuarioDAO().cadastrar(usuario);
+                        }
                         Platform.runLater(() -> {
                             if (new ParametrosBanco().atualizacao()) {
                                 try {
@@ -68,16 +86,23 @@ public class LoadScreenController implements Initializable {
                         ParametrosBanco.atribuirPropriedades(ParametrosBanco.LOCAL);
                         connection = ParametrosBanco.getConnection();
                         if (connection != null) {
+                            connection.close();
                             FxMananger.NOME_PROGRAMA += " Offline";
                             FxMananger.ONLINE = false;
                             connection.close();
                             new UsuarioDAO().pegarTodos();
-                            new ParametrosBanco().atualizacao();
-                            Platform.runLater(() -> {
+                           if (new ParametrosBanco().atualizacao()) {
+                                try {
+                                    Runtime.getRuntime().exec("javaw -jar QuadroDeHorarioFX.jar");
+                                    Platform.exit();
+                                    System.exit(0);
+                                } catch (IOException ex) {
+                                    Logger.getLogger(LoadScreenController.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            } else {
                                 stage.close();
                                 FxMananger.show("Inicio", "Início", true, false, true);
-                            });
-                            connection.close();
+                            }
                         } else {
                             ParametrosBanco.atribuirPropriedades(ParametrosBanco.REMOTO);
                             erroIniciar();

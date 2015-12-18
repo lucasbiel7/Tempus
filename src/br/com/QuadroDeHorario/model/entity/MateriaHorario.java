@@ -28,7 +28,7 @@ public class MateriaHorario implements Serializable {
     private int id;
     @Embedded
     @Column(unique = true)
-    private MateriaTurmaIntrutorSemestre materiaTurmaIntrutorSemestre;
+    private MateriaTurmaInstrutorSemestre materiaTurmaInstrutorSemestre;
     private int ano;
     private int cargaHoraria;
     private boolean subistito;
@@ -39,7 +39,7 @@ public class MateriaHorario implements Serializable {
     private int blue;
 
     @Embeddable
-    public static class MateriaTurmaIntrutorSemestre implements Serializable {
+    public static class MateriaTurmaInstrutorSemestre implements Serializable {
 
         @ManyToOne
         private Materia materia;
@@ -49,10 +49,10 @@ public class MateriaHorario implements Serializable {
         private Usuario instrutor;
         private DataHorario.Semestre semestre;
 
-        public MateriaTurmaIntrutorSemestre() {
+        public MateriaTurmaInstrutorSemestre() {
         }
 
-        public MateriaTurmaIntrutorSemestre(Materia materia, Turma turma, Usuario instrutor, DataHorario.Semestre semestre) {
+        public MateriaTurmaInstrutorSemestre(Materia materia, Turma turma, Usuario instrutor, DataHorario.Semestre semestre) {
             this.materia = materia;
             this.turma = turma;
             this.instrutor = instrutor;
@@ -109,7 +109,7 @@ public class MateriaHorario implements Serializable {
             if (getClass() != obj.getClass()) {
                 return false;
             }
-            final MateriaTurmaIntrutorSemestre other = (MateriaTurmaIntrutorSemestre) obj;
+            final MateriaTurmaInstrutorSemestre other = (MateriaTurmaInstrutorSemestre) obj;
             if (!Objects.equals(this.materia, other.materia)) {
                 return false;
             }
@@ -135,15 +135,15 @@ public class MateriaHorario implements Serializable {
         this.id = id;
     }
 
-    public MateriaTurmaIntrutorSemestre getMateriaTurmaIntrutorSemestre() {
-        if (materiaTurmaIntrutorSemestre == null) {
-            setMateriaTurmaIntrutorSemestre(new MateriaTurmaIntrutorSemestre());
+    public MateriaTurmaInstrutorSemestre getMateriaTurmaInstrutorSemestre() {
+        if (materiaTurmaInstrutorSemestre == null) {
+            setMateriaTurmaInstrutorSemestre(new MateriaTurmaInstrutorSemestre());
         }
-        return materiaTurmaIntrutorSemestre;
+        return materiaTurmaInstrutorSemestre;
     }
 
-    public void setMateriaTurmaIntrutorSemestre(MateriaTurmaIntrutorSemestre materiaTurmaIntrutorSemestre) {
-        this.materiaTurmaIntrutorSemestre = materiaTurmaIntrutorSemestre;
+    public void setMateriaTurmaInstrutorSemestre(MateriaTurmaInstrutorSemestre materiaTurmaInstrutorSemestre) {
+        this.materiaTurmaInstrutorSemestre = materiaTurmaInstrutorSemestre;
     }
 
     public int getCargaHoraria() {
@@ -234,7 +234,6 @@ public class MateriaHorario implements Serializable {
 
     @Override
     public String toString() {
-        return (getMateriaTurmaIntrutorSemestre().getTurma().isEspelho() ? "(DD)" : "") + getMateriaTurmaIntrutorSemestre().getMateria().getSigla() + " " + (isSubistito() ? "(" + getNumeroSubstituto() + ")" : "");
+        return (getMateriaTurmaInstrutorSemestre().getTurma().isEspelho() ? "*" : "") + getMateriaTurmaInstrutorSemestre().getMateria().getSigla() + " " + (isSubistito() ? "(" + getNumeroSubstituto() + ")" : "");
     }
-
 }

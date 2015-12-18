@@ -9,6 +9,7 @@ import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
 /**
@@ -27,6 +28,7 @@ public class Mensagem {
         Notifications notifications = Notifications.create();
         notifications.title(titulo);
         notifications.text(mensagem);
+        notifications.hideAfter(Duration.seconds(10d));
         notifications.showError();
     }
     public static boolean showConfirmation(String titulo,String menssagem){

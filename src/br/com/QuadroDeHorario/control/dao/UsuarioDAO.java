@@ -5,6 +5,7 @@
  */
 package br.com.QuadroDeHorario.control.dao;
 
+import br.com.QuadroDeHorario.model.GenericaDAO;
 import br.com.QuadroDeHorario.model.entity.CalendarioUsuario;
 import br.com.QuadroDeHorario.model.entity.Escolaridade;
 import br.com.QuadroDeHorario.model.entity.Grupo;
@@ -13,7 +14,6 @@ import br.com.QuadroDeHorario.model.entity.PermissaoUsuario;
 import br.com.QuadroDeHorario.model.entity.TokenCode;
 import br.com.QuadroDeHorario.model.entity.Unidade;
 import br.com.QuadroDeHorario.model.entity.Usuario;
-import br.com.QuadroDeHorario.model.GenericaDAO;
 import br.com.QuadroDeHorario.model.util.DataHorario;
 import java.util.List;
 import org.hibernate.criterion.Order;
@@ -83,6 +83,12 @@ public class UsuarioDAO extends GenericaDAO<Usuario> {
 
     public List<Usuario> pegarPorGrupoTurno(Grupo grupo, DataHorario.Turno turno) {
         entitys = criteria.add(Restrictions.eq("grupo", grupo)).add(Restrictions.eq(turno == DataHorario.Turno.MANHA ? "manha" : turno == DataHorario.Turno.TARDE ? "tarde" : "noite", true)).list();
+        finalizarSession();
+        return entitys;
+    }
+
+    public List<Usuario> pegarPorTurno(DataHorario.Turno turno) {
+        entitys = criteria.add(Restrictions.eq(turno == DataHorario.Turno.MANHA ? "manha" : turno == DataHorario.Turno.TARDE ? "tarde" : "noite", true)).list();
         finalizarSession();
         return entitys;
     }

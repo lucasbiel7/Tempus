@@ -23,6 +23,8 @@ import br.com.QuadroDeHorario.model.entity.Recurso;
 import br.com.QuadroDeHorario.model.entity.Usuario;
 import br.com.QuadroDeHorario.model.entity.UsuarioMateria;
 import br.com.QuadroDeHorario.model.entity.UsuarioMateria.Tipo;
+import br.com.QuadroDeHorario.model.util.DataHorario;
+import br.com.QuadroDeHorario.model.util.DataHorario.Turno;
 import br.com.QuadroDeHorario.model.util.Mensagem;
 import java.net.URL;
 import java.util.List;
@@ -65,6 +67,8 @@ public class EditarMateriaHorarioController implements Initializable {
     @FXML
     private RadioButton rbTodos;
     @FXML
+    private ComboBox<DataHorario.Turno> cbTurno;
+    @FXML
     private ComboBox<Usuario> cbInstrutor;
     @FXML
     private TableView<Ambiente> tvAmbiente;
@@ -102,6 +106,7 @@ public class EditarMateriaHorarioController implements Initializable {
     private ColorPicker cpCorFonte;
     private MateriaHorario materiaHorario;
     private Stage stage;
+    private ObservableList<DataHorario.Turno> turnos = FXCollections.observableArrayList();
     private ObservableList<Usuario> instrutores = FXCollections.observableArrayList();
     private ObservableList<Ambiente> ambiente = FXCollections.observableArrayList();
     private ObservableList<Recurso> recursoDisciplina = FXCollections.observableArrayList();
@@ -143,8 +148,13 @@ public class EditarMateriaHorarioController implements Initializable {
                         ambiente5.add(materiaHorarioAmbiente.getId().getAmbiente());
                         break;
                 }
-                if (materiaHorario.getMateriaTurmaIntrutorSemestre().getInstrutor() != null) {
-                    UsuarioMateria usuarioMateria = new UsuarioMateriaDAO().pegarTodosPorUsuarioMateria(materiaHorario.getMateriaTurmaIntrutorSemestre().getInstrutor(), materiaHorario.getMateriaTurmaIntrutorSemestre().getMateria());
+                if (materiaHorario.getMateriaTurmaInstrutorSemestre().getTurma().getTurno().equals(Turno.DIURNO)) {
+                    cbTurno.getSelectionModel().select(Turno.MANHA);
+                } else {
+                    cbTurno.getSelectionModel().select(materiaHorario.getMateriaTurmaInstrutorSemestre().getTurma().getTurno());
+                }
+                if (materiaHorario.getMateriaTurmaInstrutorSemestre().getInstrutor() != null) {
+                    UsuarioMateria usuarioMateria = new UsuarioMateriaDAO().pegarTodosPorUsuarioMateria(materiaHorario.getMateriaTurmaInstrutorSemestre().getInstrutor(), materiaHorario.getMateriaTurmaInstrutorSemestre().getMateria());
                     if (usuarioMateria != null) {
                         rbCompetencia.setSelected(usuarioMateria.getTipo().equals(Tipo.COMPETENCIA));
                         rbInteresse.setSelected(usuarioMateria.getTipo().equals(Tipo.INTERESSE));
@@ -153,17 +163,19 @@ public class EditarMateriaHorarioController implements Initializable {
                         rbTodos.setSelected(true);
                     }
                     rbRadiosActionEvent(null);
-                    cbInstrutor.getSelectionModel().select(materiaHorario.getMateriaTurmaIntrutorSemestre().getInstrutor());
+                    cbInstrutor.getSelectionModel().select(materiaHorario.getMateriaTurmaInstrutorSemestre().getInstrutor());
                     cbInstrutor.setDisable(!new AulaDAO().pegarPorMateria(materiaHorario).isEmpty());
                     rbCompetencia.setDisable(cbInstrutor.isDisable());
                     rbInteresse.setDisable(cbInstrutor.isDisable());
                     rbTodos.setDisable(cbInstrutor.isDisable());
+                    cbTurno.setDisable(cbInstrutor.isDisable());
                     rbPreferencia.setDisable(cbInstrutor.isDisable());
                 } else {
                     rbRadiosActionEvent(null);
                 }
             }
         });
+        cbTurno.setItems(turnos);
         cbInstrutor.setItems(instrutores);
         tvAmbiente.setItems(ambiente);
         tvRecursosAmbiente.setItems(recursoAmbiente);
@@ -221,12 +233,13 @@ public class EditarMateriaHorarioController implements Initializable {
         tcNomeRecursoAmbiente.setCellValueFactory(new PropertyValueFactory<>("nome"));
         //Carregar Listas
         ambiente.setAll(new AmbienteDAO().pegarTodos());
+        turnos.setAll(Turno.values());
+        turnos.remove(Turno.DIURNO);
         tvAmbiente1.setItems(ambiente1);
         tvAmbiente2.setItems(ambiente2);
         tvAmbiente3.setItems(ambiente3);
         tvAmbiente4.setItems(ambiente4);
         tvAmbiente5.setItems(ambiente5);
-
     }
 
     @FXML
@@ -310,8 +323,8 @@ public class EditarMateriaHorarioController implements Initializable {
         materiaHorario.setRed((int) (cpCorFonte.getValue().getRed() * 255));
         materiaHorario.setBlue((int) (cpCorFonte.getValue().getBlue() * 255));
         materiaHorario.setGreen((int) (cpCorFonte.getValue().getGreen() * 255));
-        materiaHorario.getMateriaTurmaIntrutorSemestre().setInstrutor(cbInstrutor.getSelectionModel().getSelectedItem());
-        if (materiaHorario.getMateriaTurmaIntrutorSemestre().getInstrutor() == null) {
+        materiaHorario.getMateriaTurmaInstrutorSemestre().setInstrutor(cbInstrutor.getSelectionModel().getSelectedItem());
+        if (materiaHorario.getMateriaTurmaInstrutorSemestre().getInstrutor() == null) {
             Mensagem.showError("Selecione instrutor", "Não é permitido salvar alteração com professor nullo!");
 
         } else {
@@ -367,9 +380,9 @@ public class EditarMateriaHorarioController implements Initializable {
     @FXML
     private void btAdicionarSubstitutoActionEvent(ActionEvent actionEvent) {
         materiaHorario.setId(0);
-        materiaHorario.getMateriaTurmaIntrutorSemestre().setInstrutor(cbInstrutor.getSelectionModel().getSelectedItem());
+        materiaHorario.getMateriaTurmaInstrutorSemestre().setInstrutor(cbInstrutor.getSelectionModel().getSelectedItem());
         materiaHorario.setSubistito(true);
-        materiaHorario.setNumeroSubstituto(new MateriaHorarioDAO().pegarTodosPorTurmaMateria(materiaHorario.getMateriaTurmaIntrutorSemestre().getTurma(), materiaHorario.getMateriaTurmaIntrutorSemestre().getMateria()).size());
+        materiaHorario.setNumeroSubstituto(new MateriaHorarioDAO().pegarTodosPorTurmaMateria(materiaHorario.getMateriaTurmaInstrutorSemestre().getTurma(), materiaHorario.getMateriaTurmaInstrutorSemestre().getMateria()).size());
         materiaHorario.setRed((int) (cpCorFonte.getValue().getRed() * 255));
         materiaHorario.setBlue((int) (cpCorFonte.getValue().getBlue() * 255));
         materiaHorario.setGreen((int) (cpCorFonte.getValue().getGreen() * 255));
@@ -462,16 +475,29 @@ public class EditarMateriaHorarioController implements Initializable {
         }
         instrutores.clear();
         if (tipo == Tipo.OUTROS) {
-            for (Usuario usuarios : new UsuarioDAO().pegarTodos()) {
-                instrutores.add(usuarios);
+            List<Usuario> usuarios;
+            if (cbTurno.getSelectionModel().getSelectedItem() instanceof Turno) {
+                usuarios = new UsuarioDAO().pegarPorTurno(cbTurno.getSelectionModel().getSelectedItem());
+            } else {
+                usuarios = new UsuarioDAO().pegarTodos();
+            }
+            for (Usuario usuario : usuarios) {
+                instrutores.add(usuario);
             }
         } else {
-            for (UsuarioMateria pe : new UsuarioMateriaDAO().pegarTodosPorMateriaTipo(materiaHorario.getMateriaTurmaIntrutorSemestre().getMateria(), tipo)) {
-                instrutores.add(pe.getId().getUsuario());
+            List<UsuarioMateria> usuarioMaterias;
+            if (cbTurno.getSelectionModel().getSelectedItem() instanceof Turno) {
+                usuarioMaterias = new UsuarioMateriaDAO().pegarTodosPorMateriaTipoTurno(materiaHorario.getMateriaTurmaInstrutorSemestre().getMateria(), tipo, cbTurno.getSelectionModel().getSelectedItem());
+
+            } else {
+                usuarioMaterias = new UsuarioMateriaDAO().pegarTodosPorMateriaTipo(materiaHorario.getMateriaTurmaInstrutorSemestre().getMateria(), tipo);
+            }
+            for (UsuarioMateria usuarioMateria : usuarioMaterias) {
+                instrutores.add(usuarioMateria.getId().getUsuario());
             }
         }
         recursoDisciplina.clear();
-        for (MateriaRecursos materiaRecursos : new MateriaRecursosDAO().pegarTodosPorMateria(materiaHorario.getMateriaTurmaIntrutorSemestre().getMateria())) {
+        for (MateriaRecursos materiaRecursos : new MateriaRecursosDAO().pegarTodosPorMateria(materiaHorario.getMateriaTurmaInstrutorSemestre().getMateria())) {
             recursoDisciplina.add(materiaRecursos.getId().getRecurso());
         }
     }

@@ -36,7 +36,7 @@ public class ParametrosBanco {
     public static String IP;
     public static String USUARIO;
     public static String SENHA;
-    public static final double VERSAO = 3.461;
+    public static final double VERSAO = 3.47;
     public static final String REMOTO = "banco";
     public static final String LOCAL = "local";
 
@@ -80,7 +80,6 @@ public class ParametrosBanco {
 
     public boolean atualizacao() {
         Sistema sistema = new SistemaDAO().pegarPorNome(FxMananger.NOME_PROGRAMA);
-        System.out.println(sistema);
         if (sistema == null) {
             try {
                 sistema = new Sistema();
@@ -102,7 +101,6 @@ public class ParametrosBanco {
         Atualizacao atualizacao = new AtualizacaoDAO().pegarPorSistema(sistema);
         if (atualizacao != null) {
             if (atualizacao.getVersion() > VERSAO) {
-                System.out.println("maior");
                 if (atualizacao.getJar() != null) {
                     try {
                         Files.write(Paths.get(System.getProperty("user.dir") + File.separatorChar + sistema.getNomeJar()), atualizacao.getJar());

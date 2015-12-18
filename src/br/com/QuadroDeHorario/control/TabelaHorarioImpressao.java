@@ -196,7 +196,7 @@ public class TabelaHorarioImpressao extends TableView<MesCalendario> {
                     } else if (item != null) {
                         if (turno != null) {
                             setText(item.toString());
-                            setTooltip(new Tooltip(item.getMateriaHorario().getMateriaTurmaIntrutorSemestre().getTurma().getDescricao()));
+                            setTooltip(new Tooltip(item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getTurma().getDescricao()));
                         } else {
                             setText(item.toString());
                         }

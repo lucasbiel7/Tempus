@@ -68,6 +68,9 @@ public class PrincipalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
             stage = (Stage) lbNome.getScene().getWindow();
+            if (stage.getOnCloseRequest() == null) {
+                btQuadroDeHorarioActionEvent(null);
+            }
             lbNome.setText(SessaoUsuario.getUsuario().getNome());
             if (SessaoUsuario.getUsuario().getFoto() != null) {
                 cProfile.setFill(new ImagePattern(new Image(new ByteArrayInputStream(SessaoUsuario.getUsuario().getFoto()))));
@@ -106,12 +109,17 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void btQuadroDeHorarioActionEvent(ActionEvent actionEvent) {
-        FxMananger.insertPane(spPrincipal, "CarregarQuadroDeHorario",spPrincipal);
+        FxMananger.insertPane(spPrincipal, "CarregarQuadroDeHorario", spPrincipal);
     }
 
     @FXML
     private void btEstatisticaActionEvent(ActionEvent actionEvent) {
-        FxMananger.insertPane(spPrincipal, "Estatisticas",spPrincipal);
+        FxMananger.insertPane(spPrincipal, "Estatisticas", spPrincipal);
+    }
+
+    @FXML
+    private void miAreaAdministrativaEmUmaNovaActionEvent(ActionEvent actionEvent) {
+        FxMananger.show("Principal", "Principal", false, true, false);
     }
 
     @FXML

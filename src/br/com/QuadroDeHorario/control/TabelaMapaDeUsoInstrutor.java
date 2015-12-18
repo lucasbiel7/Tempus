@@ -9,9 +9,9 @@ import br.com.QuadroDeHorario.control.dao.AulaDAO;
 import br.com.QuadroDeHorario.control.dao.CalendarioUsuarioDAO;
 import br.com.QuadroDeHorario.control.dao.GrupoDAO;
 import br.com.QuadroDeHorario.control.dao.UsuarioDAO;
-import br.com.QuadroDeHorario.model.entity.Usuario;
 import br.com.QuadroDeHorario.model.DiaMapaDeUsoInstrutor;
 import br.com.QuadroDeHorario.model.MesMapaDeUso;
+import br.com.QuadroDeHorario.model.entity.Usuario;
 import br.com.QuadroDeHorario.model.util.DataHorario;
 import br.com.QuadroDeHorario.model.util.DataHorario.Turno;
 import br.com.QuadroDeHorario.model.util.FxMananger;
@@ -67,7 +67,7 @@ public class TabelaMapaDeUsoInstrutor extends TableView<MesMapaDeUso<Usuario, Di
     public TabelaMapaDeUsoInstrutor(int ano, int mes) {
         this.getStylesheets().add("/br/com/QuadroDeHorario/view/estilo.css");
         popOver = new PopOver();
-        popOver.setTitle("Instrutores");
+        popOver.setTitle("Atividades");
         popOver.setAutoHide(true);
         setPrefSize(USE_PREF_SIZE, 145d);
         try {

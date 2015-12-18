@@ -6,9 +6,9 @@
 package br.com.QuadroDeHorario.control;
 
 import br.com.QuadroDeHorario.control.dao.CalendarioDAO;
+import br.com.QuadroDeHorario.model.SemanaCalendario;
 import br.com.QuadroDeHorario.model.entity.Calendario;
 import br.com.QuadroDeHorario.model.entity.Evento;
-import br.com.QuadroDeHorario.model.SemanaCalendario;
 import br.com.QuadroDeHorario.model.util.FxMananger;
 import br.com.QuadroDeHorario.model.util.Mensagem;
 import java.text.ParseException;
@@ -138,26 +138,26 @@ public class TabelaMensal extends TableView<SemanaCalendario> {
             List<SemanaCalendario> semanasCalendarios = new ArrayList<>();
             dia.setTime(inicio);
             while (dia.getTime().before(fim)) {
-                switch (simpleDateFormat.format(dia.getTime())) {
-                    case "Dom":
+                switch (dia.get(Calendar.DAY_OF_WEEK)) {
+                    case Calendar.SUNDAY:
                         datas.setDomingo(dia.getTime());
                         break;
-                    case "Seg":
+                    case Calendar.MONDAY:
                         datas.setSegunda(dia.getTime());
                         break;
-                    case "Ter":
+                    case Calendar.TUESDAY:
                         datas.setTerca(dia.getTime());
                         break;
-                    case "Qua":
+                    case Calendar.WEDNESDAY:
                         datas.setQuarta(dia.getTime());
                         break;
-                    case "Qui":
+                    case Calendar.THURSDAY:
                         datas.setQuinta(dia.getTime());
                         break;
-                    case "Sex":
+                    case Calendar.FRIDAY:
                         datas.setSexta(dia.getTime());
                         break;
-                    case "Sáb":
+                    case Calendar.SATURDAY:
                         datas.setSabado(dia.getTime());
                         semanasCalendarios.add(datas);
                         datas = new SemanaCalendario();
@@ -216,9 +216,9 @@ public class TabelaMensal extends TableView<SemanaCalendario> {
                             setText(new SimpleDateFormat("dd").format(item));
                             List<Calendario> calendarios = new CalendarioDAO().pegarTodosPorData(item, escolar);
                             if (!calendarios.isEmpty()) {
-                                String tooltip="";
+                                String tooltip = "";
                                 for (Calendario calendario : calendarios) {
-                                    tooltip+=calendario.getId().getEvento().toString()+"\n";
+                                    tooltip += calendario.getId().getEvento().toString() + "\n";
                                 }
                                 setTooltip(new Tooltip(tooltip));
                                 Color[] todasCores = new Color[calendarios.size()];

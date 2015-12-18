@@ -7,6 +7,7 @@ package br.com.QuadroDeHorario.model.util;
 
 import br.com.QuadroDeHorario.control.dao.UsuarioDAO;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -148,5 +149,13 @@ public class DataHorario {
         public String toString() {
             return nome;
         }
+    }
+
+    public static String toDate(Date date) {
+        return new SimpleDateFormat("dd/MM/yyyy").format(date);
+    }
+
+    public static String toDay(Date date) {
+        return new SimpleDateFormat("dd").format(date);
     }
 }

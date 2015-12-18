@@ -10,11 +10,11 @@ import br.com.QuadroDeHorario.control.SerialCommunication;
 import br.com.QuadroDeHorario.control.SerialUtil;
 import br.com.QuadroDeHorario.control.TabelaVisualizarHorario;
 import br.com.QuadroDeHorario.control.dao.VariaveisDoSistemaDAO;
+import br.com.QuadroDeHorario.model.SerialConstants;
 import br.com.QuadroDeHorario.model.entity.Ambiente;
 import br.com.QuadroDeHorario.model.entity.Turma;
 import br.com.QuadroDeHorario.model.entity.Usuario;
 import br.com.QuadroDeHorario.model.entity.VariaveisDoSistema;
-import br.com.QuadroDeHorario.model.SerialConstants;
 import br.com.QuadroDeHorario.model.util.DataHorario;
 import br.com.QuadroDeHorario.model.util.DatePickerValidator;
 import br.com.QuadroDeHorario.model.util.Efeito;
@@ -119,6 +119,7 @@ public class VisualizarHorarioController implements Initializable {
         turnos.setAll(DataHorario.Turno.values());
         turnos.remove(DataHorario.Turno.DIURNO);
         dpDataAula.setOnKeyReleased(new DatePickerValidator(dpDataAula));
+
     }
 
     @FXML
@@ -163,7 +164,13 @@ public class VisualizarHorarioController implements Initializable {
     }
 
     @FXML
+
     private void cbValueActionEvent(ActionEvent actionEvent) {
+        carregarTabela(clicado);
+    }
+
+    @FXML
+    private void dpDataAulaActionEvent(ActionEvent actionEvent) {
         carregarTabela(clicado);
     }
 

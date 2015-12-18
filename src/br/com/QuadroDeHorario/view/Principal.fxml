@@ -80,6 +80,13 @@
                      </effect>
                   </ImageView>
                </graphic>
+               <contextMenu>
+                  <ContextMenu>
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#miAreaAdministrativaEmUmaNovaActionEvent" text="Abrir em uma nova janela" />
+                    </items>
+                  </ContextMenu>
+               </contextMenu>
             </Button>
             <Button fx:id="btEstatisticas" mnemonicParsing="false" onAction="#btEstatisticaActionEvent" prefHeight="111.0" prefWidth="155.0" styleClass="menu-doc-button" text="Estatística">
                <graphic>

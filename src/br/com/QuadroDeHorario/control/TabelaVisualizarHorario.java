@@ -11,12 +11,12 @@ import br.com.QuadroDeHorario.control.dao.EmprestaChaveDAO;
 import br.com.QuadroDeHorario.control.dao.GrupoDAO;
 import br.com.QuadroDeHorario.control.dao.TurmaDAO;
 import br.com.QuadroDeHorario.control.dao.UsuarioDAO;
+import br.com.QuadroDeHorario.model.HorarioDiario;
 import br.com.QuadroDeHorario.model.entity.Ambiente;
 import br.com.QuadroDeHorario.model.entity.Aula;
 import br.com.QuadroDeHorario.model.entity.Turma;
 import br.com.QuadroDeHorario.model.entity.Usuario;
 import br.com.QuadroDeHorario.model.util.DataHorario;
-import br.com.QuadroDeHorario.model.HorarioDiario;
 import java.util.Date;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -102,15 +102,15 @@ public class TabelaVisualizarHorario extends TableView<HorarioDiario> {
         tcDados.setCellValueFactory((TableColumn.CellDataFeatures<HorarioDiario, String> param) -> {
             String sequenciaDados;
             if (param.getValue().getObjeto() instanceof Usuario) {
-                sequenciaDados = "Componente curricular\n"
+                sequenciaDados = "Comp. curricular\n"
                         + "Turma\n"
                         + "Ambiente";
             } else if (param.getValue().getObjeto() instanceof Turma) {
-                sequenciaDados = "Componente curricular\n"
+                sequenciaDados = "Comp. curricular\n"
                         + "Ambiente\n"
                         + "Instrutor";
             } else {
-                sequenciaDados = "Componente curricular\n"
+                sequenciaDados = "Comp. curricular\n"
                         + "Instrutor\n"
                         + "Turma";
             }
@@ -166,17 +166,17 @@ public class TabelaVisualizarHorario extends TableView<HorarioDiario> {
                         setText("");
                     } else if (item != null) {
                         if (classe.equals(Turma.class)) {
-                            setText(item.getMateriaHorario().getMateriaTurmaIntrutorSemestre().getMateria().getSigla() + "\n"
+                            setText(item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getMateria().getSigla() + "\n"
                                     + item.getAmbiente().getNome() + "\n"
-                                    + item.getMateriaHorario().getMateriaTurmaIntrutorSemestre().getInstrutor().getNome());
+                                    + item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getInstrutor().getNome());
                         } else if (classe.equals(Usuario.class)) {
-                            setText(item.getMateriaHorario().getMateriaTurmaIntrutorSemestre().getMateria().getSigla() + "\n"
-                                    + item.getMateriaHorario().getMateriaTurmaIntrutorSemestre().getTurma().getDescricao() + "\n"
+                            setText(item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getMateria().getSigla() + "\n"
+                                    + item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getTurma().getDescricao() + "\n"
                                     + item.getAmbiente().getNome());
                         } else if (classe.equals(Ambiente.class)) {
-                            setText(item.getMateriaHorario().getMateriaTurmaIntrutorSemestre().getMateria().getSigla() + "\n"
-                                    + item.getMateriaHorario().getMateriaTurmaIntrutorSemestre().getInstrutor().getNome() + "\n"
-                                    + item.getMateriaHorario().getMateriaTurmaIntrutorSemestre().getTurma().getDescricao());
+                            setText(item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getMateria().getSigla() + "\n"
+                                    + item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getInstrutor().getNome() + "\n"
+                                    + item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getTurma().getDescricao());
 
                             if (new EmprestaChaveDAO().pegarPorAula(item).isEmpty()) {
                                 setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -192,6 +192,7 @@ public class TabelaVisualizarHorario extends TableView<HorarioDiario> {
         }
     }
 
+    //MULHEEEER DE FAAASEES(8)
     private void carregarDados() {
         horarioDiarios.clear();
         if (classe.equals(Turma.class)) {
@@ -203,7 +204,13 @@ public class TabelaVisualizarHorario extends TableView<HorarioDiario> {
                 horarioDiario.setAula3Horario(new AulaDAO().pegarPorHorarioDiaTurmaTurno(DataHorario.Horario.HORARIO3, dia, turma, turno));
                 horarioDiario.setAula4Horario(new AulaDAO().pegarPorHorarioDiaTurmaTurno(DataHorario.Horario.HORARIO4, dia, turma, turno));
                 horarioDiario.setAula5Horario(new AulaDAO().pegarPorHorarioDiaTurmaTurno(DataHorario.Horario.HORARIO5, dia, turma, turno));
-                horarioDiarios.add(horarioDiario);
+                if (turma.isEspelho()) {
+                    if (horarioDiario.getAula1Horario() != null || horarioDiario.getAula2Horario() != null || horarioDiario.getAula3Horario() != null || horarioDiario.getAula4Horario() != null || horarioDiario.getAula5Horario() != null) {
+                        horarioDiarios.add(horarioDiario);
+                    }
+                } else {
+                    horarioDiarios.add(horarioDiario);
+                }
             }
         } else if (classe.equals(Ambiente.class)) {
             for (Ambiente ambiente : new AmbienteDAO().pegarTodos()) {

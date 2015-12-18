@@ -72,7 +72,7 @@ public class Usuario implements Serializable {
     private String sistemaLogado;
     @Column(unique = true)
     private String cartao;
-    @OneToMany(mappedBy = "materiaTurmaIntrutorSemestre.instrutor")
+    @OneToMany(mappedBy = "materiaTurmaInstrutorSemestre.instrutor")
     private List<MateriaHorario> materiaHorarios;
     @OneToMany(mappedBy = "usuario")
     private List<Escolaridade> escolaridades;

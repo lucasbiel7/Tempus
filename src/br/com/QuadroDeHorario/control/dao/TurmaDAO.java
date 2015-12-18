@@ -5,12 +5,12 @@
  */
 package br.com.QuadroDeHorario.control.dao;
 
+import br.com.QuadroDeHorario.model.GenericaDAO;
 import br.com.QuadroDeHorario.model.entity.Aula;
 import br.com.QuadroDeHorario.model.entity.Curso;
 import br.com.QuadroDeHorario.model.entity.MateriaHorario;
 import br.com.QuadroDeHorario.model.entity.Projeto;
 import br.com.QuadroDeHorario.model.entity.Turma;
-import br.com.QuadroDeHorario.model.GenericaDAO;
 import br.com.QuadroDeHorario.model.util.DataHorario;
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,13 +42,13 @@ public class TurmaDAO extends GenericaDAO<Turma> {
     }
 
     public List<Turma> pegarTodasEntreData(Date dia) {
-        entitys = criteria.add(Restrictions.lt("inicio", dia)).add(Restrictions.gt("fim", dia)).list();
+        entitys = criteria.add(Restrictions.le("inicio", dia)).add(Restrictions.ge("fim", dia)).list();
         finalizarSession();
         return entitys;
     }
-    
+
     public List<Turma> pegarTodasEntreDataTurno(Date dia, DataHorario.Turno turno) {
-        entitys = criteria.add(Restrictions.lt("inicio", dia)).add(Restrictions.gt("fim", dia)).add(turno == DataHorario.Turno.NOITE ? Restrictions.eq("turno", turno) : Restrictions.in("turno", new DataHorario.Turno[]{turno, DataHorario.Turno.DIURNO})).list();
+        entitys = criteria.add(Restrictions.le("inicio", dia)).add(Restrictions.ge("fim", dia)).add(turno == DataHorario.Turno.NOITE ? Restrictions.eq("turno", turno) : Restrictions.in("turno", new DataHorario.Turno[]{turno, DataHorario.Turno.DIURNO})).list();
         finalizarSession();
         return entitys;
     }
@@ -79,6 +79,12 @@ public class TurmaDAO extends GenericaDAO<Turma> {
         entitys = criteria.add(Restrictions.eq("projeto", projeto)).list();
         finalizarSession();
         return entitys;
+    }
+
+    public Turma pegarPorTurmaPrincipal(Turma turma) {
+        entity = (Turma) criteria.add(Restrictions.eq("turmaPrincipal", turma)).uniqueResult();
+        finalizarSession();
+        return entity;
     }
 
 }

@@ -5,6 +5,7 @@
  */
 package br.com.QuadroDeHorario.control.dao;
 
+import br.com.QuadroDeHorario.model.GenericaDAO;
 import br.com.QuadroDeHorario.model.entity.Ambiente;
 import br.com.QuadroDeHorario.model.entity.Aula;
 import br.com.QuadroDeHorario.model.entity.Materia;
@@ -12,7 +13,6 @@ import br.com.QuadroDeHorario.model.entity.MateriaHorario;
 import br.com.QuadroDeHorario.model.entity.MateriaHorarioAmbiente;
 import br.com.QuadroDeHorario.model.entity.Turma;
 import br.com.QuadroDeHorario.model.entity.Usuario;
-import br.com.QuadroDeHorario.model.GenericaDAO;
 import br.com.QuadroDeHorario.model.util.DataHorario;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,13 +37,13 @@ public class MateriaHorarioDAO extends GenericaDAO<MateriaHorario> {
     }
 
     public List<MateriaHorario> pegarTodosPorTurmaSemestreAno(Turma turma, DataHorario.Semestre semestre, int ano) {
-        entitys = criteria.add(Restrictions.eq("materiaTurmaIntrutorSemestre.turma", turma)).add(Restrictions.eq("materiaTurmaIntrutorSemestre.semestre", semestre)).add(Restrictions.eq("ano", ano)).list();
+        entitys = criteria.add(Restrictions.eq("materiaTurmaInstrutorSemestre.turma", turma)).add(Restrictions.eq("materiaTurmaInstrutorSemestre.semestre", semestre)).add(Restrictions.eq("ano", ano)).list();
         finalizarSession();
         return entitys;
     }
 
     public List<MateriaHorario> pegarTodosPorTurma(Turma turma) {
-        entitys = criteria.add(Restrictions.eq("materiaTurmaIntrutorSemestre.turma", turma)).list();
+        entitys = criteria.add(Restrictions.eq("materiaTurmaInstrutorSemestre.turma", turma)).list();
         finalizarSession();
         return entitys;
     }
@@ -51,13 +51,13 @@ public class MateriaHorarioDAO extends GenericaDAO<MateriaHorario> {
     public List<MateriaHorario> pegarTodosPorTurno(Turma turma) {
         List<Turma> turmas = new TurmaDAO().pegarPorNaoTurno(turma.getTurno());
         turmas.add(turma);
-        entitys = criteria.add(Restrictions.in("materiaTurmaIntrutorSemestre.turma", turmas)).list();
+        entitys = criteria.add(Restrictions.in("materiaTurmaInstrutorSemestre.turma", turmas)).list();
         finalizarSession();
         return entitys;
     }
 
     public List<MateriaHorario> pegarTodosPorTurmaMateria(Turma turma, Materia materia) {
-        entitys = criteria.add(Restrictions.eq("materiaTurmaIntrutorSemestre.turma", turma)).add(Restrictions.eq("materiaTurmaIntrutorSemestre.materia", materia)).list();
+        entitys = criteria.add(Restrictions.eq("materiaTurmaInstrutorSemestre.turma", turma)).add(Restrictions.eq("materiaTurmaInstrutorSemestre.materia", materia)).list();
         finalizarSession();
         return entitys;
     }
@@ -65,7 +65,7 @@ public class MateriaHorarioDAO extends GenericaDAO<MateriaHorario> {
     public List<MateriaHorario> pegarTodosPorInstrutorNaoTurma(Usuario instrutor, Turma turma) {
         List<Turma> turmas = new TurmaDAO().pegarPorNaoTurno(turma.getTurno());
         turmas.add(turma);
-        entitys = criteria.add(Restrictions.eq("materiaTurmaIntrutorSemestre.instrutor", instrutor)).add(Restrictions.not(Restrictions.in("materiaTurmaIntrutorSemestre.turma", turmas))).list();
+        entitys = criteria.add(Restrictions.eq("materiaTurmaInstrutorSemestre.instrutor", instrutor)).add(Restrictions.not(Restrictions.in("materiaTurmaInstrutorSemestre.turma", turmas))).list();
         finalizarSession();
         return entitys;
     }
@@ -76,25 +76,25 @@ public class MateriaHorarioDAO extends GenericaDAO<MateriaHorario> {
             finalizarSession();
             return new ArrayList<>();
         }
-        entitys = criteria.add(Restrictions.in("materiaTurmaIntrutorSemestre.turma", turmas)).add(Restrictions.eq("materiaTurmaIntrutorSemestre.instrutor", instrutor)).add(Restrictions.eq("materiaTurmaIntrutorSemestre.semestre", semestre)).add(Restrictions.eq("ano", ano)).list();
+        entitys = criteria.add(Restrictions.in("materiaTurmaInstrutorSemestre.turma", turmas)).add(Restrictions.eq("materiaTurmaInstrutorSemestre.instrutor", instrutor)).add(Restrictions.eq("materiaTurmaInstrutorSemestre.semestre", semestre)).add(Restrictions.eq("ano", ano)).list();
         finalizarSession();
         return entitys;
     }
 
     public List<MateriaHorario> pegarPorMateria(Materia materia) {
-        entitys = criteria.add(Restrictions.eq("materiaTurmaIntrutorSemestre.materia", materia)).list();
+        entitys = criteria.add(Restrictions.eq("materiaTurmaInstrutorSemestre.materia", materia)).list();
         finalizarSession();
         return entitys;
     }
 
     public List<MateriaHorario> pegarPorTurma(Turma turma) {
-        entitys = criteria.add(Restrictions.eq("materiaTurmaIntrutorSemestre.turma", turma)).list();
+        entitys = criteria.add(Restrictions.eq("materiaTurmaInstrutorSemestre.turma", turma)).list();
         finalizarSession();
         return entitys;
     }
 
     public List<MateriaHorario> pegarTodosPorInstrutor(Usuario instrutor) {
-        entitys = criteria.add(Restrictions.eq("materiaTurmaIntrutorSemestre.instrutor", instrutor)).list();
+        entitys = criteria.add(Restrictions.eq("materiaTurmaInstrutorSemestre.instrutor", instrutor)).list();
         finalizarSession();
         return entitys;
     }
@@ -106,8 +106,8 @@ public class MateriaHorarioDAO extends GenericaDAO<MateriaHorario> {
             return new ArrayList<>();
         }
         entitys = criteria.add(
-                Restrictions.in("materiaTurmaIntrutorSemestre.turma", turmas)).
-                add(Restrictions.eq("materiaTurmaIntrutorSemestre.semestre", semestre)).
+                Restrictions.in("materiaTurmaInstrutorSemestre.turma", turmas)).
+                add(Restrictions.eq("materiaTurmaInstrutorSemestre.semestre", semestre)).
                 add(Restrictions.eq("ano", ano)).list();
         finalizarSession();
         List<MateriaHorarioAmbiente> materiaHorarioAmbientes = new MateriaHorarioAmbienteDAO().pegarTodosPorAmbiente(ambiente);

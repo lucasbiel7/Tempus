@@ -5,13 +5,13 @@
  */
 package br.com.QuadroDeHorario.control.dao;
 
+import br.com.QuadroDeHorario.model.GenericaDAO;
 import br.com.QuadroDeHorario.model.entity.Ambiente;
 import br.com.QuadroDeHorario.model.entity.Aula;
 import br.com.QuadroDeHorario.model.entity.Materia;
 import br.com.QuadroDeHorario.model.entity.MateriaHorario;
 import br.com.QuadroDeHorario.model.entity.Turma;
 import br.com.QuadroDeHorario.model.entity.Usuario;
-import br.com.QuadroDeHorario.model.GenericaDAO;
 import br.com.QuadroDeHorario.model.util.DataHorario;
 import java.util.ArrayList;
 import java.util.Date;
@@ -66,7 +66,7 @@ public class AulaDAO extends GenericaDAO<Aula> {
     }
 
     public List<Aula> validarInstrutor(Aula aula) {
-        List<MateriaHorario> materiaHorarios = new MateriaHorarioDAO().pegarTodosPorInstrutor(aula.getMateriaHorario().getMateriaTurmaIntrutorSemestre().getInstrutor());;
+        List<MateriaHorario> materiaHorarios = new MateriaHorarioDAO().pegarTodosPorInstrutor(aula.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getInstrutor());;
         if (materiaHorarios.isEmpty()) {
             finalizarSession();
             return new ArrayList<>();
@@ -134,7 +134,7 @@ public class AulaDAO extends GenericaDAO<Aula> {
     }
 
     public Object[] mediaMensal(Usuario usuario, Date inicio, Date fim) {
-        Object[] media = (Object[]) session.createQuery("SELECT datediff(:fim,:inicio),count(a) from Aula a where a.materiaHorario.materiaTurmaIntrutorSemestre.instrutor=:usuario AND a.id.dataAula BETWEEN :inicio AND :fim AND a.ativo=true").setParameter("usuario", usuario).setDate("inicio", inicio).setDate("fim", fim).uniqueResult();
+        Object[] media = (Object[]) session.createQuery("SELECT datediff(:fim,:inicio),count(a) from Aula a where a.materiaHorario.materiaTurmaInstrutorSemestre.instrutor=:usuario AND a.id.dataAula>=:inicio AND a.id.dataAula<:fim AND a.ativo=true").setParameter("usuario", usuario).setDate("inicio", inicio).setDate("fim", fim).uniqueResult();
         finalizarSession();
         return media;
     }

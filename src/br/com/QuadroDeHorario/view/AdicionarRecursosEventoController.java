@@ -171,7 +171,7 @@ public class AdicionarRecursosEventoController implements Initializable {
                 String aulasDia = "";
                 String calendarioAmbienteDia = "";
                 for (Aula aula : aulas) {
-                    aulasDia += "Turma: " + aula.getMateriaHorario().getMateriaTurmaIntrutorSemestre().getTurma() + " Horário: " + aula.getId().getHorario() + " Turno: " + aula.getId().getTurno() + "\n";
+                    aulasDia += "Turma: " + aula.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getTurma() + " Horário: " + aula.getId().getHorario() + " Turno: " + aula.getId().getTurno() + "\n";
                 }
                 for (CalendarioAmbiente calendarioAmbiente : calendarioAmbientes) {
                     calendarioAmbienteDia += "Evento: " + calendarioAmbiente.getId().getCalendario().getId().getEvento().getNome() + " Ambiente: " + calendarioAmbiente.getId().getAmbiente().getNome() + "";
@@ -223,7 +223,7 @@ public class AdicionarRecursosEventoController implements Initializable {
                     msgCalendarioUsuario += calendarioUsuario.getId().getCalendario().getId().getEvento().getNome() + " Usuário: " + calendarioUsuario.getId().getUsuario().getNome() + "\n";
                 }
                 for (Aula aula : aulas) {
-                    msgAula += "Turma:" + aula.getMateriaHorario() + " " + aula.getMateriaHorario().getMateriaTurmaIntrutorSemestre().getInstrutor().getNome() + " " + aula.getId().getHorario() + " Turno:" + aula.getId().getTurno() + "\n";
+                    msgAula += "Turma:" + aula.getMateriaHorario() + " " + aula.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getInstrutor().getNome() + " " + aula.getId().getHorario() + " Turno:" + aula.getId().getTurno() + "\n";
                 }
                 if (!aulas.isEmpty()) {
                     Mensagem.showInformation("Usuário com aulas ...", msgAula);
