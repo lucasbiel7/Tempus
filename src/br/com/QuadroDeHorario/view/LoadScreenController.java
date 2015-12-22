@@ -83,6 +83,7 @@ public class LoadScreenController implements Initializable {
                             }
                         });
                     } else {
+                        System.out.println("offline");
                         ParametrosBanco.atribuirPropriedades(ParametrosBanco.LOCAL);
                         connection = ParametrosBanco.getConnection();
                         if (connection != null) {
@@ -91,24 +92,27 @@ public class LoadScreenController implements Initializable {
                             FxMananger.ONLINE = false;
                             connection.close();
                             new UsuarioDAO().pegarTodos();
-                           if (new ParametrosBanco().atualizacao()) {
-                                try {
-                                    Runtime.getRuntime().exec("javaw -jar QuadroDeHorarioFX.jar");
-                                    Platform.exit();
-                                    System.exit(0);
-                                } catch (IOException ex) {
-                                    Logger.getLogger(LoadScreenController.class.getName()).log(Level.SEVERE, null, ex);
+                            Platform.runLater(() -> {
+                                if (new ParametrosBanco().atualizacao()) {
+                                    try {
+                                        Runtime.getRuntime().exec("javaw -jar QuadroDeHorarioFX.jar");
+                                        Platform.exit();
+                                        System.exit(0);
+                                    } catch (IOException ex) {
+                                        Logger.getLogger(LoadScreenController.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                } else {
+                                    stage.close();
+                                    FxMananger.show("Inicio", "Início", true, false, true);
                                 }
-                            } else {
-                                stage.close();
-                                FxMananger.show("Inicio", "Início", true, false, true);
-                            }
+                            });
                         } else {
                             ParametrosBanco.atribuirPropriedades(ParametrosBanco.REMOTO);
                             erroIniciar();
                         }
                     }
                 } catch (HibernateException | ExceptionInInitializerError e) {
+                    System.out.println(e.getMessage());
                     erroIniciar();
                 }
                 return null;

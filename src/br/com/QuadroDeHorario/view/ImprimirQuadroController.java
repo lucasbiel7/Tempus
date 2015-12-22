@@ -37,6 +37,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -49,6 +51,7 @@ import javafx.print.PrinterJob;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableCell;
@@ -86,7 +89,8 @@ public class ImprimirQuadroController implements Initializable {
     @FXML
     private GridPane gpMeses;
 
-    //Cabecalho
+    @FXML
+    private ProgressIndicator piLoader;
     @FXML
     private Label lbNomeQuadro;
     @FXML
@@ -125,16 +129,10 @@ public class ImprimirQuadroController implements Initializable {
     @FXML
     private TableColumn<MateriaHorario, String> tcCargaDisciplina;
 
+    private Task<Void> carregarTabelas;
     //Fim Matéria Horario
     private ObservableList<DataHorario.Semestre> semestres = FXCollections.observableArrayList();
     private ObservableList<MateriaHorario> materiaHorarios = FXCollections.observableArrayList();
-
-    private TabelaHorarioImpressao thiMes1;
-    private TabelaHorarioImpressao thiMes2;
-    private TabelaHorarioImpressao thiMes3;
-    private TabelaHorarioImpressao thiMes4;
-    private TabelaHorarioImpressao thiMes5;
-    private TabelaHorarioImpressao thiMes6;
 
     private Usuario usuario;
     private DataHorario.Turno turno;
@@ -194,7 +192,7 @@ public class ImprimirQuadroController implements Initializable {
         //Tabela MateriaHorario
         tcSigla.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> new SimpleStringProperty(param.getValue().toString()));
         tcDisciplina.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> new SimpleStringProperty(param.getValue().getMateriaTurmaInstrutorSemestre().getMateria().toString()));
-        
+
         tcInstrutor.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> {
             if (turma != null) {
                 return new SimpleStringProperty(param.getValue().getMateriaTurmaInstrutorSemestre().getInstrutor() != null ? param.getValue().getMateriaTurmaInstrutorSemestre().getInstrutor().toString() : "");
@@ -279,47 +277,58 @@ public class ImprimirQuadroController implements Initializable {
 
     //Todas as tabelas 
     public void carregarTabelas() {
-        Object dados = null;
-        if (turma != null) {
-            dados = turma;
-            materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turma, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
-            if (turmaEspelho != null) {
-                materiaHorarios.addAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turmaEspelho, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
-            }
-            TabelaHorarioImpressao.turno = null;
-        } else if (usuario != null && turno != null) {
-            dados = usuario;
-            materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorInstrutorTurnoSemestreAno(usuario, turno, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
-            TabelaHorarioImpressao.turno = turno;
-        }
-        int mesInicial;
-        if (cbSemestre.getSelectionModel().getSelectedItem().equals(DataHorario.Semestre.SEMESTRE1)) {
-            mesInicial = 1;
-        } else {
-            mesInicial = 7;
-        }
-        thiMes1 = new TabelaHorarioImpressao(mesInicial, spAno.getValue(), dados);
-        mesInicial++;
-        thiMes2 = new TabelaHorarioImpressao(mesInicial, spAno.getValue(), dados);
-        mesInicial++;
-        thiMes3 = new TabelaHorarioImpressao(mesInicial, spAno.getValue(), dados);
-        mesInicial++;
-        thiMes4 = new TabelaHorarioImpressao(mesInicial, spAno.getValue(), dados);
-        mesInicial++;
-        thiMes5 = new TabelaHorarioImpressao(mesInicial, spAno.getValue(), dados);
-        mesInicial++;
-        thiMes6 = new TabelaHorarioImpressao(mesInicial, spAno.getValue(), dados);
         TabelaHorario.ambienteSelecionado = null;
         TabelaHorario.materiaHorarioSelecionado = null;
-        Platform.runLater(() -> {
-            gpMeses.getChildren().clear();
-            gpMeses.addRow(0, thiMes1);
-            gpMeses.addRow(1, thiMes2);
-            gpMeses.addRow(2, thiMes3);
-            gpMeses.addRow(3, thiMes4);
-            gpMeses.addRow(4, thiMes5);
-            gpMeses.addRow(5, thiMes6);
+        carregarTabelas = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                updateProgress(0, 8);
+                Object dados = null;
+                if (turma != null) {
+                    dados = turma;
+                    Platform.runLater(() -> {
+                        materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turma, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
+                    });
+                    if (turmaEspelho != null) {
+                        Platform.runLater(() -> {
+                            materiaHorarios.addAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turmaEspelho, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
+                        });
+                    }
+                    TabelaHorarioImpressao.turno = null;
+                } else if (usuario != null && turno != null) {
+                    dados = usuario;
+                    Platform.runLater(() -> {
+                        materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorInstrutorTurnoSemestreAno(usuario, turno, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
+                    });
+                    TabelaHorarioImpressao.turno = turno;
+                }
+                Platform.runLater(() -> {
+                    gpMeses.getChildren().clear();
+                });
+                updateProgress(1, 8);
+                for (int i = 1; i < 7; i++) {
+                    TabelaHorarioImpressao tabelaHorarioImpressao = new TabelaHorarioImpressao((cbSemestre.getSelectionModel().getSelectedItem().equals(Semestre.SEMESTRE1)) ? i : i + 6, spAno.getValue(), dados);
+                    final int linha = i - 1;
+                    Platform.runLater(() -> {
+                        gpMeses.add(tabelaHorarioImpressao, 0, linha);
+                    });
+                    updateProgress(i + 1, 8);
+                }
+                updateProgress(8, 8);
+                return null;
+            }
+        };
+        piLoader.progressProperty().bind(carregarTabelas.progressProperty());
+        carregarTabelas.setOnSucceeded((WorkerStateEvent event) -> {
+            piLoader.setVisible(false);
+            event.consume();
         });
+        if (carregarTabelas != null) {
+            if (carregarTabelas.isRunning()) {
+                carregarTabelas.cancel();
+            }
+        }
+        new Thread(carregarTabelas, "Carregar tabelas impressões").start();
     }
 
     //CarregarMateriaHoratrio

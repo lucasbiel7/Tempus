@@ -12,13 +12,13 @@ import br.com.QuadroDeHorario.control.dao.AmbienteRecursosDAO;
 import br.com.QuadroDeHorario.control.dao.AulaDAO;
 import br.com.QuadroDeHorario.control.dao.CalendarioAmbienteDAO;
 import br.com.QuadroDeHorario.control.dao.RecursoDAO;
+import br.com.QuadroDeHorario.model.SerialConstants;
 import br.com.QuadroDeHorario.model.entity.Ambiente;
 import br.com.QuadroDeHorario.model.entity.AmbienteRecursos;
 import br.com.QuadroDeHorario.model.entity.AmbienteRecursosID;
 import br.com.QuadroDeHorario.model.entity.Aula;
 import br.com.QuadroDeHorario.model.entity.CalendarioAmbiente;
 import br.com.QuadroDeHorario.model.entity.Recurso;
-import br.com.QuadroDeHorario.model.SerialConstants;
 import br.com.QuadroDeHorario.model.util.Mensagem;
 import java.net.URL;
 import java.util.List;
@@ -173,8 +173,8 @@ public class GerenciarAmbienteController implements Initializable {
         ambiente.setNome(tfNome.getText());
         ambiente.setCapacidade(spCapacidade.getValueFactory().getValue());
         ambiente.setDescricao(taDescricao.getText());
-        ambiente.setChave(tfChave.getText());
-        ambiente.setChave(tfChaveReserva.getText());
+        ambiente.setChave(tfChave.getText() == null || tfChave.getText().isEmpty() ? null : tfChave.getText());
+        ambiente.setChave(tfChaveReserva.getText() == null || tfChaveReserva.getText().isEmpty() ? null : tfChaveReserva.getText());
         if (ambiente.getId() == 0) {
             new AmbienteDAO().cadastrar(ambiente);
             Mensagem.showInformation("Cadastrado", "Ambiente foi cadastrado com sucesso!");
@@ -259,7 +259,7 @@ public class GerenciarAmbienteController implements Initializable {
             try {
                 serialCommunication.reConectar();
                 Thread.sleep(1000);
-               
+
             } catch (InterruptedException ex) {
                 Logger.getLogger(GerenciarAmbienteController.class.getName()).log(Level.SEVERE, null, ex);
             }

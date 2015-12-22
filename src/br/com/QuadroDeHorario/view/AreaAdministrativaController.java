@@ -129,45 +129,52 @@ public class AreaAdministrativaController implements Initializable {
         }
         permissaoUsuario = new PermissaoUsuarioDAO().pegarTodosPorUsuarioPermissao(SessaoUsuario.getUsuario(), Permissao.CURSO);
         if (permissaoUsuario != null) {
-            tbAbas.getTabs().get(1).setDisable(!permissaoUsuario.isHabilitado());
+            tbAbas.getTabs().get(2).setDisable(!permissaoUsuario.isHabilitado());
         } else {
-            tbAbas.getTabs().get(1).setDisable(true);
+            tbAbas.getTabs().get(2).setDisable(true);
         }
-        permissaoUsuario = new PermissaoUsuarioDAO().pegarTodosPorUsuarioPermissao(SessaoUsuario.getUsuario(), Permissao.RECURSO);
+        permissaoUsuario = new PermissaoUsuarioDAO().pegarTodosPorUsuarioPermissao(SessaoUsuario.getUsuario(), Permissao.CURSO);
         if (permissaoUsuario != null) {
             tbAbas.getTabs().get(2).setDisable(!permissaoUsuario.isHabilitado());
         } else {
             tbAbas.getTabs().get(2).setDisable(true);
         }
-        permissaoUsuario = new PermissaoUsuarioDAO().pegarTodosPorUsuarioPermissao(SessaoUsuario.getUsuario(), Permissao.AMBIENTE);
+        permissaoUsuario = new PermissaoUsuarioDAO().pegarTodosPorUsuarioPermissao(SessaoUsuario.getUsuario(), Permissao.RECURSO);
         if (permissaoUsuario != null) {
             tbAbas.getTabs().get(3).setDisable(!permissaoUsuario.isHabilitado());
         } else {
             tbAbas.getTabs().get(3).setDisable(true);
         }
-        permissaoUsuario = new PermissaoUsuarioDAO().pegarTodosPorUsuarioPermissao(SessaoUsuario.getUsuario(), Permissao.TURMA);
+        permissaoUsuario = new PermissaoUsuarioDAO().pegarTodosPorUsuarioPermissao(SessaoUsuario.getUsuario(), Permissao.AMBIENTE);
         if (permissaoUsuario != null) {
             tbAbas.getTabs().get(4).setDisable(!permissaoUsuario.isHabilitado());
         } else {
             tbAbas.getTabs().get(4).setDisable(true);
         }
-        permissaoUsuario = new PermissaoUsuarioDAO().pegarTodosPorUsuarioPermissao(SessaoUsuario.getUsuario(), Permissao.DISCIPLINA);
+        permissaoUsuario = new PermissaoUsuarioDAO().pegarTodosPorUsuarioPermissao(SessaoUsuario.getUsuario(), Permissao.TURMA);
         if (permissaoUsuario != null) {
             tbAbas.getTabs().get(5).setDisable(!permissaoUsuario.isHabilitado());
         } else {
             tbAbas.getTabs().get(5).setDisable(true);
         }
-        permissaoUsuario = new PermissaoUsuarioDAO().pegarTodosPorUsuarioPermissao(SessaoUsuario.getUsuario(), Permissao.INSTRUTOR);
+        permissaoUsuario = new PermissaoUsuarioDAO().pegarTodosPorUsuarioPermissao(SessaoUsuario.getUsuario(), Permissao.DISCIPLINA);
         if (permissaoUsuario != null) {
             tbAbas.getTabs().get(6).setDisable(!permissaoUsuario.isHabilitado());
         } else {
             tbAbas.getTabs().get(6).setDisable(true);
         }
-        permissaoUsuario = new PermissaoUsuarioDAO().pegarTodosPorUsuarioPermissao(SessaoUsuario.getUsuario(), Permissao.CONSTANTES);
+        permissaoUsuario = new PermissaoUsuarioDAO().pegarTodosPorUsuarioPermissao(SessaoUsuario.getUsuario(), Permissao.INSTRUTOR);
         if (permissaoUsuario != null) {
             tbAbas.getTabs().get(7).setDisable(!permissaoUsuario.isHabilitado());
         } else {
             tbAbas.getTabs().get(7).setDisable(true);
         }
+        permissaoUsuario = new PermissaoUsuarioDAO().pegarTodosPorUsuarioPermissao(SessaoUsuario.getUsuario(), Permissao.CONSTANTES);
+        if (permissaoUsuario != null) {
+            tbAbas.getTabs().get(8).setDisable(!permissaoUsuario.isHabilitado());
+        } else {
+            tbAbas.getTabs().get(8).setDisable(true);
+        }
+        tbAbas.getTabs().get(9).setDisable(!SessaoUsuario.getUsuario().getGrupo().getDescricao().equalsIgnoreCase("Coordernação"));
     }
 }

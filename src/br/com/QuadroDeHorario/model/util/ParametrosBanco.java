@@ -36,7 +36,7 @@ public class ParametrosBanco {
     public static String IP;
     public static String USUARIO;
     public static String SENHA;
-    public static final double VERSAO = 3.47;
+    public static final double VERSAO = 3.51;
     public static final String REMOTO = "banco";
     public static final String LOCAL = "local";
 
@@ -156,5 +156,4 @@ public class ParametrosBanco {
         properties.setProperty("hibernate.connection.url", "jdbc:mysql://" + ParametrosBanco.IP + "/" + ParametrosBanco.NOME_BANCO);
         return properties;
     }
-
 }

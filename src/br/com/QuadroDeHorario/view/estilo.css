@@ -1,3 +1,20 @@
+#loadHorario{
+    -fx-background-color:#ffffff;
+    -fx-opacity: 0.85;
+}
+/*Painel do Usuário*/
+#pane-user{
+    -fx-background-color: #C4D3E8;
+    -fx-padding:0;
+}
+/*Fim Painel*/
+#image-user{
+    -fx-border-radius: 23;
+    -fx-arc-height: 5;
+    -fx-arc-width: 5;
+}
+/*Botão desconectar*/
+
 .mainFxmlClass {
     -fx-background-image: url("image/background.png");
     -fx-background-repeat: repeat;
@@ -239,10 +256,7 @@ Menus item para popup*/
     -fx-text-fill: #090a0c;
 }
 
-#loadHorario{
-    -fx-background-color:#ffffff;
-    -fx-opacity: 0.85;
-}
+
 
 .scroll-pane{
     -fx-border-color: transparent;
@@ -278,19 +292,7 @@ Menus item para popup*/
     -fx-text-fill:black;
 }
 
-/*Painel do Usuário*/
-#pane-user{
-    -fx-background-color: #C4D3E8;
-    -fx-padding:0;
-}
-/*Fim Painel*/
 
-#image-user{
-    -fx-border-radius: 23;
-    -fx-arc-height: 5;
-    -fx-arc-width: 5;
-}
-/*Botão desconectar*/
 
 .logout{
     -fx-background-color: transparent;

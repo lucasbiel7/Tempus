@@ -27,10 +27,10 @@ public class Ambiente implements Serializable {
     private String descricao;
     private int capacidade;
     private boolean ativo = true;
-    @Column(unique = true)
-    private String chave;
-    @Column(unique = true)
-    private String chaveReserva;
+    @Column(unique = true, nullable = true)
+    private String chave = null;
+    @Column(unique = true, nullable = true)
+    private String chaveReserva = null;
     @OneToMany(mappedBy = "ambiente")
     private List<Aula> aulas;
     @OneToMany(mappedBy = "ambiente")
