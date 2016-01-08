@@ -84,6 +84,9 @@ public class GerenciarAmbienteController implements Initializable {
     @FXML
     private Button btLerChaveReserva;
 
+    private Timeline procurarChave;
+    private Button ultimoBotao = btLerChave;
+
     private ObservableList<Recurso> recursos = FXCollections.observableArrayList();
     private ObservableList<Recurso> recursosAdicionados = FXCollections.observableArrayList();
     private ObservableList<Ambiente> ambientes = FXCollections.observableArrayList();
@@ -230,8 +233,6 @@ public class GerenciarAmbienteController implements Initializable {
         ambientes.setAll(new AmbienteDAO().pesquisarPorNome(tfPesquisar.getText()));
     }
 
-    private Timeline procurarChave;
-
     @FXML
     private void btLerChaveActionEvent(ActionEvent actionEvent) {
         procurarChave = new Timeline(new KeyFrame(Duration.seconds(3d), (ActionEvent event) -> {
@@ -265,8 +266,6 @@ public class GerenciarAmbienteController implements Initializable {
             }
         }
     }
-
-    Button ultimoBotao = btLerChave;
 
     private void carregarDados() {
         recursosAdicionados.clear();

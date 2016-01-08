@@ -9,16 +9,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="126.0" prefWidth="277.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.LoadScreenController">
+<AnchorPane id="AnchorPane" prefHeight="147.0" prefWidth="257.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.LoadScreenController">
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
    <children>
-      <Label layoutX="58.0" layoutY="28.0" prefHeight="74.0" prefWidth="161.0" styleClass="logo" text="Tempus" textFill="WHITE">
+      <Label layoutX="58.0" layoutY="28.0" prefHeight="181.0" prefWidth="350.0" styleClass="logo" text="Tempus" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <ProgressIndicator fx:id="piLoader" layoutX="55.0" layoutY="39.0" prefHeight="52.0" prefWidth="71.0" />
+      <ProgressIndicator fx:id="piLoader" layoutX="12.0" layoutY="48.0" prefHeight="52.0" prefWidth="71.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="40.0" />
    </children>
 </AnchorPane>

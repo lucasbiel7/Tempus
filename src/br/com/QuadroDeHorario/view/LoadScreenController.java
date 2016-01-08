@@ -71,7 +71,7 @@ public class LoadScreenController implements Initializable {
                         Platform.runLater(() -> {
                             if (new ParametrosBanco().atualizacao()) {
                                 try {
-                                    Runtime.getRuntime().exec("javaw -jar QuadroDeHorarioFX.jar");
+                                    Runtime.getRuntime().exec("java -jar QuadroDeHorarioFX.jar");
                                     Platform.exit();
                                     System.exit(0);
                                 } catch (IOException ex) {
@@ -83,7 +83,6 @@ public class LoadScreenController implements Initializable {
                             }
                         });
                     } else {
-                        System.out.println("offline");
                         ParametrosBanco.atribuirPropriedades(ParametrosBanco.LOCAL);
                         connection = ParametrosBanco.getConnection();
                         if (connection != null) {
@@ -95,7 +94,7 @@ public class LoadScreenController implements Initializable {
                             Platform.runLater(() -> {
                                 if (new ParametrosBanco().atualizacao()) {
                                     try {
-                                        Runtime.getRuntime().exec("javaw -jar QuadroDeHorarioFX.jar");
+                                        Runtime.getRuntime().exec("java -jar QuadroDeHorarioFX.jar");
                                         Platform.exit();
                                         System.exit(0);
                                     } catch (IOException ex) {
@@ -112,7 +111,6 @@ public class LoadScreenController implements Initializable {
                         }
                     }
                 } catch (HibernateException | ExceptionInInitializerError e) {
-                    System.out.println(e.getMessage());
                     erroIniciar();
                 }
                 return null;

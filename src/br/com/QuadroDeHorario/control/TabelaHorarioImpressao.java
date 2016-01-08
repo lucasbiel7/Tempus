@@ -5,20 +5,21 @@
  */
 package br.com.QuadroDeHorario.control;
 
-import static br.com.QuadroDeHorario.control.TabelaHorario.turma;
-import static br.com.QuadroDeHorario.control.TabelaHorario.turmaEspelho;
 import br.com.QuadroDeHorario.control.dao.AulaDAO;
 import br.com.QuadroDeHorario.control.dao.CalendarioDAO;
+import br.com.QuadroDeHorario.control.dao.CalendarioUsuarioDAO;
 import br.com.QuadroDeHorario.control.dao.MateriaHorarioAmbienteDAO;
+import br.com.QuadroDeHorario.model.MesCalendario;
 import br.com.QuadroDeHorario.model.entity.Ambiente;
 import br.com.QuadroDeHorario.model.entity.Aula;
 import br.com.QuadroDeHorario.model.entity.Calendario;
+import br.com.QuadroDeHorario.model.entity.CalendarioUsuario;
 import br.com.QuadroDeHorario.model.entity.MateriaHorarioAmbiente;
 import br.com.QuadroDeHorario.model.entity.Turma;
 import br.com.QuadroDeHorario.model.entity.Usuario;
 import br.com.QuadroDeHorario.model.util.DataHorario;
+import br.com.QuadroDeHorario.model.util.Efeito;
 import br.com.QuadroDeHorario.model.util.FxMananger;
-import br.com.QuadroDeHorario.model.MesCalendario;
 import br.com.QuadroDeHorario.view.QuadroDeHorarioController;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -49,7 +50,7 @@ import javafx.util.Callback;
 /**
  *
  * @author OCTI01
- * 
+ *
  *
  */
 public class TabelaHorarioImpressao extends TableView<MesCalendario> {
@@ -65,6 +66,8 @@ public class TabelaHorarioImpressao extends TableView<MesCalendario> {
     private Usuario instrutor;
     public static DataHorario.Turno turno;
     private Ambiente ambiente;
+    private Turma turma;
+    private Turma turmaEspelho;
     private List<TableColumn<MesCalendario, Aula>> colunas;
 
     public TabelaHorarioImpressao(int mes, int ano, Object tipo) {
@@ -114,7 +117,7 @@ public class TabelaHorarioImpressao extends TableView<MesCalendario> {
                 }
             });
         } catch (ParseException ex) {
-            Logger.getLogger(TabelaHorario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TabelaHorarioImpressao.class.getName()).log(Level.SEVERE, null, ex);
         }
         setEditable(true);
         this.getSelectionModel().cellSelectionEnabledProperty().setValue(Boolean.TRUE);
@@ -228,6 +231,28 @@ public class TabelaHorarioImpressao extends TableView<MesCalendario> {
                                     break;
                             }
                         }
+                    } else if (instrutor != null && turno != null) {
+                        List<CalendarioUsuario> calendarioUsuarios = new CalendarioUsuarioDAO().pegarTodosPorUsuarioData(instrutor, dia, turno);
+                        if (!calendarioUsuarios.isEmpty()) {
+                            CalendarioUsuario calendarioUsuario = calendarioUsuarios.get(0);
+                            String[] colors = calendarioUsuario.getId().getCalendario().getId().getEvento().getColor().split("@");
+                            Color color = new Color(Double.parseDouble(colors[0]), Double.parseDouble(colors[1]), Double.parseDouble(colors[2]), Double.parseDouble(colors[3]));
+                            setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+                            setTextFill(Efeito.brancoOuPreto(color));
+                            setText("Evento");
+                            setTooltip(new Tooltip(calendarioUsuario.toString()));
+                        } else {
+                            setText("");
+                            setOnMouseReleased(null);
+                            setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+                            if (param.getParentColumn().getText().equalsIgnoreCase("Sáb")) {
+                                setBackground(new Background(new BackgroundFill(Color.rgb(224, 224, 224), CornerRadii.EMPTY, Insets.EMPTY)));
+                            } else if (param.getParentColumn().getText().equalsIgnoreCase("Dom")) {
+                                setBackground(new Background(new BackgroundFill(Color.rgb(204, 204, 204), CornerRadii.EMPTY, Insets.EMPTY)));
+                            } else {
+                                setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+                            }
+                        }
                     } else {
                         setText("");
                         setOnMouseReleased(null);
@@ -241,9 +266,9 @@ public class TabelaHorarioImpressao extends TableView<MesCalendario> {
                         }
                     }
                 }
-
             };
         }
+
     }
 
     private void carregarDados() {
@@ -375,5 +400,5 @@ public class TabelaHorarioImpressao extends TableView<MesCalendario> {
         }
         return mesCalendario;
     }
-    
+
 }

@@ -13,6 +13,7 @@ import br.com.QuadroDeHorario.control.dao.GrupoDAO;
 import br.com.QuadroDeHorario.control.dao.MateriaDAO;
 import br.com.QuadroDeHorario.control.dao.UsuarioDAO;
 import br.com.QuadroDeHorario.control.dao.UsuarioMateriaDAO;
+import br.com.QuadroDeHorario.model.SerialConstants;
 import br.com.QuadroDeHorario.model.entity.Curso;
 import br.com.QuadroDeHorario.model.entity.Escolaridade;
 import br.com.QuadroDeHorario.model.entity.Escolaridade.TipoEscolaridade;
@@ -22,8 +23,8 @@ import br.com.QuadroDeHorario.model.entity.Usuario;
 import br.com.QuadroDeHorario.model.entity.UsuarioMateria;
 import br.com.QuadroDeHorario.model.entity.UsuarioMateria.Tipo;
 import br.com.QuadroDeHorario.model.entity.UsuarioMateriaID;
-import br.com.QuadroDeHorario.model.SerialConstants;
 import br.com.QuadroDeHorario.model.util.Mensagem;
+import br.com.QuadroDeHorario.model.util.SessaoUsuario;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -172,6 +173,14 @@ public class GerenciarUsuarioController implements Initializable {
         Platform.runLater(() -> {
             if (tvUsuario.getScene() != null) {
                 stage = (Stage) tvUsuario.getScene().getWindow();
+                if (SessaoUsuario.getUsuario().getGrupo().getDescricao().equals(SessaoUsuario.PERMISSAO.COORDERNACAO.toString())) {
+
+                } else {
+                    cbGrupo.setDisable(true);
+                    tvUsuario.setDisable(true);
+                    usuario = SessaoUsuario.getUsuario();
+                    carregarDados();
+                }
             }
         });
         cbEscolaridade.setItems(tipoEscolaridades);
@@ -355,7 +364,11 @@ public class GerenciarUsuarioController implements Initializable {
             }
         }
         usuarios.setAll(new UsuarioDAO().pegarTodos());
-        usuario = new Usuario();
+        if (SessaoUsuario.getUsuario().getGrupo().getDescricao().equalsIgnoreCase(SessaoUsuario.PERMISSAO.COORDERNACAO.toString())) {
+            usuario = new Usuario();
+        } else {
+            SessaoUsuario.setUsuario(usuario);
+        }
         carregarDados();
     }
 
@@ -532,6 +545,7 @@ public class GerenciarUsuarioController implements Initializable {
             cbGrupo.getSelectionModel().clearSelection();
             taObservacao.setText("");
             escolaridades.clear();
+            usuarioMaterias.clear();
         } else {
             tfNome.setText(usuario.getNome());
             tfCelular.setText(usuario.getCelular());

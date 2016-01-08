@@ -127,6 +127,13 @@ public class AreaAdministrativaController implements Initializable {
         } else {
             tbAbas.getTabs().get(0).setDisable(true);
         }
+        permissaoUsuario = new PermissaoUsuarioDAO().pegarTodosPorUsuarioPermissao(SessaoUsuario.getUsuario(), Permissao.PRODUTO);
+        if (permissaoUsuario != null) {
+            tbAbas.getTabs().get(1).setDisable(!permissaoUsuario.isHabilitado());
+        } else {
+            tbAbas.getTabs().get(1).setDisable(true);
+        }
+
         permissaoUsuario = new PermissaoUsuarioDAO().pegarTodosPorUsuarioPermissao(SessaoUsuario.getUsuario(), Permissao.CURSO);
         if (permissaoUsuario != null) {
             tbAbas.getTabs().get(2).setDisable(!permissaoUsuario.isHabilitado());
@@ -175,6 +182,12 @@ public class AreaAdministrativaController implements Initializable {
         } else {
             tbAbas.getTabs().get(8).setDisable(true);
         }
-        tbAbas.getTabs().get(9).setDisable(!SessaoUsuario.getUsuario().getGrupo().getDescricao().equalsIgnoreCase("Coordernação"));
+        if (SessaoUsuario.getUsuario().getGrupo() != null) {
+            //Permitir supervisao e competidor a utilizar a aba permissao
+//            tbAbas.getTabs().get(9).setDisable(!(SessaoUsuario.getUsuario().getGrupo().getDescricao().equalsIgnoreCase(SessaoUsuario.PERMISSAO.COORDERNACAO.toString()) || SessaoUsuario.getUsuario().getGrupo().getDescricao().equalsIgnoreCase(SessaoUsuario.PERMISSAO.COMPETIDOR.toString())));
+            tbAbas.getTabs().get(9).setDisable(!SessaoUsuario.getUsuario().getGrupo().getDescricao().equalsIgnoreCase(SessaoUsuario.PERMISSAO.COORDERNACAO.toString()));
+        } else {
+            tbAbas.getTabs().get(9).setDisable(false);
+        }
     }
 }

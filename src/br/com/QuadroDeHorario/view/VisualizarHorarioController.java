@@ -80,7 +80,6 @@ public class VisualizarHorarioController implements Initializable {
             if (variaveisDoSistema != null) {
                 lbStatus.setVisible(Boolean.valueOf(variaveisDoSistema.getValor()));
                 btEntregarChave.setVisible(Boolean.valueOf(variaveisDoSistema.getValor()));
-
                 if (Boolean.valueOf(variaveisDoSistema.getValor())) {
                     comunication = new Thread(SerialUtil.serialCommunication, "VisualizarHorarioCommunicationSerial");
                     comunication.start();
@@ -94,6 +93,14 @@ public class VisualizarHorarioController implements Initializable {
         if (SerialUtil.serialCommunication == null) {
             SerialUtil.serialCommunication = new SerialCommunication();
         }
+        Timeline timeline = new Timeline(new KeyFrame(Duration.minutes(5), (ActionEvent ae) -> {
+            if (!cbTurno.getSelectionModel().getSelectedItem().equals(DataHorario.Turno.getTurnoAtual())) {
+                cbTurno.getSelectionModel().select(DataHorario.Turno.getTurnoAtual());
+                carregarTabela(clicado);
+            }
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
         Tooltip tooltip = new Tooltip();
         lbStatus.setTooltip(tooltip);
         mensagemStatus = new Timeline(new KeyFrame(Duration.seconds(3), (ActionEvent event) -> {
@@ -114,10 +121,10 @@ public class VisualizarHorarioController implements Initializable {
         mensagemStatus.playFromStart();
         cbTurno.setItems(turnos);
         dpDataAula.setValue(LocalDate.now());
-        cbTurno.getSelectionModel().select(DataHorario.Turno.getTurnoAtual());
-        lbLogo.setText(FxMananger.NOME_PROGRAMA);
         turnos.setAll(DataHorario.Turno.values());
         turnos.remove(DataHorario.Turno.DIURNO);
+        cbTurno.getSelectionModel().select(DataHorario.Turno.getTurnoAtual());
+        lbLogo.setText(FxMananger.NOME_PROGRAMA);
         dpDataAula.setOnKeyReleased(new DatePickerValidator(dpDataAula));
 
     }

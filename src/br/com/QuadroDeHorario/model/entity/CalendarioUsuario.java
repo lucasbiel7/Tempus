@@ -93,4 +93,9 @@ public class CalendarioUsuario implements Serializable {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return getId().getCalendario().getId().getEvento().getNome();
+    }
+
 }

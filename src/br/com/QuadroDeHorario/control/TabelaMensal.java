@@ -9,6 +9,7 @@ import br.com.QuadroDeHorario.control.dao.CalendarioDAO;
 import br.com.QuadroDeHorario.model.SemanaCalendario;
 import br.com.QuadroDeHorario.model.entity.Calendario;
 import br.com.QuadroDeHorario.model.entity.Evento;
+import br.com.QuadroDeHorario.model.util.Efeito;
 import br.com.QuadroDeHorario.model.util.FxMananger;
 import br.com.QuadroDeHorario.model.util.Mensagem;
 import java.text.ParseException;
@@ -228,27 +229,11 @@ public class TabelaMensal extends TableView<SemanaCalendario> {
                                     todasCores[i] = new Color(Double.parseDouble(cores[0]), Double.parseDouble(cores[1]), Double.parseDouble(cores[2]), Double.parseDouble(cores[3]));
                                     i++;
                                 }
-//                                String[] cores = calendarios.get(0).getEventoData().getEvento().getColor().split("@");
-//                                Color color = new Color(Double.parseDouble(cores[0]), Double.parseDouble(cores[1]), Double.parseDouble(cores[2]), Double.parseDouble(cores[3]));
                                 if (todasCores.length < 2) {
-                                    String hexa = Integer.toHexString((int) (todasCores[0].getRed() * 255)) + Integer.toHexString((int) (todasCores[0].getGreen() * 255)) + Integer.toHexString((int) (todasCores[0].getBlue() * 255));
-                                    int value = Integer.valueOf(hexa, 16);
-                                    int valorMaximo = Integer.valueOf("FFFFFF", 16);
-                                    if (valorMaximo - value > value) {
-                                        setTextFill(Color.rgb(255, 255, 255));
-                                    } else {
-                                        setTextFill(Color.rgb(0, 0, 0));
-                                    }
+                                    setTextFill(Efeito.brancoOuPreto(todasCores[0]));
                                     setBackground(new Background(new BackgroundFill(todasCores[0], CornerRadii.EMPTY, Insets.EMPTY)));
                                 } else {
-                                    String hexa = Integer.toHexString((int) (todasCores[1].getRed() * 255)) + Integer.toHexString((int) (todasCores[1].getGreen() * 255)) + Integer.toHexString((int) (todasCores[1].getBlue() * 255));
-                                    int value = Integer.valueOf(hexa, 16);
-                                    int valorMaximo = Integer.valueOf("FFFFFF", 16);
-                                    if (valorMaximo - value > value) {
-                                        setTextFill(Color.rgb(255, 255, 255));
-                                    } else {
-                                        setTextFill(Color.rgb(0, 0, 0));
-                                    }
+                                    setTextFill(Efeito.brancoOuPreto(todasCores[1]));
                                     setBackground(new Background(new BackgroundFill(LinearGradient.valueOf("linear-gradient(from 0% 0% to 100% 100%, " + FxMananger.toRGB(todasCores[0]) + "  0% , " + FxMananger.toRGB(todasCores[1]) + " 30%," + FxMananger.toRGB(todasCores.length > 2 ? todasCores[2] : todasCores[1]) + " 100%)"), CornerRadii.EMPTY, Insets.EMPTY)));
                                 }
                                 MenuItem miAdicionarRecursos = new MenuItem("Manipular recursos");

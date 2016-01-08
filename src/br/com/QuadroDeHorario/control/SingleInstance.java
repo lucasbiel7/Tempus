@@ -5,6 +5,8 @@
  */
 package br.com.QuadroDeHorario.control;
 
+import br.com.QuadroDeHorario.control.dao.UsuarioDAO;
+import br.com.QuadroDeHorario.model.util.DataHorario;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.logging.Level;
@@ -21,7 +23,6 @@ public class SingleInstance {
     public SingleInstance() throws IOException {
         socket = new ServerSocket(50596);
         if (!socket.isClosed()) {
-            System.out.println("Server open");
             Runtime.getRuntime().addShutdownHook(new Thread(() -> {
                 try {
                     socket.close();
@@ -30,6 +31,11 @@ public class SingleInstance {
                 }
             }));
         }
+    }
+
+    @Override
+    public String toString() {
+        return "[Socket - "+DataHorario.toDate(new UsuarioDAO().dataAtual())+"]-> 50596";
     }
 
 }

@@ -15,7 +15,8 @@ public enum Permissao {
     AREA_ADMINISTRATIVA("Área administrativa"), PROJETO("Projeto"), CURSO("Curso"), RECURSO("Recursos"), AMBIENTE("Ambiente"), TURMA("Turma"), DISCIPLINA("Componente curricular"), INSTRUTOR("Instrutor"), CONSTANTES("Contantes do sistema"),
     QUADRO_HORARIO("Quadro de Horário"), CRIAR_QUADRO("Criar quadro de horário"), VISUALIZAR_TURMA("Visualizar quadro horário da turma"), VISUALIZAR_INSTRUTOR("Visualizar quadro horário do instrutor"),
     ESTATISTICA("Estatística"),
-    LIXEIRA("Lixeria");
+    LIXEIRA("Lixeria"),
+    PRODUTO("Produto");
     private String nome;
 
     private Permissao(String nome) {

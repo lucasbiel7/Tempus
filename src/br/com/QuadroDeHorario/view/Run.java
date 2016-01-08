@@ -6,18 +6,17 @@
 package br.com.QuadroDeHorario.view;
 
 import br.com.QuadroDeHorario.control.SingleInstance;
+import br.com.QuadroDeHorario.control.dao.UsuarioDAO;
+import br.com.QuadroDeHorario.model.entity.Usuario;
 import br.com.QuadroDeHorario.model.util.FxMananger;
 import br.com.QuadroDeHorario.model.util.Mensagem;
+import br.com.QuadroDeHorario.model.util.SessaoUsuario;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  *
@@ -28,8 +27,8 @@ public class Run extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Thread.sleep(1000);
-            new SingleInstance();
+            Thread.sleep(500);
+            System.out.println(new SingleInstance().toString());
             //Teste interessante
 //        String teste = "bssid 10:a5:44:66";
 //        Matcher m=Pattern.compile("\\w{2}:\\w{2}:\\w{2}:\\w{2}").matcher(teste);
@@ -38,27 +37,28 @@ public class Run extends Application {
 //        }
 //        teste.substring(teste.ind)
 //Código para criar o instalador
-            primaryStage.setResizable(false);
-            primaryStage.setTitle(FxMananger.NOME_PROGRAMA + " - Loading");
-            Scene scene = new Scene(FXMLLoader.load(getClass().getResource("LoadScreen.fxml")));
-            primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("image/icone.png")));
-            primaryStage.setScene(scene);
-            primaryStage.initStyle(StageStyle.UNDECORATED);
-            primaryStage.show();
+//            primaryStage.setResizable(false);
+//            primaryStage.setTitle(FxMananger.NOME_PROGRAMA + " - Loading");
+//            Scene scene = new Scene(FXMLLoader.load(getClass().getResource("LoadScreen.fxml")));
+//            primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("image/icone.png")));
+//            primaryStage.setScene(scene);
+//            primaryStage.initStyle(StageStyle.UNDECORATED);
+//            primaryStage.show();
             //Modo desenvolvedor
             //        Teste Visualizar Horário/Interface para usuário final
 //        FxMananger.show("VisualizarHorario", "Visualizar Horário", false, true, true);
-//            Usuario usuario = new Usuario();
-//            usuario.setLogin("ldutra");
-//            usuario.setSenha("Lucas5@");
-//            SessaoUsuario.setUsuario(new UsuarioDAO().login(usuario));
-//            FxMananger.show("Principal", "Principal", false, true, true);
+//Tela principal
+            Usuario usuario = new Usuario();
+            usuario.setLogin("ldutra");
+            usuario.setSenha("Lucas5@");
+            SessaoUsuario.setUsuario(new UsuarioDAO().login(usuario));
+            FxMananger.show("Principal", "Principal", false, true, true);
         } catch (IOException ex) {
             if (Mensagem.showConfirmation("Reiniciar sistema", "Parece que já existe uma instancia do sistema aberta!\n"
                     + "Não é possível abrir duas instancias por motivos de desempenho!"
                     + "Deseja reiniciar o sistema e tentar novamente?")) {
                 try {
-                    Runtime.getRuntime().exec("javaw -jar QuadroDeHorarioFX.jar");
+                    Runtime.getRuntime().exec("java -jar QuadroDeHorarioFX.jar");
                 } catch (IOException ex1) {
                     Logger.getLogger(Run.class.getName()).log(Level.SEVERE, null, ex1);
                 }

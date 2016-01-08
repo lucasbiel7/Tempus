@@ -56,6 +56,7 @@
                 </ContextMenu>
             </contextMenu>
         </TableView>
-      <TextField fx:id="tfPesquisar" layoutX="447.0" layoutY="18.0" onKeyReleased="#jtNomeKeyRelease" prefHeight="30.0" prefWidth="337.0" promptText="Pesquisar por nome" AnchorPane.leftAnchor="447.0" AnchorPane.rightAnchor="14.0" />
+      <TextField fx:id="tfPesquisar" layoutX="447.0" layoutY="18.0" onKeyReleased="#jtNomeKeyRelease" prefHeight="30.0" prefWidth="196.0" promptText="Pesquisar por nome" AnchorPane.leftAnchor="447.0" AnchorPane.rightAnchor="155.0" />
+      <ComboBox fx:id="cbCursoFiltro" layoutX="670.0" layoutY="16.0" onAction="#cbCursoFiltroActionEvent" prefHeight="30.0" prefWidth="136.0" promptText="Selecione o curso" AnchorPane.rightAnchor="15.0" />
     </children>
 </AnchorPane>

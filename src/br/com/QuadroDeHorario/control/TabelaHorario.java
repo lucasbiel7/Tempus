@@ -110,12 +110,11 @@ public class TabelaHorario extends TableView<MesCalendario> {
         cmObservacao = new ContextMenu(miExcluirObservacao);
         setEditable(true);
         this.getSelectionModel().cellSelectionEnabledProperty().setValue(Boolean.TRUE);
-        setPrefSize(USE_PREF_SIZE, 195);
+        this.setPrefSize(USE_PREF_SIZE, 195);
         setSortPolicy(null);
         setItems(aulas);
         carregarDados();
         tcNomeMes.getColumns().addListener(new ListChangeListener<TableColumn<MesCalendario, ?>>() {
-
             private boolean suspender;
 
             @Override

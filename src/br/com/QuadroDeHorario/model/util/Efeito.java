@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 /**
@@ -73,4 +74,16 @@ public class Efeito {
         logo.setCycleCount(Timeline.INDEFINITE);
         logo.playFrom(Duration.ZERO);
     }
+
+    public static Color brancoOuPreto(Color color) {
+        String hexa = Integer.toHexString((int) (color.getRed() * 255)) + Integer.toHexString((int) (color.getGreen() * 255)) + Integer.toHexString((int) (color.getBlue() * 255));
+        int value = Integer.valueOf(hexa, 16);
+        int valorMaximo = Integer.valueOf("FFFFFF", 16);
+        if (valorMaximo - value > value) {
+            return Color.rgb(255, 255, 255);
+        } else {
+            return Color.rgb(0, 0, 0);
+        }
+    }
+
 }

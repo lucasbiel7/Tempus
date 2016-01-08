@@ -5,14 +5,15 @@
  */
 package br.com.QuadroDeHorario.control.dao;
 
+import br.com.QuadroDeHorario.model.GenericaDAO;
 import br.com.QuadroDeHorario.model.entity.Conteudo;
 import br.com.QuadroDeHorario.model.entity.Curso;
 import br.com.QuadroDeHorario.model.entity.Materia;
 import br.com.QuadroDeHorario.model.entity.MateriaHorario;
 import br.com.QuadroDeHorario.model.entity.MateriaRecursos;
 import br.com.QuadroDeHorario.model.entity.UsuarioMateria;
-import br.com.QuadroDeHorario.model.GenericaDAO;
 import java.util.List;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
@@ -24,7 +25,7 @@ public class MateriaDAO extends GenericaDAO<Materia> {
 
     public MateriaDAO() {
         super();
-        criteria.addOrder(Order.asc("nome"));
+        criteria.addOrder(Order.asc("curso")).addOrder(Order.asc("nome"));
     }
 
     @Override
@@ -60,6 +61,12 @@ public class MateriaDAO extends GenericaDAO<Materia> {
 
     public List<Materia> pegarTodosPorNome(String nome) {
         entitys = criteria.add(Restrictions.like("nome", "%" + nome + "%")).list();
+        finalizarSession();
+        return entitys;
+    }
+
+    public List<Materia> pegarTodosPorNomeCurso(String nome, Curso curso) {
+        entitys = criteria.add(Restrictions.like("nome", nome, MatchMode.ANYWHERE)).add(Restrictions.eq("curso", curso)).list();
         finalizarSession();
         return entitys;
     }

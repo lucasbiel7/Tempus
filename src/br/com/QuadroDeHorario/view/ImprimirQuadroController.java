@@ -6,7 +6,6 @@
  */
 package br.com.QuadroDeHorario.view;
 
-import br.com.QuadroDeHorario.control.TabelaHorario;
 import br.com.QuadroDeHorario.control.TabelaHorarioImpressao;
 import br.com.QuadroDeHorario.control.dao.AulaDAO;
 import br.com.QuadroDeHorario.control.dao.MateriaHorarioAmbienteDAO;
@@ -192,7 +191,6 @@ public class ImprimirQuadroController implements Initializable {
         //Tabela MateriaHorario
         tcSigla.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> new SimpleStringProperty(param.getValue().toString()));
         tcDisciplina.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> new SimpleStringProperty(param.getValue().getMateriaTurmaInstrutorSemestre().getMateria().toString()));
-
         tcInstrutor.setCellValueFactory((TableColumn.CellDataFeatures<MateriaHorario, String> param) -> {
             if (turma != null) {
                 return new SimpleStringProperty(param.getValue().getMateriaTurmaInstrutorSemestre().getInstrutor() != null ? param.getValue().getMateriaTurmaInstrutorSemestre().getInstrutor().toString() : "");
@@ -277,8 +275,8 @@ public class ImprimirQuadroController implements Initializable {
 
     //Todas as tabelas 
     public void carregarTabelas() {
-        TabelaHorario.ambienteSelecionado = null;
-        TabelaHorario.materiaHorarioSelecionado = null;
+//        TabelaHorario.ambienteSelecionado = null;
+//        TabelaHorario.materiaHorarioSelecionado = null;
         carregarTabelas = new Task<Void>() {
             @Override
             protected Void call() throws Exception {

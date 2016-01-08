@@ -13,6 +13,21 @@ import br.com.QuadroDeHorario.model.entity.Usuario;
  */
 public class SessaoUsuario {
 
+    public enum PERMISSAO {
+        COORDERNACAO("Coordenação"), INSTRUTOR("Instrutor"), COMPETIDOR("Competidor");
+
+        private PERMISSAO(String nome) {
+            this.nome = nome;
+        }
+
+        private final String nome;
+
+        @Override
+        public String toString() {
+            return nome;
+        }
+
+    }
     private static Usuario usuario;
 
     public static Usuario getUsuario() {

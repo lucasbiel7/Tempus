@@ -72,6 +72,8 @@ public class GerenciarDisciplinaController implements Initializable {
     private TableColumn<Materia, String> tcModulo;
     @FXML
     private TableColumn<Materia, String> tcCargaHoraria;
+    @FXML
+    private ComboBox<Curso> cbCursoFiltro;
 
     private ObservableList<Curso> cursos = FXCollections.observableArrayList();
     private ObservableList<Recurso> recursos = FXCollections.observableArrayList();
@@ -85,6 +87,7 @@ public class GerenciarDisciplinaController implements Initializable {
         cbCurso.setItems(cursos);
         tvMateria.setItems(materias);
         lvRecurso.setItems(recursos);
+        cbCursoFiltro.setItems(cursos);
         spModulo.setValueFactory(new SpinnerValueFactory<Integer>() {
             @Override
             public void decrement(int steps) {
@@ -221,7 +224,11 @@ public class GerenciarDisciplinaController implements Initializable {
             } catch (ConstraintViolationException e) {
             }
         }
-        materias.setAll(new MateriaDAO().pegarTodos());
+        if (cbCursoFiltro.getSelectionModel().getSelectedItem() != null) {
+            materias.setAll(new MateriaDAO().pegarTodosPorNomeCurso(tfPesquisar.getText(), cbCursoFiltro.getSelectionModel().getSelectedItem()));
+        } else {
+            materias.setAll(new MateriaDAO().pegarTodosPorNome(tfPesquisar.getText()));
+        }
         materia = new Materia();
         carregarDados();
     }
@@ -241,7 +248,11 @@ public class GerenciarDisciplinaController implements Initializable {
                 new MateriaDAO().excluir(materia);
             }
         }
-        materias.setAll(new MateriaDAO().pegarTodos());
+        if (cbCursoFiltro.getSelectionModel().getSelectedItem() != null) {
+            materias.setAll(new MateriaDAO().pegarTodosPorNomeCurso(tfPesquisar.getText(), cbCursoFiltro.getSelectionModel().getSelectedItem()));
+        } else {
+            materias.setAll(new MateriaDAO().pegarTodosPorNome(tfPesquisar.getText()));
+        }
         materia = new Materia();
         carregarDados();
     }
@@ -256,8 +267,21 @@ public class GerenciarDisciplinaController implements Initializable {
     }
 
     @FXML
+    private void cbCursoFiltroActionEvent(ActionEvent actionEvent) {
+        if (cbCursoFiltro.getSelectionModel().getSelectedItem() != null) {
+            materias.setAll(new MateriaDAO().pegarTodosPorNomeCurso(tfPesquisar.getText(), cbCursoFiltro.getSelectionModel().getSelectedItem()));
+        } else {
+            materias.setAll(new MateriaDAO().pegarTodosPorNome(tfPesquisar.getText()));
+        }
+    }
+
+    @FXML
     private void jtNomeKeyRelease(KeyEvent keyEvent) {
-        materias.setAll(new MateriaDAO().pegarTodosPorNome(tfPesquisar.getText()));
+        if (cbCursoFiltro.getSelectionModel().getSelectedItem() != null) {
+            materias.setAll(new MateriaDAO().pegarTodosPorNomeCurso(tfPesquisar.getText(), cbCursoFiltro.getSelectionModel().getSelectedItem()));
+        } else {
+            materias.setAll(new MateriaDAO().pegarTodosPorNome(tfPesquisar.getText()));
+        }
     }
 
     @FXML

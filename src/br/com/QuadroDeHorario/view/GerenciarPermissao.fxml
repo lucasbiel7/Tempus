@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="444.0" prefWidth="906.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.GerenciarPermissaoController">
+<AnchorPane id="AnchorPane" prefHeight="444.0" prefWidth="906.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.GerenciarPermissaoController">
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
@@ -17,7 +17,7 @@
       <TableView fx:id="tvPermissaoGrupo" layoutX="108.0" layoutY="67.0" prefHeight="315.0" prefWidth="306.0">
         <columns>
           <TableColumn fx:id="tcPermissaoGrupo" prefWidth="75.0" text="Permissao" />
-          <TableColumn fx:id="tcHabilitadoGrupo" prefWidth="75.0" text="Habilitado" />
+          <TableColumn fx:id="tcHabilitadoGrupo" maxWidth="100.0" minWidth="70.0" prefWidth="75.0" text="Habilitado" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -31,7 +31,7 @@
          </columnResizePolicy>
          <columns>
             <TableColumn fx:id="tcPermissaoUsuario" prefWidth="75.0" text="Permissao" />
-            <TableColumn fx:id="tcHabilitadoUsuario" prefWidth="75.0" text="Habilitado" />
+            <TableColumn fx:id="tcHabilitadoUsuario" maxWidth="100.0" minWidth="70.0" prefWidth="75.0" text="Habilitado" />
          </columns>
       </TableView>
       <Button layoutX="108.0" layoutY="392.0" mnemonicParsing="false" onAction="#btAplicarAlteracoesActionEvent" prefHeight="35.0" prefWidth="306.0" text="Aplicar alteração em todas as pessoas do grupo" />

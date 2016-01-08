@@ -28,6 +28,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -169,15 +170,17 @@ public class TabelaVisualizarHorario extends TableView<HorarioDiario> {
                             setText(item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getMateria().getSigla() + "\n"
                                     + item.getAmbiente().getNome() + "\n"
                                     + item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getInstrutor().getNome());
+                            setTooltip(new Tooltip(item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getMateria().getNome()));
                         } else if (classe.equals(Usuario.class)) {
                             setText(item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getMateria().getSigla() + "\n"
                                     + item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getTurma().getDescricao() + "\n"
                                     + item.getAmbiente().getNome());
+                            setTooltip(new Tooltip(item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getMateria().getNome()));
                         } else if (classe.equals(Ambiente.class)) {
                             setText(item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getMateria().getSigla() + "\n"
                                     + item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getInstrutor().getNome() + "\n"
                                     + item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getTurma().getDescricao());
-
+                            setTooltip(new Tooltip(item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getMateria().getNome()));
                             if (new EmprestaChaveDAO().pegarPorAula(item).isEmpty()) {
                                 setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
                             } else {

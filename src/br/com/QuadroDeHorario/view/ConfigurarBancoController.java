@@ -93,7 +93,7 @@ public class ConfigurarBancoController implements Initializable {
             }
         }
         try {
-            Runtime.getRuntime().exec("javaw -jar QuadroDeHorarioFX.jar");
+            Runtime.getRuntime().exec("java -jar QuadroDeHorarioFX.jar");
             Platform.exit();
             System.exit(0);
         } catch (IOException ex) {

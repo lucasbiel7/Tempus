@@ -20,6 +20,9 @@ import br.com.QuadroDeHorario.model.entity.CalendarioUsuario;
 import br.com.QuadroDeHorario.model.entity.CalendarioUsuarioID;
 import br.com.QuadroDeHorario.model.entity.Usuario;
 import br.com.QuadroDeHorario.model.util.DataHorario;
+import static br.com.QuadroDeHorario.model.util.DataHorario.Turno.MANHA;
+import static br.com.QuadroDeHorario.model.util.DataHorario.Turno.NOITE;
+import static br.com.QuadroDeHorario.model.util.DataHorario.Turno.TARDE;
 import br.com.QuadroDeHorario.model.util.FxMananger;
 import br.com.QuadroDeHorario.model.util.Mensagem;
 import java.net.URL;
@@ -42,9 +45,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
-import static br.com.QuadroDeHorario.model.util.DataHorario.Turno.MANHA;
-import static br.com.QuadroDeHorario.model.util.DataHorario.Turno.TARDE;
-import static br.com.QuadroDeHorario.model.util.DataHorario.Turno.NOITE;
 
 /**
  * FXML Controller class
@@ -260,6 +260,8 @@ public class AdicionarRecursosEventoController implements Initializable {
         Calendario calendario = cbCalendario.getSelectionModel().getSelectedItem();
         if (calendario != null) {
             FxMananger.show("AdicionarGrupoUsuarioEvento", "Adicionar grupo de usuario a dias de evento", true, false, new Object[]{calendario.getId().getEvento()});
+            calendarioAmbientes.setAll(new CalendarioAmbienteDAO().pegarTodosPorCalendario(cbCalendario.getSelectionModel().getSelectedItem()));
+            calendarioUsuarios.setAll(new CalendarioUsuarioDAO().pegarTodosPorCalendario(cbCalendario.getSelectionModel().getSelectedItem()));
         }
     }
 
