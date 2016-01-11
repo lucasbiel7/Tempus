@@ -5,6 +5,9 @@
  */
 package br.com.QuadroDeHorario.model.util;
 
+import br.com.QuadroDeHorario.control.dao.VariaveisDoSistemaDAO;
+import br.com.QuadroDeHorario.model.entity.VariaveisDoSistema;
+import java.io.ByteArrayInputStream;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -24,8 +27,12 @@ public class Efeito {
     public static int imagem;
     public static Timeline logo;
     public static final int MAX_LOGOS = 3;
+    public static VariaveisDoSistema nomeDoPrograma = new VariaveisDoSistemaDAO().pegarPorNome(VariaveisDoSistema.NOME.ESCOLA);
 
     public static void logo(Label label, ImageView imageView) {
+        if (logo != null) {
+            logo.stop();
+        }
         imagem = 1;
         label.setText(FxMananger.NOME_PROGRAMA);
         imageView.setImage(new Image(GerenciarImagem.carregarImagem("logo.png")));
@@ -65,8 +72,18 @@ public class Efeito {
                     imageView.setImage(new Image(GerenciarImagem.carregarImagem("fiemg.png")));
                     break;
                 case 3:
-                    label.setText("SENAI Belo Horizonte \nCETEL César Rodrigues");
-                    imageView.setImage(new Image(GerenciarImagem.carregarImagem("tori.png")));
+                    if (nomeDoPrograma != null) {
+                        label.setText(nomeDoPrograma.getValor().replace("\\n", "\n"));
+                        if (nomeDoPrograma.getFoto() != null) {
+                            imageView.setImage(new Image(new ByteArrayInputStream(nomeDoPrograma.getFoto())));
+                        } else {
+                            imageView.setImage(null);
+                        }
+                    } else {
+                        label.setText("SENAI Belo Horizonte \nCETEL César Rodrigues");
+                        imageView.setImage(new Image(GerenciarImagem.carregarImagem("tori.png")));
+                    }
+
                     break;
             }
             nFadeTransition.play();

@@ -27,6 +27,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -80,9 +81,10 @@ public class InicioController implements Initializable {
         Efeito.logo(lbLogo, ivLogo);
         lbVersao.setText(FxMananger.NOME_PROGRAMA + " Versão: " + ParametrosBanco.VERSAO);
         Atualizacao atualizacao = new AtualizacaoDAO().pegarPorSistema(new SistemaDAO().pegarPorNome(FxMananger.NOME_PROGRAMA));
-       btLogin.setDisable(!FxMananger.ONLINE);
+        btLogin.setDisable(!FxMananger.ONLINE);
         if (atualizacao != null) {
             lbAtualizacao.setText("Existe uma atualização para ser baixada: " + atualizacao.getNome());
+            lbAtualizacao.setTooltip(new Tooltip(atualizacao.getObservacao()));
             lbAtualizacao.setOnMouseReleased((MouseEvent event) -> {
                 if (atualizacao.getUrl().isEmpty()) {
                     try {
@@ -93,7 +95,6 @@ public class InicioController implements Initializable {
                 }
             });
         }
-        lbLogo.setText(FxMananger.NOME_PROGRAMA);
     }
 
     @FXML

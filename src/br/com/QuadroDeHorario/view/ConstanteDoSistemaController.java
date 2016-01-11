@@ -8,16 +8,32 @@ package br.com.QuadroDeHorario.view;
 import br.com.QuadroDeHorario.control.dao.SistemaDAO;
 import br.com.QuadroDeHorario.control.dao.VariaveisDoSistemaDAO;
 import br.com.QuadroDeHorario.model.entity.VariaveisDoSistema;
+import br.com.QuadroDeHorario.model.util.Efeito;
 import br.com.QuadroDeHorario.model.util.FxMananger;
 import br.com.QuadroDeHorario.model.util.Mensagem;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
+import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
@@ -30,6 +46,13 @@ public class ConstanteDoSistemaController implements Initializable {
     private Spinner<Integer> spOcupacaoMinima;
     @FXML
     private CheckBox cbKeyGuardian;
+    @FXML
+    private TextField tfNomeEscola;
+    @FXML
+    private ImageView ivIconeFoto;
+    @FXML
+    private Label lbArrasteImage;
+    private byte[] foto;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -82,6 +105,15 @@ public class ConstanteDoSistemaController implements Initializable {
         if (keyGuardian != null) {
             cbKeyGuardian.setSelected(Boolean.valueOf(keyGuardian.getValor()));
         }
+        VariaveisDoSistema nomeEscola = new VariaveisDoSistemaDAO().pegarPorNome(VariaveisDoSistema.NOME.ESCOLA);
+        if (nomeEscola != null) {
+            tfNomeEscola.setText(nomeEscola.getValor());
+            foto = nomeEscola.getFoto();
+            if (foto != null) {
+                ivIconeFoto.setImage(new Image(new ByteArrayInputStream(foto)));
+                lbArrasteImage.setText("");
+            }
+        }
     }
 
     @FXML
@@ -108,7 +140,73 @@ public class ConstanteDoSistemaController implements Initializable {
             keyGuardian.setValor(String.valueOf(cbKeyGuardian.isSelected()));
             new VariaveisDoSistemaDAO().editar(keyGuardian);
         }
+        VariaveisDoSistema nomeDaEscola = new VariaveisDoSistemaDAO().pegarPorNome(VariaveisDoSistema.NOME.ESCOLA);
+        if (nomeDaEscola == null) {
+            nomeDaEscola = new VariaveisDoSistema();
+            nomeDaEscola.setNome(VariaveisDoSistema.NOME.ESCOLA.toString());
+            nomeDaEscola.setValor(tfNomeEscola.getText());
+            nomeDaEscola.setSistema(new SistemaDAO().pegarPorNome(FxMananger.NOME_PROGRAMA));
+            nomeDaEscola.setFoto(foto);
+            new VariaveisDoSistemaDAO().cadastrar(nomeDaEscola);
+        } else {
+            nomeDaEscola.setFoto(foto);
+            nomeDaEscola.setValor(tfNomeEscola.getText());
+            new VariaveisDoSistemaDAO().editar(nomeDaEscola);
+        }
+        Efeito.nomeDoPrograma = nomeDaEscola;
         Mensagem.showInformation("Constantes alteradas", "Todos os valores das constantes do sistema foram \n"
                 + "atualizas com sucesso!");
+    }
+
+    @FXML
+    private void ivIconeFotoOnDragOver(DragEvent dragEvent) {
+        if (dragEvent.getDragboard().hasFiles()) {
+            dragEvent.acceptTransferModes(TransferMode.COPY);
+        }
+        dragEvent.consume();
+    }
+
+    @FXML
+    private void ivIconeFotoOnDragDropped(DragEvent dragEvent) {
+        Dragboard dragboard = dragEvent.getDragboard();
+        if (dragboard.hasFiles()) {
+            if (!dragboard.getFiles().isEmpty()) {
+                try {
+                    File file = dragboard.getFiles().get(0);
+                    if (file.getName().matches("^(.*\\.(png|jpg|jpeg|gif)+)$")) {
+                        foto = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
+                        lbArrasteImage.setText("");
+                        ivIconeFoto.setImage(new Image(new ByteArrayInputStream(foto)));
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(ConstanteDoSistemaController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        dragEvent.setDropCompleted(true);
+        dragEvent.consume();
+    }
+
+    @FXML
+    private void btProcurarImagemActionEvent(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().setAll(new FileChooser.ExtensionFilter("Image", "*.png", "*.jpg", "*.jpeg", "*.gif"));
+        File file = fileChooser.showOpenDialog(tfNomeEscola.getScene().getWindow());
+        if (file != null) {
+            try {
+                foto = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
+                lbArrasteImage.setText("");
+                ivIconeFoto.setImage(new Image(new ByteArrayInputStream(foto)));
+            } catch (IOException ex) {
+                Logger.getLogger(ConstanteDoSistemaController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    @FXML
+    private void btApagarActionEvent(ActionEvent actionEvent) {
+        foto = null;
+        lbArrasteImage.setText("Arraste a imagem aqui");
+        ivIconeFoto.setImage(null);
     }
 }

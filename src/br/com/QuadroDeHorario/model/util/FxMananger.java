@@ -30,7 +30,8 @@ public class FxMananger {
     public static Image image;
     public static String NOME_PROGRAMA = "Tempus";
     public static boolean ONLINE;
-    public static final String VIEW="/br/com/QuadroDeHorario/view/";
+    public static final String VIEW = "/br/com/QuadroDeHorario/view/";
+
     static {
         image = new Image(FxMananger.class.getResourceAsStream("/br/com/QuadroDeHorario/view/image/icone.png"));
     }
@@ -77,7 +78,8 @@ public class FxMananger {
             }
         } catch (IOException ex) {
             System.err.println("Error na classe FXMananger\n"
-                    + "" + ex.getMessage());
+                    + "Message"
+                    + ex.getMessage());
         }
     }
 
@@ -102,8 +104,7 @@ public class FxMananger {
                 stage.show();
             }
         } catch (IOException ex) {
-            System.err.println("Error na classe FXMananger\n"
-                    + "" + ex.getMessage());
+            Logger.getLogger(FxMananger.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

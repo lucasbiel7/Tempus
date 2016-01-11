@@ -32,11 +32,11 @@ import java.util.logging.Logger;
  */
 public class ParametrosBanco {
 
-    public static final String NOME_BANCO = "sisCetel";
+    public static String NOME_BANCO;
     public static String IP;
     public static String USUARIO;
     public static String SENHA;
-    public static final double VERSAO = 3.521;
+    public static final double VERSAO = 3.6;
     public static final String REMOTO = "banco";
     public static final String LOCAL = "local";
 
@@ -57,10 +57,12 @@ public class ParametrosBanco {
                     parametros.add(new EncriptacaoAES().encriptar("127.0.0.1"));
                     parametros.add(new EncriptacaoAES().encriptar("root"));
                     parametros.add(new EncriptacaoAES().encriptar("OC2015"));
+                    parametros.add(new EncriptacaoAES().encriptar("sisCetel"));
                 } else if (propriedades.equals(REMOTO)) {
                     parametros.add(new EncriptacaoAES().encriptar("10.31.1.5"));
                     parametros.add(new EncriptacaoAES().encriptar("qHorario"));
                     parametros.add(new EncriptacaoAES().encriptar("qu4dr0!elw"));
+                    parametros.add(new EncriptacaoAES().encriptar("sisCetel"));
                 }
                 //Administrador database
 //                parametros.add(new EncriptacaoAES().encriptar("root"));
@@ -72,6 +74,11 @@ public class ParametrosBanco {
                 IP = new EncriptacaoAES().desencriptar(parametros.get(0));
                 USUARIO = new EncriptacaoAES().desencriptar(parametros.get(1));
                 SENHA = new EncriptacaoAES().desencriptar(parametros.get(2));
+                if (parametros.size() < 4) {
+                    NOME_BANCO = "sisCetel";
+                } else {
+                    NOME_BANCO = new EncriptacaoAES().desencriptar(parametros.get(3));
+                }
             }
         } catch (IOException ex) {
             throw new ExceptionInInitializerError(ex);
@@ -98,15 +105,17 @@ public class ParametrosBanco {
                 Logger.getLogger(ParametrosBanco.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        Atualizacao atualizacao = new AtualizacaoDAO().pegarPorSistema(sistema);
-        if (atualizacao != null) {
-            if (atualizacao.getVersion() > VERSAO) {
-                if (atualizacao.getJar() != null) {
-                    try {
-                        Files.write(Paths.get(System.getProperty("user.dir") + File.separatorChar + sistema.getNomeJar()), atualizacao.getJar());
-                        return true;
-                    } catch (IOException ex) {
-                        System.err.println(ex.getMessage());
+        if (sistema != null) {
+            Atualizacao atualizacao = new AtualizacaoDAO().pegarPorSistema(sistema);
+            if (atualizacao != null) {
+                if (atualizacao.getVersion() > VERSAO) {
+                    if (atualizacao.getJar() != null) {
+                        try {
+                            Files.write(Paths.get(sistema.getNomeJar()), atualizacao.getJar());
+                            return true;
+                        } catch (IOException ex) {
+                            System.err.println(ex.getMessage());
+                        }
                     }
                 }
             }
@@ -149,10 +158,19 @@ public class ParametrosBanco {
         return connection;
     }
 
+    public static String getNOME_BANCO() {
+        return NOME_BANCO;
+    }
+
+    public static void setNOME_BANCO(String NOME_BANCO) {
+        ParametrosBanco.NOME_BANCO = NOME_BANCO;
+    }
+    
+
     public static Properties carregarPropriedades() {
         Properties properties = new Properties();
-        properties.setProperty("hibernate.connection.username", ParametrosBanco.USUARIO);
-        properties.setProperty("hibernate.connection.password", ParametrosBanco.SENHA);
+        properties.setProperty("hibernate.connection.username", ParametrosBanco.USUARIO==null?"root":ParametrosBanco.USUARIO);
+        properties.setProperty("hibernate.connection.password", ParametrosBanco.SENHA==null?"root":ParametrosBanco.SENHA);
         properties.setProperty("hibernate.connection.url", "jdbc:mysql://" + ParametrosBanco.IP + "/" + ParametrosBanco.NOME_BANCO);
         return properties;
     }

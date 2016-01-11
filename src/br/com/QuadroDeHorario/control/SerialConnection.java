@@ -33,12 +33,14 @@ public class SerialConnection {
     private static final int TIME_OUT = 2000;
 
     public SerialPort abrirPorta(CommPortIdentifier cpi) throws PortInUseException, UnsupportedCommOperationException {
-        CommPort portaOriginal = cpi.open(getClass().getName(), TIME_OUT);
-        if (portaOriginal instanceof SerialPort) {
-            SerialPort serialPort = (SerialPort) portaOriginal;
-            serialPort.setSerialPortParams(BAUDRATE, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
-            serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_NONE);
-            return serialPort;
+        if (cpi != null) {
+            CommPort portaOriginal = cpi.open(getClass().getName(), TIME_OUT);
+            if (portaOriginal instanceof SerialPort) {
+                SerialPort serialPort = (SerialPort) portaOriginal;
+                serialPort.setSerialPortParams(BAUDRATE, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
+                serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_NONE);
+                return serialPort;
+            }
         }
         return null;
     }
@@ -65,13 +67,12 @@ public class SerialConnection {
             List<String> lista = new ArrayList<>();
             lista.add(serialPort);
             Files.write(Paths.get(file.getAbsolutePath()), lista, StandardCharsets.UTF_8);
-
         } catch (IOException ex) {
             Logger.getLogger(SerialConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public  CommPortIdentifier getPortaFavorita() {
+    public CommPortIdentifier getPortaFavorita() {
         if (file.exists()) {
             try {
                 List<String> porta = Files.readAllLines(Paths.get(file.getAbsolutePath()), StandardCharsets.UTF_8);

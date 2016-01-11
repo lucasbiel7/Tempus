@@ -7,10 +7,8 @@ package br.com.QuadroDeHorario.model.util;
 
 import java.time.LocalDate;
 import java.time.Month;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.scene.control.DatePicker;
 
 /**
@@ -25,13 +23,10 @@ public class DatePickerValidator implements EventHandler<Event> {
         this.datePicker = datePicker;
         datePicker.getEditor().setOnMouseReleased(this);
         if (datePicker.getOnAction() == null) {
-            datePicker.setOnAction((ActionEvent e)->{
-                DatePickerValidator.this.handle(e);
-            });
+            datePicker.setOnAction(this::handle);
         } else {
-            datePicker.addEventHandler(new EventType<ActionEvent>(""), (ActionEvent event) -> {
-                DatePickerValidator.this.handle(event);
-            });
+//            datePicker.removeEventHandler(new EventType<ActionEvent>("TesteValidator"), this::handle);
+//            datePicker.addEventHandler(new EventType<Event>(), this::handle);
         }
         datePicker.getStylesheets().add(FxMananger.VIEW + "estilo.css");
     }

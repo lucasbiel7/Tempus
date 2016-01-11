@@ -52,18 +52,19 @@ public class LoadScreenController implements Initializable {
                     if (connection != null) {
                         connection.close();
                         FxMananger.ONLINE = true;
+                        if (new GrupoDAO().pegarTodos().isEmpty()) {
+                            Grupo grupo = new Grupo();
+                            grupo.setDescricao("Coordenação");
+                            new GrupoDAO().cadastrar(grupo);
+                            grupo = new Grupo();
+                            grupo.setDescricao("Instrutor");
+                            new GrupoDAO().cadastrar(grupo);
+                        }
                         if (new UsuarioDAO().pegarTodos().isEmpty()) {
                             Usuario usuario = new Usuario();
-//                            usuario.setGrupo();
+                            usuario.setNome("Administrador do sistema");
+                            usuario.setEmail("lucasbieloc@gmail.com");
                             usuario.setLogin("admin");
-                            if (new GrupoDAO().pegarTodos().isEmpty()) {
-                                Grupo grupo = new Grupo();
-                                grupo.setDescricao("Coordenação");
-                                new GrupoDAO().cadastrar(grupo);
-                                grupo = new Grupo();
-                                grupo.setDescricao("Instrutor");
-                                new GrupoDAO().cadastrar(grupo);
-                            }
                             usuario.setGrupo(new GrupoDAO().pegarGrupo("Coordenação"));
                             usuario.setSenha("admin");
                             new UsuarioDAO().cadastrar(usuario);

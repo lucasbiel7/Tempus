@@ -10,12 +10,14 @@ import br.com.QuadroDeHorario.control.TabelaHorarioImpressao;
 import br.com.QuadroDeHorario.control.dao.AulaDAO;
 import br.com.QuadroDeHorario.control.dao.MateriaHorarioAmbienteDAO;
 import br.com.QuadroDeHorario.control.dao.MateriaHorarioDAO;
+import br.com.QuadroDeHorario.control.dao.VariaveisDoSistemaDAO;
 import br.com.QuadroDeHorario.model.entity.Ambiente;
 import br.com.QuadroDeHorario.model.entity.Aula;
 import br.com.QuadroDeHorario.model.entity.MateriaHorario;
 import br.com.QuadroDeHorario.model.entity.MateriaHorarioAmbiente;
 import br.com.QuadroDeHorario.model.entity.Turma;
 import br.com.QuadroDeHorario.model.entity.Usuario;
+import br.com.QuadroDeHorario.model.entity.VariaveisDoSistema;
 import br.com.QuadroDeHorario.model.util.DataHorario;
 import br.com.QuadroDeHorario.model.util.DataHorario.Semestre;
 import br.com.QuadroDeHorario.model.util.Mensagem;
@@ -24,6 +26,7 @@ import static br.com.QuadroDeHorario.view.QuadroDeHorarioController.corAmbiente2
 import static br.com.QuadroDeHorario.view.QuadroDeHorarioController.corAmbiente3;
 import static br.com.QuadroDeHorario.view.QuadroDeHorarioController.corAmbiente4;
 import static br.com.QuadroDeHorario.view.QuadroDeHorarioController.corAmbiente5;
+import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -57,6 +60,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
@@ -96,6 +100,11 @@ public class ImprimirQuadroController implements Initializable {
     private Label lbSemestre;
     @FXML
     private Label lbData;
+    @FXML
+    private Label lbEscola;
+    @FXML
+    private ImageView ivEscola;
+
     private SimpleDateFormat sdfData = new SimpleDateFormat("dd/MM/yyyy");
 
     //Tabela matéria Horário
@@ -161,6 +170,16 @@ public class ImprimirQuadroController implements Initializable {
             carregarCabecalho();
             tcInstrutor.setText(turma != null ? "Instrutor" : "Turma");
         });
+        VariaveisDoSistema nomeDoPrograma = new VariaveisDoSistemaDAO().pegarPorNome(VariaveisDoSistema.NOME.ESCOLA);
+        if (nomeDoPrograma != null) {
+            lbEscola.setText(nomeDoPrograma.getValor().replace("\\n", ""));
+            if (nomeDoPrograma.getFoto() != null) {
+                ivEscola.setImage(new Image(new ByteArrayInputStream(nomeDoPrograma.getFoto())));
+            } else {
+                ivEscola.setImage(null);
+            }
+        }
+
         cbSemestre.setItems(semestres);
         semestres.setAll(Semestre.values());
         cbSemestre.getSelectionModel().select(DataHorario.Semestre.semestreAtual());

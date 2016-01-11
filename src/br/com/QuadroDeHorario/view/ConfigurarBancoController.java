@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,6 +30,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import jidefx.scene.control.field.FormattedTextField;
+import jidefx.scene.control.field.verifier.IntegerRangePatternVerifier;
 
 /**
  * FXML Controller class
@@ -41,7 +46,9 @@ public class ConfigurarBancoController implements Initializable {
     @FXML
     private PasswordField pfSenha;
     @FXML
-    private TextField tfIp;
+    private FormattedTextField ftfIp;
+    @FXML
+    private TextField tfBanco;
 
     /**
      * Initializes the controller class.
@@ -51,7 +58,8 @@ public class ConfigurarBancoController implements Initializable {
         try {
             tfUsuario.setText(ParametrosBanco.getUSUARIO());
             pfSenha.setText(ParametrosBanco.getSENHA());
-            tfIp.setText(ParametrosBanco.getIP());
+            ftfIp.setText(ParametrosBanco.getIP());
+            tfBanco.setText(ParametrosBanco.getNOME_BANCO());
         } catch (NoClassDefFoundError e) {
             Mensagem.showError("Arquivo de configuração",
                     "O arquivo de configuração parece estar corrompido,\n"
@@ -63,6 +71,8 @@ public class ConfigurarBancoController implements Initializable {
                 });
             }
         }
+        ftfIp.getPatternVerifiers().put("h", new IntegerRangePatternVerifier(0, 255));
+        ftfIp.setPattern("h.h.h.h");
     }
 
     @FXML
@@ -71,21 +81,24 @@ public class ConfigurarBancoController implements Initializable {
         if (arquivoConf.isFile()) {
             Path path = Paths.get(arquivoConf.getAbsolutePath());
             List<String> dados = new ArrayList<>();
-            dados.add(new EncriptacaoAES().encriptar(tfIp.getText()));
+            dados.add(new EncriptacaoAES().encriptar(ftfIp.getText()));
             dados.add(new EncriptacaoAES().encriptar(tfUsuario.getText()));
             dados.add(new EncriptacaoAES().encriptar(pfSenha.getText()));
+            dados.add(new EncriptacaoAES().encriptar(tfBanco.getText()));
             ParametrosBanco.setUSUARIO(tfUsuario.getText());
             ParametrosBanco.setSENHA(pfSenha.getText());
-            ParametrosBanco.setIP(tfIp.getText());
+            ParametrosBanco.setIP(ftfIp.getText());
+            ParametrosBanco.setNOME_BANCO(tfBanco.getText());
             Connection connection = ParametrosBanco.getConnection();
             if (connection != null) {
                 try {
                     Mensagem.showInformation("Configurações alteradas", "O sistema será reiniciado para aplicar as \n"
                             + "alterações de configurações no banco de dados!");
                     Files.write(path, dados, StandardCharsets.UTF_8);
-                    Thread.sleep(5000);
-                    btCancelarActionEvent(actionEvent);
-                } catch (IOException | InterruptedException ex) {
+                    new Timeline(new KeyFrame(Duration.seconds(3), (ActionEvent e) -> {
+                        btCancelarActionEvent(actionEvent);
+                    })).playFromStart();
+                } catch (IOException ex) {
                     Logger.getLogger(ConfigurarBancoController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {

@@ -8,10 +8,10 @@ package br.com.QuadroDeHorario.control;
 import br.com.QuadroDeHorario.control.dao.AmbienteDAO;
 import br.com.QuadroDeHorario.control.dao.EmprestaChaveDAO;
 import br.com.QuadroDeHorario.control.dao.UsuarioDAO;
+import br.com.QuadroDeHorario.model.SerialConstants;
 import br.com.QuadroDeHorario.model.entity.Ambiente;
 import br.com.QuadroDeHorario.model.entity.EmprestaChave;
 import br.com.QuadroDeHorario.model.entity.Usuario;
-import br.com.QuadroDeHorario.model.SerialConstants;
 import gnu.io.CommPortIdentifier;
 import gnu.io.PortInUseException;
 import gnu.io.SerialPort;
@@ -101,7 +101,7 @@ public class SerialCommunication implements Runnable, SerialPortEventListener {
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(SerialCommunication.class.getName()).log(Level.SEVERE, null, ex);
+                    System.err.println("Cancelo o teste conexão");
                 }
                 if (!conexao) {
                     enviarMensagem(SerialConstants.RESET);
@@ -118,6 +118,7 @@ public class SerialCommunication implements Runnable, SerialPortEventListener {
     public void ativarLeitura() {
         if (serialPort != null) {
             try {
+                serialPort.removeEventListener();
                 serialPort.addEventListener(this);
                 serialPort.notifyOnDataAvailable(true);
                 inputStream = serialPort.getInputStream();

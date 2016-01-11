@@ -48,6 +48,8 @@ public class GerenciarConexoesController implements Initializable {
     private PasswordField pfSenhaLocal;
     @FXML
     private PasswordField pfSenhaRemoto;
+    @FXML
+    private TextField tfBanco;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -59,6 +61,7 @@ public class GerenciarConexoesController implements Initializable {
         tfUsuarioRemoto.setText(ParametrosBanco.getUSUARIO());
         pfSenhaRemoto.setText(ParametrosBanco.getSENHA());
         mtfIpRemoto.setText(ParametrosBanco.getIP());
+        tfBanco.setText(ParametrosBanco.getNOME_BANCO());
         ParametrosBanco.atribuirPropriedades(ParametrosBanco.LOCAL);
         tfUsuarioLocal.setText(ParametrosBanco.getUSUARIO());
         pfSenhaLocal.setText(ParametrosBanco.getSENHA());
@@ -74,9 +77,11 @@ public class GerenciarConexoesController implements Initializable {
             dados.add(new EncriptacaoAES().encriptar(mtfIpRemoto.getText()));
             dados.add(new EncriptacaoAES().encriptar(tfUsuarioRemoto.getText()));
             dados.add(new EncriptacaoAES().encriptar(pfSenhaRemoto.getText()));
+            dados.add(new EncriptacaoAES().encriptar(tfBanco.getText()));
             ParametrosBanco.setUSUARIO(tfUsuarioRemoto.getText());
             ParametrosBanco.setSENHA(pfSenhaRemoto.getText());
             ParametrosBanco.setIP(mtfIpRemoto.getText());
+            ParametrosBanco.setNOME_BANCO(tfBanco.getText());
             Connection connection = ParametrosBanco.getConnection();
             if (connection != null) {
                 try {
@@ -102,9 +107,11 @@ public class GerenciarConexoesController implements Initializable {
             dados.add(new EncriptacaoAES().encriptar(mtfIpLocal.getText()));
             dados.add(new EncriptacaoAES().encriptar(tfUsuarioLocal.getText()));
             dados.add(new EncriptacaoAES().encriptar(pfSenhaLocal.getText()));
+            dados.add(new EncriptacaoAES().encriptar(tfBanco.getText()));
             ParametrosBanco.setUSUARIO(tfUsuarioLocal.getText());
             ParametrosBanco.setSENHA(pfSenhaLocal.getText());
             ParametrosBanco.setIP(mtfIpLocal.getText());
+            ParametrosBanco.setNOME_BANCO(tfBanco.getText());
             Connection connection = ParametrosBanco.getConnection();
             if (connection != null) {
                 try {

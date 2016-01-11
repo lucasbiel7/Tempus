@@ -53,6 +53,8 @@ import javafx.util.Duration;
 public class VisualizarHorarioController implements Initializable {
 
     @FXML
+    private AnchorPane apPrincipal;
+    @FXML
     private Label lbLogo;
     @FXML
     private ImageView ivLogo;
@@ -70,12 +72,13 @@ public class VisualizarHorarioController implements Initializable {
     private Stage stage;
     private ObservableList<DataHorario.Turno> turnos = FXCollections.observableArrayList();
     private Thread comunication;
-    private Timeline mensagemStatus;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
-            stage = (Stage) lbLogo.getScene().getWindow();
+            if (apPrincipal.getScene() != null) {
+                stage = (Stage) apPrincipal.getScene().getWindow();
+            }
             VariaveisDoSistema variaveisDoSistema = new VariaveisDoSistemaDAO().pegarPorNome(VariaveisDoSistema.NOME.KEYGUARDIAN);
             if (variaveisDoSistema != null) {
                 lbStatus.setVisible(Boolean.valueOf(variaveisDoSistema.getValor()));
@@ -89,21 +92,19 @@ public class VisualizarHorarioController implements Initializable {
                 btEntregarChave.setVisible(false);
             }
         });
-        Efeito.logo(lbLogo, ivLogo);
         if (SerialUtil.serialCommunication == null) {
             SerialUtil.serialCommunication = new SerialCommunication();
         }
+        Efeito.logo(lbLogo, ivLogo);
+        Tooltip tooltip = new Tooltip();
+        lbStatus.setTooltip(tooltip);
+        lbStatus.setEffect(new DropShadow(1.0d, 1.0d, 1.0d, Color.rgb(90, 71, 23)));
         Timeline timeline = new Timeline(new KeyFrame(Duration.minutes(5), (ActionEvent ae) -> {
             if (!cbTurno.getSelectionModel().getSelectedItem().equals(DataHorario.Turno.getTurnoAtual())) {
                 cbTurno.getSelectionModel().select(DataHorario.Turno.getTurnoAtual());
                 carregarTabela(clicado);
             }
-        }));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
-        Tooltip tooltip = new Tooltip();
-        lbStatus.setTooltip(tooltip);
-        mensagemStatus = new Timeline(new KeyFrame(Duration.seconds(3), (ActionEvent event) -> {
+        }), new KeyFrame(Duration.seconds(3), (ActionEvent event) -> {
             lbStatus.setText(SerialUtil.serialCommunication.getStatus());
             tooltip.setText(SerialUtil.serialCommunication.getDebug());
             btEntregarChave.setDisable(!SerialUtil.serialCommunication.isConexao());
@@ -116,9 +117,8 @@ public class VisualizarHorarioController implements Initializable {
                 }
             }
         }));
-        lbStatus.setEffect(new DropShadow(1.0d, 1.0d, 1.0d, Color.rgb(90, 71, 23)));
-        mensagemStatus.setCycleCount(Timeline.INDEFINITE);
-        mensagemStatus.playFromStart();
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
         cbTurno.setItems(turnos);
         dpDataAula.setValue(LocalDate.now());
         turnos.setAll(DataHorario.Turno.values());
@@ -134,8 +134,12 @@ public class VisualizarHorarioController implements Initializable {
         if (SerialUtil.serialCommunication.isConexao()) {
             SerialUtil.serialCommunication.enviarMensagem(SerialConstants.RESET);
         }
-        mensagemStatus.stop();
         stage.close();
+        if (comunication != null) {
+            if (comunication.isAlive()) {
+                comunication.interrupt();
+            }
+        }
         FxMananger.show("Inicio", "Início", true, false);
     }
 

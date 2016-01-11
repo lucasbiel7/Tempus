@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 /**
@@ -20,7 +21,7 @@ import javax.persistence.ManyToOne;
 public class VariaveisDoSistema implements Serializable {
 
     public enum NOME {
-        KEYGUARDIAN("KeyGuardian"), OCUPACAO("ocupacao");
+        KEYGUARDIAN("KeyGuardian"), OCUPACAO("ocupacao"), ESCOLA("Nome da escola");
         private String nome;
 
         private NOME(String nome) {
@@ -41,6 +42,8 @@ public class VariaveisDoSistema implements Serializable {
     @ManyToOne
     private Sistema sistema;
     private boolean ativo = true;
+    @Lob
+    private byte[] foto;
 
     public int getId() {
         return id;
@@ -80,6 +83,14 @@ public class VariaveisDoSistema implements Serializable {
 
     public void setSistema(Sistema sistema) {
         this.sistema = sistema;
+    }
+
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
     }
 
     @Override

@@ -13,7 +13,7 @@
         <URL value="@estilo.css" />
     </stylesheets>
    <children>
-      <Accordion layoutY="14.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Accordion layoutY="14.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
         <panes>
           <TitledPane text="Remoto">
             <content>
@@ -46,5 +46,7 @@
           </TitledPane>
         </panes>
       </Accordion>
+      <Label layoutX="14.0" layoutY="14.0" text="Nome da base de dados" />
+      <TextField fx:id="tfBanco" layoutX="152.0" layoutY="8.0" prefHeight="30.0" prefWidth="275.0" />
    </children>
 </AnchorPane>
