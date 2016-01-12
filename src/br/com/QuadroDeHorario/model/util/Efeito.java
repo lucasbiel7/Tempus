@@ -102,5 +102,4 @@ public class Efeito {
             return Color.rgb(0, 0, 0);
         }
     }
-
 }

@@ -90,13 +90,22 @@ public class ConfigurarBancoController implements Initializable {
             ParametrosBanco.setIP(ftfIp.getText());
             ParametrosBanco.setNOME_BANCO(tfBanco.getText());
             Connection connection = ParametrosBanco.getConnection();
+            System.out.println(connection);
             if (connection != null) {
                 try {
-                    Mensagem.showInformation("Configurações alteradas", "O sistema será reiniciado para aplicar as \n"
-                            + "alterações de configurações no banco de dados!");
+                    Mensagem.showInformation("Configurações alteradas", "O sistema será reiniciado em 5 segundos\n"
+                                                                        + "para aplicar as alterações de configurações\n"
+                                                                        + " no banco de dados!");
                     Files.write(path, dados, StandardCharsets.UTF_8);
-                    new Timeline(new KeyFrame(Duration.seconds(3), (ActionEvent e) -> {
-                        btCancelarActionEvent(actionEvent);
+                    new Timeline(new KeyFrame(Duration.seconds(5), (ActionEvent) -> {
+                        try {
+                            Runtime.getRuntime().exec("java -jar QuadroDeHorarioFX.jar");
+                            Platform.exit();
+                            System.exit(0);
+                        } catch (IOException ex) {
+                            System.err.println(ex.getMessage());
+                            System.exit(1);
+                        }
                     })).playFromStart();
                 } catch (IOException ex) {
                     Logger.getLogger(ConfigurarBancoController.class.getName()).log(Level.SEVERE, null, ex);
@@ -104,14 +113,6 @@ public class ConfigurarBancoController implements Initializable {
             } else {
                 Mensagem.showError("Conexão inválida", "Não foi possivel encontrar uma conexão com esses parametros");
             }
-        }
-        try {
-            Runtime.getRuntime().exec("java -jar QuadroDeHorarioFX.jar");
-            Platform.exit();
-            System.exit(0);
-        } catch (IOException ex) {
-            System.err.println(ex.getMessage());
-            System.exit(1);
         }
     }
 

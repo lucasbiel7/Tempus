@@ -5,6 +5,7 @@
  */
 package br.com.QuadroDeHorario.view;
 
+import br.com.QuadroDeHorario.control.SingleInstance;
 import br.com.QuadroDeHorario.control.dao.GrupoDAO;
 import br.com.QuadroDeHorario.control.dao.UsuarioDAO;
 import br.com.QuadroDeHorario.model.entity.Grupo;
@@ -79,8 +80,7 @@ public class LoadScreenController implements Initializable {
                                     Logger.getLogger(LoadScreenController.class.getName()).log(Level.SEVERE, null, ex);
                                 }
                             } else {
-                                stage.close();
-                                FxMananger.show("Inicio", "Início", true, false, true);
+                                inicio();
                             }
                         });
                     } else {
@@ -102,8 +102,7 @@ public class LoadScreenController implements Initializable {
                                         Logger.getLogger(LoadScreenController.class.getName()).log(Level.SEVERE, null, ex);
                                     }
                                 } else {
-                                    stage.close();
-                                    FxMananger.show("Inicio", "Início", true, false, true);
+                                    inicio();
                                 }
                             });
                         } else {
@@ -117,6 +116,27 @@ public class LoadScreenController implements Initializable {
                 return null;
             }
         };
+    }
+
+    public void inicio() {
+        try {
+            System.out.println(new SingleInstance().toString());
+            stage.close();
+            FxMananger.show("Inicio", "Início", true, false, true);
+        } catch (IOException ex) {
+            if (Mensagem.showConfirmation("Reiniciar sistema", "Parece que já existe uma instancia do sistema aberta!\n"
+                    + "Não é possível abrir duas instancias por motivos de desempenho!"
+                    + "Deseja reiniciar o sistema e tentar novamente?")) {
+                try {
+                    Runtime.getRuntime().exec("java -jar QuadroDeHorarioFX.jar");
+                } catch (IOException ex1) {
+                    Logger.getLogger(Run.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+                Platform.exit();
+                System.exit(0);
+            }
+            System.exit(0);
+        }
     }
 
     public void erroIniciar() {

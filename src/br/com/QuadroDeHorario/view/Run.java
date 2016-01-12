@@ -5,14 +5,9 @@
  */
 package br.com.QuadroDeHorario.view;
 
-import br.com.QuadroDeHorario.control.SingleInstance;
 import br.com.QuadroDeHorario.model.util.FxMananger;
-import br.com.QuadroDeHorario.model.util.Mensagem;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -28,8 +23,6 @@ public class Run extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Thread.sleep(500);
-            System.out.println(new SingleInstance().toString());
             //Teste interessante
 //        String teste = "bssid 10:a5:44:66";
 //        Matcher m=Pattern.compile("\\w{2}:\\w{2}:\\w{2}:\\w{2}").matcher(teste);
@@ -54,21 +47,8 @@ public class Run extends Application {
 //            usuario.setSenha("Lucas5@");
 //            SessaoUsuario.setUsuario(new UsuarioDAO().login(usuario));
 //            FxMananger.show("Principal", "Principal", false, true, true);
-        } catch (IOException ex) {
-            if (Mensagem.showConfirmation("Reiniciar sistema", "Parece que já existe uma instancia do sistema aberta!\n"
-                    + "Não é possível abrir duas instancias por motivos de desempenho!"
-                    + "Deseja reiniciar o sistema e tentar novamente?")) {
-                try {
-                    Runtime.getRuntime().exec("java -jar QuadroDeHorarioFX.jar");
-                } catch (IOException ex1) {
-                    Logger.getLogger(Run.class.getName()).log(Level.SEVERE, null, ex1);
-                }
-                Platform.exit();
-                System.exit(0);
-            }
-            System.exit(0);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Run.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException e) {
+            System.err.println("Nao carrego!");
         }
     }
 
