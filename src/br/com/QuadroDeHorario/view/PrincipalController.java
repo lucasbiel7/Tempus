@@ -17,7 +17,6 @@ import br.com.QuadroDeHorario.model.util.SessaoUsuario;
 import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -61,8 +60,6 @@ public class PrincipalController implements Initializable {
     @FXML
     private ImageView ivLogo;
     private Stage stage;
-    private Timeline logo;
-    private int casoLogo = 2;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -119,7 +116,7 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void miAreaAdministrativaEmUmaNovaActionEvent(ActionEvent actionEvent) {
-        FxMananger.show("Principal", "Principal", false, true, false);
+        FxMananger.show("Principal", "Principal (Em Nova Janela)", false, true, false);
     }
 
     @FXML
@@ -139,6 +136,11 @@ public class PrincipalController implements Initializable {
             }
         }
         permissoes();
+    }
+
+    @FXML
+    private void btSobreActionEvent(ActionEvent actionEvent) {
+        FxMananger.insertPane(spPrincipal, "Sobre");
     }
 
     private void permissoes() {
@@ -174,5 +176,4 @@ public class PrincipalController implements Initializable {
             btLixeira.setDisable(true);
         }
     }
-
 }

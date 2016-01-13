@@ -128,7 +128,7 @@ public class TabelaMapaDeUso extends TableView<MesMapaDeUso<Ambiente, DiaMapaDeU
                     mapaDeUsos.add(mapaDeUso);
                 }
             }
-        }).start();
+        },"Carregando dados da tabela mapa de uso").start();
     }
 
     private void carregarColunas() {

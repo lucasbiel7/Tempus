@@ -42,7 +42,7 @@ public class Mail {
     private final int smtpPort = 465;
 
     public Mail() {
-        Properties properties = System.getProperties();
+        Properties properties = (Properties) System.getProperties().clone();
         properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.smtp.user", user + "@" + domain);
         properties.put("mail.smtp.host", "smtp." + domain);
@@ -63,7 +63,6 @@ public class Mail {
     }
 
     public void sendEmail(Usuario usuario) throws ConstraintViolationException, MessagingException, UnsupportedEncodingException {
-
         MimeMessage email = new MimeMessage(session);
         email.setFrom(new InternetAddress("bquestao@gmail.com", FxMananger.NOME_PROGRAMA + " - CETEL"));
         email.addRecipient(Message.RecipientType.TO, new InternetAddress(usuario.getEmail()));
@@ -83,7 +82,6 @@ public class Mail {
         tokenCode.setLastChange(new TokenCodeDAO().dataAtual());
         tokenCode.setToken(codigo);
         new TokenCodeDAO().cadastrar(tokenCode);
-
     }
 
     public void sendEmail(String email, String nome, String title, String mensagem, File... dados) {

@@ -27,7 +27,25 @@ public class Efeito {
     public static int imagem;
     public static Timeline logo;
     public static final int MAX_LOGOS = 3;
-    public static VariaveisDoSistema nomeDoPrograma = new VariaveisDoSistemaDAO().pegarPorNome(VariaveisDoSistema.NOME.ESCOLA);
+    public static VariaveisDoSistema nomeDoPrograma;
+    public static final Image tempus;
+    public static final Image fiemg;
+    public static final Image program;
+
+    static {
+        tempus = new Image(GerenciarImagem.carregarImagem("logo.png"));
+        fiemg = new Image(GerenciarImagem.carregarImagem("fiemg.png"));
+        nomeDoPrograma = new VariaveisDoSistemaDAO().pegarPorNome(VariaveisDoSistema.NOME.ESCOLA);
+        if (nomeDoPrograma != null) {
+            if (nomeDoPrograma.getFoto() != null) {
+                program = new Image(new ByteArrayInputStream(nomeDoPrograma.getFoto()));
+            } else {
+                program = null;
+            }
+        } else {
+            program = null;
+        }
+    }
 
     public static void logo(Label label, ImageView imageView) {
         if (logo != null) {
@@ -35,7 +53,7 @@ public class Efeito {
         }
         imagem = 1;
         label.setText(FxMananger.NOME_PROGRAMA);
-        imageView.setImage(new Image(GerenciarImagem.carregarImagem("logo.png")));
+        imageView.setImage(tempus);
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(3d), label);
         fadeTransition.setFromValue(0d);
         fadeTransition.setToValue(1d);
@@ -51,45 +69,31 @@ public class Efeito {
             if (imagem > MAX_LOGOS) {
                 imagem = 1;
             }
-            FadeTransition nFadeTransition = new FadeTransition(Duration.seconds(3d), label);
-            nFadeTransition.setFromValue(0.0);
-            nFadeTransition.setToValue(1.0);
-            nFadeTransition.setOnFinished((ActionEvent event) -> {
-                FadeTransition fadeTransition1 = new FadeTransition(Duration.seconds(2), label);
-                fadeTransition1.setFromValue(1.0);
-                fadeTransition1.setToValue(0.0);
-                fadeTransition1.play();
-            });
             imageView.setFitWidth(61);
             switch (imagem) {
                 case 1:
                     label.setText(FxMananger.NOME_PROGRAMA);
-                    imageView.setImage(new Image(GerenciarImagem.carregarImagem("logo.png")));
+                    imageView.setImage(tempus);
                     break;
                 case 2:
                     label.setText("");
                     imageView.setFitWidth(200);
-                    imageView.setImage(new Image(GerenciarImagem.carregarImagem("fiemg.png")));
+                    imageView.setImage(fiemg);
                     break;
                 case 3:
                     if (nomeDoPrograma != null) {
                         label.setText(nomeDoPrograma.getValor().replace("\\n", "\n"));
-                        if (nomeDoPrograma.getFoto() != null) {
-                            imageView.setImage(new Image(new ByteArrayInputStream(nomeDoPrograma.getFoto())));
-                        } else {
-                            imageView.setImage(null);
-                        }
+                        imageView.setImage(program);
                     } else {
                         label.setText("SENAI Belo Horizonte \nCETEL César Rodrigues");
                         imageView.setImage(new Image(GerenciarImagem.carregarImagem("tori.png")));
                     }
-
                     break;
             }
-            nFadeTransition.play();
+            fadeTransition.play();
         }));
         logo.setCycleCount(Timeline.INDEFINITE);
-        logo.playFrom(Duration.ZERO);
+        logo.playFromStart();
     }
 
     public static Color brancoOuPreto(Color color) {

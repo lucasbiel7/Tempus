@@ -80,13 +80,14 @@ public class CadastrarAtualizacaoController implements Initializable {
     private void btAdicionarArquivoActionEvent(ActionEvent actionEvent) {
         try {
             FileChooser fileChooser = new FileChooser();
-            fileChooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("Arquivos executaveis", "jar"));
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Arquivo java executável", "*.jar"));
             File file = fileChooser.showOpenDialog(tfDiretorio.getScene().getWindow());
-            atualizacao.setJar(Files.readAllBytes(Paths.get(file.getAbsolutePath())));
-            tfDiretorio.setText(file.getAbsolutePath());
+            if (file != null) {
+                atualizacao.setJar(Files.readAllBytes(Paths.get(file.getAbsolutePath())));
+                tfDiretorio.setText(file.getAbsolutePath());
+            }
         } catch (IOException ex) {
             Logger.getLogger(CadastrarAtualizacaoController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 }

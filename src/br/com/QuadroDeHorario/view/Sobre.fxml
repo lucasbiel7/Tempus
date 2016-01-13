@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.SobreController">
+    <stylesheets>
+        <URL value="@estilo.css" />
+    </stylesheets>
+   <children>
+      <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="87.0" prefWidth="569.0" text="Tempus" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+         <graphic>
+            <ImageView fitHeight="89.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/logo.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font size="52.0" />
+         </font>
+      </Label>
+      <TextFlow layoutX="14.0" layoutY="114.0" prefHeight="200.0" prefWidth="569.0" textAlignment="CENTER" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="130.0">
+         <children>
+            <Text fx:id="tSobre" fill="WHITE" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="JUSTIFY" />
+         </children>
+      </TextFlow>
+   </children>
+</AnchorPane>

@@ -13,7 +13,10 @@ import br.com.QuadroDeHorario.model.entity.Usuario;
 import br.com.QuadroDeHorario.model.util.Mensagem;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.sql.SQLClientInfoException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -50,18 +53,24 @@ public class RecuperarSenhaController implements Initializable {
         Usuario usuario = new Usuario();
         usuario.setEmail(tfEmail.getText());
         tfEmail.setDisable(true);
-        if (new UsuarioDAO().pegarPorEmail(usuario) == null) {
+        usuario = new UsuarioDAO().pegarPorEmail(usuario);
+        if (usuario == null) {
             Mensagem.showError("E-mail inválido", "Não existe nenhum usuário com este email.");
         } else {
             try {
-                Mail mail = new Mail();
-                mail.sendEmail(new UsuarioDAO().pegarPorEmail(usuario));
-                Mensagem.showInformation("Envio do código de segurança", "Código de segurança foi enviado!");
+                if (new TokenCodeDAO().pegarTodosPorUsuario(usuario).isEmpty()) {
+                    Mail mail = new Mail();
+                    mail.sendEmail(new UsuarioDAO().pegarPorEmail(usuario));
+                    Mensagem.showInformation("Envio do código de segurança", "Código de segurança foi enviado!");
+                } else {
+                    throw new ConstraintViolationException("", new SQLClientInfoException(), "");
+                }
             } catch (ConstraintViolationException e) {
                 Mensagem.showError("Falha ao reenviar e-mail", "Já foi enviado o e-mail espere o tempo de expiração para enviar outro e-mail!");
             } catch (MessagingException | UnsupportedEncodingException ex) {
                 Mensagem.showError("Falha de conexão", "Não foi possível enviar o e-mail verifique a conexão da sua internet.");
                 System.err.println(ex.getMessage());
+                Logger.getLogger(RecuperarSenhaController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         tfEmail.setDisable(false);

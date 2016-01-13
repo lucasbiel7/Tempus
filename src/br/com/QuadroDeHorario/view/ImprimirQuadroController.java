@@ -345,7 +345,7 @@ public class ImprimirQuadroController implements Initializable {
                 carregarTabelas.cancel();
             }
         }
-        new Thread(carregarTabelas, "Carregar tabelas impressões").start();
+        new Thread(carregarTabelas, "Carregando imprimir Quadro").start();
     }
 
     //CarregarMateriaHoratrio

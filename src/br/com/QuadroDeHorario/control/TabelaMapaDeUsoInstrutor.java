@@ -187,6 +187,6 @@ public class TabelaMapaDeUsoInstrutor extends TableView<MesMapaDeUso<Usuario, Di
                     mesMapaDeUsos.add(mapaDeUso);
                 }
             }
-        }).start();
+        }, "Carregando dados mapa de uso Instrutor").start();
     }
 }
