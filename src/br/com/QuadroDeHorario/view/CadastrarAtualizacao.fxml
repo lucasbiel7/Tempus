@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" layoutX="1.0" prefHeight="449.0" prefWidth="540.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.CadastrarAtualizacaoController">
+<AnchorPane id="AnchorPane" layoutX="1.0" prefHeight="449.0" prefWidth="540.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.QuadroDeHorario.view.CadastrarAtualizacaoController">
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
@@ -20,11 +20,11 @@
         <TextField fx:id="tfURL" layoutX="139.0" layoutY="74.0" prefHeight="33.0" prefWidth="276.0" />
         <TextArea fx:id="taObservacao" layoutX="139.0" layoutY="140.0" prefHeight="121.0" prefWidth="365.0" />
         <TextField fx:id="tfVersion" layoutX="139.0" layoutY="278.0" prefHeight="33.0" prefWidth="276.0" />
-        <Button defaultButton="true" layoutX="341.0" layoutY="404.0" mnemonicParsing="false" onAction="#btSalvarActionEvent" prefHeight="35.0" prefWidth="89.0" text="Salvar" />
-        <Button cancelButton="true" layoutX="442.0" layoutY="404.0" mnemonicParsing="false" onAction="#btCancelarActionEvent" text="Cancelar" />
         <CheckBox fx:id="cbObrigatorio" layoutX="139.0" layoutY="323.0" mnemonicParsing="false" text="Atualização obrigatória" />
-        <Label layoutX="102.0" layoutY="365.0" prefHeight="2.0" prefWidth="15.0" text="Jar" />
         <TextField fx:id="tfDiretorio" layoutX="139.0" layoutY="361.0" prefHeight="25.0" prefWidth="239.0" />
         <Button layoutX="391.0" layoutY="361.0" mnemonicParsing="false" onAction="#btAdicionarArquivoActionEvent" text="Escolher arquivo" />
+        <Button defaultButton="true" layoutX="341.0" layoutY="404.0" mnemonicParsing="false" onAction="#btSalvarActionEvent" prefHeight="35.0" prefWidth="89.0" text="Salvar" />
+        <Button cancelButton="true" layoutX="442.0" layoutY="404.0" mnemonicParsing="false" onAction="#btCancelarActionEvent" text="Cancelar" />
+        <Label layoutX="102.0" layoutY="365.0" prefHeight="2.0" prefWidth="15.0" text="Jar" />
     </children>
 </AnchorPane>
