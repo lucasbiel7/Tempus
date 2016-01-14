@@ -12,10 +12,10 @@
         <URL value="@estilo.css" />
     </stylesheets>
    <children>
-      <ComboBox fx:id="cbObjeto" layoutX="74.0" layoutY="29.0" prefHeight="25.0" prefWidth="201.0" />
+      <ComboBox fx:id="cbObjeto" layoutX="74.0" layoutY="29.0" onAction="#cbObjetoActionEvent" prefHeight="25.0" prefWidth="201.0" />
       <Label fx:id="lbObjeto" layoutX="1.0" layoutY="33.0" prefHeight="17.0" prefWidth="56.0" />
-      <Label fx:id="lbTurno" layoutX="27.0" layoutY="80.0" text="Turno" />
-      <ComboBox fx:id="cbTurno" layoutX="74.0" layoutY="76.0" prefHeight="25.0" prefWidth="201.0" />
+      <Label fx:id="lbTurno" layoutX="27.0" layoutY="80.0" text="Turno" visible="false" />
+      <ComboBox fx:id="cbTurno" layoutX="74.0" layoutY="76.0" prefHeight="25.0" prefWidth="201.0" visible="false" />
       <Button layoutX="74.0" layoutY="122.0" mnemonicParsing="false" onAction="#btVerSemestralActionEvent" text="Ver semestral" />
    </children>
 </AnchorPane>

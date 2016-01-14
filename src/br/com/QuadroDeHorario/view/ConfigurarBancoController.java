@@ -90,7 +90,6 @@ public class ConfigurarBancoController implements Initializable {
             ParametrosBanco.setIP(ftfIp.getText());
             ParametrosBanco.setNOME_BANCO(tfBanco.getText());
             Connection connection = ParametrosBanco.getConnection();
-            System.out.println(connection);
             if (connection != null) {
                 try {
                     Mensagem.showInformation("Configurações alteradas", "O sistema será reiniciado em 5 segundos\n"

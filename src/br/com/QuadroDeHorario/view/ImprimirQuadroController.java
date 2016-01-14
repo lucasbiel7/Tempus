@@ -20,6 +20,7 @@ import br.com.QuadroDeHorario.model.entity.Usuario;
 import br.com.QuadroDeHorario.model.entity.VariaveisDoSistema;
 import br.com.QuadroDeHorario.model.util.DataHorario;
 import br.com.QuadroDeHorario.model.util.DataHorario.Semestre;
+import br.com.QuadroDeHorario.model.util.DataHorario.Turno;
 import br.com.QuadroDeHorario.model.util.Mensagem;
 import static br.com.QuadroDeHorario.view.QuadroDeHorarioController.corAmbiente1;
 import static br.com.QuadroDeHorario.view.QuadroDeHorarioController.corAmbiente2;
@@ -91,7 +92,6 @@ public class ImprimirQuadroController implements Initializable {
     private Spinner<Integer> spAno;
     @FXML
     private GridPane gpMeses;
-
     @FXML
     private ProgressIndicator piLoader;
     @FXML
@@ -104,7 +104,8 @@ public class ImprimirQuadroController implements Initializable {
     private Label lbEscola;
     @FXML
     private ImageView ivEscola;
-
+    @FXML
+    private ComboBox<Turno> cbTurno;
     private SimpleDateFormat sdfData = new SimpleDateFormat("dd/MM/yyyy");
 
     //Tabela matéria Horário
@@ -141,9 +142,9 @@ public class ImprimirQuadroController implements Initializable {
     //Fim Matéria Horario
     private ObservableList<DataHorario.Semestre> semestres = FXCollections.observableArrayList();
     private ObservableList<MateriaHorario> materiaHorarios = FXCollections.observableArrayList();
+    private ObservableList<DataHorario.Turno> turnos = FXCollections.observableArrayList();
 
     private Usuario usuario;
-    private DataHorario.Turno turno;
     private Turma turma;
     private Turma turmaEspelho;
     private Stage stage;
@@ -160,9 +161,17 @@ public class ImprimirQuadroController implements Initializable {
                     }
                     if (parametro instanceof Turma) {
                         turma = (Turma) parametro;
+                        if (turma.getTurno().equals(Turno.DIURNO)) {
+                            cbTurno.setVisible(true);
+                            cbTurno.getSelectionModel().select(Turno.MANHA);
+                            turnos.remove(Turno.NOITE);
+                        } else {
+                            cbTurno.getSelectionModel().select(turma.getTurno());
+                            cbTurno.setVisible(false);
+                        }
                     }
                     if (parametro instanceof DataHorario.Turno) {
-                        turno = (DataHorario.Turno) parametro;
+                        cbTurno.getSelectionModel().select((Turno) parametro);
                     }
                 }
                 carregarTabelas();
@@ -262,7 +271,9 @@ public class ImprimirQuadroController implements Initializable {
             }
         });
         tvMateriaHorario.setItems(materiaHorarios);
-
+        cbTurno.setItems(turnos);
+        turnos.setAll(Turno.values());
+        turnos.remove(Turno.DIURNO);
     }
 
     @FXML
@@ -277,6 +288,11 @@ public class ImprimirQuadroController implements Initializable {
         cbSemestreActionEvent(null);
     }
 
+    @FXML
+    private void cbTurnoActionEvent(ActionEvent actionEvent) {
+        cbSemestreActionEvent(null);
+    }
+
     //Metodos de evento
     //Metodos de carregamento
     //Cabecalho
@@ -287,7 +303,7 @@ public class ImprimirQuadroController implements Initializable {
         if (usuario != null) {
             lbNomeQuadro.setText("Instrutor: " + usuario.getNome());
         }
-        lbSemestre.setText(cbSemestre.getSelectionModel().getSelectedItem() + "/" + spAno.getValue() + (turno != null ? (" Turno: " + turno) : ""));
+        lbSemestre.setText(cbSemestre.getSelectionModel().getSelectedItem() + "/" + spAno.getValue() + (cbTurno.getSelectionModel().getSelectedItem() != null ? (" Turno: " + cbTurno.getSelectionModel().getSelectedItem()) : ""));
         lbData.setText(sdfData.format(new Date()));
         carregarMateriaHorario();
     }
@@ -311,20 +327,18 @@ public class ImprimirQuadroController implements Initializable {
                             materiaHorarios.addAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turmaEspelho, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
                         });
                     }
-                    TabelaHorarioImpressao.turno = null;
-                } else if (usuario != null && turno != null) {
+                } else if (usuario != null && cbTurno.getSelectionModel().getSelectedItem() != null) {
                     dados = usuario;
                     Platform.runLater(() -> {
-                        materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorInstrutorTurnoSemestreAno(usuario, turno, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
+                        materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorInstrutorTurnoSemestreAno(usuario, cbTurno.getSelectionModel().getSelectedItem(), cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
                     });
-                    TabelaHorarioImpressao.turno = turno;
                 }
                 Platform.runLater(() -> {
                     gpMeses.getChildren().clear();
                 });
                 updateProgress(1, 8);
                 for (int i = 1; i < 7; i++) {
-                    TabelaHorarioImpressao tabelaHorarioImpressao = new TabelaHorarioImpressao((cbSemestre.getSelectionModel().getSelectedItem().equals(Semestre.SEMESTRE1)) ? i : i + 6, spAno.getValue(), dados);
+                    TabelaHorarioImpressao tabelaHorarioImpressao = new TabelaHorarioImpressao((cbSemestre.getSelectionModel().getSelectedItem().equals(Semestre.SEMESTRE1)) ? i : i + 6, spAno.getValue(), dados, cbTurno.getSelectionModel().getSelectedItem());
                     final int linha = i - 1;
                     Platform.runLater(() -> {
                         gpMeses.add(tabelaHorarioImpressao, 0, linha);
@@ -353,7 +367,7 @@ public class ImprimirQuadroController implements Initializable {
         if (turma != null) {
             materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turma, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
         } else if (usuario != null) {
-            materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorInstrutorTurnoSemestreAno(usuario, turno, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
+            materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorInstrutorTurnoSemestreAno(usuario, cbTurno.getSelectionModel().getSelectedItem(), cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
         }
     }
 

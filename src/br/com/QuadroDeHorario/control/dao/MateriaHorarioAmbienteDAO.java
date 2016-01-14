@@ -5,10 +5,10 @@
  */
 package br.com.QuadroDeHorario.control.dao;
 
+import br.com.QuadroDeHorario.model.GenericaDAO;
 import br.com.QuadroDeHorario.model.entity.Ambiente;
 import br.com.QuadroDeHorario.model.entity.MateriaHorario;
 import br.com.QuadroDeHorario.model.entity.MateriaHorarioAmbiente;
-import br.com.QuadroDeHorario.model.GenericaDAO;
 import java.util.List;
 import org.hibernate.criterion.Restrictions;
 
@@ -37,9 +37,13 @@ public class MateriaHorarioAmbienteDAO extends GenericaDAO<MateriaHorarioAmbient
     }
 
     public MateriaHorarioAmbiente pegarTodosPorMateriaHorarioNumero(MateriaHorario materiaHorario, int numero) {
-        entity = (MateriaHorarioAmbiente) criteria.add(Restrictions.eq("id.materiaHorario", materiaHorario)).add(Restrictions.eq("numero", numero)).uniqueResult();
+        entitys = criteria.add(Restrictions.eq("id.materiaHorario", materiaHorario)).add(Restrictions.eq("numero", numero)).list();
         finalizarSession();
-        return entity;
+        if (entitys.isEmpty()) {
+            return null;
+        } else {
+            return entitys.get(0);
+        }
     }
 
     public List<MateriaHorarioAmbiente> pegarTodosPorAmbiente(Ambiente ambiente) {
@@ -47,5 +51,5 @@ public class MateriaHorarioAmbienteDAO extends GenericaDAO<MateriaHorarioAmbient
         finalizarSession();
         return entitys;
     }
-    
+
 }

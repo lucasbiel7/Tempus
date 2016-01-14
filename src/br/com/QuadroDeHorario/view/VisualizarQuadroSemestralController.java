@@ -12,14 +12,15 @@ import br.com.QuadroDeHorario.control.dao.MateriaHorarioAmbienteDAO;
 import br.com.QuadroDeHorario.control.dao.MateriaHorarioDAO;
 import br.com.QuadroDeHorario.control.dao.TurmaDAO;
 import br.com.QuadroDeHorario.control.dao.UsuarioDAO;
+import br.com.QuadroDeHorario.model.GenericaDAO;
 import br.com.QuadroDeHorario.model.entity.Ambiente;
 import br.com.QuadroDeHorario.model.entity.Aula;
 import br.com.QuadroDeHorario.model.entity.MateriaHorario;
 import br.com.QuadroDeHorario.model.entity.MateriaHorarioAmbiente;
 import br.com.QuadroDeHorario.model.entity.Turma;
 import br.com.QuadroDeHorario.model.entity.Usuario;
-import br.com.QuadroDeHorario.model.GenericaDAO;
 import br.com.QuadroDeHorario.model.util.DataHorario;
+import br.com.QuadroDeHorario.model.util.DataHorario.Turno;
 import br.com.QuadroDeHorario.model.util.Mensagem;
 import static br.com.QuadroDeHorario.view.QuadroDeHorarioController.corAmbiente1;
 import static br.com.QuadroDeHorario.view.QuadroDeHorarioController.corAmbiente2;
@@ -142,6 +143,9 @@ public class VisualizarQuadroSemestralController implements Initializable {
                     if (parametro instanceof Turma) {
                         turma = (Turma) parametro;
                         lbTitulo.setText("Turma " + turma.toString());
+                        if (!turma.getTurno().equals(Turno.DIURNO)) {
+                            turno = turma.getTurno();
+                        }
                     } else if (parametro instanceof DataHorario.Turno) {
                         turno = (DataHorario.Turno) parametro;
                     } else if (parametro instanceof Usuario) {
@@ -284,7 +288,7 @@ public class VisualizarQuadroSemestralController implements Initializable {
                     });
                     materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turma, DataHorario.Semestre.semestreAtual(), calendar.get(Calendar.YEAR)));
                     for (int i = 1; i < 7; i++) {
-                        TabelaHorarioImpressao tabelaHorarioImpressao = new TabelaHorarioImpressao(DataHorario.Semestre.semestreAtual().equals(DataHorario.Semestre.SEMESTRE1) ? i : i + 6, calendar.get(Calendar.YEAR), turma);
+                        TabelaHorarioImpressao tabelaHorarioImpressao = new TabelaHorarioImpressao(DataHorario.Semestre.semestreAtual().equals(DataHorario.Semestre.SEMESTRE1) ? i : i + 6, calendar.get(Calendar.YEAR), turma, turno);
                         tabelaHorarioImpressao.getStyleClass().remove("tabelaImpressao");
                         tabelaHorarioImpressao.setMinSize(Control.USE_COMPUTED_SIZE, 195);
                         tabelaHorarioImpressao.setPrefSize(Control.USE_COMPUTED_SIZE, 195);
@@ -299,9 +303,8 @@ public class VisualizarQuadroSemestralController implements Initializable {
                         tcInstrutor.setVisible(false);
                     });
                     materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorInstrutorTurnoSemestreAno(usuario, turno, DataHorario.Semestre.semestreAtual(), calendar.get(Calendar.YEAR)));
-                    TabelaHorarioImpressao.turno = turno;
                     for (int i = 1; i < 7; i++) {
-                        TabelaHorarioImpressao tabelaHorarioImpressao = new TabelaHorarioImpressao(DataHorario.Semestre.semestreAtual().equals(DataHorario.Semestre.SEMESTRE1) ? i : i + 6, calendar.get(Calendar.YEAR), usuario);
+                        TabelaHorarioImpressao tabelaHorarioImpressao = new TabelaHorarioImpressao(DataHorario.Semestre.semestreAtual().equals(DataHorario.Semestre.SEMESTRE1) ? i : i + 6, calendar.get(Calendar.YEAR), usuario, turno);
                         tabelaHorarioImpressao.getStyleClass().remove("tabelaImpressao");
                         tabelaHorarioImpressao.setMinSize(Control.USE_COMPUTED_SIZE, 195);
                         tabelaHorarioImpressao.setPrefSize(Control.USE_COMPUTED_SIZE, 195);
@@ -320,9 +323,8 @@ public class VisualizarQuadroSemestralController implements Initializable {
                         tcAmbiente5.setVisible(false);
                     });
                     materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorAmbienteTurnoSemestreAno(ambiente, turno, DataHorario.Semestre.semestreAtual(), calendar.get(Calendar.YEAR)));
-                    TabelaHorarioImpressao.turno = turno;
                     for (int i = 1; i < 7; i++) {
-                        TabelaHorarioImpressao tabelaHorarioImpressao = new TabelaHorarioImpressao(DataHorario.Semestre.semestreAtual().equals(DataHorario.Semestre.SEMESTRE1) ? i : i + 6, calendar.get(Calendar.YEAR), ambiente);
+                        TabelaHorarioImpressao tabelaHorarioImpressao = new TabelaHorarioImpressao(DataHorario.Semestre.semestreAtual().equals(DataHorario.Semestre.SEMESTRE1) ? i : i + 6, calendar.get(Calendar.YEAR), ambiente, turno);
                         tabelaHorarioImpressao.getStyleClass().remove("tabelaImpressao");
                         tabelaHorarioImpressao.setMinSize(Control.USE_COMPUTED_SIZE, 195);
                         tabelaHorarioImpressao.setPrefSize(Control.USE_COMPUTED_SIZE, 195);

@@ -15,6 +15,7 @@ import br.com.QuadroDeHorario.model.entity.Usuario;
 import br.com.QuadroDeHorario.model.util.DataHorario;
 import br.com.QuadroDeHorario.model.util.DataHorario.Turno;
 import br.com.QuadroDeHorario.model.util.FxMananger;
+import br.com.QuadroDeHorario.model.util.Mensagem;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -59,6 +60,7 @@ public class VisualizarHorarioSemestralController implements Initializable {
                 lbObjeto.setText("Turma");
                 objetos.setAll(new TurmaDAO().pegarTodasEntreData(new Date()));
                 cbObjeto.setPromptText("Selecione a turma...");
+                turnos.remove(Turno.NOITE);
             } else if (classe.equals(Usuario.class)) {
                 cbObjeto.setPromptText("Selecione o instrutor...");
                 objetos.setAll(new UsuarioDAO().pegarPorGrupo(new GrupoDAO().pegarGrupo("Instrutor")));
@@ -70,7 +72,7 @@ public class VisualizarHorarioSemestralController implements Initializable {
             }
             cbTurno.setPromptText("Selecione o turno...");
             cbTurno.setVisible(!classe.equals(Turma.class));
-            lbTurno.setVisible(!classe.equals(Turma.class));
+            lbTurno.visibleProperty().bind(cbTurno.visibleProperty());
         });
         turnos.setAll(Turno.values());
         turnos.remove(Turno.DIURNO);
@@ -80,11 +82,22 @@ public class VisualizarHorarioSemestralController implements Initializable {
 
     @FXML
     private void btVerSemestralActionEvent(ActionEvent actionEvent) {
-        ((Stage) apContainer.getScene().getWindow()).close();
-        if (classe.equals(Turma.class)) {
-            FxMananger.show("VisualizarQuadroSemestral", "Quadro semestral", false, true, new Object[]{cbObjeto.getSelectionModel().getSelectedItem()});
-        } else {
+        if (cbTurno.getSelectionModel().getSelectedItem() instanceof Turno) {
+            ((Stage) apContainer.getScene().getWindow()).close();
             FxMananger.show("VisualizarQuadroSemestral", "Quadro semestral", false, true, new Object[]{cbObjeto.getSelectionModel().getSelectedItem(), cbTurno.getSelectionModel().getSelectedItem()});
+        } else {
+            Mensagem.showError("Selecione o turno", "É necessário selecionar o turno");
+        }
+    }
+
+    @FXML
+    private void cbObjetoActionEvent(ActionEvent actionEvent) {
+        if (classe.equals(Turma.class)) {
+            cbTurno.setVisible(((Turma) cbObjeto.getSelectionModel().getSelectedItem()).getTurno().equals(Turno.DIURNO));
+            cbTurno.getSelectionModel().clearSelection();
+            if (!cbTurno.isVisible()) {
+                cbTurno.getSelectionModel().select(((Turma) cbObjeto.getSelectionModel().getSelectedItem()).getTurno());
+            }
         }
     }
 }

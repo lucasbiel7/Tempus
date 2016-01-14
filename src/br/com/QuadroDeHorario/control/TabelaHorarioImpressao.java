@@ -64,15 +64,16 @@ public class TabelaHorarioImpressao extends TableView<MesCalendario> {
     private SimpleDateFormat numeroDia = new SimpleDateFormat("dd");
     private Date inicio, fim;
     private Usuario instrutor;
-    public static DataHorario.Turno turno;
+    public DataHorario.Turno turno;
     private Ambiente ambiente;
     private Turma turma;
     private Turma turmaEspelho;
     private List<TableColumn<MesCalendario, Aula>> colunas;
 
-    public TabelaHorarioImpressao(int mes, int ano, Object tipo) {
+    public TabelaHorarioImpressao(int mes, int ano, Object tipo, DataHorario.Turno turno) {
         this.getStylesheets().add("/br/com/QuadroDeHorario/view/estilo.css");
         this.getStyleClass().add("tabelaImpressao");
+        this.turno = turno;
         try {
             if (tipo instanceof Usuario) {
                 instrutor = (Usuario) tipo;
@@ -103,7 +104,6 @@ public class TabelaHorarioImpressao extends TableView<MesCalendario> {
                 calendar.add(Calendar.DAY_OF_MONTH, 1);
             }
             tcNomeMes.getColumns().addListener(new ListChangeListener<TableColumn<MesCalendario, ?>>() {
-
                 private boolean suspender;
 
                 @Override
@@ -281,12 +281,12 @@ public class TabelaHorarioImpressao extends TableView<MesCalendario> {
                 Aula aula = null;
                 if (turma != null) {
                     if (turmaEspelho != null) {
-                        aula = new AulaDAO().pegarPorHorarioDiaTurma(mesCalendario.getHorario(), calendar.getTime(), turmaEspelho);
+                        aula = new AulaDAO().pegarPorHorarioDiaTurmaTurno(mesCalendario.getHorario(), calendar.getTime(), turmaEspelho, turno);
                         if (aula == null) {
-                            aula = new AulaDAO().pegarPorHorarioDiaTurma(mesCalendario.getHorario(), calendar.getTime(), turma);
+                            aula = new AulaDAO().pegarPorHorarioDiaTurmaTurno(mesCalendario.getHorario(), calendar.getTime(), turma, turno);
                         }
                     } else {
-                        aula = new AulaDAO().pegarPorHorarioDiaTurma(mesCalendario.getHorario(), calendar.getTime(), turma);
+                        aula = new AulaDAO().pegarPorHorarioDiaTurmaTurno(mesCalendario.getHorario(), calendar.getTime(), turma,turno);
                     }
                 } else if (instrutor != null) {
                     aula = new AulaDAO().pegarPorInstrutorTurnoDiaHorario(instrutor, turno, calendar.getTime(), mesCalendario.getHorario());

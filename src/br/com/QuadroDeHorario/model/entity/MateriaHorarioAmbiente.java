@@ -78,4 +78,9 @@ public class MateriaHorarioAmbiente implements Serializable {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return getId().toString();
+    }
+    
 }

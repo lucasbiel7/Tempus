@@ -36,7 +36,7 @@ public class ParametrosBanco {
     public static String IP;
     public static String USUARIO;
     public static String SENHA;
-    public static final double VERSAO = 3.66;
+    public static final double VERSAO = 3.67;
     public static final String REMOTO = "banco";
     public static final String LOCAL = "local";
 
@@ -165,12 +165,11 @@ public class ParametrosBanco {
     public static void setNOME_BANCO(String NOME_BANCO) {
         ParametrosBanco.NOME_BANCO = NOME_BANCO;
     }
-    
 
     public static Properties carregarPropriedades() {
         Properties properties = new Properties();
-        properties.setProperty("hibernate.connection.username", ParametrosBanco.USUARIO==null?"root":ParametrosBanco.USUARIO);
-        properties.setProperty("hibernate.connection.password", ParametrosBanco.SENHA==null?"root":ParametrosBanco.SENHA);
+        properties.setProperty("hibernate.connection.username", ParametrosBanco.USUARIO == null ? "root" : ParametrosBanco.USUARIO);
+        properties.setProperty("hibernate.connection.password", ParametrosBanco.SENHA == null ? "root" : ParametrosBanco.SENHA);
         properties.setProperty("hibernate.connection.url", "jdbc:mysql://" + ParametrosBanco.IP + "/" + ParametrosBanco.NOME_BANCO);
         return properties;
     }

@@ -77,7 +77,7 @@
     -fx-padding: 10 20 10 20;
 }
 
-.button:hover , .button:focused     {
+.button:hover , .button:focused{
     -fx-font-family: 'Open Sans Light';
     -fx-background-color: 
         rgba(0,0,0,0.08),
@@ -297,9 +297,6 @@ Menus item para popup*/
     -fx-text-fill: #242d35;
 }
 
-
-
-
 .fonte-preta .label{
     -fx-text-fill:black;
 }
@@ -310,7 +307,7 @@ Menus item para popup*/
     -fx-padding: 0px;
 }
 
-.logout:hover{
+.logout:hover, .logout:focused{
     -fx-background-color: transparent;
 }
 
