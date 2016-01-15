@@ -16,6 +16,6 @@ public class GerenciarImagem {
     public static final String VIEW = "/br/com/QuadroDeHorario/view/";
 
     public static InputStream carregarImagem(String imagem) {
-        return GerenciarImagem.class.getResourceAsStream(VIEW +"image/"+ imagem);
+        return GerenciarImagem.class.getResourceAsStream(VIEW + "image/" + imagem);
     }
 }

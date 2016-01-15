@@ -12,38 +12,38 @@
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
-   <children>
-      <ListView fx:id="lvCalendarios" layoutX="35.0" layoutY="97.0" prefHeight="200.0" prefWidth="200.0" />
-      <ComboBox fx:id="cbEventos" layoutX="35.0" layoutY="55.0" onAction="#cbEventoActionEvent" prefHeight="30.0" prefWidth="200.0" promptText="Selecione..." />
-      <ListView fx:id="lvCalendariosAdicionados" layoutX="319.0" layoutY="97.0" prefHeight="200.0" prefWidth="200.0" />
-      <Button layoutX="248.0" layoutY="117.0" mnemonicParsing="false" onAction="#btAdicionarUmCalendarioActionEvent" prefHeight="35.0" prefWidth="55.0" text="&gt;" />
-      <Button layoutX="248.0" layoutY="162.0" mnemonicParsing="false" onAction="#btRemoverUmCalendarioActionEvent" prefHeight="35.0" prefWidth="55.0" text="&lt;" />
-      <Button layoutX="248.0" layoutY="209.0" mnemonicParsing="false" onAction="#btAdicionarTodosCalendarioActionEvent" text="&gt;&gt;" />
-      <Button layoutX="248.0" layoutY="253.0" mnemonicParsing="false" onAction="#btRemoverTodosCalendarioActionEvent" prefHeight="35.0" prefWidth="55.0" text="&lt;&lt;" />
-      <ComboBox fx:id="cbGrupo" layoutX="35.0" layoutY="359.0" onAction="#cbGrupoActionEvent" prefHeight="30.0" prefWidth="200.0" promptText="Selecione..." />
-      <Button layoutX="251.0" layoutY="555.0" mnemonicParsing="false" onAction="#btRemoverTodosUsuarioActionEvent" prefHeight="35.0" prefWidth="55.0" text="&lt;&lt;" />
-      <Button layoutX="251.0" layoutY="511.0" mnemonicParsing="false" onAction="#btAdicionarTodosUsuarioActionEvent" text="&gt;&gt;" />
-      <Button layoutX="251.0" layoutY="464.0" mnemonicParsing="false" onAction="#btRemoverUmUsuarioActionEvent" prefHeight="35.0" prefWidth="55.0" text="&lt;" />
-      <Button layoutX="251.0" layoutY="419.0" mnemonicParsing="false" onAction="#btAdicionarUmUsuarioActionEvent" prefHeight="35.0" prefWidth="55.0" text="&gt;" />
-      <ListView fx:id="lvUsuarioAdicionado" layoutX="319.0" layoutY="399.0" prefHeight="200.0" prefWidth="200.0" />
-      <ListView fx:id="lvUsuario" layoutX="38.0" layoutY="399.0" prefHeight="200.0" prefWidth="200.0" />
-      <Button defaultButton="true" layoutX="534.0" layoutY="516.0" mnemonicParsing="false" onAction="#btSalvarActionEvent" prefHeight="35.0" prefWidth="89.0" text="Salvar" />
-      <Button cancelButton="true" layoutX="534.0" layoutY="560.0" mnemonicParsing="false" onAction="#btCancelarActionEvent" text="Cancelar" />
-      <Separator layoutY="304.0" prefHeight="2.0" prefWidth="407.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <Label alignment="CENTER" layoutX="115.0" layoutY="14.0" prefHeight="30.0" prefWidth="371.0" text="Dias do evento" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="115.0" layoutY="318.0" prefHeight="30.0" prefWidth="371.0" text="Adicionar Pessoas/Grupo" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="38.0" layoutY="614.0" prefHeight="43.0" prefWidth="590.0" text="O usuário irá assumir o dia todo(Turnos que ele trabalha) de evento quando adicionado por grupo.&#10;Caso ele possua aula em um turno não será adicionado o evento para aquele turno.&#10;">
-         <font>
-            <Font name="System Italic" size="12.0" />
-         </font>
-      </Label>
-   </children>
+    <children>
+        <ListView fx:id="lvCalendarios" layoutX="35.0" layoutY="97.0" prefHeight="200.0" prefWidth="200.0" />
+        <ComboBox fx:id="cbEventos" layoutX="35.0" layoutY="55.0" onAction="#cbEventoActionEvent" prefHeight="30.0" prefWidth="200.0" promptText="Selecione..." />
+        <ListView fx:id="lvCalendariosAdicionados" layoutX="319.0" layoutY="97.0" prefHeight="200.0" prefWidth="200.0" />
+        <Button layoutX="248.0" layoutY="117.0" mnemonicParsing="false" onAction="#btAdicionarUmCalendarioActionEvent" prefHeight="35.0" prefWidth="55.0" text="&gt;" />
+        <Button layoutX="248.0" layoutY="162.0" mnemonicParsing="false" onAction="#btRemoverUmCalendarioActionEvent" prefHeight="35.0" prefWidth="55.0" text="&lt;" />
+        <Button layoutX="248.0" layoutY="209.0" mnemonicParsing="false" onAction="#btAdicionarTodosCalendarioActionEvent" text="&gt;&gt;" />
+        <Button layoutX="248.0" layoutY="253.0" mnemonicParsing="false" onAction="#btRemoverTodosCalendarioActionEvent" prefHeight="35.0" prefWidth="55.0" text="&lt;&lt;" />
+        <ComboBox fx:id="cbGrupo" layoutX="35.0" layoutY="359.0" onAction="#cbGrupoActionEvent" prefHeight="30.0" prefWidth="200.0" promptText="Selecione..." />
+        <Button layoutX="251.0" layoutY="555.0" mnemonicParsing="false" onAction="#btRemoverTodosUsuarioActionEvent" prefHeight="35.0" prefWidth="55.0" text="&lt;&lt;" />
+        <Button layoutX="251.0" layoutY="511.0" mnemonicParsing="false" onAction="#btAdicionarTodosUsuarioActionEvent" text="&gt;&gt;" />
+        <Button layoutX="251.0" layoutY="464.0" mnemonicParsing="false" onAction="#btRemoverUmUsuarioActionEvent" prefHeight="35.0" prefWidth="55.0" text="&lt;" />
+        <Button layoutX="251.0" layoutY="419.0" mnemonicParsing="false" onAction="#btAdicionarUmUsuarioActionEvent" prefHeight="35.0" prefWidth="55.0" text="&gt;" />
+        <ListView fx:id="lvUsuarioAdicionado" layoutX="319.0" layoutY="399.0" prefHeight="200.0" prefWidth="200.0" />
+        <ListView fx:id="lvUsuario" layoutX="38.0" layoutY="399.0" prefHeight="200.0" prefWidth="200.0" />
+        <Button defaultButton="true" layoutX="534.0" layoutY="516.0" mnemonicParsing="false" onAction="#btSalvarActionEvent" prefHeight="35.0" prefWidth="89.0" text="Salvar" />
+        <Button cancelButton="true" layoutX="534.0" layoutY="560.0" mnemonicParsing="false" onAction="#btCancelarActionEvent" text="Cancelar" />
+        <Separator layoutY="304.0" prefHeight="2.0" prefWidth="407.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+        <Label alignment="CENTER" layoutX="115.0" layoutY="14.0" prefHeight="30.0" prefWidth="371.0" text="Dias do evento" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <Label alignment="CENTER" layoutX="115.0" layoutY="318.0" prefHeight="30.0" prefWidth="371.0" text="Adicionar Pessoas/Grupo" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <Label layoutX="38.0" layoutY="614.0" prefHeight="43.0" prefWidth="590.0" text="O usuário irá assumir o dia todo(Turnos que ele trabalha) de evento quando adicionado por grupo.&#10;Caso ele possua aula em um turno não será adicionado o evento para aquele turno.&#10;">
+            <font>
+                <Font name="System Italic" size="12.0" />
+            </font>
+        </Label>
+    </children>
 </AnchorPane>

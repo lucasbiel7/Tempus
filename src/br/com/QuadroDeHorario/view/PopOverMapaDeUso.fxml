@@ -12,12 +12,12 @@
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
-   <children>
-      <Label fx:id="lbTitulo" layoutX="15.0" layoutY="6.0" prefHeight="48.0" prefWidth="237.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <ListView fx:id="lvEventos" layoutX="14.0" layoutY="63.0" prefHeight="237.0" prefWidth="237.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" />
-   </children>
+    <children>
+        <Label fx:id="lbTitulo" layoutX="15.0" layoutY="6.0" prefHeight="48.0" prefWidth="237.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+        <ListView fx:id="lvEventos" layoutX="14.0" layoutY="63.0" prefHeight="237.0" prefWidth="237.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+    </children>
 </AnchorPane>

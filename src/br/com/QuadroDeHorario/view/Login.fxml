@@ -13,19 +13,19 @@
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
-   <children>
-      <TextField fx:id="tfLogin" layoutX="34.0" layoutY="94.0" prefHeight="30.0" prefWidth="393.0" promptText="Login/Email FIEMG" />
-      <PasswordField fx:id="pfSenha" layoutX="34.0" layoutY="141.0" prefHeight="30.0" prefWidth="393.0" promptText="Senha" />
-      <Button defaultButton="true" layoutX="83.0" layoutY="197.0" mnemonicParsing="false" onAction="#btLoginActionEvent" prefWidth="135.0" text="Login" />
-      <Button cancelButton="true" layoutX="168.0" layoutY="245.0" mnemonicParsing="false" onAction="#btVisualizarHorarioActionEvent" prefHeight="35.0" prefWidth="126.0" text="Página Inicial" />
-      <Button layoutX="251.0" layoutY="197.0" mnemonicParsing="false" onAction="#btRecuperarSenhaActionEvent" text="Recuperar Senha" />
-      <Label fx:id="lbLogo" layoutX="24.0" layoutY="12.0" prefHeight="75.0" prefWidth="393.0">
-         <graphic>
-            <ImageView fx:id="ivLogo" fitHeight="61.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" />
-         </graphic>
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-   </children>
+    <children>
+        <TextField fx:id="tfLogin" layoutX="34.0" layoutY="94.0" prefHeight="30.0" prefWidth="393.0" promptText="Login/Email FIEMG" />
+        <PasswordField fx:id="pfSenha" layoutX="34.0" layoutY="141.0" prefHeight="30.0" prefWidth="393.0" promptText="Senha" />
+        <Button defaultButton="true" layoutX="83.0" layoutY="197.0" mnemonicParsing="false" onAction="#btLoginActionEvent" prefWidth="135.0" text="Login" />
+        <Button cancelButton="true" layoutX="168.0" layoutY="245.0" mnemonicParsing="false" onAction="#btVisualizarHorarioActionEvent" prefHeight="35.0" prefWidth="126.0" text="Página Inicial" />
+        <Button layoutX="251.0" layoutY="197.0" mnemonicParsing="false" onAction="#btRecuperarSenhaActionEvent" text="Recuperar Senha" />
+        <Label fx:id="lbLogo" layoutX="24.0" layoutY="12.0" prefHeight="75.0" prefWidth="393.0">
+            <graphic>
+                <ImageView fx:id="ivLogo" fitHeight="61.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" />
+            </graphic>
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Label>
+    </children>
 </AnchorPane>

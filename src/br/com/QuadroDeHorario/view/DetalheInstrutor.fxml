@@ -13,20 +13,20 @@
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
-   <children>
-      <Label fx:id="lbTitulo" layoutX="14.0" layoutY="14.0" prefHeight="95.0" prefWidth="572.0" text="nome instrutor" textAlignment="CENTER" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <font>
-            <Font size="48.0" />
-         </font>
-      </Label>
-      <Label fx:id="lbDetalhe" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="14.0" layoutY="109.0" prefHeight="400.0" prefWidth="167.0" text="detalhes" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="100.0" />
-      <LineChart fx:id="lcGrafico" layoutX="183.0" layoutY="116.0" prefHeight="400.0" prefWidth="470.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="174.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
-        <xAxis>
-          <CategoryAxis side="BOTTOM" tickLabelFill="WHITE" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis fx:id="naAulas" side="LEFT" tickLabelFill="WHITE" />
-        </yAxis>
-      </LineChart>
-   </children>
+    <children>
+        <Label fx:id="lbTitulo" layoutX="14.0" layoutY="14.0" prefHeight="95.0" prefWidth="572.0" text="nome instrutor" textAlignment="CENTER" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <font>
+                <Font size="48.0" />
+            </font>
+        </Label>
+        <Label fx:id="lbDetalhe" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="14.0" layoutY="109.0" prefHeight="400.0" prefWidth="167.0" text="detalhes" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="100.0" />
+        <LineChart fx:id="lcGrafico" layoutX="183.0" layoutY="116.0" prefHeight="400.0" prefWidth="470.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="174.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+            <xAxis>
+                <CategoryAxis side="BOTTOM" tickLabelFill="WHITE" />
+            </xAxis>
+            <yAxis>
+                <NumberAxis fx:id="naAulas" side="LEFT" tickLabelFill="WHITE" />
+            </yAxis>
+        </LineChart>
+    </children>
 </AnchorPane>

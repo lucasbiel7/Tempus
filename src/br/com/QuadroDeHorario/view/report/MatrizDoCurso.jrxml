@@ -1,125 +1,125 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MatrizDoCurso" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9d6c8edc-ff86-4810-a71f-9705632eebea">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<parameter name="titulo" class="java.lang.String"/>
-	<parameter name="curso" class="java.lang.String"/>
-	<parameter name="cargaHoraria" class="java.lang.String"/>
-	<parameter name="image" class="java.awt.Image"/>
-	<field name="COLUMN_0" class="java.lang.String"/>
-	<field name="COLUMN_1" class="java.lang.String"/>
-	<title>
-		<band height="126" splitType="Stretch">
-			<image scaleImage="FillFrame">
-				<reportElement x="359" y="0" width="196" height="32" uuid="aebc8041-26a5-4bf5-8768-b9bc205629cb"/>
-				<imageExpression><![CDATA[$P{image}]]></imageExpression>
-			</image>
-			<textField>
-				<reportElement x="0" y="0" width="359" height="48" uuid="86364fba-dfb7-4346-a694-69805f4d46c7"/>
-				<textElement markup="html">
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
-			</textField>
-			<line>
-				<reportElement x="0" y="52" width="555" height="1" uuid="65b5fea1-ef6d-4996-9705-bf6f7e928b4e"/>
-			</line>
-			<staticText>
-				<reportElement mode="Opaque" x="0" y="62" width="555" height="20" backcolor="#CCFFCC" uuid="1627bb29-ed8c-464c-b44c-792cb6f854f5"/>
-				<text><![CDATA[1- Nome do curso]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="0" y="82" width="555" height="20" uuid="7936f66b-76ff-4a43-a4f6-bda6118c7f50"/>
-				<textFieldExpression><![CDATA[$P{curso}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement mode="Opaque" x="0" y="102" width="555" height="20" backcolor="#CCFFCC" uuid="fb7d020f-223e-41b2-82ea-826ccf30e147"/>
-				<text><![CDATA[2-Quadro Curricular]]></text>
-			</staticText>
-			<line>
-				<reportElement x="0" y="55" width="555" height="1" uuid="5853b895-d126-4bb3-8961-2f0da47d1e59"/>
-			</line>
-		</band>
-	</title>
-	<columnHeader>
-		<band height="20">
-			<rectangle>
-				<reportElement x="59" y="0" width="271" height="20" uuid="0f488f5a-8d4b-46f3-ae92-440338e2ecc8"/>
-			</rectangle>
-			<staticText>
-				<reportElement mode="Opaque" x="59" y="0" width="271" height="20" backcolor="#CCCCCC" uuid="3d64e467-ceb8-4f77-a479-bf60ff3b447e"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Componente curricular]]></text>
-			</staticText>
-			<rectangle>
-				<reportElement x="330" y="0" width="171" height="20" uuid="46575e80-d842-4260-8b3d-e9ce2ceb7942"/>
-			</rectangle>
-			<staticText>
-				<reportElement mode="Opaque" x="330" y="0" width="171" height="20" backcolor="#CCCCCC" uuid="c495402e-1e58-4f0d-900d-b208886a2c9d"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Carga Horária]]></text>
-			</staticText>
-		</band>
-	</columnHeader>
-	<detail>
-		<band height="20" splitType="Stretch">
-			<rectangle>
-				<reportElement x="59" y="0" width="271" height="20" uuid="c12c63ad-b44c-42ab-bd8c-159d6862f59c"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="330" y="0" width="171" height="20" uuid="2f2b8b20-cc3b-4de4-9dc0-db3ce69a75ef"/>
-			</rectangle>
-			<textField>
-				<reportElement x="59" y="0" width="271" height="20" uuid="e1aae0c8-c5e0-4621-84bb-c6e18f7554bd"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{COLUMN_0}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="330" y="0" width="171" height="20" uuid="65d711c5-c76b-4f5a-a751-4a88897f8e63"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{COLUMN_1}]]></textFieldExpression>
-			</textField>
-		</band>
-	</detail>
-	<columnFooter>
-		<band height="21">
-			<rectangle>
-				<reportElement x="59" y="0" width="271" height="20" uuid="19d608b9-4e53-44da-a2b0-7f0079f45128"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="330" y="0" width="171" height="20" uuid="608547eb-a069-48e7-b8e9-f65482e7cf01"/>
-			</rectangle>
-			<staticText>
-				<reportElement mode="Opaque" x="59" y="0" width="271" height="20" backcolor="#CCCCCC" uuid="9aa5097c-92e9-489d-b9f3-c4a21416f1fd"/>
-				<textElement textAlignment="Right"/>
-				<text><![CDATA[Carga horária total  ]]></text>
-			</staticText>
-			<textField>
-				<reportElement mode="Opaque" x="330" y="0" width="171" height="20" backcolor="#CCCCCC" uuid="b3514284-f22f-46f2-a347-875a81648c5f"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{cargaHoraria}]]></textFieldExpression>
-			</textField>
-		</band>
-	</columnFooter>
-	<pageFooter>
-		<band height="44">
-			<textField>
-				<reportElement x="346" y="0" width="209" height="44" uuid="c5021913-9e46-457d-8a1d-f8a057616e7d"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="0" y="0" width="346" height="44" uuid="ffe917b3-633a-462b-9170-a725135d5dd3"/>
-				<textElement markup="html">
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[<html><b>Serviço Nacional de Aprendizagem Industrial</b><br/>
+    <property name="ireport.zoom" value="1.0"/>
+    <property name="ireport.x" value="0"/>
+    <property name="ireport.y" value="0"/>
+    <parameter name="titulo" class="java.lang.String"/>
+    <parameter name="curso" class="java.lang.String"/>
+    <parameter name="cargaHoraria" class="java.lang.String"/>
+    <parameter name="image" class="java.awt.Image"/>
+    <field name="COLUMN_0" class="java.lang.String"/>
+    <field name="COLUMN_1" class="java.lang.String"/>
+    <title>
+        <band height="126" splitType="Stretch">
+            <image scaleImage="FillFrame">
+                <reportElement x="359" y="0" width="196" height="32" uuid="aebc8041-26a5-4bf5-8768-b9bc205629cb"/>
+                <imageExpression><![CDATA[$P{image}]]></imageExpression>
+            </image>
+            <textField>
+                <reportElement x="0" y="0" width="359" height="48" uuid="86364fba-dfb7-4346-a694-69805f4d46c7"/>
+                <textElement markup="html">
+                    <font size="14"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+            </textField>
+            <line>
+                <reportElement x="0" y="52" width="555" height="1" uuid="65b5fea1-ef6d-4996-9705-bf6f7e928b4e"/>
+            </line>
+            <staticText>
+                <reportElement mode="Opaque" x="0" y="62" width="555" height="20" backcolor="#CCFFCC" uuid="1627bb29-ed8c-464c-b44c-792cb6f854f5"/>
+                <text><![CDATA[1- Nome do curso]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="0" y="82" width="555" height="20" uuid="7936f66b-76ff-4a43-a4f6-bda6118c7f50"/>
+                <textFieldExpression><![CDATA[$P{curso}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement mode="Opaque" x="0" y="102" width="555" height="20" backcolor="#CCFFCC" uuid="fb7d020f-223e-41b2-82ea-826ccf30e147"/>
+                <text><![CDATA[2-Quadro Curricular]]></text>
+            </staticText>
+            <line>
+                <reportElement x="0" y="55" width="555" height="1" uuid="5853b895-d126-4bb3-8961-2f0da47d1e59"/>
+            </line>
+        </band>
+    </title>
+    <columnHeader>
+        <band height="20">
+            <rectangle>
+                <reportElement x="59" y="0" width="271" height="20" uuid="0f488f5a-8d4b-46f3-ae92-440338e2ecc8"/>
+            </rectangle>
+            <staticText>
+                <reportElement mode="Opaque" x="59" y="0" width="271" height="20" backcolor="#CCCCCC" uuid="3d64e467-ceb8-4f77-a479-bf60ff3b447e"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <text><![CDATA[Componente curricular]]></text>
+            </staticText>
+            <rectangle>
+                <reportElement x="330" y="0" width="171" height="20" uuid="46575e80-d842-4260-8b3d-e9ce2ceb7942"/>
+            </rectangle>
+            <staticText>
+                <reportElement mode="Opaque" x="330" y="0" width="171" height="20" backcolor="#CCCCCC" uuid="c495402e-1e58-4f0d-900d-b208886a2c9d"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <text><![CDATA[Carga Horária]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="20" splitType="Stretch">
+            <rectangle>
+                <reportElement x="59" y="0" width="271" height="20" uuid="c12c63ad-b44c-42ab-bd8c-159d6862f59c"/>
+            </rectangle>
+            <rectangle>
+                <reportElement x="330" y="0" width="171" height="20" uuid="2f2b8b20-cc3b-4de4-9dc0-db3ce69a75ef"/>
+            </rectangle>
+            <textField>
+                <reportElement x="59" y="0" width="271" height="20" uuid="e1aae0c8-c5e0-4621-84bb-c6e18f7554bd"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{COLUMN_0}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="330" y="0" width="171" height="20" uuid="65d711c5-c76b-4f5a-a751-4a88897f8e63"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{COLUMN_1}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+    <columnFooter>
+        <band height="21">
+            <rectangle>
+                <reportElement x="59" y="0" width="271" height="20" uuid="19d608b9-4e53-44da-a2b0-7f0079f45128"/>
+            </rectangle>
+            <rectangle>
+                <reportElement x="330" y="0" width="171" height="20" uuid="608547eb-a069-48e7-b8e9-f65482e7cf01"/>
+            </rectangle>
+            <staticText>
+                <reportElement mode="Opaque" x="59" y="0" width="271" height="20" backcolor="#CCCCCC" uuid="9aa5097c-92e9-489d-b9f3-c4a21416f1fd"/>
+                <textElement textAlignment="Right"/>
+                <text><![CDATA[Carga horária total  ]]></text>
+            </staticText>
+            <textField>
+                <reportElement mode="Opaque" x="330" y="0" width="171" height="20" backcolor="#CCCCCC" uuid="b3514284-f22f-46f2-a347-875a81648c5f"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$P{cargaHoraria}]]></textFieldExpression>
+            </textField>
+        </band>
+    </columnFooter>
+    <pageFooter>
+        <band height="44">
+            <textField>
+                <reportElement x="346" y="0" width="209" height="44" uuid="c5021913-9e46-457d-8a1d-f8a057616e7d"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="0" y="0" width="346" height="44" uuid="ffe917b3-633a-462b-9170-a725135d5dd3"/>
+                <textElement markup="html">
+                    <font size="8"/>
+                </textElement>
+                <text><![CDATA[<html><b>Serviço Nacional de Aprendizagem Industrial</b><br/>
 Av. do Contorno, 4520 – 11º andar – Funcionários – CEP 30.110-916 – Belo Horizonte – MG – Brasil<br/>
 Telefone: (31) 3263-4319 - www.senaimg.com.br<br/>]]></text>
-			</staticText>
-		</band>
-	</pageFooter>
+            </staticText>
+        </band>
+    </pageFooter>
 </jasperReport>

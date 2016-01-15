@@ -13,50 +13,51 @@
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
-   <children>
-      <HBox alignment="CENTER" layoutX="9.0" layoutY="20.0" spacing="10.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
-         <children>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#btRelatorioActionEvent" prefHeight="75.0" prefWidth="226.0" text="Relatórios" textAlignment="RIGHT">
-               <graphic>
-                  <ImageView fitHeight="51.0" fitWidth="36.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@image/report.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#btGraficoActionEvent" prefHeight="75.0" prefWidth="226.0" text="Gráficos" textAlignment="RIGHT" visible="false">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="32.0" fitWidth="42.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@image/graficos.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#btMapaDeUsoActionEvent" prefHeight="75.0" prefWidth="226.0" text="Mapa de&#10;Disponibilidade" textAlignment="RIGHT">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="41.0" fitWidth="89.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@image/mapa.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-         </children>
-      </HBox>
-      <ScrollPane fx:id="spPrincipal" fitToHeight="true" fitToWidth="true" layoutX="14.0" layoutY="94.0" prefHeight="365.0" prefViewportHeight="315.0" prefViewportWidth="806.0" prefWidth="806.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="94.0">
-         <content>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="mainFxmlClass" />
-         </content></ScrollPane>
-   </children>
+    <children>
+        <HBox alignment="CENTER" layoutX="9.0" layoutY="20.0" spacing="10.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+            <children>
+                <Button alignment="CENTER" mnemonicParsing="false" onAction="#btRelatorioActionEvent" prefHeight="75.0" prefWidth="226.0" text="Relatórios" textAlignment="RIGHT">
+                    <graphic>
+                        <ImageView fitHeight="51.0" fitWidth="36.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@image/report.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Button>
+                <Button alignment="CENTER" mnemonicParsing="false" onAction="#btGraficoActionEvent" prefHeight="75.0" prefWidth="226.0" text="Gráficos" textAlignment="RIGHT" visible="false">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="42.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@image/graficos.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button alignment="CENTER" mnemonicParsing="false" onAction="#btMapaDeUsoActionEvent" prefHeight="75.0" prefWidth="226.0" text="Mapa de&#10;Disponibilidade" textAlignment="RIGHT">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="41.0" fitWidth="89.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@image/mapa.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </children>
+        </HBox>
+        <ScrollPane fx:id="spPrincipal" fitToHeight="true" fitToWidth="true" layoutX="14.0" layoutY="94.0" prefHeight="365.0" prefViewportHeight="315.0" prefViewportWidth="806.0" prefWidth="806.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="94.0">
+            <content>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="mainFxmlClass" />
+            </content>
+        </ScrollPane>
+    </children>
 </AnchorPane>

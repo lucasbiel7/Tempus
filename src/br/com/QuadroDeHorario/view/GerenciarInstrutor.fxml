@@ -11,20 +11,20 @@
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
-   <children>
-      <TableView fx:id="tvUsuario" layoutY="6.0" onMouseReleased="#tvUsuarioMouseReleased" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <columns>
-            <TableColumn prefWidth="75.0" text="Ocupação de docentes">
-               <columns>
-                <TableColumn fx:id="tcNome" prefWidth="75.0" text="Nome" />
-                <TableColumn fx:id="tcJanelas" prefWidth="75.0" text="Janelas" />
-                  <TableColumn fx:id="tcAulas" prefWidth="75.0" text="Aulas" />
-               </columns>
-            </TableColumn>
-        </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
-   </children>
+    <children>
+        <TableView fx:id="tvUsuario" layoutY="6.0" onMouseReleased="#tvUsuarioMouseReleased" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <columns>
+                <TableColumn prefWidth="75.0" text="Ocupação de docentes">
+                    <columns>
+                        <TableColumn fx:id="tcNome" prefWidth="75.0" text="Nome" />
+                        <TableColumn fx:id="tcJanelas" prefWidth="75.0" text="Janelas" />
+                        <TableColumn fx:id="tcAulas" prefWidth="75.0" text="Aulas" />
+                    </columns>
+                </TableColumn>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+    </children>
 </AnchorPane>

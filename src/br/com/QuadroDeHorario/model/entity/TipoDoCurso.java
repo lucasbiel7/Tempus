@@ -24,6 +24,7 @@ import javax.persistence.OneToMany;
 @NamedQueries({
     @NamedQuery(name = "TipoDoCurso.findAll", query = "SELECT t FROM TipoDoCurso t")})
 public class TipoDoCurso implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +32,7 @@ public class TipoDoCurso implements Serializable {
     private Integer id;
     private String descricao;
     @Basic(optional = false)
-    private boolean ativo=true;
+    private boolean ativo = true;
     @OneToMany(mappedBy = "tipoDoCurso")
     private List<Curso> cursoList;
 
@@ -103,5 +104,5 @@ public class TipoDoCurso implements Serializable {
     public String toString() {
         return getDescricao();
     }
-    
+
 }

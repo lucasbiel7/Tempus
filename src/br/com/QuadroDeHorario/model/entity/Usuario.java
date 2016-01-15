@@ -72,12 +72,14 @@ public class Usuario implements Serializable {
     private String sistemaLogado;
     @Column(unique = true)
     private String cartao;
-    @OneToMany(mappedBy = "materiaTurmaInstrutorSemestre.instrutor")
+    @OneToMany(mappedBy = "materiaTurmaInstrutorSemestre.instrutor", cascade = CascadeType.REMOVE)
     private List<MateriaHorario> materiaHorarios;
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
     private List<Escolaridade> escolaridades;
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
     private List<EmprestaChave> usuarioAmbientes;
+    @OneToMany(mappedBy = "id.usuario", cascade = CascadeType.REMOVE)
+    private List<PermissaoUsuario> permissaoUsuarios;
 
     public Usuario() {
     }

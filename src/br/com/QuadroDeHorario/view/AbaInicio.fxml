@@ -12,53 +12,53 @@
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
-   <children>
-      <SplitPane dividerPositions="0.36622073578595316, 0.9949832775919732" prefHeight="610.0" prefWidth="600.0" styleClass="mainFxmlClass" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <items>
-          <AnchorPane maxWidth="222.0" minHeight="0.0" minWidth="0.0" prefHeight="602.0" prefWidth="216.0" styleClass="mainFxmlClass">
-               <children>
-                  <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" styleClass="mainFxmlClass">
-                           <children>
-                              <Button fx:id="btAbrirInfografico" layoutX="48.0" layoutY="187.0" mnemonicParsing="false" onAction="#btAbrirInfograficoActionEvent" prefHeight="60.0" prefWidth="118.0" text="Abrir &#10;Infográfico" />
-                              <Label layoutX="17.0" layoutY="70.0" prefHeight="60.0" prefWidth="180.0" text="Veja os Instrutores que possuem&#10;horários Vagos e a carga horária&#10;de cada instrutor no dia." />
-                              <Label alignment="CENTER" layoutX="9.0" layoutY="14.0" prefHeight="38.0" prefWidth="197.0" text="Infográfico" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="System Bold" size="22.0" />
-                                 </font>
-                              </Label>
-                              <DatePicker fx:id="dpData" layoutX="17.0" layoutY="138.0" prefHeight="25.0" prefWidth="180.0" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="300.0" prefWidth="191.0" styleClass="mainFxmlClass">
-                           <children>
-                              <Button fx:id="btAbrirCalendarioEventos" layoutX="30.0" layoutY="138.0" mnemonicParsing="false" onAction="#btCalendarioActionEvent" prefHeight="51.0" prefWidth="136.0" text="Abrir calendário &#10;EVENTOS" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="138.0" />
-                              <Button fx:id="btAbrirCalendarioEscolar" layoutX="31.0" layoutY="208.0" mnemonicParsing="false" onAction="#btCalendarioEscolaActionEvent" prefHeight="51.0" prefWidth="136.0" text="Abrir calendário &#10;ESCOLAR&#10;" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="200.0" />
-                              <Label alignment="CENTER" prefHeight="38.0" prefWidth="217.0" text="Calendários" textAlignment="RIGHT" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <font>
-                                    <Font name="System Bold" size="22.0" />
-                                 </font>
-                              </Label>
-                              <Spinner fx:id="spAno" layoutX="14.0" layoutY="83.0" prefHeight="30.0" prefWidth="188.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="83.0" />
-                              <Label alignment="CENTER" contentDisplay="TOP" layoutX="18.0" layoutY="38.0" prefHeight="24.0" prefWidth="180.0" text="Registre feriados e eventos&#10;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="38.0" />
-                           </children>
-                        </AnchorPane>
-                    </items>
-                  </SplitPane>
-               </children>
-            </AnchorPane>
-            <ScrollPane fx:id="spPrincipal" fitToHeight="true" fitToWidth="true">
-               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="mainFxmlClass" />
-               </content>
-            </ScrollPane>
-            <ScrollPane fx:id="spEventos" fitToHeight="true" fitToWidth="true">
-               <content>
-                  <AnchorPane prefHeight="487.0" prefWidth="0.0" styleClass="mainFxmlClass" />
-               </content>
-            </ScrollPane>
-        </items>
-      </SplitPane>
-   </children>
+    <children>
+        <SplitPane dividerPositions="0.36622073578595316, 0.9949832775919732" prefHeight="610.0" prefWidth="600.0" styleClass="mainFxmlClass" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <items>
+                <AnchorPane maxWidth="222.0" minHeight="0.0" minWidth="0.0" prefHeight="602.0" prefWidth="216.0" styleClass="mainFxmlClass">
+                    <children>
+                        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <items>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" styleClass="mainFxmlClass">
+                                    <children>
+                                        <Button fx:id="btAbrirInfografico" layoutX="48.0" layoutY="187.0" mnemonicParsing="false" onAction="#btAbrirInfograficoActionEvent" prefHeight="60.0" prefWidth="118.0" text="Abrir &#10;Infográfico" />
+                                        <Label layoutX="17.0" layoutY="70.0" prefHeight="60.0" prefWidth="180.0" text="Veja os Instrutores que possuem&#10;horários Vagos e a carga horária&#10;de cada instrutor no dia." />
+                                        <Label alignment="CENTER" layoutX="9.0" layoutY="14.0" prefHeight="38.0" prefWidth="197.0" text="Infográfico" textAlignment="CENTER">
+                                            <font>
+                                                <Font name="System Bold" size="22.0" />
+                                            </font>
+                                        </Label>
+                                        <DatePicker fx:id="dpData" layoutX="17.0" layoutY="138.0" prefHeight="25.0" prefWidth="180.0" />
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="300.0" prefWidth="191.0" styleClass="mainFxmlClass">
+                                    <children>
+                                        <Button fx:id="btAbrirCalendarioEventos" layoutX="30.0" layoutY="138.0" mnemonicParsing="false" onAction="#btCalendarioActionEvent" prefHeight="51.0" prefWidth="136.0" text="Abrir calendário &#10;EVENTOS" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="138.0" />
+                                        <Button fx:id="btAbrirCalendarioEscolar" layoutX="31.0" layoutY="208.0" mnemonicParsing="false" onAction="#btCalendarioEscolaActionEvent" prefHeight="51.0" prefWidth="136.0" text="Abrir calendário &#10;ESCOLAR&#10;" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="200.0" />
+                                        <Label alignment="CENTER" prefHeight="38.0" prefWidth="217.0" text="Calendários" textAlignment="RIGHT" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <font>
+                                                <Font name="System Bold" size="22.0" />
+                                            </font>
+                                        </Label>
+                                        <Spinner fx:id="spAno" layoutX="14.0" layoutY="83.0" prefHeight="30.0" prefWidth="188.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="83.0" />
+                                        <Label alignment="CENTER" contentDisplay="TOP" layoutX="18.0" layoutY="38.0" prefHeight="24.0" prefWidth="180.0" text="Registre feriados e eventos&#10;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="38.0" />
+                                    </children>
+                                </AnchorPane>
+                            </items>
+                        </SplitPane>
+                    </children>
+                </AnchorPane>
+                <ScrollPane fx:id="spPrincipal" fitToHeight="true" fitToWidth="true">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="mainFxmlClass" />
+                    </content>
+                </ScrollPane>
+                <ScrollPane fx:id="spEventos" fitToHeight="true" fitToWidth="true">
+                    <content>
+                        <AnchorPane prefHeight="487.0" prefWidth="0.0" styleClass="mainFxmlClass" />
+                    </content>
+                </ScrollPane>
+            </items>
+        </SplitPane>
+    </children>
 </AnchorPane>

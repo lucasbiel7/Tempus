@@ -58,7 +58,7 @@ public class RelatorioGradeDoCursoController implements Initializable {
                 dtmTabela.addRow(new Object[]{materia.getNome(), materia.getCargaHoraria()});
             }
             parametros.put("image", new ImageIcon(getClass().getResource("/br/com/QuadroDeHorario/view/report/senaifiemg.png")).getImage());
-            Relatorios relatorios = new Relatorios("MatrizDoCurso", parametros,dtmTabela);
+            Relatorios relatorios = new Relatorios("MatrizDoCurso", parametros, dtmTabela);
             relatorios.carregarPainelSwingNode(swRelatorio);
         }
     }

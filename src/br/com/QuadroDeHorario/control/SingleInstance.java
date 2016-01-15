@@ -35,7 +35,7 @@ public class SingleInstance {
 
     @Override
     public String toString() {
-        return "[Socket - "+DataHorario.toDate(new UsuarioDAO().dataAtual())+"]-> 50596";
+        return "[Socket - " + DataHorario.toDate(new UsuarioDAO().dataAtual()) + "]-> 50596";
     }
 
 }

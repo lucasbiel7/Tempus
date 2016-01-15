@@ -11,28 +11,28 @@
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
-   <children>
-      <TableView fx:id="tvTurma" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
-        <columns>
-          <TableColumn fx:id="tcNome" prefWidth="75.0" text="Nome" />
-          <TableColumn fx:id="tcCurso" prefWidth="75.0" text="Curso" />
-            <TableColumn fx:id="tcEmail" prefWidth="75.0" text="E-mail" />
-            <TableColumn fx:id="tcEspelho" prefWidth="75.0" text="Espelho" />
-            <TableColumn fx:id="tcInicio" prefWidth="75.0" text="Início" />
-            <TableColumn fx:id="tcFim" prefWidth="75.0" text="Fim" />
-            <TableColumn fx:id="tcTurno" prefWidth="75.0" text="Turno" />
-        </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-         <contextMenu>
-            <ContextMenu>
-              <items>
-                <MenuItem mnemonicParsing="false" onAction="#miRestaurarActionEvent" text="Restaurar" />
-                  <MenuItem mnemonicParsing="false" onAction="#miExcluirActionEvent" text="Excluir permanentemente" />
-              </items>
-            </ContextMenu>
-         </contextMenu>
-      </TableView>
-   </children>
+    <children>
+        <TableView fx:id="tvTurma" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+            <columns>
+                <TableColumn fx:id="tcNome" prefWidth="75.0" text="Nome" />
+                <TableColumn fx:id="tcCurso" prefWidth="75.0" text="Curso" />
+                <TableColumn fx:id="tcEmail" prefWidth="75.0" text="E-mail" />
+                <TableColumn fx:id="tcEspelho" prefWidth="75.0" text="Espelho" />
+                <TableColumn fx:id="tcInicio" prefWidth="75.0" text="Início" />
+                <TableColumn fx:id="tcFim" prefWidth="75.0" text="Fim" />
+                <TableColumn fx:id="tcTurno" prefWidth="75.0" text="Turno" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+            <contextMenu>
+                <ContextMenu>
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#miRestaurarActionEvent" text="Restaurar" />
+                        <MenuItem mnemonicParsing="false" onAction="#miExcluirActionEvent" text="Excluir permanentemente" />
+                    </items>
+                </ContextMenu>
+            </contextMenu>
+        </TableView>
+    </children>
 </AnchorPane>

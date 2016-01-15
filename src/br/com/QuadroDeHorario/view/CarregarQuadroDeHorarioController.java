@@ -60,9 +60,9 @@ public class CarregarQuadroDeHorarioController implements Initializable {
     private Button btVisualizarImpressaoTurma;
     @FXML
     private Button btVisualizarImpressaoInstrutor;
-    
+
     private ScrollPane spPrincipal;
-    
+
     private ObservableList<Curso> cursos = FXCollections.observableArrayList();
     private ObservableList<Turma> turmas = FXCollections.observableArrayList();
     private ObservableList<Curso> cursosImpressao = FXCollections.observableArrayList();
@@ -73,7 +73,7 @@ public class CarregarQuadroDeHorarioController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
-            spPrincipal=(ScrollPane) apPrincipal.getUserData();
+            spPrincipal = (ScrollPane) apPrincipal.getUserData();
         });
         cbCurso.setItems(cursos);
         cbTurma.setItems(turmas);

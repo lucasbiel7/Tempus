@@ -77,7 +77,7 @@ public class PermissaoUsuario implements Serializable {
         }
 
     }
-    
+
     @EmbeddedId
     private PermissaoUsuarioID id;
     private boolean habilitado;

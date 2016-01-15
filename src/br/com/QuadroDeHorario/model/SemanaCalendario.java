@@ -13,6 +13,7 @@ import java.util.Objects;
  * @author OCTI01
  */
 public class SemanaCalendario {
+
     private Date segunda;
     private Date terca;
     private Date quarta;
@@ -115,6 +116,5 @@ public class SemanaCalendario {
         }
         return true;
     }
-    
-    
+
 }

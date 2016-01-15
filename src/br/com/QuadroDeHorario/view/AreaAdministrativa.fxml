@@ -20,15 +20,15 @@
                         <ScrollPane fx:id="spProjeto" fitToHeight="true" fitToWidth="true" />
                     </content>
                 </Tab>
-            <Tab onSelectionChanged="#tbProdutoActionEvent" text="Produto">
-               <content>
-                  <ScrollPane fx:id="spProduto" prefHeight="200.0" prefWidth="200.0">
+                <Tab onSelectionChanged="#tbProdutoActionEvent" text="Produto">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                        <ScrollPane fx:id="spProduto" prefHeight="200.0" prefWidth="200.0">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                            </content>
+                        </ScrollPane>
                     </content>
-                  </ScrollPane>
-               </content>
-            </Tab>
+                </Tab>
                 <Tab onSelectionChanged="#tbCursoActionEvent" text="Curso">
                     <content>
                         <ScrollPane fx:id="spCurso" fitToHeight="true" fitToWidth="true">

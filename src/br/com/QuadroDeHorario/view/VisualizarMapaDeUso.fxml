@@ -13,59 +13,59 @@
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
-   <children>
-      <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="105.0" prefHeight="293.0" prefViewportHeight="400.0" prefViewportWidth="600.0" prefWidth="610.0" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="105.0">
-         <content>
-            <GridPane fx:id="gpTabela" layoutX="8.0" layoutY="14.0" prefWidth="580.0" styleClass="mainFxmlClass" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                  <RowConstraints maxHeight="146.0" minHeight="146.0" prefHeight="146.0" valignment="CENTER" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="146.0" minHeight="146.0" prefHeight="146.0" valignment="CENTER" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="146.0" minHeight="146.0" prefHeight="146.0" valignment="CENTER" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="146.0" minHeight="146.0" prefHeight="146.0" valignment="CENTER" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="146.0" minHeight="146.0" prefHeight="146.0" valignment="CENTER" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="146.0" minHeight="146.0" prefHeight="146.0" valignment="CENTER" vgrow="SOMETIMES" />
-              </rowConstraints>
-            </GridPane>
-         </content>
-      </ScrollPane>
-      <AnchorPane id="pane-user" layoutY="-22.0" prefHeight="99.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <HBox alignment="CENTER_LEFT" layoutX="33.0" layoutY="29.0" prefHeight="79.0" prefWidth="610.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <Label fx:id="lbTipoRelatorio" prefHeight="62.0" prefWidth="335.0">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="lbTitulo" prefHeight="70.0" prefWidth="764.0">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-         </children>
-      </AnchorPane>
-      <AnchorPane id="pane-user" layoutX="-16.0" layoutY="381.0" prefHeight="0.0" prefWidth="610.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-         <children>
-            <HBox alignment="CENTER" layoutX="26.0" layoutY="6.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <Label fx:id="lbVerde" prefHeight="16.0" prefWidth="189.0">
-                     <graphic>
-                        <Circle fill="#39c65c" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
-                     </graphic>
-                  </Label>
-                  <Label fx:id="lbVermelho" prefHeight="16.0" prefWidth="189.0">
-                     <graphic>
-                        <Circle fill="#aa0004" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
-                     </graphic>
-                  </Label>
-               </children>
-            </HBox>
-         </children>
-      </AnchorPane>
-   </children>
+    <children>
+        <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="105.0" prefHeight="293.0" prefViewportHeight="400.0" prefViewportWidth="600.0" prefWidth="610.0" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="105.0">
+            <content>
+                <GridPane fx:id="gpTabela" layoutX="8.0" layoutY="14.0" prefWidth="580.0" styleClass="mainFxmlClass" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="146.0" minHeight="146.0" prefHeight="146.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="146.0" minHeight="146.0" prefHeight="146.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="146.0" minHeight="146.0" prefHeight="146.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="146.0" minHeight="146.0" prefHeight="146.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="146.0" minHeight="146.0" prefHeight="146.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="146.0" minHeight="146.0" prefHeight="146.0" valignment="CENTER" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                </GridPane>
+            </content>
+        </ScrollPane>
+        <AnchorPane id="pane-user" layoutY="-22.0" prefHeight="99.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox alignment="CENTER_LEFT" layoutX="33.0" layoutY="29.0" prefHeight="79.0" prefWidth="610.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Label fx:id="lbTipoRelatorio" prefHeight="62.0" prefWidth="335.0">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="lbTitulo" prefHeight="70.0" prefWidth="764.0">
+                            <font>
+                                <Font size="36.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+            </children>
+        </AnchorPane>
+        <AnchorPane id="pane-user" layoutX="-16.0" layoutY="381.0" prefHeight="0.0" prefWidth="610.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <HBox alignment="CENTER" layoutX="26.0" layoutY="6.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Label fx:id="lbVerde" prefHeight="16.0" prefWidth="189.0">
+                            <graphic>
+                                <Circle fill="#39c65c" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                            </graphic>
+                        </Label>
+                        <Label fx:id="lbVermelho" prefHeight="16.0" prefWidth="189.0">
+                            <graphic>
+                                <Circle fill="#aa0004" radius="5.0" stroke="BLACK" strokeType="INSIDE" />
+                            </graphic>
+                        </Label>
+                    </children>
+                </HBox>
+            </children>
+        </AnchorPane>
+    </children>
 </AnchorPane>

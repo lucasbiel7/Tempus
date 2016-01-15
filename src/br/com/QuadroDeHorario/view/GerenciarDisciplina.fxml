@@ -12,30 +12,30 @@
         <URL value="@estilo.css" />
     </stylesheets>
     <children>
-      <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="15.0" layoutY="16.0" prefHeight="435.0" prefWidth="406.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
-         <content>
-            <AnchorPane styleClass="mainFxmlClass">
-               <children>
-                    <Label layoutX="39.0" layoutY="17.0" text="Nome" />
-                    <Label layoutX="43.0" layoutY="61.0" text="Sigla" />
-                    <Label layoutX="42.0" layoutY="104.0" text="Curso" />
-                    <Label layoutX="21.0" layoutY="151.0" text="N° de Aulas" />
-                    <Label layoutX="35.0" layoutY="190.0" text="Módulo" />
-                    <Label layoutX="77.0" layoutY="228.0" text="Recursos" />
-                    <TextField fx:id="tfNome" layoutX="129.0" layoutY="11.0" prefHeight="30.0" prefWidth="176.0" />
-                    <TextField fx:id="tfSigla" layoutX="129.0" layoutY="55.0" prefHeight="30.0" prefWidth="176.0" />
-                    <ComboBox fx:id="cbCurso" layoutX="129.0" layoutY="98.0" prefHeight="30.0" prefWidth="176.0" promptText="Selecione ..." />
-                    <Spinner fx:id="spCargaHoraria" editable="true" layoutX="129.0" layoutY="144.0" prefHeight="30.0" prefWidth="176.0" />
-                    <Spinner fx:id="spModulo" layoutX="129.0" layoutY="183.0" prefHeight="30.0" prefWidth="176.0" />
-                    <ListView fx:id="lvRecurso" layoutX="32.0" layoutY="261.0" onMouseReleased="#lvRecursoMouseReleased" prefHeight="118.0" prefWidth="165.0" />
-                    <ListView fx:id="lvRecursoAdicionado" layoutX="223.0" layoutY="261.0" onMouseReleased="#lvRecursosAdicionadosMouseReleased" prefHeight="118.0" prefWidth="165.0" />
-                    <Label layoutX="257.0" layoutY="228.0" text="Recursos Adicionados" />
-                    <Button layoutX="129.0" layoutY="403.0" mnemonicParsing="false" onAction="#btSalvarActionEvent" text="Salvar" />
-                    <Button layoutX="223.0" layoutY="403.0" mnemonicParsing="false" onAction="#btNovoActionEvent" text="Novo" />
-               </children>
-            </AnchorPane>
-         </content>
-      </ScrollPane>
+        <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="15.0" layoutY="16.0" prefHeight="435.0" prefWidth="406.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+            <content>
+                <AnchorPane styleClass="mainFxmlClass">
+                    <children>
+                        <Label layoutX="39.0" layoutY="17.0" text="Nome" />
+                        <Label layoutX="43.0" layoutY="61.0" text="Sigla" />
+                        <Label layoutX="42.0" layoutY="104.0" text="Curso" />
+                        <Label layoutX="21.0" layoutY="151.0" text="N° de Aulas" />
+                        <Label layoutX="35.0" layoutY="190.0" text="Módulo" />
+                        <Label layoutX="77.0" layoutY="228.0" text="Recursos" />
+                        <TextField fx:id="tfNome" layoutX="129.0" layoutY="11.0" prefHeight="30.0" prefWidth="176.0" />
+                        <TextField fx:id="tfSigla" layoutX="129.0" layoutY="55.0" prefHeight="30.0" prefWidth="176.0" />
+                        <ComboBox fx:id="cbCurso" layoutX="129.0" layoutY="98.0" prefHeight="30.0" prefWidth="176.0" promptText="Selecione ..." />
+                        <Spinner fx:id="spCargaHoraria" editable="true" layoutX="129.0" layoutY="144.0" prefHeight="30.0" prefWidth="176.0" />
+                        <Spinner fx:id="spModulo" layoutX="129.0" layoutY="183.0" prefHeight="30.0" prefWidth="176.0" />
+                        <ListView fx:id="lvRecurso" layoutX="32.0" layoutY="261.0" onMouseReleased="#lvRecursoMouseReleased" prefHeight="118.0" prefWidth="165.0" />
+                        <ListView fx:id="lvRecursoAdicionado" layoutX="223.0" layoutY="261.0" onMouseReleased="#lvRecursosAdicionadosMouseReleased" prefHeight="118.0" prefWidth="165.0" />
+                        <Label layoutX="257.0" layoutY="228.0" text="Recursos Adicionados" />
+                        <Button layoutX="129.0" layoutY="403.0" mnemonicParsing="false" onAction="#btSalvarActionEvent" text="Salvar" />
+                        <Button layoutX="223.0" layoutY="403.0" mnemonicParsing="false" onAction="#btNovoActionEvent" text="Novo" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
         <Separator layoutX="432.0" layoutY="18.0" orientation="VERTICAL" prefHeight="200.0" AnchorPane.bottomAnchor="14.0" AnchorPane.topAnchor="14.0" />
         <TableView fx:id="tvMateria" layoutX="447.0" layoutY="56.0" onMouseReleased="#tvMateriaMouseReleased" prefHeight="395.0" prefWidth="337.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="447.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="56.0">
             <columns>
@@ -56,7 +56,7 @@
                 </ContextMenu>
             </contextMenu>
         </TableView>
-      <TextField fx:id="tfPesquisar" layoutX="447.0" layoutY="18.0" onKeyReleased="#jtNomeKeyRelease" prefHeight="30.0" prefWidth="196.0" promptText="Pesquisar por nome" AnchorPane.leftAnchor="447.0" AnchorPane.rightAnchor="155.0" />
-      <ComboBox fx:id="cbCursoFiltro" layoutX="670.0" layoutY="16.0" onAction="#cbCursoFiltroActionEvent" prefHeight="30.0" prefWidth="136.0" promptText="Selecione o curso" AnchorPane.rightAnchor="15.0" />
+        <TextField fx:id="tfPesquisar" layoutX="447.0" layoutY="18.0" onKeyReleased="#jtNomeKeyRelease" prefHeight="30.0" prefWidth="196.0" promptText="Pesquisar por nome" AnchorPane.leftAnchor="447.0" AnchorPane.rightAnchor="155.0" />
+        <ComboBox fx:id="cbCursoFiltro" layoutX="670.0" layoutY="16.0" onAction="#cbCursoFiltroActionEvent" prefHeight="30.0" prefWidth="136.0" promptText="Selecione o curso" AnchorPane.rightAnchor="15.0" />
     </children>
 </AnchorPane>

@@ -24,6 +24,7 @@ import javax.persistence.NamedQuery;
 @NamedQueries({
     @NamedQuery(name = "Conteudo.findAll", query = "SELECT c FROM Conteudo c")})
 public class Conteudo implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +32,7 @@ public class Conteudo implements Serializable {
     private Integer id;
     private String nome;
     @Basic(optional = false)
-    private boolean ativo=true;
+    private boolean ativo = true;
     @JoinColumn(name = "materia_id", referencedColumnName = "id")
     @ManyToOne
     private Materia materia;
@@ -104,5 +105,5 @@ public class Conteudo implements Serializable {
     public String toString() {
         return "br.com.QuadroDeHorario.entity.Conteudo[ id=" + id + " ]";
     }
-    
+
 }

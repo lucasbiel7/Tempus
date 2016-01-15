@@ -76,6 +76,5 @@ public class CalendarioUsuarioID implements Serializable {
     public String toString() {
         return getUsuario().toString();
     }
-    
-    
+
 }

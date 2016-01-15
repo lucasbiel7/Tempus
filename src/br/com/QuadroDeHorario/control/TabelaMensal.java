@@ -240,7 +240,7 @@ public class TabelaMensal extends TableView<SemanaCalendario> {
                                 MenuItem miExcluir = new MenuItem("Excluir");
                                 ContextMenu cmOpcoes = new ContextMenu(miAdicionarRecursos, miExcluir);
                                 miAdicionarRecursos.setOnAction((ActionEvent event) -> {
-                                    FxMananger.show("AdicionarRecursosEvento", "Manipular Recursos/Ambiente aos eventos", true, false, item);
+                                    FxMananger.show("AdicionarRecursosEvento", "Manipular Recursos/Ambiente aos eventos", true, false, new Object[]{item, escolar});
                                 });
                                 miExcluir.setOnAction((ActionEvent event) -> {
                                     for (Calendario calendario : calendarios) {

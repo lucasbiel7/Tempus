@@ -93,8 +93,8 @@ public class ConfigurarBancoController implements Initializable {
             if (connection != null) {
                 try {
                     Mensagem.showInformation("Configurações alteradas", "O sistema será reiniciado em 5 segundos\n"
-                                                                        + "para aplicar as alterações de configurações\n"
-                                                                        + " no banco de dados!");
+                            + "para aplicar as alterações de configurações\n"
+                            + " no banco de dados!");
                     Files.write(path, dados, StandardCharsets.UTF_8);
                     new Timeline(new KeyFrame(Duration.seconds(5), (ActionEvent) -> {
                         try {

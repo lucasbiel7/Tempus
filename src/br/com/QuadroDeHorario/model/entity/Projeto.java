@@ -7,6 +7,7 @@ package br.com.QuadroDeHorario.model.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -23,7 +24,7 @@ public class Projeto implements Serializable {
     @GeneratedValue
     private int id;
     private String nome;
-    @OneToMany(mappedBy = "projeto")
+    @OneToMany(mappedBy = "projeto", cascade = CascadeType.REMOVE)
     private List<Turma> turmas;
     private boolean ativo = true;
 

@@ -12,32 +12,33 @@
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
-   <children>
-      <VBox layoutX="6.0" layoutY="6.0" prefHeight="424.0" prefWidth="161.0" spacing="10.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
-         <children>
-            <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#btMatrizDeCompetenciaactionEvent" prefHeight="94.0" prefWidth="161.0" text="Matriz de &#10;competencia" textAlignment="CENTER">
-               <graphic>
-                  <ImageView fitHeight="38.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@image/competencia.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#btGradeDoCursoActionEvent" prefHeight="96.0" prefWidth="161.0" text="Grade do&#10;Curso&#10;" textAlignment="CENTER">
-               <graphic>
-                  <ImageView fitHeight="38.0" fitWidth="91.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@image/gradeCurricular.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-         </children>
-      </VBox>
-      <ScrollPane fx:id="spPrincipal" fitToHeight="true" fitToWidth="true" layoutX="190.0" layoutY="14.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
-         <content>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="mainFxmlClass" />
-         </content></ScrollPane>
-   </children>
+    <children>
+        <VBox layoutX="6.0" layoutY="6.0" prefHeight="424.0" prefWidth="161.0" spacing="10.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
+            <children>
+                <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#btMatrizDeCompetenciaactionEvent" prefHeight="94.0" prefWidth="161.0" text="Matriz de &#10;competencia" textAlignment="CENTER">
+                    <graphic>
+                        <ImageView fitHeight="38.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@image/competencia.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#btGradeDoCursoActionEvent" prefHeight="96.0" prefWidth="161.0" text="Grade do&#10;Curso&#10;" textAlignment="CENTER">
+                    <graphic>
+                        <ImageView fitHeight="38.0" fitWidth="91.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@image/gradeCurricular.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </children>
+        </VBox>
+        <ScrollPane fx:id="spPrincipal" fitToHeight="true" fitToWidth="true" layoutX="190.0" layoutY="14.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+            <content>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="mainFxmlClass" />
+            </content>
+        </ScrollPane>
+    </children>
 </AnchorPane>

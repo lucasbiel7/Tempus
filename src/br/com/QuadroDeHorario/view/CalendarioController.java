@@ -60,8 +60,8 @@ public class CalendarioController implements Initializable {
                 Platform.runLater(() -> {
                     gpMesses.addRow(0, tmJaneiro, tmFeveiro, tmMarco, tmAbril);
                 });
-                
-            },"Carregando linha 1 dos meses").start();
+
+            }, "Carregando linha 1 dos meses").start();
             new Thread(() -> {
                 tmMaio = new TabelaMensal(5, ano, escolar);
                 tmJunho = new TabelaMensal(6, ano, escolar);
@@ -70,7 +70,7 @@ public class CalendarioController implements Initializable {
                 Platform.runLater(() -> {
                     gpMesses.addRow(1, tmMaio, tmJunho, tmJulho, tmAgosto);
                 });
-            },"Carregando linha 2 dos meses").start();
+            }, "Carregando linha 2 dos meses").start();
             new Thread(() -> {
                 tmSetembro = new TabelaMensal(9, ano, escolar);
                 tmOutubro = new TabelaMensal(10, ano, escolar);
@@ -79,7 +79,7 @@ public class CalendarioController implements Initializable {
                 Platform.runLater(() -> {
                     gpMesses.addRow(2, tmSetembro, tmOutubro, tmNovembro, tmDezembro);
                 });
-            },"Carregando linha 3 dos meses").start();
+            }, "Carregando linha 3 dos meses").start();
 
         });
     }

@@ -12,53 +12,53 @@
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
-   <children>
-      <TabPane fx:id="tbAbas" prefHeight="486.0" prefWidth="752.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <tabs>
-            <Tab onSelectionChanged="#tbProjetoActionEvent" text="Projeto">
-               <content>
-                  <ScrollPane fx:id="spProjeto" fitToHeight="true" fitToWidth="true" />
-               </content>
-            </Tab>
-            <Tab onSelectionChanged="#tbProdutoActionEvent" text="Produto">
-               <content>
-                  <ScrollPane fx:id="spProduto" prefHeight="200.0" prefWidth="200.0" />
-               </content>
-            </Tab>
-            <Tab onSelectionChanged="#tbCursoActionEvent" text="Curso">
-               <content>
-                  <ScrollPane fx:id="spCurso" fitToHeight="true" fitToWidth="true" />
-               </content>
-            </Tab>
-            <Tab onSelectionChanged="#tbDisciplinaActionEvent" text="Componente curricular">
-               <content>
-                  <ScrollPane fx:id="spDisciplina" fitToHeight="true" fitToWidth="true" />
-               </content>
-            </Tab>
-            <Tab onSelectionChanged="#tbRecursoActionEvent" text="Recurso">
-               <content>
-                  <ScrollPane fx:id="spRecurso" fitToHeight="true" fitToWidth="true" />
-               </content>
-            </Tab>
-            <Tab onSelectionChanged="#tbAmbienteActionEvent" text="Ambiente">
-               <content>
-                  <ScrollPane fx:id="spAmbiente" fitToHeight="true" fitToWidth="true" />
-               </content>
-            </Tab>
-            <Tab onSelectionChanged="#tbTurmaActionEvent" text="Turma">
-               <content>
-                  <ScrollPane fx:id="spTurma" fitToHeight="true" fitToWidth="true" />
-               </content>
-            </Tab>
-            <Tab onSelectionChanged="#tbInstrutorActionEvent" text="Instrutor/Usuários">
-               <content>
-                  <ScrollPane fx:id="spInstrutor" fitToHeight="true" fitToWidth="true" />
-               </content>
-            </Tab>
-         </tabs>
-      </TabPane>
-   </children>
+    <children>
+        <TabPane fx:id="tbAbas" prefHeight="486.0" prefWidth="752.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <tabs>
+                <Tab onSelectionChanged="#tbProjetoActionEvent" text="Projeto">
+                    <content>
+                        <ScrollPane fx:id="spProjeto" fitToHeight="true" fitToWidth="true" />
+                    </content>
+                </Tab>
+                <Tab onSelectionChanged="#tbProdutoActionEvent" text="Produto">
+                    <content>
+                        <ScrollPane fx:id="spProduto" prefHeight="200.0" prefWidth="200.0" />
+                    </content>
+                </Tab>
+                <Tab onSelectionChanged="#tbCursoActionEvent" text="Curso">
+                    <content>
+                        <ScrollPane fx:id="spCurso" fitToHeight="true" fitToWidth="true" />
+                    </content>
+                </Tab>
+                <Tab onSelectionChanged="#tbDisciplinaActionEvent" text="Componente curricular">
+                    <content>
+                        <ScrollPane fx:id="spDisciplina" fitToHeight="true" fitToWidth="true" />
+                    </content>
+                </Tab>
+                <Tab onSelectionChanged="#tbRecursoActionEvent" text="Recurso">
+                    <content>
+                        <ScrollPane fx:id="spRecurso" fitToHeight="true" fitToWidth="true" />
+                    </content>
+                </Tab>
+                <Tab onSelectionChanged="#tbAmbienteActionEvent" text="Ambiente">
+                    <content>
+                        <ScrollPane fx:id="spAmbiente" fitToHeight="true" fitToWidth="true" />
+                    </content>
+                </Tab>
+                <Tab onSelectionChanged="#tbTurmaActionEvent" text="Turma">
+                    <content>
+                        <ScrollPane fx:id="spTurma" fitToHeight="true" fitToWidth="true" />
+                    </content>
+                </Tab>
+                <Tab onSelectionChanged="#tbInstrutorActionEvent" text="Instrutor/Usuários">
+                    <content>
+                        <ScrollPane fx:id="spInstrutor" fitToHeight="true" fitToWidth="true" />
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
 </AnchorPane>

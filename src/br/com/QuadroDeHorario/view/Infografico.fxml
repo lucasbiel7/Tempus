@@ -12,14 +12,14 @@
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
-   <children>
-      <BarChart fx:id="barChart" layoutY="44.0" prefHeight="342.0" prefWidth="572.0" title="Percentual de ocupação diária" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
-        <xAxis>
-          <CategoryAxis side="BOTTOM" tickLabelFill="WHITE" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis fx:id="naNumeros" prefHeight="331.0" prefWidth="32.0" tickLabelFill="WHITE" tickUnit="10.0" />
-        </yAxis>
-      </BarChart>
-   </children>
+    <children>
+        <BarChart fx:id="barChart" layoutY="44.0" prefHeight="342.0" prefWidth="572.0" title="Percentual de ocupação diária" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+            <xAxis>
+                <CategoryAxis side="BOTTOM" tickLabelFill="WHITE" />
+            </xAxis>
+            <yAxis>
+                <NumberAxis fx:id="naNumeros" prefHeight="331.0" prefWidth="32.0" tickLabelFill="WHITE" tickUnit="10.0" />
+            </yAxis>
+        </BarChart>
+    </children>
 </AnchorPane>

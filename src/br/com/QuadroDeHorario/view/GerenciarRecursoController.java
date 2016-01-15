@@ -84,7 +84,7 @@ public class GerenciarRecursoController implements Initializable {
     private void miExcluirActionEvent(ActionEvent actionEvent) {
         recurso = tvRecurso.getSelectionModel().getSelectedItem();
         if (recurso != null) {
-            List<AmbienteRecursos> ambienteRecurso=new AmbienteRecursosDAO().pegarPorRecurso(recurso);
+            List<AmbienteRecursos> ambienteRecurso = new AmbienteRecursosDAO().pegarPorRecurso(recurso);
             if (Mensagem.showConfirmation("Alerta de exclusão", "Você deseja realmente deseja excluir esse recurso?")) {
                 new RecursoDAO().excluir(recurso);
             }

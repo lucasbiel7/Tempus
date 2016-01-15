@@ -82,5 +82,5 @@ public class MateriaHorarioAmbiente implements Serializable {
     public String toString() {
         return getId().toString();
     }
-    
+
 }

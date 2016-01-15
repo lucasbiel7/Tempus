@@ -25,7 +25,7 @@ import javafx.stage.Stage;
  * @author OCTI01
  */
 public class EditarEventoController implements Initializable {
-    
+
     @FXML
     private TextField tfNome;
     @FXML
@@ -35,7 +35,7 @@ public class EditarEventoController implements Initializable {
     private Stage stage;
     private int ano;
     private Evento evento;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
@@ -48,12 +48,12 @@ public class EditarEventoController implements Initializable {
             cpCor.setValue(color);
         });
     }
-    
+
     @FXML
     private void btCancelarActionEvent(ActionEvent actionEvent) {
         stage.close();
     }
-    
+
     @FXML
     private void btSalvarActionEvent(ActionEvent actionEvent) {
         evento.setNome(tfNome.getText());
@@ -63,5 +63,5 @@ public class EditarEventoController implements Initializable {
         new EventoDAO().editar(evento);
         btCancelarActionEvent(actionEvent);
     }
-    
+
 }

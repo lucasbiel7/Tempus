@@ -66,7 +66,6 @@ public class Evento implements Serializable {
     public void setEscolar(boolean escolar) {
         this.escolar = escolar;
     }
-    
 
     public void setColor(String color) {
         this.color = color;

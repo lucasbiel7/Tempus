@@ -44,6 +44,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 
 /**
@@ -53,6 +54,8 @@ import javafx.util.Callback;
  */
 public class AdicionarRecursosEventoController implements Initializable {
 
+    @FXML
+    private AnchorPane apPrincipal;
     //Tabela ambiente alocado
     @FXML
     private TableView<CalendarioAmbiente> tvAmbiente;
@@ -102,12 +105,19 @@ public class AdicionarRecursosEventoController implements Initializable {
 
     private Date dataSelecionada;
     private SimpleDateFormat sdfData = new SimpleDateFormat("dd/MM/yyyy");
+    private boolean escolar;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
-            dataSelecionada = (Date) cbAmbiente.getParent().getUserData();
-            calendarios.setAll(new CalendarioDAO().pegarTodosPorData(dataSelecionada));
+            for (Object object : (Object[]) apPrincipal.getUserData()) {
+                if (object instanceof Date) {
+                    dataSelecionada = (Date) object;
+                } else if (object instanceof Boolean) {
+                    this.escolar = (Boolean) object;
+                }
+            }
+            calendarios.setAll(new CalendarioDAO().pegarTodosPorData(dataSelecionada, escolar));
             cbCalendario.getSelectionModel().selectFirst();
             calendarioAmbientes.setAll(new CalendarioAmbienteDAO().pegarTodosPorCalendario(cbCalendario.getSelectionModel().getSelectedItem()));
             calendarioUsuarios.setAll(new CalendarioUsuarioDAO().pegarTodosPorCalendario(cbCalendario.getSelectionModel().getSelectedItem()));

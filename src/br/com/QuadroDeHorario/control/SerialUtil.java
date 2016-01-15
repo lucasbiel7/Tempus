@@ -13,5 +13,4 @@ public class SerialUtil {
 
     public static SerialCommunication serialCommunication;
 
-    
 }

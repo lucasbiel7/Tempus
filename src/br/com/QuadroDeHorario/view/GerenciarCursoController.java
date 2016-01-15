@@ -191,9 +191,9 @@ public class GerenciarCursoController implements Initializable {
     @FXML
     private void miExcluirActionEvent(ActionEvent actionEvent) {
         curso = tvCurso.getSelectionModel().getSelectedItem();
-        List<Materia> materias=new MateriaDAO().pegarTodosPorCurso(curso);
+        List<Materia> materias = new MateriaDAO().pegarTodosPorCurso(curso);
         if (curso != null) {
-            if (Mensagem.showConfirmation("Alerta de exclusão", "Você deseja realmente deseja excluir esse curso?"+(materias.isEmpty()?"":"\nEste curso possui materias relaciconadas!"))) {
+            if (Mensagem.showConfirmation("Alerta de exclusão", "Você deseja realmente deseja excluir esse curso?" + (materias.isEmpty() ? "" : "\nEste curso possui materias relaciconadas!"))) {
                 new CursoDAO().excluir(curso);
             }
         }

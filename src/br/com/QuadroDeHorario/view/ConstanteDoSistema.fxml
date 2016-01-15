@@ -15,18 +15,18 @@
         <URL value="@estilo.css" />
     </stylesheets>
     <children>
-      <Label fx:id="lbArrasteImage" layoutX="465.0" layoutY="121.0" text="Arraste a imagem aqui" />
+        <Label fx:id="lbArrasteImage" layoutX="465.0" layoutY="121.0" text="Arraste a imagem aqui" />
         <Label layoutX="14.0" layoutY="87.0" text="Referência de ocupação" />
         <Spinner fx:id="spOcupacaoMinima" layoutX="156.0" layoutY="83.0" prefHeight="30.0" prefWidth="132.0" />
         <Label layoutX="300.0" layoutY="87.0" text="\%" />
         <Button layoutX="156.0" layoutY="183.0" mnemonicParsing="false" onAction="#btSalvarActionEvent" text="Salvar" />
-      <CheckBox fx:id="cbKeyGuardian" layoutX="156.0" layoutY="129.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="132.0" text="Key's Guardian" />
-      <Label layoutX="52.0" layoutY="44.0" text="Nome da escola" />
-      <TextField fx:id="tfNomeEscola" layoutX="156.0" layoutY="40.0" prefHeight="30.0" prefWidth="295.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="136.0" layoutX="465.0" layoutY="63.0" stroke="BLACK" strokeType="INSIDE" width="127.0" />
-      <ImageView fx:id="ivIconeFoto" fitHeight="136.0" fitWidth="127.0" layoutX="465.0" layoutY="63.0" onDragDropped="#ivIconeFotoOnDragDropped" onDragOver="#ivIconeFotoOnDragOver" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="465.0" layoutY="40.0" text="Icone da escola" />
-      <Button layoutX="465.0" layoutY="206.0" mnemonicParsing="false" onAction="#btProcurarImagemActionEvent" text="Procurar imagem" />
-      <Button layoutX="465.0" layoutY="250.0" mnemonicParsing="false" onAction="#btApagarActionEvent" prefHeight="35.0" prefWidth="133.0" text="Apagar Imagem" />
+        <CheckBox fx:id="cbKeyGuardian" layoutX="156.0" layoutY="129.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="132.0" text="Key's Guardian" />
+        <Label layoutX="52.0" layoutY="44.0" text="Nome da escola" />
+        <TextField fx:id="tfNomeEscola" layoutX="156.0" layoutY="40.0" prefHeight="30.0" prefWidth="295.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="TRANSPARENT" height="136.0" layoutX="465.0" layoutY="63.0" stroke="BLACK" strokeType="INSIDE" width="127.0" />
+        <ImageView fx:id="ivIconeFoto" fitHeight="136.0" fitWidth="127.0" layoutX="465.0" layoutY="63.0" onDragDropped="#ivIconeFotoOnDragDropped" onDragOver="#ivIconeFotoOnDragOver" pickOnBounds="true" preserveRatio="true" />
+        <Label layoutX="465.0" layoutY="40.0" text="Icone da escola" />
+        <Button layoutX="465.0" layoutY="206.0" mnemonicParsing="false" onAction="#btProcurarImagemActionEvent" text="Procurar imagem" />
+        <Button layoutX="465.0" layoutY="250.0" mnemonicParsing="false" onAction="#btApagarActionEvent" prefHeight="35.0" prefWidth="133.0" text="Apagar Imagem" />
     </children>
 </AnchorPane>

@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -56,10 +57,12 @@ public class Turma implements Serializable {
     private Date envioHorario;
     @ManyToOne
     private Projeto projeto;
-    @OneToMany(mappedBy = "materiaTurmaInstrutorSemestre.turma")
+    @OneToMany(mappedBy = "materiaTurmaInstrutorSemestre.turma", cascade = CascadeType.REMOVE)
     private List<MateriaHorario> materiaHorarios;
-    @OneToMany(mappedBy = "turma")
+    @OneToMany(mappedBy = "turma", cascade = CascadeType.REMOVE)
     private List<ObservacaoAula> observacaoAulas;
+    @OneToMany(mappedBy = "turmaPrincipal", cascade = CascadeType.REMOVE)
+    private List<Turma> turmas;
 
     public Turma() {
     }

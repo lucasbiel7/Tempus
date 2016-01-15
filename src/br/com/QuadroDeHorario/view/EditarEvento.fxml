@@ -11,13 +11,13 @@
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
-   <children>
-      <ColorPicker fx:id="cpCor" layoutX="124.0" layoutY="85.0" prefHeight="25.0" prefWidth="168.0" />
-      <Button cancelButton="true" layoutX="210.0" layoutY="171.0" mnemonicParsing="false" onAction="#btCancelarActionEvent" text="Cancelar" />
-      <Button defaultButton="true" layoutX="117.0" layoutY="171.0" mnemonicParsing="false" onAction="#btSalvarActionEvent" text="Salvar" />
-      <TextField fx:id="tfNome" layoutX="124.0" layoutY="40.0" prefHeight="25.0" prefWidth="168.0" />
-      <Label layoutX="62.0" layoutY="89.0" text="Cor" />
-      <Label layoutX="53.0" layoutY="44.0" text="Nome" />
-      <CheckBox fx:id="cbLetivo" layoutX="124.0" layoutY="127.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="168.0" text="Não haverá aula" textFill="WHITE" />
-   </children>
+    <children>
+        <ColorPicker fx:id="cpCor" layoutX="124.0" layoutY="85.0" prefHeight="25.0" prefWidth="168.0" />
+        <Button cancelButton="true" layoutX="210.0" layoutY="171.0" mnemonicParsing="false" onAction="#btCancelarActionEvent" text="Cancelar" />
+        <Button defaultButton="true" layoutX="117.0" layoutY="171.0" mnemonicParsing="false" onAction="#btSalvarActionEvent" text="Salvar" />
+        <TextField fx:id="tfNome" layoutX="124.0" layoutY="40.0" prefHeight="25.0" prefWidth="168.0" />
+        <Label layoutX="62.0" layoutY="89.0" text="Cor" />
+        <Label layoutX="53.0" layoutY="44.0" text="Nome" />
+        <CheckBox fx:id="cbLetivo" layoutX="124.0" layoutY="127.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="168.0" text="Não haverá aula" textFill="WHITE" />
+    </children>
 </AnchorPane>

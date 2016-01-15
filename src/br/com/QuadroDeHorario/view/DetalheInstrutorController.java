@@ -124,14 +124,14 @@ public class DetalheInstrutorController implements Initializable {
                     calendar.add(Calendar.DAY_OF_MONTH, 1);
                 }
                 calendar.setTime(inicio);
-                while (calendar.getTime().before(fim) ) {
+                while (calendar.getTime().before(fim)) {
                     inicio = calendar.getTime();
                     calendar.add(Calendar.DAY_OF_MONTH, 1);
                     seriesOcupacao.getData().add(new XYChart.Data<>(sdfDia.format(inicio), new AulaDAO().pegarPorDiaInstrutor(usuario, inicio).size() * 1.0 / usuario.getCargaHoraria()));
                     if (variaveisDoSistema != null) {
                         seriesMeta.getData().add(new XYChart.Data<>(sdfDia.format(inicio), Double.parseDouble(variaveisDoSistema.getValor()) / 100d));
                     }
-                    
+
                     media.getData().add(new XYChart.Data<>(sdfDia.format(inicio), (double) ((double) quantAula / ((double) dia * (double) usuario.getCargaHoraria()))));
                 }
             } catch (ParseException ex) {

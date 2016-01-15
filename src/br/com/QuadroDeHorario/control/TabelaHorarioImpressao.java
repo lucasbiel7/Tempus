@@ -286,7 +286,7 @@ public class TabelaHorarioImpressao extends TableView<MesCalendario> {
                             aula = new AulaDAO().pegarPorHorarioDiaTurmaTurno(mesCalendario.getHorario(), calendar.getTime(), turma, turno);
                         }
                     } else {
-                        aula = new AulaDAO().pegarPorHorarioDiaTurmaTurno(mesCalendario.getHorario(), calendar.getTime(), turma,turno);
+                        aula = new AulaDAO().pegarPorHorarioDiaTurmaTurno(mesCalendario.getHorario(), calendar.getTime(), turma, turno);
                     }
                 } else if (instrutor != null) {
                     aula = new AulaDAO().pegarPorInstrutorTurnoDiaHorario(instrutor, turno, calendar.getTime(), mesCalendario.getHorario());

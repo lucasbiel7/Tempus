@@ -7,7 +7,9 @@ package br.com.QuadroDeHorario.model.entity;
 
 import br.com.QuadroDeHorario.model.util.DataHorario;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
@@ -15,6 +17,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -37,6 +40,10 @@ public class MateriaHorario implements Serializable {
     private int red;
     private int green;
     private int blue;
+    @OneToMany(mappedBy = "id.materiaHorario", cascade = CascadeType.REMOVE)
+    private List<MateriaHorarioAmbiente> materiaHorarioAmbientes;
+    @OneToMany(mappedBy = "materiaHorario", cascade = CascadeType.REMOVE)
+    private List<Aula> aulas;
 
     @Embeddable
     public static class MateriaTurmaInstrutorSemestre implements Serializable {

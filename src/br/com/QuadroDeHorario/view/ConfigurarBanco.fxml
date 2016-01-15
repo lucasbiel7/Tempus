@@ -15,12 +15,12 @@
     <children>
         <Label layoutX="111.0" layoutY="80.0" text="Usuário" />
         <Label layoutX="115.0" layoutY="134.0" text="Senha" />
-      <Label layoutX="25.0" layoutY="26.0" text="Nome da base de dados" />
-      <TextField fx:id="tfBanco" layoutX="177.0" layoutY="18.0" prefHeight="33.0" prefWidth="302.0" />
+        <Label layoutX="25.0" layoutY="26.0" text="Nome da base de dados" />
+        <TextField fx:id="tfBanco" layoutX="177.0" layoutY="18.0" prefHeight="33.0" prefWidth="302.0" />
         <TextField fx:id="tfUsuario" layoutX="177.0" layoutY="72.0" prefHeight="33.0" prefWidth="302.0" />
         <PasswordField fx:id="pfSenha" layoutX="177.0" layoutY="126.0" prefHeight="33.0" prefWidth="302.0" />
         <Label layoutX="75.0" layoutY="191.0" text="Endereço de IP" />
-      <FormattedTextField fx:id="ftfIp" layoutX="179.0" layoutY="183.0" prefHeight="33.0" prefWidth="302.0" />
+        <FormattedTextField fx:id="ftfIp" layoutX="179.0" layoutY="183.0" prefHeight="33.0" prefWidth="302.0" />
         <Button defaultButton="true" layoutX="278.0" layoutY="237.0" mnemonicParsing="false" onAction="#btSalvarActionEvent" prefHeight="35.0" prefWidth="103.0" text="Salvar" />
         <Button cancelButton="true" layoutX="390.0" layoutY="237.0" mnemonicParsing="false" onAction="#btCancelarActionEvent" text="Cancelar" />
     </children>

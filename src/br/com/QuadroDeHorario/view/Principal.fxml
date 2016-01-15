@@ -15,129 +15,129 @@
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
-   <children>
-      <ScrollPane fx:id="spPrincipal" fitToHeight="true" fitToWidth="true" layoutX="14.0" layoutY="71.0" prefHeight="444.0" prefViewportHeight="347.0" prefViewportWidth="778.0" prefWidth="947.0" AnchorPane.bottomAnchor="133.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="71.0">
-         <effect>
-            <DropShadow color="#353940" height="83.27" radius="29.275" width="35.83" />
-         </effect>
-         <content>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="mainFxmlClass" />
-         </content>
-      </ScrollPane>
-      <AnchorPane layoutX="-34.0" layoutY="508.0" prefHeight="21.0" prefWidth="975.0" styleClass="label-branco" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-         <children>
-            <Label fx:id="lbNome" layoutX="54.0" layoutY="196.0" prefHeight="17.0" prefWidth="336.0" text="Nome do Usuário" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="0.0" />
-            <Button contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="909.0" layoutY="15.0" mnemonicParsing="false" onAction="#btSairActionEvent" prefHeight="24.0" prefWidth="24.0" styleClass="logout" AnchorPane.bottomAnchor="-8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-8.0">
-               <graphic>
-                  <ImageView fitHeight="15.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@image/desconectar.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Circle fx:id="cProfile" fill="#1f93ff00" layoutX="14.0" layoutY="177.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <effect>
-                  <DropShadow color="#72787f" height="26.93" radius="24.825000000000003" width="74.37" />
-               </effect>
-            </Circle>
-         </children>
-      </AnchorPane>
-      <ToolBar layoutX="21.0" layoutY="461.0" prefHeight="137.0" prefWidth="925.0" styleClass="menu-doc" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
-        <items>
-          <Button fx:id="btInicio" mnemonicParsing="false" onAction="#btInicioActionEvent" prefHeight="111.0" prefWidth="125.0" styleClass="menu-doc-button" text="Início">
-               <graphic>
-                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@image/home.png" />
-                     </image>
-                     <effect>
-                        <Reflection />
-                     </effect>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="btAreaAdministrativa" mnemonicParsing="false" onAction="#btAdministrativoActionEvent" prefHeight="111.0" prefWidth="181.0" styleClass="menu-doc-button" text="Área &#10;administrativa" textAlignment="CENTER">
-               <graphic>
-                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@image/administrativo.png" />
-                     </image>
-                     <effect>
-                        <Reflection />
-                     </effect>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="btQuadroDeHorario" mnemonicParsing="false" onAction="#btQuadroDeHorarioActionEvent" prefHeight="111.0" prefWidth="155.0" styleClass="menu-doc-button" text="Quadro de&#10;Horário">
-               <graphic>
-                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@image/calendar.png" />
-                     </image>
-                     <effect>
-                        <Reflection />
-                     </effect>
-                  </ImageView>
-               </graphic>
-               <contextMenu>
-                  <ContextMenu>
-                    <items>
-                      <MenuItem mnemonicParsing="false" onAction="#miAreaAdministrativaEmUmaNovaActionEvent" text="Abrir em uma nova janela" />
-                    </items>
-                  </ContextMenu>
-               </contextMenu>
-            </Button>
-            <Button fx:id="btEstatisticas" mnemonicParsing="false" onAction="#btEstatisticaActionEvent" prefHeight="111.0" prefWidth="155.0" styleClass="menu-doc-button" text="Estatística">
-               <graphic>
-                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@image/estatisticas.png" />
-                     </image>
-                     <effect>
-                        <Reflection />
-                     </effect>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="btLixeira" mnemonicParsing="false" onAction="#btLixeiraActionEvent" prefHeight="110.0" prefWidth="125.0" styleClass="menu-doc-button" text="Lixeira">
-               <graphic>
-                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@image/lixeira.png" />
-                     </image>
-                     <effect>
-                        <Reflection />
-                     </effect>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#btSobreActionEvent" prefHeight="110.0" prefWidth="125.0" styleClass="menu-doc-button" text="Sobre">
-               <graphic>
-                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@image/sobre.png" />
-                     </image>
-                     <effect>
-                        <Reflection />
-                     </effect>
-                  </ImageView>
-               </graphic>
-            </Button>
-        </items>
-      </ToolBar>
-      <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="66.0" prefWidth="975.0" styleClass="label-branco" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Button fx:id="btAtivarPermissoes" layoutX="560.0" layoutY="24.0" mnemonicParsing="false" onAction="#btAtivarPermissoesActionEvent" prefHeight="17.0" prefWidth="401.0" text="Ativar Permissoes para Grupo" AnchorPane.rightAnchor="0.0" />
-            <Label fx:id="lbLogo" layoutX="14.0" layoutY="16.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="0.0">
-               <graphic>
-                  <ImageView fx:id="ivLogo" fitHeight="61.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" />
-               </graphic>
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-   </children>
+    <children>
+        <ScrollPane fx:id="spPrincipal" fitToHeight="true" fitToWidth="true" layoutX="14.0" layoutY="71.0" prefHeight="444.0" prefViewportHeight="347.0" prefViewportWidth="778.0" prefWidth="947.0" AnchorPane.bottomAnchor="133.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="71.0">
+            <effect>
+                <DropShadow color="#353940" height="83.27" radius="29.275" width="35.83" />
+            </effect>
+            <content>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="mainFxmlClass" />
+            </content>
+        </ScrollPane>
+        <AnchorPane layoutX="-34.0" layoutY="508.0" prefHeight="21.0" prefWidth="975.0" styleClass="label-branco" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <Label fx:id="lbNome" layoutX="54.0" layoutY="196.0" prefHeight="17.0" prefWidth="336.0" text="Nome do Usuário" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="0.0" />
+                <Button contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="909.0" layoutY="15.0" mnemonicParsing="false" onAction="#btSairActionEvent" prefHeight="24.0" prefWidth="24.0" styleClass="logout" AnchorPane.bottomAnchor="-8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-8.0">
+                    <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@image/desconectar.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Circle fx:id="cProfile" fill="#1f93ff00" layoutX="14.0" layoutY="177.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <effect>
+                        <DropShadow color="#72787f" height="26.93" radius="24.825000000000003" width="74.37" />
+                    </effect>
+                </Circle>
+            </children>
+        </AnchorPane>
+        <ToolBar layoutX="21.0" layoutY="461.0" prefHeight="137.0" prefWidth="925.0" styleClass="menu-doc" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
+            <items>
+                <Button fx:id="btInicio" mnemonicParsing="false" onAction="#btInicioActionEvent" prefHeight="111.0" prefWidth="125.0" styleClass="menu-doc-button" text="Início">
+                    <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@image/home.png" />
+                            </image>
+                            <effect>
+                                <Reflection />
+                            </effect>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btAreaAdministrativa" mnemonicParsing="false" onAction="#btAdministrativoActionEvent" prefHeight="111.0" prefWidth="181.0" styleClass="menu-doc-button" text="Área &#10;administrativa" textAlignment="CENTER">
+                    <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@image/administrativo.png" />
+                            </image>
+                            <effect>
+                                <Reflection />
+                            </effect>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btQuadroDeHorario" mnemonicParsing="false" onAction="#btQuadroDeHorarioActionEvent" prefHeight="111.0" prefWidth="155.0" styleClass="menu-doc-button" text="Quadro de&#10;Horário">
+                    <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@image/calendar.png" />
+                            </image>
+                            <effect>
+                                <Reflection />
+                            </effect>
+                        </ImageView>
+                    </graphic>
+                    <contextMenu>
+                        <ContextMenu>
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#miAreaAdministrativaEmUmaNovaActionEvent" text="Abrir em uma nova janela" />
+                            </items>
+                        </ContextMenu>
+                    </contextMenu>
+                </Button>
+                <Button fx:id="btEstatisticas" mnemonicParsing="false" onAction="#btEstatisticaActionEvent" prefHeight="111.0" prefWidth="155.0" styleClass="menu-doc-button" text="Estatística">
+                    <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@image/estatisticas.png" />
+                            </image>
+                            <effect>
+                                <Reflection />
+                            </effect>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btLixeira" mnemonicParsing="false" onAction="#btLixeiraActionEvent" prefHeight="110.0" prefWidth="125.0" styleClass="menu-doc-button" text="Lixeira">
+                    <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@image/lixeira.png" />
+                            </image>
+                            <effect>
+                                <Reflection />
+                            </effect>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button mnemonicParsing="false" onAction="#btSobreActionEvent" prefHeight="110.0" prefWidth="125.0" styleClass="menu-doc-button" text="Sobre">
+                    <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@image/sobre.png" />
+                            </image>
+                            <effect>
+                                <Reflection />
+                            </effect>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </items>
+        </ToolBar>
+        <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="66.0" prefWidth="975.0" styleClass="label-branco" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Button fx:id="btAtivarPermissoes" layoutX="560.0" layoutY="24.0" mnemonicParsing="false" onAction="#btAtivarPermissoesActionEvent" prefHeight="17.0" prefWidth="401.0" text="Ativar Permissoes para Grupo" AnchorPane.rightAnchor="0.0" />
+                <Label fx:id="lbLogo" layoutX="14.0" layoutY="16.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="0.0">
+                    <graphic>
+                        <ImageView fx:id="ivLogo" fitHeight="61.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" />
+                    </graphic>
+                    <font>
+                        <Font size="25.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+    </children>
 </AnchorPane>

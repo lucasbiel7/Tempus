@@ -45,7 +45,7 @@ public class GerenciarTipoCursoController implements Initializable {
         tcDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
         tvTipoCurso.setItems(tipoDoCursos);
         tipoDoCursos.setAll(new TipoDoCursoDAO().pegarTodos());
-        tipoCurso=new TipoDoCurso();
+        tipoCurso = new TipoDoCurso();
     }
 
     @FXML

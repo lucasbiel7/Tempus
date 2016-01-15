@@ -7,6 +7,7 @@ package br.com.QuadroDeHorario.model.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,10 +32,12 @@ public class Ambiente implements Serializable {
     private String chave = null;
     @Column(unique = true, nullable = true)
     private String chaveReserva = null;
-    @OneToMany(mappedBy = "ambiente")
+    @OneToMany(mappedBy = "ambiente", cascade = CascadeType.REMOVE)
     private List<Aula> aulas;
-    @OneToMany(mappedBy = "ambiente")
+    @OneToMany(mappedBy = "ambiente", cascade = CascadeType.REMOVE)
     private List<EmprestaChave> usuarioAmbientes;
+    @OneToMany(mappedBy = "id.ambiente", cascade = CascadeType.REMOVE)
+    private List<AmbienteRecursos> ambienteRecursos;
 
     public int getId() {
         return id;

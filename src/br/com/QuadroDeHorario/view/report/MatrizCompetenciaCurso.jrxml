@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MatrizCompetenciaCurso" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9fa49602-ddc3-4643-a5fd-4ecc27ffc65c">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<parameter name="curso" class="java.lang.String"/>
-	<parameter name="dados" class="java.lang.String"/>
-	<parameter name="image" class="java.awt.Image"/>
-	<title>
-		<band height="119" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="37" width="555" height="56" uuid="4a9c5993-4858-4e2a-b480-d69a8411e9e7"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="18" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Competentes para o curso]]></text>
-			</staticText>
-			<image scaleImage="FillFrame">
-				<reportElement x="401" y="0" width="154" height="37" uuid="c60677ee-2c7e-4850-afee-6001d6ffb79d"/>
-				<imageExpression><![CDATA[$P{image}]]></imageExpression>
-			</image>
-			<textField>
-				<reportElement x="0" y="98" width="555" height="21" uuid="11380258-7bf3-4e43-9202-8bfae4921674"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Curso: "+$P{curso}]]></textFieldExpression>
-			</textField>
-		</band>
-	</title>
-	<detail>
-		<band height="24" splitType="Stretch">
-			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="0" width="555" height="24" isPrintWhenDetailOverflows="true" uuid="260f8841-85bf-4c87-8b80-1557ed465e30"/>
-				<textElement markup="html"/>
-				<textFieldExpression><![CDATA[$P{dados}]]></textFieldExpression>
-			</textField>
-		</band>
-	</detail>
+    <property name="ireport.zoom" value="1.0"/>
+    <property name="ireport.x" value="0"/>
+    <property name="ireport.y" value="0"/>
+    <parameter name="curso" class="java.lang.String"/>
+    <parameter name="dados" class="java.lang.String"/>
+    <parameter name="image" class="java.awt.Image"/>
+    <title>
+        <band height="119" splitType="Stretch">
+            <staticText>
+                <reportElement x="0" y="37" width="555" height="56" uuid="4a9c5993-4858-4e2a-b480-d69a8411e9e7"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="18" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Competentes para o curso]]></text>
+            </staticText>
+            <image scaleImage="FillFrame">
+                <reportElement x="401" y="0" width="154" height="37" uuid="c60677ee-2c7e-4850-afee-6001d6ffb79d"/>
+                <imageExpression><![CDATA[$P{image}]]></imageExpression>
+            </image>
+            <textField>
+                <reportElement x="0" y="98" width="555" height="21" uuid="11380258-7bf3-4e43-9202-8bfae4921674"/>
+                <textElement>
+                    <font size="12"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Curso: "+$P{curso}]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+    <detail>
+        <band height="24" splitType="Stretch">
+            <textField isStretchWithOverflow="true">
+                <reportElement x="0" y="0" width="555" height="24" isPrintWhenDetailOverflows="true" uuid="260f8841-85bf-4c87-8b80-1557ed465e30"/>
+                <textElement markup="html"/>
+                <textFieldExpression><![CDATA[$P{dados}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
 </jasperReport>

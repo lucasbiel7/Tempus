@@ -24,6 +24,7 @@ public class Mensagem {
         notifications.text(mensagem);
         notifications.showInformation();
     }
+
     public static void showError(String titulo, String mensagem) {
         Notifications notifications = Notifications.create();
         notifications.title(titulo);
@@ -31,7 +32,8 @@ public class Mensagem {
         notifications.hideAfter(Duration.seconds(10d));
         notifications.showError();
     }
-    public static boolean showConfirmation(String titulo,String menssagem){
+
+    public static boolean showConfirmation(String titulo, String menssagem) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, menssagem, ButtonType.YES, ButtonType.NO);
         alert.setTitle("Deseja Continuar?");
         ((Stage) (alert.getDialogPane().getScene().getWindow())).getIcons().add(FxMananger.image);
@@ -40,5 +42,5 @@ public class Mensagem {
         Optional<ButtonType> botoes = alert.showAndWait();
         return botoes.get().equals(ButtonType.YES);
     }
-    
+
 }

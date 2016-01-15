@@ -28,7 +28,7 @@ public class ObservacaoAula implements Serializable {
     @ManyToOne
     private Turma turma;
     private String observacao;
-    private boolean ativo=true;
+    private boolean ativo = true;
 
     public boolean isAtivo() {
         return ativo;
@@ -37,7 +37,6 @@ public class ObservacaoAula implements Serializable {
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
     }
-    
 
     public int getId() {
         return id;
@@ -71,7 +70,6 @@ public class ObservacaoAula implements Serializable {
         this.observacao = observacao;
     }
 
-    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -101,5 +99,5 @@ public class ObservacaoAula implements Serializable {
     public String toString() {
         return getObservacao();
     }
-    
+
 }

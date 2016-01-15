@@ -12,15 +12,15 @@
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
-   <children>
-      <ComboBox fx:id="cbUsuario" layoutX="39.0" layoutY="14.0" prefHeight="25.0" prefWidth="195.0" promptText="Selecione o usuário..." />
-      <SplitMenuButton layoutX="451.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="195.0" text="Tipo do relátorio">
-        <items>
-          <MenuItem mnemonicParsing="false" onAction="#miRelatorioInstrutorActionEvent" text="Instrutor" />
-          <MenuItem mnemonicParsing="false" onAction="#miRelatorioCursoActionEvent" text="Curso" />
-        </items>
-      </SplitMenuButton>
-      <ComboBox fx:id="cbCurso" layoutX="245.0" layoutY="14.0" prefHeight="25.0" prefWidth="195.0" promptText="Selecione o curso..." />
-      <SwingNode fx:id="swPrincipal" layoutX="55.0" layoutY="63.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="50.0" />
-   </children>
+    <children>
+        <ComboBox fx:id="cbUsuario" layoutX="39.0" layoutY="14.0" prefHeight="25.0" prefWidth="195.0" promptText="Selecione o usuário..." />
+        <SplitMenuButton layoutX="451.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="195.0" text="Tipo do relátorio">
+            <items>
+                <MenuItem mnemonicParsing="false" onAction="#miRelatorioInstrutorActionEvent" text="Instrutor" />
+                <MenuItem mnemonicParsing="false" onAction="#miRelatorioCursoActionEvent" text="Curso" />
+            </items>
+        </SplitMenuButton>
+        <ComboBox fx:id="cbCurso" layoutX="245.0" layoutY="14.0" prefHeight="25.0" prefWidth="195.0" promptText="Selecione o curso..." />
+        <SwingNode fx:id="swPrincipal" layoutX="55.0" layoutY="63.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="50.0" />
+    </children>
 </AnchorPane>

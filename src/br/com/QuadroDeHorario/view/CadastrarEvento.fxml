@@ -11,13 +11,13 @@
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
-   <children>
-      <Label layoutX="43.0" layoutY="34.0" text="Nome" />
-      <Label layoutX="52.0" layoutY="79.0" text="Cor" />
-      <TextField fx:id="tfNome" layoutX="114.0" layoutY="30.0" prefHeight="25.0" prefWidth="168.0" />
-      <Button defaultButton="true" layoutX="107.0" layoutY="157.0" mnemonicParsing="false" onAction="#btSalvarActionEvent" text="Salvar" />
-      <Button cancelButton="true" layoutX="198.0" layoutY="157.0" mnemonicParsing="false" onAction="#btCancelarActionEvent" text="Cancelar" />
-      <ColorPicker fx:id="cpCor" layoutX="114.0" layoutY="75.0" prefHeight="25.0" prefWidth="168.0" />
-      <CheckBox fx:id="cbLetivo" layoutX="114.0" layoutY="117.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="168.0" text="Não haverá aula" textFill="WHITE" />
-   </children>
+    <children>
+        <Label layoutX="43.0" layoutY="34.0" text="Nome" />
+        <Label layoutX="52.0" layoutY="79.0" text="Cor" />
+        <TextField fx:id="tfNome" layoutX="114.0" layoutY="30.0" prefHeight="25.0" prefWidth="168.0" />
+        <Button defaultButton="true" layoutX="107.0" layoutY="157.0" mnemonicParsing="false" onAction="#btSalvarActionEvent" text="Salvar" />
+        <Button cancelButton="true" layoutX="198.0" layoutY="157.0" mnemonicParsing="false" onAction="#btCancelarActionEvent" text="Cancelar" />
+        <ColorPicker fx:id="cpCor" layoutX="114.0" layoutY="75.0" prefHeight="25.0" prefWidth="168.0" />
+        <CheckBox fx:id="cbLetivo" layoutX="114.0" layoutY="117.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="168.0" text="Não haverá aula" textFill="WHITE" />
+    </children>
 </AnchorPane>

@@ -79,7 +79,7 @@ public class RelatorioMatrizCompetenciaController implements Initializable {
                 }
             }
             parametros.put("image", new ImageIcon(getClass().getResource("/br/com/QuadroDeHorario/view/report/logo.png")).getImage());
-            
+
             parametros.put("dados", dados);
             Relatorios relatorios = new Relatorios("MatrizCompetenciaUsuario", parametros);
             relatorios.carregarPainelSwingNode(swPrincipal);

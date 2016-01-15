@@ -14,34 +14,34 @@
     <children>
         <HBox alignment="CENTER" layoutX="198.0" layoutY="115.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-            <TitledPane animated="false" prefHeight="378.0" prefWidth="314.0" text="Instrutores">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="mainFxmlClass">
-                     <children>
-                        <ComboBox fx:id="cbSemestreInstrutor" layoutX="87.0" layoutY="94.0" prefHeight="30.0" prefWidth="194.0" promptText="Selecione..." />
-                        <Spinner fx:id="spAnoInstrutor" layoutX="87.0" layoutY="138.0" prefHeight="30.0" prefWidth="194.0" />
-                        <Label layoutX="49.0" layoutY="145.0" text="Ano" />
-                        <Label layoutX="24.0" layoutY="101.0" text="Semestre" />
-                        <Button layoutX="87.0" layoutY="183.0" mnemonicParsing="false" onAction="#btAbrirMapaDeUsoInstrutorActionEvent" text="Abrir mapa" />
-                     </children>
-                  </AnchorPane>
-              </content>
-            </TitledPane>
-            <TitledPane prefHeight="377.0" prefWidth="304.0" text="Ambientes">
-               <content>
-                  <AnchorPane styleClass="mainFxmlClass">
-                     <children>
-                              <ComboBox fx:id="cbSemestreAmbiente" layoutX="88.0" layoutY="96.0" prefHeight="30.0" prefWidth="194.0" promptText="Selecione..." />
-                              <Label layoutX="14.0" layoutY="61.0" text="Ambiente" />
-                              <Button layoutX="88.0" layoutY="193.0" mnemonicParsing="false" onAction="#btAbrirMapaDeUsoActionEvent" text="Abrir mapa" />
-                              <Label layoutX="44.0" layoutY="146.0" text="Ano" />
-                              <Spinner fx:id="spAnoAmbiente" layoutX="88.0" layoutY="140.0" prefHeight="30.0" prefWidth="194.0" />
-                              <ComboBox fx:id="cbAmbiente" layoutX="88.0" layoutY="54.0" prefHeight="30.0" prefWidth="194.0" promptText="Selecione..." />
-                              <Label layoutX="17.0" layoutY="103.0" text="Semestre" />
-                     </children>
-                  </AnchorPane>
-               </content>
-            </TitledPane>
+                <TitledPane animated="false" prefHeight="378.0" prefWidth="314.0" text="Instrutores">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="mainFxmlClass">
+                            <children>
+                                <ComboBox fx:id="cbSemestreInstrutor" layoutX="87.0" layoutY="94.0" prefHeight="30.0" prefWidth="194.0" promptText="Selecione..." />
+                                <Spinner fx:id="spAnoInstrutor" layoutX="87.0" layoutY="138.0" prefHeight="30.0" prefWidth="194.0" />
+                                <Label layoutX="49.0" layoutY="145.0" text="Ano" />
+                                <Label layoutX="24.0" layoutY="101.0" text="Semestre" />
+                                <Button layoutX="87.0" layoutY="183.0" mnemonicParsing="false" onAction="#btAbrirMapaDeUsoInstrutorActionEvent" text="Abrir mapa" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </TitledPane>
+                <TitledPane prefHeight="377.0" prefWidth="304.0" text="Ambientes">
+                    <content>
+                        <AnchorPane styleClass="mainFxmlClass">
+                            <children>
+                                <ComboBox fx:id="cbSemestreAmbiente" layoutX="88.0" layoutY="96.0" prefHeight="30.0" prefWidth="194.0" promptText="Selecione..." />
+                                <Label layoutX="14.0" layoutY="61.0" text="Ambiente" />
+                                <Button layoutX="88.0" layoutY="193.0" mnemonicParsing="false" onAction="#btAbrirMapaDeUsoActionEvent" text="Abrir mapa" />
+                                <Label layoutX="44.0" layoutY="146.0" text="Ano" />
+                                <Spinner fx:id="spAnoAmbiente" layoutX="88.0" layoutY="140.0" prefHeight="30.0" prefWidth="194.0" />
+                                <ComboBox fx:id="cbAmbiente" layoutX="88.0" layoutY="54.0" prefHeight="30.0" prefWidth="194.0" promptText="Selecione..." />
+                                <Label layoutX="17.0" layoutY="103.0" text="Semestre" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </TitledPane>
             </children>
         </HBox>
     </children>

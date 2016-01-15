@@ -15,139 +15,139 @@
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
-   <children>
-      <Button layoutX="634.0" layoutY="451.0" mnemonicParsing="false" onAction="#btSalvarActionEvent" text="Salvar" AnchorPane.bottomAnchor="14.0" />
-      <Button layoutX="721.0" layoutY="451.0" mnemonicParsing="false" onAction="#btNovoActionEvent" text="Novo" AnchorPane.bottomAnchor="14.0" />
-      <Separator layoutX="791.0" layoutY="14.0" orientation="VERTICAL" prefHeight="200.0" AnchorPane.bottomAnchor="14.0" AnchorPane.topAnchor="14.0" />
-      <TableView fx:id="tvUsuario" layoutX="806.0" layoutY="61.0" onMouseReleased="#tvUsuarioMouseReleased" prefHeight="425.0" prefWidth="186.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="806.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="61.0">
-        <columns>
-          <TableColumn fx:id="tcNome" prefWidth="75.0" text="Nome" />
-          <TableColumn fx:id="tcEmail" prefWidth="75.0" text="E-mail" />
-            <TableColumn fx:id="tcGrupo" prefWidth="75.0" text="Grupo" />
-            <TableColumn fx:id="tcTelefone" prefWidth="75.0" text="Telefone" />
-            <TableColumn fx:id="tcCelular" prefWidth="75.0" text="Celular" />
-            <TableColumn fx:id="tcEndereco" prefWidth="75.0" text="Endereço" />
-            <TableColumn fx:id="tcCargaHoraria" prefWidth="75.0" text="Aulas/dia&#10;contratadas&#10;" />
-        </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-         <contextMenu>
-            <ContextMenu>
-              <items>
-                <MenuItem mnemonicParsing="false" onAction="#miExcluirActionEvent" text="Excluir" />
-              </items>
-            </ContextMenu>
-         </contextMenu>
-      </TableView>
-      <TextField fx:id="tfPesquisa" layoutX="806.0" layoutY="17.0" onKeyReleased="#jtPesquisaKeyRelease" prefHeight="30.0" prefWidth="186.0" promptText="Pesquisar por nome" AnchorPane.leftAnchor="806.0" AnchorPane.rightAnchor="14.0" />
-      <Accordion layoutX="-3.0" layoutY="58.0" prefHeight="436.0" prefWidth="777.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
-        <panes>
-          <TitledPane prefHeight="295.0" prefWidth="690.0" styleClass="mainFxmlClass" text="Dados Pessoais">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="335.0" prefWidth="574.0" styleClass="mainFxmlClass">
-                     <children>
-                        <TextField fx:id="tfNome" layoutX="75.0" layoutY="24.0" prefHeight="30.0" prefWidth="212.0" />
-                        <TextField fx:id="tfEmail" layoutX="75.0" layoutY="70.0" prefHeight="30.0" prefWidth="212.0" />
-                        <TextField fx:id="tfLogin" layoutX="75.0" layoutY="114.0" prefHeight="30.0" prefWidth="212.0" />
-                        <Label layoutX="14.0" layoutY="30.0" text="Nome" />
-                        <Label layoutX="10.0" layoutY="76.0" text="E-mail" />
-                        <Label layoutX="10.0" layoutY="120.0" text="Login" />
-                        <PasswordField fx:id="pfSenha" layoutX="75.0" layoutY="151.0" prefHeight="30.0" prefWidth="212.0" promptText="Caso vazio pernamecerá útima senha" />
-                        <Label layoutX="9.0" layoutY="157.0" text="Senha" />
-                        <ComboBox fx:id="cbGrupo" layoutX="75.0" layoutY="192.0" prefHeight="30.0" prefWidth="212.0" promptText="Selecione ..." />
-                        <Label layoutX="8.0" layoutY="198.0" text="Grupo" />
-                        <Label layoutX="12.0" layoutY="244.0" text="Telefone" />
-                        <TextField fx:id="tfTelefone" layoutX="75.0" layoutY="238.0" prefHeight="30.0" prefWidth="212.0" />
-                        <Label layoutX="306.0" layoutY="33.0" text="Celular" />
-                        <TextField fx:id="tfCelular" layoutX="373.0" layoutY="27.0" prefHeight="30.0" prefWidth="212.0" />
-                        <Label layoutX="303.0" layoutY="81.0" text="Endereço" />
-                        <TextField fx:id="tfEndereco" layoutX="373.0" layoutY="75.0" prefHeight="30.0" prefWidth="212.0" />
-                        <Button layoutX="651.0" layoutY="181.0" mnemonicParsing="false" onAction="#btFotoActionEvent" text="Foto" />
-                        <Circle fx:id="cFoto" fill="#1f93ff00" layoutX="683.0" layoutY="90.0" radius="61.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.1">
-                           <effect>
-                              <DropShadow color="#72787f" height="26.93" radius="24.825000000000003" width="74.37" />
-                           </effect>
-                        </Circle>
-                        <Label layoutX="25.0" layoutY="290.0" text="Cartão" />
-                        <TextField fx:id="tfCartao" disable="true" editable="false" layoutX="75.0" layoutY="281.0" prefHeight="35.0" prefWidth="105.0" />
-                        <Button fx:id="btLerCartao" layoutX="189.0" layoutY="281.0" mnemonicParsing="false" onAction="#btLerCartaoActionEvent" prefHeight="35.0" prefWidth="98.0" text="Ler Cartão" />
-                     </children>
-                  </AnchorPane>
-            </content>
-          </TitledPane>
-          <TitledPane text="Informações para o quadro de Horário">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="mainFxmlClass">
-                     <children>
-                        <Label layoutX="49.0" layoutY="21.0" text="Curso" />
-                        <Label layoutX="476.0" layoutY="24.0" text="Disciplina" />
-                        <Label layoutX="14.0" layoutY="65.0" text="Competencia" />
-                        <ComboBox fx:id="cbCurso" layoutX="100.0" layoutY="15.0" onAction="#cbCursoActionEvent" prefHeight="30.0" prefWidth="231.0" promptText="Selecione ..." />
-                        <ComboBox fx:id="cbMateria" layoutX="557.0" layoutY="17.0" prefHeight="30.0" prefWidth="175.0" promptText="Selecione ..." />
-                        <ComboBox fx:id="cbCompetencia" layoutX="103.0" layoutY="59.0" prefHeight="30.0" prefWidth="226.0" promptText="Selecione ..." />
-                        <Button layoutX="558.0" layoutY="58.0" mnemonicParsing="false" onAction="#btAdicionarActionEvent" text="Salvar" />
-                        <TableView fx:id="tvUsuarioMateria" layoutX="14.0" layoutY="125.6" onMouseReleased="#tvUsuarioDisciplinaMouseReleased" prefHeight="226.0" prefWidth="432.0" AnchorPane.bottomAnchor="13.0" AnchorPane.topAnchor="116.0">
-                          <columns>
-                            <TableColumn fx:id="tcDisciplina" prefWidth="75.0" text="Disciplina" />
-                              <TableColumn fx:id="tcCurso" prefWidth="75.0" text="Curso" />
-                            <TableColumn fx:id="tcTipo" prefWidth="75.0" text="Tipo" />
-                          </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                           <contextMenu>
-                              <ContextMenu>
-                                <items>
-                                  <MenuItem mnemonicParsing="false" onAction="#miExcluirUsuarioDisciplinaActionEvent" text="Excluir" />
-                                </items>
-                              </ContextMenu>
-                           </contextMenu>
-                        </TableView>
-                        <Spinner fx:id="spCargaHoraria" layoutX="561.0" layoutY="115.0" prefHeight="30.0" prefWidth="175.0" />
-                        <Label layoutX="471.0" layoutY="113.0" text="Aulas/dia&#10;contratadas&#10;" />
-                        <CheckBox fx:id="cbManha" layoutX="476.0" layoutY="199.0" mnemonicParsing="false" onAction="#rbTurnosActionEvent" text="Manhã" />
-                        <CheckBox fx:id="cbTarde" layoutX="568.0" layoutY="199.0" mnemonicParsing="false" onAction="#rbTurnosActionEvent" text="Tarde" />
-                        <CheckBox fx:id="cbNoite" layoutX="649.0" layoutY="199.0" mnemonicParsing="false" onAction="#rbTurnosActionEvent" text="Noite" />
-                        <Label layoutX="476.0" layoutY="163.0" text="Turnos" />
-                     </children>
-                  </AnchorPane>
-            </content>
-          </TitledPane>
-          <TitledPane prefHeight="0.0" prefWidth="202.0" text="Dados Profissionais">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="mainFxmlClass">
-                     <children>
-                        <TextArea fx:id="taObservacao" layoutX="14.0" layoutY="80.6" prefHeight="284.0" prefWidth="243.0" AnchorPane.bottomAnchor="14.0" AnchorPane.topAnchor="71.0" />
-                        <Label layoutX="14.0" layoutY="32.0" text="Observações" />
-                        <TableView fx:id="tvEscolaridade" layoutX="281.0" layoutY="131.0" onMouseReleased="#tvEscolaridadeMouseReleased" prefHeight="200.0" prefWidth="476.0" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="130.0">
-                          <columns>
-                            <TableColumn fx:id="tcEscolaridade" prefWidth="75.0" text="Escolaridade" />
-                              <TableColumn fx:id="tcNomeCurso" prefWidth="75.0" text="Nome do curso" />
-                              <TableColumn fx:id="tcCompleto" prefWidth="75.0" text="Completo" />
-                          </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                           <contextMenu>
-                              <ContextMenu>
-                                <items>
-                                  <MenuItem mnemonicParsing="false" onAction="#miExcluirEscolaridadeActionEvent" text="Excluir" />
-                                </items>
-                              </ContextMenu>
-                           </contextMenu>
-                        </TableView>
-                        <ComboBox fx:id="cbEscolaridade" layoutX="380.0" layoutY="88.0" prefHeight="30.0" prefWidth="150.0" promptText="Selecione..." />
-                        <CheckBox fx:id="cbCompleto" layoutX="542.0" layoutY="88.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="107.0" text="Completo" />
-                        <TextField fx:id="tfNomeCurso" layoutX="380.0" layoutY="49.0" prefHeight="30.0" prefWidth="275.0" />
-                        <Label layoutX="290.0" layoutY="56.0" text="Nome do curso" />
-                        <Label layoutX="298.0" layoutY="88.0" prefHeight="30.0" text="Escolaridade" />
-                        <Button layoutX="676.0" layoutY="86.0" mnemonicParsing="false" onAction="#btSalvarNomeCursoActionEvent" text="Salvar" />
-                     </children>
-                  </AnchorPane>
-            </content>
-          </TitledPane>
-        </panes>
-      </Accordion>
-   </children>
+    <children>
+        <Button layoutX="634.0" layoutY="451.0" mnemonicParsing="false" onAction="#btSalvarActionEvent" text="Salvar" AnchorPane.bottomAnchor="14.0" />
+        <Button layoutX="721.0" layoutY="451.0" mnemonicParsing="false" onAction="#btNovoActionEvent" text="Novo" AnchorPane.bottomAnchor="14.0" />
+        <Separator layoutX="791.0" layoutY="14.0" orientation="VERTICAL" prefHeight="200.0" AnchorPane.bottomAnchor="14.0" AnchorPane.topAnchor="14.0" />
+        <TableView fx:id="tvUsuario" layoutX="806.0" layoutY="61.0" onMouseReleased="#tvUsuarioMouseReleased" prefHeight="425.0" prefWidth="186.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="806.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="61.0">
+            <columns>
+                <TableColumn fx:id="tcNome" prefWidth="75.0" text="Nome" />
+                <TableColumn fx:id="tcEmail" prefWidth="75.0" text="E-mail" />
+                <TableColumn fx:id="tcGrupo" prefWidth="75.0" text="Grupo" />
+                <TableColumn fx:id="tcTelefone" prefWidth="75.0" text="Telefone" />
+                <TableColumn fx:id="tcCelular" prefWidth="75.0" text="Celular" />
+                <TableColumn fx:id="tcEndereco" prefWidth="75.0" text="Endereço" />
+                <TableColumn fx:id="tcCargaHoraria" prefWidth="75.0" text="Aulas/dia&#10;contratadas&#10;" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+            <contextMenu>
+                <ContextMenu>
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#miExcluirActionEvent" text="Excluir" />
+                    </items>
+                </ContextMenu>
+            </contextMenu>
+        </TableView>
+        <TextField fx:id="tfPesquisa" layoutX="806.0" layoutY="17.0" onKeyReleased="#jtPesquisaKeyRelease" prefHeight="30.0" prefWidth="186.0" promptText="Pesquisar por nome" AnchorPane.leftAnchor="806.0" AnchorPane.rightAnchor="14.0" />
+        <Accordion layoutX="-3.0" layoutY="58.0" prefHeight="436.0" prefWidth="777.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
+            <panes>
+                <TitledPane prefHeight="295.0" prefWidth="690.0" styleClass="mainFxmlClass" text="Dados Pessoais">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="335.0" prefWidth="574.0" styleClass="mainFxmlClass">
+                            <children>
+                                <TextField fx:id="tfNome" layoutX="75.0" layoutY="24.0" prefHeight="30.0" prefWidth="212.0" />
+                                <TextField fx:id="tfEmail" layoutX="75.0" layoutY="70.0" prefHeight="30.0" prefWidth="212.0" />
+                                <TextField fx:id="tfLogin" layoutX="75.0" layoutY="114.0" prefHeight="30.0" prefWidth="212.0" />
+                                <Label layoutX="14.0" layoutY="30.0" text="Nome" />
+                                <Label layoutX="10.0" layoutY="76.0" text="E-mail" />
+                                <Label layoutX="10.0" layoutY="120.0" text="Login" />
+                                <PasswordField fx:id="pfSenha" layoutX="75.0" layoutY="151.0" prefHeight="30.0" prefWidth="212.0" promptText="Caso vazio pernamecerá útima senha" />
+                                <Label layoutX="9.0" layoutY="157.0" text="Senha" />
+                                <ComboBox fx:id="cbGrupo" layoutX="75.0" layoutY="192.0" prefHeight="30.0" prefWidth="212.0" promptText="Selecione ..." />
+                                <Label layoutX="8.0" layoutY="198.0" text="Grupo" />
+                                <Label layoutX="12.0" layoutY="244.0" text="Telefone" />
+                                <TextField fx:id="tfTelefone" layoutX="75.0" layoutY="238.0" prefHeight="30.0" prefWidth="212.0" />
+                                <Label layoutX="306.0" layoutY="33.0" text="Celular" />
+                                <TextField fx:id="tfCelular" layoutX="373.0" layoutY="27.0" prefHeight="30.0" prefWidth="212.0" />
+                                <Label layoutX="303.0" layoutY="81.0" text="Endereço" />
+                                <TextField fx:id="tfEndereco" layoutX="373.0" layoutY="75.0" prefHeight="30.0" prefWidth="212.0" />
+                                <Button layoutX="651.0" layoutY="181.0" mnemonicParsing="false" onAction="#btFotoActionEvent" text="Foto" />
+                                <Circle fx:id="cFoto" fill="#1f93ff00" layoutX="683.0" layoutY="90.0" radius="61.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.1">
+                                    <effect>
+                                        <DropShadow color="#72787f" height="26.93" radius="24.825000000000003" width="74.37" />
+                                    </effect>
+                                </Circle>
+                                <Label layoutX="25.0" layoutY="290.0" text="Cartão" />
+                                <TextField fx:id="tfCartao" disable="true" editable="false" layoutX="75.0" layoutY="281.0" prefHeight="35.0" prefWidth="105.0" />
+                                <Button fx:id="btLerCartao" layoutX="189.0" layoutY="281.0" mnemonicParsing="false" onAction="#btLerCartaoActionEvent" prefHeight="35.0" prefWidth="98.0" text="Ler Cartão" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </TitledPane>
+                <TitledPane text="Informações para o quadro de Horário">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="mainFxmlClass">
+                            <children>
+                                <Label layoutX="49.0" layoutY="21.0" text="Curso" />
+                                <Label layoutX="476.0" layoutY="24.0" text="Disciplina" />
+                                <Label layoutX="14.0" layoutY="65.0" text="Competencia" />
+                                <ComboBox fx:id="cbCurso" layoutX="100.0" layoutY="15.0" onAction="#cbCursoActionEvent" prefHeight="30.0" prefWidth="231.0" promptText="Selecione ..." />
+                                <ComboBox fx:id="cbMateria" layoutX="557.0" layoutY="17.0" prefHeight="30.0" prefWidth="175.0" promptText="Selecione ..." />
+                                <ComboBox fx:id="cbCompetencia" layoutX="103.0" layoutY="59.0" prefHeight="30.0" prefWidth="226.0" promptText="Selecione ..." />
+                                <Button layoutX="558.0" layoutY="58.0" mnemonicParsing="false" onAction="#btAdicionarActionEvent" text="Salvar" />
+                                <TableView fx:id="tvUsuarioMateria" layoutX="14.0" layoutY="125.6" onMouseReleased="#tvUsuarioDisciplinaMouseReleased" prefHeight="226.0" prefWidth="432.0" AnchorPane.bottomAnchor="13.0" AnchorPane.topAnchor="116.0">
+                                    <columns>
+                                        <TableColumn fx:id="tcDisciplina" prefWidth="75.0" text="Disciplina" />
+                                        <TableColumn fx:id="tcCurso" prefWidth="75.0" text="Curso" />
+                                        <TableColumn fx:id="tcTipo" prefWidth="75.0" text="Tipo" />
+                                    </columns>
+                                    <columnResizePolicy>
+                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                    </columnResizePolicy>
+                                    <contextMenu>
+                                        <ContextMenu>
+                                            <items>
+                                                <MenuItem mnemonicParsing="false" onAction="#miExcluirUsuarioDisciplinaActionEvent" text="Excluir" />
+                                            </items>
+                                        </ContextMenu>
+                                    </contextMenu>
+                                </TableView>
+                                <Spinner fx:id="spCargaHoraria" layoutX="561.0" layoutY="115.0" prefHeight="30.0" prefWidth="175.0" />
+                                <Label layoutX="471.0" layoutY="113.0" text="Aulas/dia&#10;contratadas&#10;" />
+                                <CheckBox fx:id="cbManha" layoutX="476.0" layoutY="199.0" mnemonicParsing="false" onAction="#rbTurnosActionEvent" text="Manhã" />
+                                <CheckBox fx:id="cbTarde" layoutX="568.0" layoutY="199.0" mnemonicParsing="false" onAction="#rbTurnosActionEvent" text="Tarde" />
+                                <CheckBox fx:id="cbNoite" layoutX="649.0" layoutY="199.0" mnemonicParsing="false" onAction="#rbTurnosActionEvent" text="Noite" />
+                                <Label layoutX="476.0" layoutY="163.0" text="Turnos" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </TitledPane>
+                <TitledPane prefHeight="0.0" prefWidth="202.0" text="Dados Profissionais">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="mainFxmlClass">
+                            <children>
+                                <TextArea fx:id="taObservacao" layoutX="14.0" layoutY="80.6" prefHeight="284.0" prefWidth="243.0" AnchorPane.bottomAnchor="14.0" AnchorPane.topAnchor="71.0" />
+                                <Label layoutX="14.0" layoutY="32.0" text="Observações" />
+                                <TableView fx:id="tvEscolaridade" layoutX="281.0" layoutY="131.0" onMouseReleased="#tvEscolaridadeMouseReleased" prefHeight="200.0" prefWidth="476.0" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="130.0">
+                                    <columns>
+                                        <TableColumn fx:id="tcEscolaridade" prefWidth="75.0" text="Escolaridade" />
+                                        <TableColumn fx:id="tcNomeCurso" prefWidth="75.0" text="Nome do curso" />
+                                        <TableColumn fx:id="tcCompleto" prefWidth="75.0" text="Completo" />
+                                    </columns>
+                                    <columnResizePolicy>
+                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                    </columnResizePolicy>
+                                    <contextMenu>
+                                        <ContextMenu>
+                                            <items>
+                                                <MenuItem mnemonicParsing="false" onAction="#miExcluirEscolaridadeActionEvent" text="Excluir" />
+                                            </items>
+                                        </ContextMenu>
+                                    </contextMenu>
+                                </TableView>
+                                <ComboBox fx:id="cbEscolaridade" layoutX="380.0" layoutY="88.0" prefHeight="30.0" prefWidth="150.0" promptText="Selecione..." />
+                                <CheckBox fx:id="cbCompleto" layoutX="542.0" layoutY="88.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="107.0" text="Completo" />
+                                <TextField fx:id="tfNomeCurso" layoutX="380.0" layoutY="49.0" prefHeight="30.0" prefWidth="275.0" />
+                                <Label layoutX="290.0" layoutY="56.0" text="Nome do curso" />
+                                <Label layoutX="298.0" layoutY="88.0" prefHeight="30.0" text="Escolaridade" />
+                                <Button layoutX="676.0" layoutY="86.0" mnemonicParsing="false" onAction="#btSalvarNomeCursoActionEvent" text="Salvar" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </TitledPane>
+            </panes>
+        </Accordion>
+    </children>
 </AnchorPane>

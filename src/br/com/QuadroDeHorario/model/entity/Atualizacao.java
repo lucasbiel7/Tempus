@@ -28,6 +28,7 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Atualizacao.findAll", query = "SELECT a FROM Atualizacao a")})
 public class Atualizacao implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +45,7 @@ public class Atualizacao implements Serializable {
     private String url;
     @Lob
     private byte[] jar;
-    private Boolean ativo=true;
+    private Boolean ativo = true;
     @JoinColumn(name = "sistema_id", referencedColumnName = "id")
     @ManyToOne
     private Sistema sistema;
@@ -166,5 +167,5 @@ public class Atualizacao implements Serializable {
     public String toString() {
         return "br.com.QuadroDeHorario.entity.Atualizacao[ id=" + id + " ]";
     }
-    
+
 }

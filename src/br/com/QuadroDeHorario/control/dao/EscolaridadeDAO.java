@@ -5,9 +5,9 @@
  */
 package br.com.QuadroDeHorario.control.dao;
 
+import br.com.QuadroDeHorario.model.GenericaDAO;
 import br.com.QuadroDeHorario.model.entity.Escolaridade;
 import br.com.QuadroDeHorario.model.entity.Usuario;
-import br.com.QuadroDeHorario.model.GenericaDAO;
 import java.util.List;
 import org.hibernate.criterion.Restrictions;
 
@@ -23,7 +23,6 @@ public class EscolaridadeDAO extends GenericaDAO<Escolaridade> {
         editar(entity);
     }
 
-    
     public List<Escolaridade> pegarPorUsuario(Usuario usuario) {
         entitys = criteria.add(Restrictions.eq("usuario", usuario)).list();
         finalizarSession();

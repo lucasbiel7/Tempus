@@ -14,37 +14,37 @@
     <stylesheets>
         <URL value="@estilo.css" />
     </stylesheets>
-   <children>
-      <Button fx:id="btLogin" layoutX="252.0" layoutY="111.0" mnemonicParsing="false" onAction="#btLoginActionEvent" prefHeight="77.0" prefWidth="203.0" text="Login">
-         <font>
-            <Font size="15.0" />
-         </font>
-         <padding>
-            <Insets top="10.0" />
-         </padding>
-      </Button>
-      <Button layoutX="17.0" layoutY="111.0" mnemonicParsing="false" onAction="#btVisualizarHorarioActionEvent" prefHeight="77.0" prefWidth="203.0" text="Visualizar Horário">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Button>
-      <Label fx:id="lbAtualizacao" layoutX="14.0" layoutY="202.0" prefHeight="37.0" prefWidth="452.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0">
-         <font>
-            <Font name="System Italic" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="lbVersao" layoutX="354.0" layoutY="257.0" prefHeight="17.0" prefWidth="123.0" text="Tempus">
-         <font>
-            <Font name="System Italic" size="9.0" />
-         </font>
-      </Label>
-      <Label fx:id="lbLogo" layoutX="34.0" layoutY="22.0" prefHeight="75.0" prefWidth="393.0">
-         <graphic>
-            <ImageView fx:id="ivLogo" fitHeight="61.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" />
-         </graphic>
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-   </children>
+    <children>
+        <Button fx:id="btLogin" layoutX="252.0" layoutY="111.0" mnemonicParsing="false" onAction="#btLoginActionEvent" prefHeight="77.0" prefWidth="203.0" text="Login">
+            <font>
+                <Font size="15.0" />
+            </font>
+            <padding>
+                <Insets top="10.0" />
+            </padding>
+        </Button>
+        <Button layoutX="17.0" layoutY="111.0" mnemonicParsing="false" onAction="#btVisualizarHorarioActionEvent" prefHeight="77.0" prefWidth="203.0" text="Visualizar Horário">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </Button>
+        <Label fx:id="lbAtualizacao" layoutX="14.0" layoutY="202.0" prefHeight="37.0" prefWidth="452.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0">
+            <font>
+                <Font name="System Italic" size="18.0" />
+            </font>
+        </Label>
+        <Label fx:id="lbVersao" layoutX="354.0" layoutY="257.0" prefHeight="17.0" prefWidth="123.0" text="Tempus">
+            <font>
+                <Font name="System Italic" size="9.0" />
+            </font>
+        </Label>
+        <Label fx:id="lbLogo" layoutX="34.0" layoutY="22.0" prefHeight="75.0" prefWidth="393.0">
+            <graphic>
+                <ImageView fx:id="ivLogo" fitHeight="61.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" />
+            </graphic>
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Label>
+    </children>
 </AnchorPane>
