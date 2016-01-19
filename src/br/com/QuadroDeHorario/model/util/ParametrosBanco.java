@@ -36,7 +36,7 @@ public class ParametrosBanco {
     public static String IP;
     public static String USUARIO;
     public static String SENHA;
-    public static final double VERSAO = 3.68;
+    public static final double VERSAO = 3.7;
     public static final String REMOTO = "banco";
     public static final String LOCAL = "local";
 

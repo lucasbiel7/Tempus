@@ -52,6 +52,7 @@ public class AulaDAO extends GenericaDAO<Aula> {
     public List<Aula> pegarPorDisciplinaTurma(Materia materia, Turma turma) {
         List<MateriaHorario> materiaHorarios = new MateriaHorarioDAO().pegarTodosPorTurmaMateria(turma, materia);
         if (materiaHorarios.isEmpty()) {
+            finalizarSession();
             return new ArrayList<>();
         }
         entitys = criteria.add(Restrictions.in("materiaHorario", materiaHorarios)).list();

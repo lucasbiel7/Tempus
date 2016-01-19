@@ -45,6 +45,22 @@ public class MateriaHorario implements Serializable {
     @OneToMany(mappedBy = "materiaHorario", cascade = CascadeType.REMOVE)
     private List<Aula> aulas;
 
+    public List<MateriaHorarioAmbiente> getMateriaHorarioAmbientes() {
+        return materiaHorarioAmbientes;
+    }
+
+    public void setMateriaHorarioAmbientes(List<MateriaHorarioAmbiente> materiaHorarioAmbientes) {
+        this.materiaHorarioAmbientes = materiaHorarioAmbientes;
+    }
+
+    public List<Aula> getAulas() {
+        return aulas;
+    }
+
+    public void setAulas(List<Aula> aulas) {
+        this.aulas = aulas;
+    }
+
     @Embeddable
     public static class MateriaTurmaInstrutorSemestre implements Serializable {
 
