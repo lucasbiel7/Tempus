@@ -145,7 +145,9 @@ public class QuadroDeHorarioController implements Initializable {
 
     private Turma turma;
     private Turma turmaEspelho;
-    private MateriaHorario materiaHorario;
+    private SimpleObjectProperty<MateriaHorario> materiaHorario;
+    private SimpleObjectProperty<Ambiente> ambiente;
+    private SimpleObjectProperty<DataHorario.Turno> turno;
 
     //Isso aqui nao devia entrar no fxml mas entra
     //Nao sei porque um dia descubro acredito que e por causa que é constante
@@ -193,9 +195,11 @@ public class QuadroDeHorarioController implements Initializable {
                     new TurmaDAO().editar(turma);
                     if (turmaEspelho == null) {
                         Turma turmaEspelho = new TurmaDAO().pegarPorTurmaPrincipal(turma);
-                        turmaEspelho.setModulo(1);
-                        new TurmaDAO().editar(turmaEspelho);
-                        carregarMateria(turmaEspelho);
+                        if (turmaEspelho != null) {
+                            turmaEspelho.setModulo(1);
+                            new TurmaDAO().editar(turmaEspelho);
+                            carregarMateria(turmaEspelho);
+                        }
                     }
                 }
                 carregarMateria(turma);
@@ -207,11 +211,8 @@ public class QuadroDeHorarioController implements Initializable {
                         turmaEspelho.setModulo(1);
                         new TurmaDAO().editar(turmaEspelho);
                     }
-                    System.out.println("carregando materia turma espelho");
                     carregarMateria(turmaEspelho);
                 }
-                TabelaHorario.turma = turma;
-                TabelaHorario.turmaEspelho = turmaEspelho;
                 if (turma.getTurno().equals(DataHorario.Turno.DIURNO)) {
                     cbTurno.getSelectionModel().select(DataHorario.Turno.MANHA);
                 } else {
@@ -221,6 +222,10 @@ public class QuadroDeHorarioController implements Initializable {
             }
         });
         //Carregar componentes
+        ambiente = new SimpleObjectProperty<>();
+        materiaHorario = new SimpleObjectProperty<>();
+        turno = new SimpleObjectProperty<>();
+        turno.bind(cbTurno.valueProperty());
         tvEvento.setItems(eventos);
         cbSemestre.setItems(semestre);
         tvMateriaHorario.setItems(materiaHorarios);
@@ -333,15 +338,13 @@ public class QuadroDeHorarioController implements Initializable {
 
     @FXML
     private void rbChekActionEvent(ActionEvent actionEvent) {
-        TabelaHorario.autoPreencher = cbAutoPreencher.isSelected();
-        TabelaHorario.aulasGeminadas = cbAulasGerminadas.isSelected();
     }
 
     @FXML
     private void tvMateriaHorarioActionEvent(ActionEvent actionEvent) {
-        materiaHorario = tvMateriaHorario.getSelectionModel().getSelectedItem();
+        materiaHorario.set(tvMateriaHorario.getSelectionModel().getSelectedItem());
         if (materiaHorario != null) {
-            FxMananger.show("EditarMateriaHorario", "Editar componente curricular do horário", true, false, materiaHorario);
+            FxMananger.show("EditarMateriaHorario", "Editar componente curricular do horário", true, false, materiaHorario.get());
             carregarTabelas();
         }
     }
@@ -419,15 +422,13 @@ public class QuadroDeHorarioController implements Initializable {
 
     @FXML
     private void cbTurnoActionEvent(ActionEvent actionEvent) {
-        TabelaHorario.turno = cbTurno.getSelectionModel().getSelectedItem();
         carregarTabelas();
     }
 
     public void carregarTabelas() {
         new Thread(() -> {
-            TabelaHorario.ambienteSelecionado = null;
-            TabelaHorario.materiaHorarioSelecionado = null;
-            TabelaHorario.turno = cbTurno.getSelectionModel().getSelectedItem();
+            ambiente.set(null);
+            materiaHorario.set(null);
             Platform.runLater(() -> {
                 if (turmaEspelho != null) {
                     lbTurma.setText("Turma\n" + turmaEspelho.getDescricao() + "-" + turmaEspelho.getModulo());
@@ -438,12 +439,11 @@ public class QuadroDeHorarioController implements Initializable {
                 }
                 materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turma, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
                 if (turmaEspelho != null) {
-                    System.out.println("carregando materias horarios da espelho");
                     materiaHorarios.addAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turmaEspelho, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
                 }
                 eventos.setAll(new EventoDAO().pegarTodosPorAnoEscola(spAno.getValue(), true));
             });
-        }).start();
+        }, "Carregando disciplinas do semestre").start();
         if (carregarDados != null) {
             if (carregarDados.isRunning()) {
                 carregarDados.cancel();
@@ -458,7 +458,15 @@ public class QuadroDeHorarioController implements Initializable {
                 });
                 if (cbSemestre.getSelectionModel().getSelectedItem() != null) {
                     for (int i = 1; i < 7; i++) {
-                        TabelaHorario tabelaHorario = new TabelaHorario(cbSemestre.getSelectionModel().getSelectedItem().equals(DataHorario.Semestre.SEMESTRE1) ? i : i + 6, spAno.getValue());
+                        TabelaHorario tabelaHorario = new TabelaHorario(
+                                cbSemestre.getSelectionModel().getSelectedItem().equals(DataHorario.Semestre.SEMESTRE1) ? i : i + 6, spAno.getValue(),
+                                turma,
+                                turmaEspelho,
+                                cbAutoPreencher.selectedProperty(),
+                                cbAulasGerminadas.selectedProperty(),
+                                materiaHorario,
+                                ambiente,
+                                turno);
                         tabelaHorario.addEventHandler(EventType.ROOT, new CarregarMateriaHorario());
                         int posicao = i - 1;
                         Platform.runLater(() -> {
@@ -605,8 +613,8 @@ public class QuadroDeHorarioController implements Initializable {
             lbSelecionado.setText("Seleção no Quadro de componentes curriculares/Ambiente\n"
                     + "Componente curricular: " + (materiaHorario == null ? "Não selecionado" : materiaHorario.getMateriaTurmaInstrutorSemestre().getMateria().getNome()) + "\n"
                     + "Ambiente: " + ambiente);
-            TabelaHorario.ambienteSelecionado = ambiente;
-            TabelaHorario.materiaHorarioSelecionado = materiaHorario;
+            QuadroDeHorarioController.this.ambiente.set(ambiente);
+            QuadroDeHorarioController.this.materiaHorario.set(materiaHorario);
         }
     }
 

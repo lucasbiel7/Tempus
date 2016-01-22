@@ -5,7 +5,6 @@
  */
 package br.com.QuadroDeHorario.view;
 
-import br.com.QuadroDeHorario.control.TabelaHorario;
 import br.com.QuadroDeHorario.control.dao.CursoDAO;
 import br.com.QuadroDeHorario.control.dao.GrupoDAO;
 import br.com.QuadroDeHorario.control.dao.PermissaoUsuarioDAO;
@@ -112,12 +111,6 @@ public class CarregarQuadroDeHorarioController implements Initializable {
     @FXML
     private void btAbrirActionEvent(ActionEvent actionEvent) {
         if (cbTurma.getSelectionModel().getSelectedItem() != null) {
-//            apPrincipal.getChildren().clear();
-            TabelaHorario.aulasGeminadas = false;
-            TabelaHorario.autoPreencher = false;
-            TabelaHorario.ambienteSelecionado = null;
-            TabelaHorario.turma = null;
-            TabelaHorario.materiaHorarioSelecionado = null;
             FxMananger.insertPane(spPrincipal, "QuadroDeHorario", cbTurma.getSelectionModel().getSelectedItem());
         }
     }

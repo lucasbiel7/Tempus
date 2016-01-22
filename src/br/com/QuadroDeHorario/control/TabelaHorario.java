@@ -30,6 +30,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -76,24 +78,31 @@ public class TabelaHorario extends TableView<MesCalendario> {
     private SimpleDateFormat nomeMes = new SimpleDateFormat("MMMM");
     private SimpleDateFormat numeroDia = new SimpleDateFormat("dd");
     private Date inicio, fim;
-    public static Ambiente ambienteSelecionado;
-    public static MateriaHorario materiaHorarioSelecionado;
-    public static Turma turma;
-    public static Turma turmaEspelho;
-    public static boolean aulasGeminadas;
-    public static boolean autoPreencher;
-    private static boolean clicou;
-    public static DataHorario.Turno turno;
-    private static boolean cargaHoraria;
+    private SimpleObjectProperty<Ambiente> ambienteSelecionado;
+    private SimpleObjectProperty<MateriaHorario> materiaHorarioSelecionado;
+    private Turma turma;
+    private Turma turmaEspelho;
+    private BooleanProperty aulasGeminadas;
+    private BooleanProperty autoPreencher;
+    private boolean clicou;
+    private SimpleObjectProperty<DataHorario.Turno> turno;
+    private boolean cargaHoraria;
     private SimpleDateFormat sdfData = new SimpleDateFormat("dd/MM/yyyy");
     private List<TableColumn<MesCalendario, Aula>> colunas;
     private int mes;
     private ContextMenu cmObservacao;
     private MenuItem miExcluirObservacao;
 
-    public TabelaHorario(int mes, int ano) {
+    public TabelaHorario(int mes, int ano, Turma turma, Turma turmaEspelho, BooleanProperty autoPreencher, BooleanProperty aulasGeminadas, SimpleObjectProperty<MateriaHorario> materiaHorario, SimpleObjectProperty<Ambiente> ambiente, SimpleObjectProperty<DataHorario.Turno> turno) {
         try {
+            this.turma = turma;
+            this.turmaEspelho = turmaEspelho;
+            this.autoPreencher = autoPreencher;
+            this.aulasGeminadas = aulasGeminadas;
             this.mes = mes;
+            this.materiaHorarioSelecionado = materiaHorario;
+            this.ambienteSelecionado = ambiente;
+            this.turno = turno;
             inicio = data.parse("01/" + mes + "/" + ano);
             fim = data.parse("01/" + (mes + 1) + "/" + ano);
             tcNomeMes = new TableColumn<>(nomeMes.format(inicio) + "(" + mes + ")");
@@ -230,18 +239,18 @@ public class TabelaHorario extends TableView<MesCalendario> {
 
     public void cadastrarAula(Date dia, DataHorario.Horario horario) throws Exception {
         Aula aula = new Aula();
-        aula.setMateriaHorario(materiaHorarioSelecionado);
-        aula.setId(new Aula.DataHorarioTurnoTurma(dia, horario, turno, materiaHorarioSelecionado.getMateriaTurmaInstrutorSemestre().getTurma()));
-        aula.setAmbiente(ambienteSelecionado);
+        aula.setMateriaHorario(materiaHorarioSelecionado.get());
+        aula.setId(new Aula.DataHorarioTurnoTurma(dia, horario, turno.get(), materiaHorarioSelecionado.get().getMateriaTurmaInstrutorSemestre().getTurma()));
+        aula.setAmbiente(ambienteSelecionado.get());
         Aula aulaExistente = new AulaDAO().pegarPorId(aula.getId());
         List<Aula> aulasAmbiente = new AulaDAO().validarAmbiente(aula);
         List<Calendario> calendarios = new CalendarioDAO().pegarTodosPorData(dia, true, false);
-        List<CalendarioAmbiente> calendarioAmbientes = new CalendarioAmbienteDAO().pegarTodosPorDataAmbienteTurno(aula.getId().getDataAula(), aula.getAmbiente(), turno);
-        List<CalendarioUsuario> calendarioUsuarios = new CalendarioUsuarioDAO().pegarTodosPorUsuarioData(aula.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getInstrutor(), aula.getId().getDataAula(), turno);
+        List<CalendarioAmbiente> calendarioAmbientes = new CalendarioAmbienteDAO().pegarTodosPorDataAmbienteTurno(aula.getId().getDataAula(), aula.getAmbiente(), turno.get());
+        List<CalendarioUsuario> calendarioUsuarios = new CalendarioUsuarioDAO().pegarTodosPorUsuarioData(aula.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getInstrutor(), aula.getId().getDataAula(), turno.get());
         if (aulasAmbiente.isEmpty() && calendarioAmbientes.isEmpty() && calendarioUsuarios.isEmpty() && calendarios.isEmpty()) {
             List<Aula> aulasInstrutor = new AulaDAO().validarInstrutor(aula);
             if (aulasInstrutor.isEmpty()) {
-                if (new AulaDAO().pegarPorDisciplinaTurma(materiaHorarioSelecionado.getMateriaTurmaInstrutorSemestre().getMateria(), materiaHorarioSelecionado.getMateriaTurmaInstrutorSemestre().getTurma()).size() + 1 > materiaHorarioSelecionado.getMateriaTurmaInstrutorSemestre().getMateria().getCargaHoraria() && !cargaHoraria) {
+                if (new AulaDAO().pegarPorDisciplinaTurma(materiaHorarioSelecionado.get().getMateriaTurmaInstrutorSemestre().getMateria(), materiaHorarioSelecionado.get().getMateriaTurmaInstrutorSemestre().getTurma()).size() + 1 > materiaHorarioSelecionado.get().getMateriaTurmaInstrutorSemestre().getMateria().getCargaHoraria() && !cargaHoraria) {
                     if (Mensagem.showConfirmation("Carga horária excedida", "A Carga Horária para essa materia foi excedida deseja continuar?")) {
                         cargaHoraria = true;
                         try {
@@ -423,12 +432,12 @@ public class TabelaHorario extends TableView<MesCalendario> {
             while (calendar.getTime().before(fim)) {
                 Aula aula;
                 if (turmaEspelho != null) {
-                    aula = new AulaDAO().pegarPorHorarioDiaTurmaTurno(mesCalendario.getHorario(), calendar.getTime(), turmaEspelho, turno);
+                    aula = new AulaDAO().pegarPorHorarioDiaTurmaTurno(mesCalendario.getHorario(), calendar.getTime(), turmaEspelho, turno.get());
                     if (aula == null) {
-                        aula = new AulaDAO().pegarPorHorarioDiaTurmaTurno(mesCalendario.getHorario(), calendar.getTime(), turma, turno);
+                        aula = new AulaDAO().pegarPorHorarioDiaTurmaTurno(mesCalendario.getHorario(), calendar.getTime(), turma, turno.get());
                     }
                 } else {
-                    aula = new AulaDAO().pegarPorHorarioDiaTurmaTurno(mesCalendario.getHorario(), calendar.getTime(), turma, turno);
+                    aula = new AulaDAO().pegarPorHorarioDiaTurmaTurno(mesCalendario.getHorario(), calendar.getTime(), turma, turno.get());
                 }
                 inserirDados(mesCalendario, calendar.getTime(), horario, aula);
                 calendar.add(Calendar.DAY_OF_MONTH, 1);
@@ -466,7 +475,7 @@ public class TabelaHorario extends TableView<MesCalendario> {
 
         @Override
         public void handle(ActionEvent event) {
-            if (aulasGeminadas && autoPreencher) {
+            if (aulasGeminadas.get() && autoPreencher.get()) {
                 if (Mensagem.showConfirmation("Excluir todas aulas geminadas e recorrentes!", "Você tem certeza que deseja excluir todas aulas\n"
                         + " germinadas e recorrentes a partir do dia " + new SimpleDateFormat("dd/MM/yyyy").format(aula.getId().getDataAula()))) {
                     for (DataHorario.Horario horario : DataHorario.Horario.values()) {
@@ -474,7 +483,7 @@ public class TabelaHorario extends TableView<MesCalendario> {
                         inicio.setTime(aula.getId().getDataAula());
                         int mes = inicio.get(Calendar.MONTH);
                         while (inicio.get(Calendar.MONTH) <= mes) {
-                            Aula aulaSeguida = new AulaDAO().pegarPorId(new Aula.DataHorarioTurnoTurma(inicio.getTime(), horario, turno, aula.getId().getTurma()));
+                            Aula aulaSeguida = new AulaDAO().pegarPorId(new Aula.DataHorarioTurnoTurma(inicio.getTime(), horario, turno.get(), aula.getId().getTurma()));
                             if (aulaSeguida != null) {
                                 new AulaDAO().excluir(aulaSeguida);
                                 removerDaLista(aulaSeguida);
@@ -483,7 +492,7 @@ public class TabelaHorario extends TableView<MesCalendario> {
                         }
                     }
                 }
-            } else if (aulasGeminadas) {
+            } else if (aulasGeminadas.get()) {
                 String menssagem = "Você realmente deseja excluir todas aulas no dia " + new SimpleDateFormat("dd/MM/yyyy").format(aula.getId().getDataAula()) + "\n"
                         + "(Nesse caso apagará todas as aulas do dia mesmo não sendo mesmo conteúdo)";
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION, menssagem, ButtonType.YES, new ButtonType("Sim, com observação"), ButtonType.NO);
@@ -494,7 +503,7 @@ public class TabelaHorario extends TableView<MesCalendario> {
                 ButtonType botao = alert.showAndWait().get();
                 if (!botao.equals(ButtonType.NO)) {
                     for (DataHorario.Horario horario : DataHorario.Horario.values()) {
-                        Aula aulaSeguida = new AulaDAO().pegarPorId(new Aula.DataHorarioTurnoTurma(aula.getId().getDataAula(), horario, turno, aula.getId().getTurma()));
+                        Aula aulaSeguida = new AulaDAO().pegarPorId(new Aula.DataHorarioTurnoTurma(aula.getId().getDataAula(), horario, turno.get(), aula.getId().getTurma()));
                         if (aulaSeguida != null) {
                             new AulaDAO().excluir(aulaSeguida);
                             removerDaLista(aulaSeguida);
@@ -504,14 +513,14 @@ public class TabelaHorario extends TableView<MesCalendario> {
                         FxMananger.show("AdicionarObservacao", "Adicionar observação", true, false, aula);
                     }
                 }
-            } else if (autoPreencher) {
+            } else if (autoPreencher.get()) {
                 if (Mensagem.showConfirmation("Excluir aulas recorrentes!", "Você realmente deseja excluir todas aulas recorrentes?\n"
                         + "(Todas aulas desse horário no dia da semana no mês serão removidos a partir da data selecionada )")) {
                     Calendar inicio = Calendar.getInstance();
                     inicio.setTime(aula.getId().getDataAula());
                     int mes = inicio.get(Calendar.MONTH);
                     while (inicio.get(Calendar.MONTH) <= mes) {
-                        Aula aulaSeguida = new AulaDAO().pegarPorId(new Aula.DataHorarioTurnoTurma(inicio.getTime(), aula.getId().getHorario(), turno, aula.getId().getTurma()));
+                        Aula aulaSeguida = new AulaDAO().pegarPorId(new Aula.DataHorarioTurnoTurma(inicio.getTime(), aula.getId().getHorario(), turno.get(), aula.getId().getTurma()));
                         if (aulaSeguida != null) {
                             new AulaDAO().excluir(aulaSeguida);
                             removerDaLista(aulaSeguida);
@@ -614,8 +623,8 @@ public class TabelaHorario extends TableView<MesCalendario> {
                     Mensagem.showError("Selecionar Ambiente/Componente curricular", "É necessário selecionar ambiente/componente curricular\n para poder cadastrar uma aula!");
                 } else {
                     clicou = true;
-                    if (!autoPreencher) {
-                        if (aulasGeminadas) {
+                    if (!autoPreencher.get()) {
+                        if (aulasGeminadas.get()) {
                             for (DataHorario.Horario horario : DataHorario.Horario.values()) {
                                 try {
                                     cadastrarAula(dia, horario);
@@ -633,7 +642,7 @@ public class TabelaHorario extends TableView<MesCalendario> {
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTime(dia);
                         while (calendar.getTime().before(fim)) {
-                            if (aulasGeminadas) {
+                            if (aulasGeminadas.get()) {
                                 for (DataHorario.Horario horario : DataHorario.Horario.values()) {
                                     try {
                                         cadastrarAula(calendar.getTime(), horario);
