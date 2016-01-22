@@ -13,6 +13,7 @@ import br.com.QuadroDeHorario.control.dao.MateriaDAO;
 import br.com.QuadroDeHorario.control.dao.MateriaHorarioAmbienteDAO;
 import br.com.QuadroDeHorario.control.dao.MateriaHorarioDAO;
 import br.com.QuadroDeHorario.control.dao.TurmaDAO;
+import br.com.QuadroDeHorario.model.MesCalendario;
 import br.com.QuadroDeHorario.model.entity.Ambiente;
 import br.com.QuadroDeHorario.model.entity.Aula;
 import br.com.QuadroDeHorario.model.entity.Evento;
@@ -36,13 +37,12 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -158,7 +158,8 @@ public class QuadroDeHorarioController implements Initializable {
     public static final Color corAmbiente3 = Color.rgb(255, 255, 102);
     public static final Color corAmbiente4 = Color.rgb(204, 204, 255);
     public static final Color corAmbiente5 = Color.rgb(255, 153, 255);
-    public Task<Void> carregarDados;
+    public Task<Void> carregarTabelaHorario;
+    public Task<Void> carregarTabelaMateriaHorario;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -183,7 +184,6 @@ public class QuadroDeHorarioController implements Initializable {
                 List<MateriaHorario> materiaHorarios = new MateriaHorarioDAO().pegarPorTurma(turma);
                 materiaHorarios.removeIf((MateriaHorario materiaHorario) -> materiaHorario.getMateriaTurmaInstrutorSemestre().getMateria().getModulo() != turma.getModulo());
                 if (!materiaHorarios.isEmpty()) {
-                    System.out.println(materiaHorarios.isEmpty());
                     spAno.getValueFactory().setValue(materiaHorarios.get(materiaHorarios.size() - 1).getAno());
                     cbSemestre.getSelectionModel().select(materiaHorarios.get(materiaHorarios.size() - 1).getMateriaTurmaInstrutorSemestre().getSemestre());
                 }
@@ -343,9 +343,12 @@ public class QuadroDeHorarioController implements Initializable {
     @FXML
     private void tvMateriaHorarioActionEvent(ActionEvent actionEvent) {
         materiaHorario.set(tvMateriaHorario.getSelectionModel().getSelectedItem());
-        if (materiaHorario != null) {
+        if (materiaHorario.get() != null) {
             FxMananger.show("EditarMateriaHorario", "Editar componente curricular do horário", true, false, materiaHorario.get());
-            carregarTabelas();
+            materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turma, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
+            if (turmaEspelho != null) {
+                materiaHorarios.addAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turmaEspelho, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
+            }
         }
     }
 
@@ -426,30 +429,17 @@ public class QuadroDeHorarioController implements Initializable {
     }
 
     public void carregarTabelas() {
-        new Thread(() -> {
-            ambiente.set(null);
-            materiaHorario.set(null);
-            Platform.runLater(() -> {
-                if (turmaEspelho != null) {
-                    lbTurma.setText("Turma\n" + turmaEspelho.getDescricao() + "-" + turmaEspelho.getModulo());
-                    lbTurma.setTooltip(new Tooltip("Início " + DataHorario.toDate(turmaEspelho.getInicio()) + "\naté " + DataHorario.toDate(turmaEspelho.getFim())));
-                } else {
-                    lbTurma.setText("Turma\n" + turma.getDescricao() + "-" + turma.getModulo());
-                    lbTurma.setTooltip(new Tooltip("Início " + DataHorario.toDate(turma.getInicio()) + "\naté " + DataHorario.toDate(turma.getFim())));
-                }
-                materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turma, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
-                if (turmaEspelho != null) {
-                    materiaHorarios.addAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turmaEspelho, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
-                }
-                eventos.setAll(new EventoDAO().pegarTodosPorAnoEscola(spAno.getValue(), true));
-            });
-        }, "Carregando disciplinas do semestre").start();
-        if (carregarDados != null) {
-            if (carregarDados.isRunning()) {
-                carregarDados.cancel();
+        if (carregarTabelaHorario != null) {
+            if (carregarTabelaHorario.isRunning()) {
+                carregarTabelaHorario.cancel();
             }
         }
-        carregarDados = new Task<Void>() {
+        if (carregarTabelaMateriaHorario != null) {
+            if (carregarTabelaMateriaHorario.isRunning()) {
+                carregarTabelaMateriaHorario.cancel();
+            }
+        }
+        carregarTabelaHorario = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
                 updateProgress(0, 6);
@@ -467,7 +457,12 @@ public class QuadroDeHorarioController implements Initializable {
                                 materiaHorario,
                                 ambiente,
                                 turno);
-                        tabelaHorario.addEventHandler(EventType.ROOT, new CarregarMateriaHorario());
+                        tabelaHorario.getItems().addListener((ListChangeListener.Change<? extends MesCalendario> c) -> {
+                            materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turma, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
+                            if (turmaEspelho != null) {
+                                materiaHorarios.addAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turmaEspelho, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
+                            }
+                        });
                         int posicao = i - 1;
                         Platform.runLater(() -> {
                             if (!gpMeses.getChildren().contains(tabelaHorario)) {
@@ -480,13 +475,34 @@ public class QuadroDeHorarioController implements Initializable {
                 return null;
             }
         };
-        progressIndicator.progressProperty().bind(carregarDados.progressProperty());
-        carregarDados.setOnSucceeded((WorkerStateEvent event) -> {
+        carregarTabelaMateriaHorario = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                ambiente.set(null);
+                materiaHorario.set(null);
+                Platform.runLater(() -> {
+                    if (turmaEspelho != null) {
+                        lbTurma.setText("Turma\n" + turmaEspelho.getDescricao() + "-" + turmaEspelho.getModulo());
+                        lbTurma.setTooltip(new Tooltip("Início " + DataHorario.toDate(turmaEspelho.getInicio()) + "\naté " + DataHorario.toDate(turmaEspelho.getFim())));
+                    } else {
+                        lbTurma.setText("Turma\n" + turma.getDescricao() + "-" + turma.getModulo());
+                        lbTurma.setTooltip(new Tooltip("Início " + DataHorario.toDate(turma.getInicio()) + "\naté " + DataHorario.toDate(turma.getFim())));
+                    }
+                });
+                materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turma, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
+                if (turmaEspelho != null) {
+                    materiaHorarios.addAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turmaEspelho, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
+                }
+                eventos.setAll(new EventoDAO().pegarTodosPorAnoEscola(spAno.getValue(), true));
+                return null;
+            }
+        };
+        progressIndicator.progressProperty().bind(carregarTabelaHorario.progressProperty());
+        carregarTabelaHorario.setOnSucceeded((WorkerStateEvent event) -> {
             progressIndicator.setVisible(false);
         });
-        if (!carregarDados.isRunning()) {
-            new Thread(carregarDados, "Carregando dados...").start();
-        }
+        new Thread(carregarTabelaMateriaHorario, "Carregando disciplinas").start();
+        new Thread(carregarTabelaHorario, "Carregando dados...").start();
     }
 
     public void continuarProximoSemestre(Turma turma, boolean espelho) {
@@ -569,32 +585,6 @@ public class QuadroDeHorarioController implements Initializable {
             materiaHorario.setBlue(new Random().nextInt(255));
             if (new MateriaHorarioDAO().pegarTodosPorTurmaMateria(turma, materia).isEmpty()) {
                 new MateriaHorarioDAO().cadastrar(materiaHorario);
-            }
-        }
-    }
-
-    public class CarregarMateriaHorario implements EventHandler<Event> {
-
-        @Override
-        public void handle(Event event) {
-            if (event instanceof MouseEvent) {
-                MouseEvent mouseEvent = (MouseEvent) event;
-                if (event.getEventType().equals(MouseEvent.MOUSE_CLICKED)) {
-                    new Thread(new Task<Void>() {
-                        @Override
-                        protected Void call() throws Exception {
-                            synchronized (mouseEvent) {
-                                Thread.sleep(((MouseEvent) event).isPopupTrigger() ? 5000 : 1000);
-                                materiaHorarios.setAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turma, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
-                                if (turmaEspelho != null) {
-                                    System.out.println("Enchendo a lista de materias horarios da turma espelho");
-                                    materiaHorarios.addAll(new MateriaHorarioDAO().pegarTodosPorTurmaSemestreAno(turmaEspelho, cbSemestre.getSelectionModel().getSelectedItem(), spAno.getValue()));
-                                }
-                            }
-                            return null;
-                        }
-                    }).start();
-                }
             }
         }
     }

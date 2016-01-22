@@ -511,6 +511,12 @@ public class TabelaHorario extends TableView<MesCalendario> {
                     }
                     if (!botao.equals(ButtonType.YES)) {
                         FxMananger.show("AdicionarObservacao", "Adicionar observação", true, false, aula);
+                        Platform.runLater(() -> {
+                            colunas.clear();
+                            carregarColunas();
+                            tcNomeMes.getColumns().setAll(colunas);
+                        });
+
                     }
                 }
             } else if (autoPreencher.get()) {
