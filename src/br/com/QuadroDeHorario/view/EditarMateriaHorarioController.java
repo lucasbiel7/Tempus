@@ -27,6 +27,7 @@ import br.com.QuadroDeHorario.model.util.DataHorario;
 import br.com.QuadroDeHorario.model.util.DataHorario.Turno;
 import br.com.QuadroDeHorario.model.util.Mensagem;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -386,6 +387,8 @@ public class EditarMateriaHorarioController implements Initializable {
         materiaHorario.setRed((int) (cpCorFonte.getValue().getRed() * 255));
         materiaHorario.setBlue((int) (cpCorFonte.getValue().getBlue() * 255));
         materiaHorario.setGreen((int) (cpCorFonte.getValue().getGreen() * 255));
+        materiaHorario.setMateriaHorarioAmbientes(new ArrayList<>());
+        materiaHorario.setAulas(new ArrayList<>());
         new MateriaHorarioDAO().cadastrar(materiaHorario);
         List<MateriaHorarioAmbiente> materiaHorarioAmbientes = new MateriaHorarioAmbienteDAO().pegarTodosSaveDelete(materiaHorario);
         for (MateriaHorarioAmbiente materiaHorarioAmbiente : materiaHorarioAmbientes) {
