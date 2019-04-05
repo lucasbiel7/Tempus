@@ -67,12 +67,12 @@ public class AulaDAO extends GenericaDAO<Aula> {
     }
 
     public List<Aula> validarInstrutor(Aula aula) {
-        List<MateriaHorario> materiaHorarios = new MateriaHorarioDAO().pegarTodosPorInstrutor(aula.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getInstrutor());;
+        List<MateriaHorario> materiaHorarios = new MateriaHorarioDAO().pegarTodosPorInstrutor(aula.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getInstrutor());
         if (materiaHorarios.isEmpty()) {
             finalizarSession();
             return new ArrayList<>();
         }
-        entitys = criteria.add(Restrictions.eq("id.dataAula", aula.getId().getDataAula())).add(Restrictions.eq("id.turno", aula.getId().getTurno())).add(Restrictions.not(Restrictions.eq("id.turma", aula.getId().getTurma()))).add(Restrictions.in("materiaHorario", materiaHorarios)).list();
+        entitys = criteria.add(Restrictions.eq("id.horario", aula.getId().getHorario())).add(Restrictions.eq("id.dataAula", aula.getId().getDataAula())).add(Restrictions.eq("id.turno", aula.getId().getTurno())).add(Restrictions.not(Restrictions.eq("id.turma", aula.getId().getTurma()))).add(Restrictions.in("materiaHorario", materiaHorarios)).list();
         finalizarSession();
         return entitys;
     }

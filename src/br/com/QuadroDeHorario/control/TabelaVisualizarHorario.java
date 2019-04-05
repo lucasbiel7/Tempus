@@ -7,6 +7,8 @@ package br.com.QuadroDeHorario.control;
 
 import br.com.QuadroDeHorario.control.dao.AmbienteDAO;
 import br.com.QuadroDeHorario.control.dao.AulaDAO;
+import br.com.QuadroDeHorario.control.dao.CalendarioAmbienteDAO;
+import br.com.QuadroDeHorario.control.dao.CalendarioUsuarioDAO;
 import br.com.QuadroDeHorario.control.dao.EmprestaChaveDAO;
 import br.com.QuadroDeHorario.control.dao.GrupoDAO;
 import br.com.QuadroDeHorario.control.dao.TurmaDAO;
@@ -14,10 +16,13 @@ import br.com.QuadroDeHorario.control.dao.UsuarioDAO;
 import br.com.QuadroDeHorario.model.HorarioDiario;
 import br.com.QuadroDeHorario.model.entity.Ambiente;
 import br.com.QuadroDeHorario.model.entity.Aula;
+import br.com.QuadroDeHorario.model.entity.CalendarioAmbiente;
+import br.com.QuadroDeHorario.model.entity.CalendarioUsuario;
 import br.com.QuadroDeHorario.model.entity.Turma;
 import br.com.QuadroDeHorario.model.entity.Usuario;
 import br.com.QuadroDeHorario.model.util.DataHorario;
 import java.util.Date;
+import java.util.List;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -51,11 +56,11 @@ public class TabelaVisualizarHorario extends TableView<HorarioDiario> {
 
     public static DataHorario.Turno turno;
     public static Date dia;
-    private TableColumn<HorarioDiario, Aula> tcPrimeiroHorario;
-    private final TableColumn<HorarioDiario, Aula> tcSegundoHorario;
-    private final TableColumn<HorarioDiario, Aula> tcTerceiroHorario;
-    private final TableColumn<HorarioDiario, Aula> tcQuartoHorario;
-    private final TableColumn<HorarioDiario, Aula> tcQuintoHorario;
+    private TableColumn<HorarioDiario, HorarioDiario> tcPrimeiroHorario;
+    private final TableColumn<HorarioDiario, HorarioDiario> tcSegundoHorario;
+    private final TableColumn<HorarioDiario, HorarioDiario> tcTerceiroHorario;
+    private final TableColumn<HorarioDiario, HorarioDiario> tcQuartoHorario;
+    private final TableColumn<HorarioDiario, HorarioDiario> tcQuintoHorario;
     private final TableColumn<HorarioDiario, String> tcTipo;
     private TableColumn<HorarioDiario, String> tcNome;
     private TableColumn<HorarioDiario, String> tcDados;
@@ -78,11 +83,11 @@ public class TabelaVisualizarHorario extends TableView<HorarioDiario> {
         tcNome = new TableColumn<>("Nome");
         tcDados = new TableColumn<>("Dados");
         tcNome.setCellValueFactory((TableColumn.CellDataFeatures<HorarioDiario, String> param) -> new SimpleStringProperty(param.getValue().getObjeto().toString()));
-        tcPrimeiroHorario.setCellValueFactory((TableColumn.CellDataFeatures<HorarioDiario, Aula> param) -> new SimpleObjectProperty<>(param.getValue().getAula1Horario()));
-        tcSegundoHorario.setCellValueFactory((TableColumn.CellDataFeatures<HorarioDiario, Aula> param) -> new SimpleObjectProperty<>(param.getValue().getAula2Horario()));
-        tcTerceiroHorario.setCellValueFactory((TableColumn.CellDataFeatures<HorarioDiario, Aula> param) -> new SimpleObjectProperty<>(param.getValue().getAula3Horario()));
-        tcQuartoHorario.setCellValueFactory((TableColumn.CellDataFeatures<HorarioDiario, Aula> param) -> new SimpleObjectProperty<>(param.getValue().getAula4Horario()));
-        tcQuintoHorario.setCellValueFactory((TableColumn.CellDataFeatures<HorarioDiario, Aula> param) -> new SimpleObjectProperty<>(param.getValue().getAula5Horario()));
+        tcPrimeiroHorario.setCellValueFactory((TableColumn.CellDataFeatures<HorarioDiario, HorarioDiario> param) -> new SimpleObjectProperty<>(param.getValue()));
+        tcSegundoHorario.setCellValueFactory((TableColumn.CellDataFeatures<HorarioDiario, HorarioDiario> param) -> new SimpleObjectProperty<>(param.getValue()));
+        tcTerceiroHorario.setCellValueFactory((TableColumn.CellDataFeatures<HorarioDiario, HorarioDiario> param) -> new SimpleObjectProperty<>(param.getValue()));
+        tcQuartoHorario.setCellValueFactory((TableColumn.CellDataFeatures<HorarioDiario, HorarioDiario> param) -> new SimpleObjectProperty<>(param.getValue()));
+        tcQuintoHorario.setCellValueFactory((TableColumn.CellDataFeatures<HorarioDiario, HorarioDiario> param) -> new SimpleObjectProperty<>(param.getValue()));
         tcDados.setMaxWidth(100d);
         tcNome.setMaxWidth(100d);
         tcNome.setPrefWidth(100d);
@@ -95,11 +100,11 @@ public class TabelaVisualizarHorario extends TableView<HorarioDiario> {
                 setMinHeight(60d);
             }
         });
-        tcPrimeiroHorario.setCellFactory(new RenderizarHorarios());
-        tcSegundoHorario.setCellFactory(new RenderizarHorarios());
-        tcTerceiroHorario.setCellFactory(new RenderizarHorarios());
-        tcQuartoHorario.setCellFactory(new RenderizarHorarios());
-        tcQuintoHorario.setCellFactory(new RenderizarHorarios());
+        tcPrimeiroHorario.setCellFactory(new RenderizarHorarios(1));
+        tcSegundoHorario.setCellFactory(new RenderizarHorarios(2));
+        tcTerceiroHorario.setCellFactory(new RenderizarHorarios(3));
+        tcQuartoHorario.setCellFactory(new RenderizarHorarios(4));
+        tcQuintoHorario.setCellFactory(new RenderizarHorarios(5));
         tcDados.setCellValueFactory((TableColumn.CellDataFeatures<HorarioDiario, String> param) -> {
             String sequenciaDados;
             if (param.getValue().getObjeto() instanceof Usuario) {
@@ -153,38 +158,87 @@ public class TabelaVisualizarHorario extends TableView<HorarioDiario> {
         setItems(horarioDiarios);
     }
 
-    public class RenderizarHorarios implements Callback<TableColumn<HorarioDiario, Aula>, TableCell<HorarioDiario, Aula>> {
+    public class RenderizarHorarios implements Callback<TableColumn<HorarioDiario, HorarioDiario>, TableCell<HorarioDiario, HorarioDiario>> {
+
+        private int horario;
+
+        public RenderizarHorarios(int horario) {
+            this.horario = horario;
+        }
 
         @Override
-        public TableCell<HorarioDiario, Aula> call(TableColumn<HorarioDiario, Aula> param) {
-            return new TableCell<HorarioDiario, Aula>() {
-
+        public TableCell<HorarioDiario, HorarioDiario> call(TableColumn<HorarioDiario, HorarioDiario> param) {
+            return new TableCell<HorarioDiario, HorarioDiario>() {
                 @Override
-                protected void updateItem(Aula item, boolean empty) {
+                protected void updateItem(HorarioDiario item, boolean empty) {
                     setTextAlignment(TextAlignment.CENTER);
                     setAlignment(Pos.CENTER);
                     if (empty) {
                         setText("");
                     } else if (item != null) {
-                        if (classe.equals(Turma.class)) {
-                            setText(item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getMateria().getSigla() + "\n"
-                                    + item.getAmbiente().getNome() + "\n"
-                                    + item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getInstrutor().getNome());
-                            setTooltip(new Tooltip(item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getMateria().getNome()));
-                        } else if (classe.equals(Usuario.class)) {
-                            setText(item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getMateria().getSigla() + "\n"
-                                    + item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getTurma().getDescricao() + "\n"
-                                    + item.getAmbiente().getNome());
-                            setTooltip(new Tooltip(item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getMateria().getNome()));
-                        } else if (classe.equals(Ambiente.class)) {
-                            setText(item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getMateria().getSigla() + "\n"
-                                    + item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getInstrutor().getNome() + "\n"
-                                    + item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getTurma().getDescricao());
-                            setTooltip(new Tooltip(item.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getMateria().getNome()));
-                            if (new EmprestaChaveDAO().pegarPorAula(item).isEmpty()) {
-                                setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
-                            } else {
-                                setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+                        Aula aula;
+                        switch (horario) {
+                            case 1:
+                                aula = item.getAula1Horario();
+                                break;
+                            case 2:
+                                aula = item.getAula2Horario();
+                                break;
+                            case 3:
+                                aula = item.getAula3Horario();
+                                break;
+                            case 4:
+                                aula = item.getAula4Horario();
+                                break;
+                            case 5:
+                                aula = item.getAula5Horario();
+                                break;
+                            default:
+                                throw new AssertionError();
+                        }
+                        if (aula != null) {
+                            if (classe.equals(Turma.class)) {
+                                setText(aula.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getMateria().getSigla() + "\n"
+                                        + aula.getAmbiente() + "\n"
+                                        + aula.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getInstrutor().getNome());
+                                setTooltip(new Tooltip(aula.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getMateria().getNome()));
+                            } else if (classe.equals(Usuario.class)) {
+                                setText(aula.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getMateria().getSigla() + "\n"
+                                        + aula.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getTurma().getDescricao() + "\n"
+                                        + aula.getAmbiente());
+                                setTooltip(new Tooltip(aula.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getMateria().getNome()));
+                            } else if (classe.equals(Ambiente.class)) {
+                                setText(aula.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getMateria().getSigla() + "\n"
+                                        + aula.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getInstrutor().getNome() + "\n"
+                                        + aula.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getTurma().getDescricao());
+                                setTooltip(new Tooltip(aula.getMateriaHorario().getMateriaTurmaInstrutorSemestre().getMateria().getNome()));
+                                if (new EmprestaChaveDAO().pegarPorAula(aula).isEmpty()) {
+                                    setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+                                } else {
+                                    setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+                                }
+                            }
+                        } else {
+                            setText("");
+                            if (classe.equals(Ambiente.class)) {
+                                List<CalendarioAmbiente> calendarioAmbientes = new CalendarioAmbienteDAO().pegarTodosPorDataAmbienteTurno(dia, (Ambiente) item.getObjeto(), turno);
+                                if (!calendarioAmbientes.isEmpty()) {
+                                    setText("Evento\n"
+                                            + calendarioAmbientes.get(0).getId().getCalendario().getId().getEvento());
+                                    setTooltip(null);
+                                } else {
+                                    setText("");
+                                }
+                            } else if (classe.equals(Usuario.class)) {
+                                List<CalendarioUsuario> calendarioUsuario = new CalendarioUsuarioDAO().pegarTodosPorUsuarioData((Usuario) item.getObjeto(), dia, turno);
+                                if (!calendarioUsuario.isEmpty()) {
+                                    setText("Evento\n"
+                                            + calendarioUsuario.get(0).getId().getCalendario().getId().getEvento());
+                                    setTooltip(null);
+                                } else {
+                                    setText("");
+                                    setTooltip(null);
+                                }
                             }
                         }
                     } else {

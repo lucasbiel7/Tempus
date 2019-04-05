@@ -625,7 +625,7 @@ public class TabelaHorario extends TableView<MesCalendario> {
         @Override
         public void handle(TableColumn.CellEditEvent<MesCalendario, Aula> event) {
             if (!clicou) {
-                if (ambienteSelecionado == null || turma == null || materiaHorarioSelecionado == null) {
+                if (ambienteSelecionado.get() == null || turma == null || materiaHorarioSelecionado == null) {
                     Mensagem.showError("Selecionar Ambiente/Componente curricular", "É necessário selecionar ambiente/componente curricular\n para poder cadastrar uma aula!");
                 } else {
                     clicou = true;
